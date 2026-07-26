@@ -1,0 +1,43 @@
+# Normalize line endings
+
+* text=auto eol=lf
+
+# Python
+
+*.py text eol=lf
+
+# Shell scripts
+
+*.sh text eol=lf
+
+# Windows scripts
+
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# TOML / Config
+
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+*.env.example text eol=lf
+
+# Documentation
+
+*.md text eol=lf
+
+# Binary files
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+
+# SQLite databases
+
+*.db binary
+*.sqlite binary
+*.sqlite3 binary
