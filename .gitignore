@@ -229,3 +229,13 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+.claude
+
+# Frontend (web/)
+node_modules/
+web/dist/
+*.tsbuildinfo
+
+# DXF de teste — gerado por `uv run python tests/make_sample.py`
+tests/fixtures/

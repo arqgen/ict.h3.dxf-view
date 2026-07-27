@@ -1,17 +1,21 @@
 [project]
 name = "cad-viewer"
 version = "0.1.0"
-description = "Add your description here"
+description = "Visualizador DXF com assistente de IA — backend FastAPI/agno + frontend React"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "agno>=2.8.3",
+    "anthropic>=0.115.0",
     "arize-phoenix>=19.6.0",
     "colorlog>=6.12.0",
     "ezdxf>=1.4.4",
     "fastapi>=0.140.0",
+    "openai>=2.0.0",
+    "pillow>=11.0.0",
     "pydantic>=2.13.4",
     "pydantic-settings>=2.14.2",
+    "python-multipart>=0.0.20",
     "uvicorn>=0.51.0",
     "uvloop>=0.22.1",
 ]
@@ -21,6 +25,7 @@ dev = ["httpx>=0.28.1", "pytest>=9.1.1", "ruff>=0.15.19"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 
 [tool.ruff]
 line-length = 88

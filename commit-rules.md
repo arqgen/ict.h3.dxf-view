@@ -17,7 +17,19 @@ Verifique a branch atual com `git branch --show-current`. Se estiver em `main`, 
 
 > **⚠ Não commite sem rodar lint e testes.** Código quebrado polui o histórico e trava o CI.
 
-<!-- ex: npm run lint && npm run typecheck && npm run test -->
+Backend:
+
+```bash
+make lint && make test
+```
+
+Frontend, quando `web/` foi tocado:
+
+```bash
+npm --prefix web run typecheck && npm --prefix web test
+```
+
+`make format` antes do lint resolve a maior parte do que o ruff aponta.
 
 ## Quando fazer um Commit
 
@@ -104,31 +116,26 @@ Nomenclatura: `kebab-case`, curta e descritiva — `feat/user-avatar`, `fix/sign
 
 ## Pull Requests
 
-_Preencha as regras específicas do projeto._
+> **Tamanho e Revisão abaixo são propostas, não política acordada.** O time precisa confirmá-las ou substituí-las.
 
 ### Tamanho
 
-_Defina o tamanho máximo esperado de um PR._
-
-<!-- ex: Idealmente menos de 400 linhas. PRs maiores devem ser justificados. -->
+Proposta: idealmente menos de 400 linhas de diff, excluindo lockfiles e arquivos gerados. PR maior deve dizer na descrição por que não foi fatiado.
 
 ### Revisão
 
-_Defina quantos aprovadores são necessários._
-
-<!-- ex: Mínimo 1 aprovação. PRs que afetam auth ou banco exigem 2. -->
+Proposta: mínimo 1 aprovação. Dois casos pedem uma segunda: mudança no prompt do agente (`instructions.md`) ou nas descrições das tools, porque o efeito não aparece em teste automatizado; e mudança no contrato do stream SSE, porque quebra o destaque no viewer sem erro visível.
 
 ### CI
 
-_Liste os checks obrigatórios antes do merge._
+**Ainda não há CI configurado** — este repositório não tem `.github/workflows/` nem remoto. Enquanto isso, os checks são responsabilidade de quem abre o PR:
 
-<!-- ex: lint, typecheck e testes devem passar. -->
+- `make lint` e `make test`
+- `npm --prefix web run typecheck` e `npm --prefix web test`, se `web/` foi tocado
 
 ### Descrição
 
-_Descreva o que deve constar na descrição de um PR._
-
-<!-- ex: O que foi feito, por que, e como testar. Screenshots para mudanças visuais. -->
+O que foi feito, por que, e como verificar. Para mudança que afete o desenho renderizado ou o comportamento do assistente, inclua a pergunta usada no teste manual e o que o viewer fez em resposta — o valor do produto está nessa ligação, e ela não aparece num diff.
 
 ## O que NÃO Fazer
 

@@ -12,9 +12,15 @@ Toda lógica de IA vive aqui. Nenhum import de FastAPI, Request ou objetos HTTP 
 | `skills/`         | Skills agno (Agent Skills spec) — pastas com `SKILL.md`, carregadas via `get_skills()` |
 | `workflows/`      | Fluxos multi-step usando agno `Workflow`                            |
 | `prompts/`        | Prompt templates compartilhados                                     |
-| `runner.py`       | Gateway central de execução — `run_chat(agent, payload, user_id)` e `continue_chat(agent, payload, user_id)` (retoma run pausada) |
+| `runner.py`       | Gateway central de execução — `run_chat(agent, payload, user_id, cad_model)` e `continue_chat(...)` (retoma run pausada) |
 | `llm_settings.py` | Única fonte de instanciação do LLM — `get_model(provider, user_id)` |
-| `agents/base.py`  | `get_base_agent_kwargs(db)` — defaults de plataforma comuns a todo `Agent` |
+| `agents/base.py`  | `get_base_agent_kwargs(db)` e `get_agent_db()` — defaults comuns a todo `Agent` |
+
+## O Índice CAD nas Tools
+
+`run_chat()` passa o `CadModel` em `dependencies={"cad": ...}`. Toda tool que precise do desenho declara `run_context: RunContext` como primeiro parâmetro e chama `cad_model(run_context)`.
+
+Por que `dependencies` e não `session_state`: `add_dependencies_to_context` é `False` por default no agno, então o objeto Python nunca é serializado no prompt nem persistido na sessão. `session_state` é persistido e precisa ser JSON. E `ToolResult.metadata` não serve para nada disso — é descartado pelo agno e nunca chega a evento nenhum.
 
 ## Como Adicionar um Agent
 
@@ -26,27 +32,28 @@ Toda lógica de IA vive aqui. Nenhum import de FastAPI, Request ou objetos HTTP 
 **Contrato obrigatório da factory:**
 
 ```python
-async def get_<nome>_agent(user_id: str, db: AsyncMongoDb | None = None) -> Agent:
-    model = get_model()
+async def get_<nome>_agent(user_id: str, db: BaseDb | None = None) -> Agent:
     instructions_path = Path(__file__).parent / "instructions.md"
     return Agent(
         **get_base_agent_kwargs(db),
         name="...",
         id="...",
         description="...",
-        model=model,
-        instructions=[instructions_path.read_text()],
+        model=await get_model(user_id=user_id),
+        instructions=[instructions_path.read_text(encoding="utf-8")],
     )
 ```
 
 Regras:
 
 - Sempre `async def`, sempre tipada
-- `model` via `get_model()` — nunca instanciar `OpenAIChat` diretamente; `provider` default é `"openai"`, `user_id` é opcional para configurações futuras por usuário
-- Sempre iniciar o `Agent(...)` com `**get_base_agent_kwargs(db)` (de `agents/base.py`) — cobre `db`, memória, histórico, cache de sessão e `debug_mode`/`debug_level`. Só sobrescreva uma dessas chaves na chamada se o agente precisar de comportamento diferente do default de plataforma
+- `model` via `await get_model()` — nunca instanciar `Claude` ou `OpenAIChat` diretamente. O provider vem de `LLM_PROVIDER` no `.env` (`anthropic` default, `openai` suportado)
+- Sempre iniciar o `Agent(...)` com `**get_base_agent_kwargs(db)` (de `agents/base.py`) — cobre `db`, histórico, cache de sessão e `debug_mode`/`debug_level`. Só sobrescreva uma dessas chaves se o agente precisar de comportamento diferente do default
 - `instructions` sempre carregadas do `instructions.md` da pasta do agent
 
-`get_custom_settings(user_id)` em `llm_settings.py` é um stub (retorna `None`) — extension point para sobrescrever configurações de LLM por usuário, não implementado.
+Sem `db` explícito, `get_base_agent_kwargs` usa o `InMemoryDb` de `get_agent_db()`. É o que dá histórico multi-turno sem banco externo — sem `db` o agente não lembraria da pergunta anterior.
+
+**Exemplo real:** `agents/cad_agent/`. Ele acrescenta duas coisas ao contrato: `tool_call_limit=14` e o resumo do desenho (`describe_model(model)`) como segundo item de `instructions`, dentro de um bloco `<documento_carregado>`. Esse resumo é a única visão que o modelo tem do desenho fora das tools.
 
 ## Como Adicionar uma Tool
 
@@ -60,22 +67,22 @@ Skills são conhecimento carregado sob demanda (progressive disclosure): o agent
 
 1. Criar pasta `skills/<nome-com-hifens>/` com um `SKILL.md` dentro. O spec do agno exige: nome lowercase só com letras/dígitos/hífens e **igual ao nome da pasta** (exceção consciente à convenção snake_case), frontmatter com `name` e `description` obrigatórios. A `description` decide quando o agent carrega a skill — seja explícito sobre o gatilho.
 2. Documentação detalhada consultável sob demanda vai em `skills/<nome>/references/*.md` (o agent acessa via `get_skill_reference`).
-3. Nada a registrar: `get_skills()` em `skills/__init__.py` carrega todas as subpastas com `SKILL.md` automaticamente. Para um agent usar as skills, a factory sobrescreve a chave `"skills"` do dict de `get_base_agent_kwargs(db)` com `get_skills()` (ver `agents/simple_agent/simple_agent.py`).
+3. Nada a registrar: `get_skills()` em `skills/__init__.py` carrega todas as subpastas com `SKILL.md` automaticamente. Para um agent usar as skills, a factory passa `skills=get_skills()` no `Agent(...)`.
 4. No `instructions.md` do agent, deixe só um direcionamento curto ("carregue a skill X antes de...") — o conteúdo vive na skill.
 
-Ex: `skills/layout-creation/` — fluxo de criação de layout, com `references/constraints.md` para o catálogo de constraints.
+**Não há skill neste projeto hoje** — `get_skills()` carregaria zero skills, e por isso nenhum agente passa `skills=`. A pasta existe como ponto de extensão.
 
 ## Como Adicionar um Time
 
 Mesma estrutura de `agents/` mas em `teams/`. Usar `Team` do agno em vez de `Agent`.
 
 ```python
-async def get_<nome>_team(user_id: str, db: AsyncMongoDb | None = None) -> Team:
+async def get_<nome>_team(user_id: str, db: BaseDb | None = None) -> Team:
     ...
     return Team(members=[agent_a, agent_b], ...)
 ```
 
-`runner.py` já aceita `Union[Agent, Team]` — o router passa `current_user.user_id` para `run_chat()`.
+`runner.py` já aceita `Union[Agent, Team]`.
 
 ## Como Adicionar um Workflow
 
@@ -88,3 +95,4 @@ Criar `workflows/<nome>/<nome>.py` com classe que herda de `agno.workflow.Workfl
 - `runner.py` é o único ponto de execução — agents nunca se auto-executam
 - Nunca usar `os.environ` — sempre `get_app_settings()`
 - Nunca usar `print()` — importar `logger` de `src.api.logger`
+- Nunca deixar o modelo afirmar número que não veio de tool — ver a regra central no [`CLAUDE.md`](../../CLAUDE.md) da raiz

@@ -6,11 +6,23 @@ from agno.models.message import Message
 from agno.team import Team
 
 from src.api.models.chat import ChatRequest, ContinueRequest
+from src.cad.model import CadModel
 
 
-async def run_chat(agent: Union[Agent, Team], chat_content: ChatRequest, user_id: str):
-    message_content = chat_content.message
-    session_id = chat_content.chat_id
+async def run_chat(
+    agent: Union[Agent, Team],
+    chat_content: ChatRequest,
+    user_id: str,
+    cad_model: CadModel,
+):
+    """Executa uma pergunta sobre o desenho.
+
+    O indice vai em `dependencies` e nao em `session_state`: o agno so serializa
+    `session_state` (que precisa ser JSON e e persistido na sessao), enquanto
+    `dependencies` fica fora do prompt — `add_dependencies_to_context` e False
+    por default. Assim as 12 tools recebem o objeto Python vivo sem que uma
+    linha dele chegue ao modelo.
+    """
     files = (
         [
             File(id=a.id, url=a.download_url, filename=a.file_name, name=a.file_name)
@@ -21,17 +33,22 @@ async def run_chat(agent: Union[Agent, Team], chat_content: ChatRequest, user_id
     )
 
     return agent.arun(
-        input=[Message(role="user", content=message_content, files=files)],
-        session_id=session_id,
+        input=[Message(role="user", content=chat_content.message, files=files)],
+        session_id=chat_content.chat_id,
         user_id=user_id,
+        dependencies={"cad": cad_model},
         stream=True,
         stream_events=True,
     )
 
 
 async def continue_chat(
-    agent: Union[Agent, Team], continue_content: ContinueRequest, user_id: str
+    agent: Union[Agent, Team],
+    continue_content: ContinueRequest,
+    user_id: str,
+    cad_model: CadModel,
 ):
+    """Retoma uma run pausada por tool de HITL."""
     run_id = continue_content.run_id
     session_id = continue_content.chat_id
 
@@ -52,6 +69,7 @@ async def continue_chat(
         session_id=session_id,
         user_id=user_id,
         requirements=run_output.requirements,
+        dependencies={"cad": cad_model},
         stream=True,
         stream_events=True,
     )

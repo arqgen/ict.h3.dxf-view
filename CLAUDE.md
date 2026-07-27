@@ -42,30 +42,19 @@ Ao parar: descreva o bloqueio e sugira 1-2 opções de caminho. Sem histórico d
 
 ## Como Manter Este Arquivo
 
-Este `CLAUDE.md` é o índice global do projeto — contém só o que vale para **todo** o código. Regras técnicas de um módulo específico, exemplos de implementação, anatomia de rotas ou schemas ficam no `CLAUDE.md` interno daquela pasta. Não coloque aqui: exemplos de código, detalhes de implementação, padrões de um módulo específico. Se a informação só faz sentido dentro de `src/modules/users/`, ela pertence ao `src/modules/users/CLAUDE.md`.
+Este `CLAUDE.md` é o índice global do projeto — contém só o que vale para **todo** o código. Regras técnicas de um módulo específico, exemplos de implementação, anatomia de rotas ou schemas ficam no `CLAUDE.md` interno daquela pasta (`<pasta>/CLAUDE.md`). Não coloque aqui exemplos de código, detalhes de implementação nem padrões de um módulo só.
 
-**Estrutura de sub-CLAUDEs:**
-
-```
-CLAUDE.md                          ← este arquivo (regras globais)
-src/
-  modules/
-    <modulo>/
-      CLAUDE.md                    ← regras, padrões e exemplos do módulo
-  <outra-camada>/
-    CLAUDE.md                      ← se a camada tiver padrões próprios
-```
-
-Crie um sub-CLAUDE quando um módulo ou camada tiver padrões que desviam do global ou que precisam de exemplos para serem seguidos corretamente. Mantenha-o atualizado — um sub-CLAUDE desatualizado é pior que nenhum.
+Crie um sub-CLAUDE quando um módulo tiver padrões que desviam do global ou que precisam de exemplos para serem seguidos corretamente. Mantenha-o atualizado — um sub-CLAUDE desatualizado é pior que nenhum.
 
 **Sub-CLAUDEs existentes:**
 
+- [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md) — motor de informação: primitivas, divisão de trabalho com o ezdxf, armadilhas
 - [`src/ai_modules/CLAUDE.md`](src/ai_modules/CLAUDE.md) — agents, tools, skills, workflows, teams: padrões e como adicionar
-- [`src/api/CLAUDE.md`](src/api/CLAUDE.md) — routers, models, SSE, config: padrões e como adicionar
+- [`src/ai_modules/tools/CLAUDE.md`](src/ai_modules/tools/CLAUDE.md) — convenções das tools, incluindo as de CAD
 
 **Arquivos auxiliares na raiz:**
 
-Além dos sub-CLAUDEs por módulo, a raiz do projeto pode conter arquivos `.md` com regras pontuais e focadas (ex: `commit-rules.md`, `security.md`, `migration-guide.md`). Esses arquivos não substituem o `CLAUDE.md` global — complementam com detalhe que não cabe aqui. Liste-os na seção **Arquivos Auxiliares** abaixo da linha divisória e mantenha a lista atualizada.
+A raiz pode conter arquivos `.md` com regras pontuais (ex: `commit-rules.md`). Eles complementam este arquivo com detalhe que não cabe aqui. Liste-os na seção **Arquivos Auxiliares** e mantenha a lista atualizada.
 
 **Regras deste arquivo:**
 
@@ -80,60 +69,62 @@ Além dos sub-CLAUDEs por módulo, a raiz do projeto pode conter arquivos `.md` 
 
 - [`commit-rules.md`](commit-rules.md) — regras de commit, branch, push e PR
 
-## Ecossistema e Responsabilidades
+## O Que Este Projeto É
 
-Este serviço é o **core de IA** do ecossistema H3, composto por três repositórios:
+Monorepo de um visualizador DXF com assistente de IA. O usuário abre um desenho, vê o desenho renderizado, e conversa sobre ele — o assistente responde **e aponta de volta para o desenho** (destaca entidades, reenquadra, isola layer).
 
-| Serviço        | Repositório         | Responsabilidade                                          |
-| -------------- | ------------------- | --------------------------------------------------------- |
-| Frontend       | `llm.h3.frontend`   | Interface do usuário                                      |
-| API de negócio | `llm.h3.api`        | CRUD, autenticação, gestão de usuários, regras de negócio |
-| **AI API**     | **`llm.h3.ai-api`** | **Orquestração de agentes, sessões e respostas via LLM**  |
+**A regra que define a arquitetura:** a IA nunca vê o arquivo. Ela vê um resumo textual e o que 12 tools devolvem ao consultar o índice geométrico. Toda quantidade, medida ou coordenada numa resposta veio de uma tool call — é controle de alucinação, não economia de token, e é o requisito de produto mais importante do projeto. Qualquer mudança que permita ao modelo afirmar um número sem passar por uma tool está errada, por mais conveniente que pareça.
 
-**Esta API não faz CRUD e não gerencia usuários.** Ela consome dados do banco principal (gerenciado pela `llm.h3.api`) e grava apenas nas coleções `agno_*` (sessões e memórias dos agentes). Tokens JWT são emitidos pela `llm.h3.api` — aqui só são validados.
-
-Qualquer feature que envolva criar, alterar ou deletar entidades de negócio (usuários, planos, configurações) pertence à `llm.h3.api`, não aqui.
+Como o agente roda em Python, o índice roda em Python: não existe parse de DXF no browser.
 
 ## Arquitetura em Uma Linha
 
-FastAPI + Agno (LLM framework) + MongoDB (coleções `agno_*` para sessões e memórias) + Arize Phoenix (observability via OTLP); código em `src/api/` (routers, models, config) e `src/ai_modules/` (agents, teams, workflows).
+FastAPI + agno (agente e loop de tools) + ezdxf (parse e índice) no backend; React + Vite + canvas 2D no frontend (`web/`). Estado de documento em memória — sem banco, sem auth. Observabilidade opcional via Arize Phoenix/OTLP.
 
-**Módulos:** `agents`, `teams` (stub), `workflows` (stub)
+**Camadas:** `src/cad/` (motor de informação) · `src/api/` (HTTP) · `src/ai_modules/` (IA) · `web/src/viewer/` (render)
+
+As 4 tools de interface não têm canal próprio: no servidor apenas validam, e o frontend aplica o efeito visual ao ver o evento `ToolCallStarted` no stream SSE. Se você mudar o formato do stream, quebra o destaque.
 
 ## Mapa de Arquivos Críticos
 
 - `src/main.py` — entry point (uvicorn + uvloop)
+- `src/cad/` — `geometry.py` (tipos `Prim` e medidas), `loader.py` (`load_dxf()`), `model.py` (`build_model()`, `describe_model()`, `prims_payload()`)
 - `src/api/server.py` — FastAPI app, CORS, health check, registro de routers
 - `src/api/core/config.py` — Pydantic Settings com lru_cache
-- `src/api/core/auth.py` — dependency `get_current_user()` → `TokenData`
-- `src/api/core/database.py` — dependency `get_mongo_db()` → `AsyncMongoDb | None`
-- `src/api/core/rate_limiter.py` — dependency `get_rate_limiter()`, aplicado via `_auth` em `server.py`
-- `src/api/models/chat.py` — schema `ChatRequest`
-- `src/api/stream_response.py` — SSE / EventStreamResponse
+- `src/api/store.py` — store de documentos em memória (`get_document_store()`)
+- `src/api/stream_response.py` — SSE / `EventStreamResponse`
+- `src/api/routers/` — `documents.py` (upload, prims, entidade) e `chat.py` (chat SSE)
+- `src/api/observability.py` — tracer Phoenix/OTLP (`init_observability()`)
 - `src/ai_modules/llm_settings.py` — instanciação do modelo LLM (`get_model()`)
 - `src/ai_modules/runner.py` — execução do chat (`run_chat()`)
-- `src/ai_modules/agents/base.py` — defaults de plataforma comuns a todo `Agent` (`get_base_agent_kwargs()`)
-- `src/ai_modules/agents/simple_agent/simple_agent.py` — fábrica de agente (`get_simple_agent()`)
-- `src/api/observability.py` — inicialização do tracer Phoenix/OTLP (`init_observability()`)
-- `src/integrations/repositories.py` — client e leitura do banco principal ("common-db"), gerenciado pela `llm.h3.api`
+- `src/ai_modules/agents/base.py` — defaults comuns a todo `Agent`; `agents/cad_agent/` — a fábrica + `instructions.md`
+- `src/ai_modules/tools/cad_tools/` — as 12 tools (8 de consulta, 4 de interface)
+- `web/src/App.tsx` — dono de todo o estado do frontend e do seam `ToolUI`
+- `web/src/api/client.ts` — parser SSE e despacho das tools de interface
+- `web/src/viewer/CadCanvas.tsx` — render canvas 2D e hit-test
 
 ## Como Adicionar uma Feature
 
-Para adicionar um novo agente, siga o contrato documentado em [`src/ai_modules/CLAUDE.md`](src/ai_modules/CLAUDE.md) (seção "Como Adicionar um Agent") e registre a rota conforme [`src/api/CLAUDE.md`](src/api/CLAUDE.md) (seção "Como Adicionar um Router").
+Agente novo: contrato em [`src/ai_modules/CLAUDE.md`](src/ai_modules/CLAUDE.md). Tool nova: [`src/ai_modules/tools/CLAUDE.md`](src/ai_modules/tools/CLAUDE.md).
+
+**Tool que consulta o desenho:** declare `run_context: RunContext` como primeiro parâmetro e recupere o índice com `cad_model(run_context)` — o agno injeta esse parâmetro por nome e o remove do schema que vai ao modelo. Nunca use `session_state` (é serializado e persistido) nem `ToolResult.metadata` (é descartado e nunca chega a evento nenhum).
 
 ## Como Rodar o Projeto
 
-Ver `README.md` — comandos de instalação, execução local e Docker estão lá.
+Ver [`README.md`](README.md) — instalação, execução do backend e do frontend, portas e variáveis.
 
 ## Convenções de Nomenclatura
 
-| Elemento          | Convenção                      | Exemplo                        |
-| ----------------- | ------------------------------ | ------------------------------ |
-| Arquivos          | snake_case                     | `simple_agent.py`, `chat.py`   |
-| Classes/Types     | PascalCase                     | `ChatRequest`, `Settings`      |
-| Funções/variáveis | snake_case                     | `get_simple_agent`, `run_chat` |
-| Rotas HTTP        | kebab-case                     | `/api/agents/chat`             |
-| Módulo de agente  | pasta + arquivo com mesmo nome | `simple_agent/simple_agent.py` |
+| Elemento              | Convenção                      | Exemplo                     |
+| --------------------- | ------------------------------ | --------------------------- |
+| Arquivos Python       | snake_case                     | `cad_agent.py`, `chat.py`   |
+| Arquivos de componente| PascalCase                     | `CadCanvas.tsx`             |
+| Classes/Types         | PascalCase                     | `ChatRequest`, `CadModel`   |
+| Funções/variáveis     | snake_case (Py) / camelCase (TS) | `build_model`, `toolLabel` |
+| Rotas HTTP            | kebab-case                     | `/api/documents`            |
+| Módulo de agente      | pasta + arquivo com mesmo nome | `cad_agent/cad_agent.py`    |
+
+Chaves dos resultados de tool e strings de interface são em **pt-BR** (`tipo`, `comprimento`, `area`) — o modelo repete essas chaves na resposta ao usuário. Identificadores de código permanecem em inglês.
 
 ## Commits, Branches e PRs
 
@@ -141,31 +132,30 @@ Consulte [commit-rules.md](commit-rules.md) para regras de commit, branch, push 
 
 ## Regras Globais
 
-### Auth e Autorização
+### Auth e Estado
 
-JWT via `HTTPBearer` — tokens emitidos pela `llm.h3.api`. Dependency `get_current_user()` em `src/api/core/auth.py` valida o token e retorna `TokenData(user_id, role)`. Aplicada globalmente via `dependencies=_auth` em `server.py` — nunca validar JWT diretamente no router.
+**Não há autenticação.** Um usuário lógico (`"local"`), sem JWT e sem rate limiting. Não adicione nenhum dos dois sem discutir — não existe emissor de token neste ecossistema.
 
-### Rate Limiting
+**Não há banco.** O documento vive no store em memória de `src/api/store.py` (teto de itens + TTL) e as sessões do agno num `InMemoryDb` (`get_agent_db()` em `agents/base.py`). Somem juntas quando o processo cai, e isso é intencional. `store.py` é o único lugar que guarda estado de documento — não crie um segundo.
 
-`get_rate_limiter()` em `src/api/core/rate_limiter.py` limita requisições por usuário. Aplicado globalmente via `_auth` em `server.py`, junto com `get_current_user()`. Configurado via `RATE_LIMIT_REQUESTS` (default: 20 req) e `RATE_LIMIT_WINDOW_SECONDS` (default: 60s).
+### Ferramentas e Geometria
 
-### Banco de Dados
+Duas regras globais, detalhadas nos sub-CLAUDEs:
 
-MongoDB via `MONGO_URL`. Agno usa `db` no `Agent()` para persistência de sessão e memória nas coleções `agno_sessions` e `agno_memories`. Esta API não escreve em outras coleções — o banco principal é de responsabilidade da `llm.h3.api`. Leitura do banco principal ("common-db", via `COMMON_DB_MONGO_*`) é feita somente através de `src/integrations/repositories.py` (`find_documents`) — nunca instanciar outro client Mongo fora daí.
+- **Uma tool nunca levanta exceção por dado inválido** — devolve o erro como dado. Ver [`src/ai_modules/tools/CLAUDE.md`](src/ai_modules/tools/CLAUDE.md).
+- **Nunca reimplemente geometria que o `ezdxf` já faz**, e conheça as armadilhas que falham em silêncio. Ver [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md).
 
 ### Observabilidade
 
-Arize Phoenix via OTLP. `init_observability()` é chamado no `lifespan` do FastAPI e instrumenta automaticamente todas as chamadas do Agno. Se `COLLECTOR_ENDPOINT` estiver vazio, a função retorna silenciosamente — sem crash. Em desenvolvimento local sem Docker, basta deixar `COLLECTOR_ENDPOINT` em branco no `.env`.
-
-Variáveis relevantes: `COLLECTOR_ENDPOINT` (ex: `http://phoenix:6006`) e `COLLECTOR_PROJECT_NAME` (default: `H3_AI_API`).
+Arize Phoenix via OTLP. `init_observability()` é chamado no `lifespan` e instrumenta as chamadas do agno. Se `COLLECTOR_ENDPOINT` estiver vazio, retorna silenciosamente — sem crash; é o que se faz em desenvolvimento local. Variáveis: `COLLECTOR_ENDPOINT` e `COLLECTOR_PROJECT_NAME`.
 
 ### Tratamento de Erros
 
-`stream_response.py` captura exceções e emite evento SSE com `type: "error"`. Validação Pydantic retorna 422 automaticamente.
+`stream_response.py` captura exceções e emite um evento SSE `RunError`. Validação Pydantic retorna 422 automaticamente. Documento ausente ou expirado retorna 404 com instrução de reenviar o arquivo.
 
 ### Logging
 
-Importe sempre o logger de `src.api.logger`: `from src.api.logger import logger`. Nunca use `print()` nem instancie um novo logger via `logging.getLogger()` — o logger central já tem nível, formatação e handler configurados. Use o nível adequado: `logger.debug` para detalhes de execução, `logger.info` para eventos de lifecycle, `logger.warning` para situações degradadas mas não fatais, `logger.error` para falhas.
+`from src.api.logger import logger`. Nunca use `print()` nem `logging.getLogger()` — o logger central já tem nível, formatação e handler. `debug` para detalhes de execução, `info` para lifecycle, `warning` para degradado mas não fatal, `error` para falha.
 
 ### Variáveis de Ambiente
 
@@ -173,22 +163,32 @@ Acesse sempre via `get_app_settings()` de `src.api.core.config`. Nunca use `os.e
 
 ### Testes
 
-pytest via `make test`. Cobrir routers e `runner.py`.
+Backend: pytest via `make test`. Frontend: `npm --prefix web test`.
+
+**Assertivas sobre geometria e contagem são exatas, sem tolerância.** O DXF sintético de `tests/make_sample.py` tem um contorno 20 × 14 justamente para que perímetro seja 68 e área 280 em ponto flutuante fechado. Trocar isso por `>= 60` transforma perda silenciosa de geometria num teste verde.
+
+O teste do frontend roda contra `web/src/api/__tests__/recorded-stream.txt`, um stream SSE real gravado do agno: se o formato de evento mudar, a suíte quebra em vez de o destaque parar de funcionar em silêncio.
 
 ### Lint e Formatação
 
-Ruff (`make lint` + `make format`). Line-length 88, rules E/F/I/B. Rodar antes de todo commit.
+Ruff (`make lint` + `make format`). Line-length 88, rules E/F/I/B. Rodar antes de todo commit. No frontend, `npm --prefix web run typecheck`.
 
 ## Segurança
 
-`JWT_SECRET` e `OPENAI_API_KEY` nunca commitar. CORS permissivo apenas em `dev`/`local` — produção deve restringir origens. `.env` está no `.gitignore`.
+`ANTHROPIC_API_KEY` e `OPENAI_API_KEY` nunca commitar — `.env` está no `.gitignore`. CORS permissivo apenas em `local`/`dev`; produção deve restringir origens.
+
+O arquivo DXF é enviado ao servidor (diferente da implementação de referência, que o mantinha no browser). Se o conteúdo dos desenhos for sensível, isso é uma mudança de postura a considerar antes de expor a aplicação.
 
 ## O que NÃO Fazer
 
+- **Não deixe o modelo afirmar número que não veio de tool** — é o requisito central do produto
 - **Não acesse env via `os.environ`** — use `get_app_settings()`
 - **Não instancie modelos LLM fora de `llm_settings.py`**
 - **Não chame `AgnoInstrumentor` ou `phoenix.otel.register` fora de `observability.py`**
-- **Não coloque lógica de negócio nos routers** — use `runner.py` ou `services/`
+- **Não coloque lógica de negócio nos routers** — use `runner.py` ou `src/cad/`
+- **Não parseie DXF no frontend** — há uma única fonte de parse, no Python
+- **Não levante exceção numa tool por dado inválido** — devolva o erro como dado
+- **Não crie um segundo canal para ações de interface** — o stream de eventos do agno já é o canal
 - **Não use `print()` nem `logging.getLogger()` direto** — importe `logger` de `src.api.logger`
 - **Não commite `.env`**
 - **Não adicione co-autoria nos commits** — nunca inclua linhas `Co-Authored-By:` em nenhuma mensagem de commit

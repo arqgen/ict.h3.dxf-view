@@ -1,84 +1,73 @@
-from agno.db.mongo import AsyncMongoDb
+"""Unica fonte de instanciacao de modelo LLM do projeto.
+
+Nenhum outro modulo deve construir um `Claude` ou um `OpenAIChat`.
+
+Nao ha sobrescrita de modelo por usuario aqui: esta aplicacao nao tem banco
+(ver decisao de escopo no CLAUDE.md). O parametro `user_id` permanece na
+assinatura porque e o ponto de extensao natural caso isso mude.
+"""
+
+from agno.models.anthropic import Claude
+from agno.models.base import Model
 from agno.models.openai import OpenAIChat
 
-from src.api import logger
 from src.api.core.config import get_app_settings
+from src.api.logger import logger
 
-# Models that only accept temperature=1 (their default). Checked via startswith.
+# Modelos que so aceitam temperature=1 (o default deles). Checado via startswith.
 _FIXED_TEMP_MODELS = ("o1", "o3", "o4", "gpt-5.5")
+
+DEFAULT_TEMPERATURE = 0.3
 
 
 async def get_model(
-    provider: str = "openai",
+    provider: str | None = None,
     user_id: str | None = None,
-    db: AsyncMongoDb | None = None,
-) -> OpenAIChat:
+) -> Model:
+    """Instancia o modelo do provider pedido, ou do configurado no ambiente."""
     settings = get_app_settings()
-    custom_settings = await get_custom_settings(user_id, db)
+    chosen = (provider or settings.LLM_PROVIDER).lower()
 
-    match provider:
+    match chosen:
+        case "anthropic":
+            return _anthropic_model()
         case "openai":
-            openai_args = {
-                "id": "gpt-4.1",
-                "temperature": 0.3,
-                "api_key": settings.OPENAI_API_KEY,
-            }
-
-            if custom_settings:
-                openai_args = custom_settings
-
-            return OpenAIChat(**openai_args)
+            return _openai_model()
         case _:
-            return OpenAIChat(id="gpt-4.1", api_key=settings.OPENAI_API_KEY)
+            logger.warning("provider '%s' nao suportado — usando anthropic", chosen)
+            return _anthropic_model()
 
 
-async def get_custom_settings(
-    user_id: str | None, db: AsyncMongoDb | None
-) -> dict | None:
-    if not user_id or not db:
-        return None
-
+def _anthropic_model() -> Claude:
     settings = get_app_settings()
-    collection = db.db_client[settings.MONGO_DB_DATABASE]["settings"]
-    doc = await collection.find_one({"_id": user_id})
 
-    if not doc:
-        return None
-
-    if doc.get("provider", "openai") != "openai":
-        logger.warning(
-            "provider '%s' not supported yet — using defaults", doc.get("provider")
-        )
-        return None
-
-    model_id: str = doc.get("model", "gpt-4.1")
-    supports_temp = not any(model_id.startswith(p) for p in _FIXED_TEMP_MODELS)
-
-    args: dict = {"id": model_id, "api_key": settings.OPENAI_API_KEY}
-
-    if supports_temp:
-        args["temperature"] = doc.get("temperatura", 0.3)
-
-    if doc.get("max_tokens"):
-        args["max_completion_tokens"] = doc["max_tokens"]
-
-    if doc.get("url"):
-        args["base_url"] = doc["url"]
-
-    return args
+    return Claude(
+        id=settings.ANTHROPIC_MODEL,
+        api_key=settings.ANTHROPIC_API_KEY,
+        max_tokens=settings.ANTHROPIC_MAX_TOKENS,
+        # Raciocinio resumido: o painel de chat o expoe num toggle "mostrar
+        # raciocinio", entao pedimos o resumo e nao o bloco completo.
+        thinking={"type": "adaptive", "display": "summarized"},
+        output_config={"effort": settings.ANTHROPIC_EFFORT},
+        # O resumo do desenho e um prefixo estavel enquanto o mesmo arquivo
+        # estiver aberto — cachear evita repagar por ele a cada pergunta.
+        cache_system_prompt=True,
+    )
 
 
-async def get_user_instructions(
-    user_id: str | None, db: AsyncMongoDb | None
-) -> str | None:
-    if not user_id or not db:
-        return None
-
+def _openai_model() -> OpenAIChat:
     settings = get_app_settings()
-    collection = db.db_client[settings.MONGO_DB_DATABASE]["settings"]
-    doc = await collection.find_one({"_id": user_id}, {"system_prompt": 1})
 
-    if not doc:
-        return None
+    args: dict = {
+        "id": settings.OPENAI_MODEL,
+        "api_key": settings.OPENAI_API_KEY,
+    }
 
-    return doc.get("system_prompt") or None
+    if _supports_temperature(settings.OPENAI_MODEL):
+        args["temperature"] = DEFAULT_TEMPERATURE
+
+    return OpenAIChat(**args)
+
+
+def _supports_temperature(model_id: str) -> bool:
+    return not any(model_id.startswith(prefix) for prefix in _FIXED_TEMP_MODELS)

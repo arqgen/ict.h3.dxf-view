@@ -1,37 +1,12 @@
-from .fetch_pdf import fetch_pdf
-from .layout_solver import (
-    add_constraint,
-    generate_solutions,
-    list_constraints,
-    list_families,
-    list_sites,
-    list_zones,
-    remove_constraint,
-    select_site,
-    select_zone,
-    set_program,
-)
-from .test_tool_call import test_tool_call
-from .user_control_flow import user_control_flow
-from .user_feedback import user_feedback
-from .web_scrape import web_scrape
-from .web_search import web_search
+"""Tools reutilizaveis entre agents.
 
-__all__ = [
-    "web_scrape",
-    "web_search",
-    "add_constraint",
-    "fetch_pdf",
-    "generate_solutions",
-    "list_constraints",
-    "list_families",
-    "list_sites",
-    "list_zones",
-    "remove_constraint",
-    "select_site",
-    "select_zone",
-    "set_program",
-    "test_tool_call",
-    "user_control_flow",
-    "user_feedback",
-]
+So `cad_tools` e reexportado aqui. Os outros modulos desta pasta vieram do
+template da plataforma e dependem de pacotes que este projeto nao instala
+(`trafilatura`, `duckduckgo-search`); reexporta-los faria qualquer import de
+`src.ai_modules.tools` falhar. Quem precisar deles importa o modulo direto e
+adiciona a dependencia.
+"""
+
+from .cad_tools import CAD_TOOLS, QUERY_TOOLS, UI_TOOL_NAMES, UI_TOOLS
+
+__all__ = ["CAD_TOOLS", "QUERY_TOOLS", "UI_TOOLS", "UI_TOOL_NAMES"]
