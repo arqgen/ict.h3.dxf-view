@@ -60,7 +60,33 @@ Abra `http://localhost:5173` e arraste um `.dxf`.
 
 > A porta do backend aparece em dois lugares: `PORT` no `.env` e o proxy em `web/vite.config.ts` (que aceita `VITE_API_PORT`). O default dos dois é **8787** — se mudar um, mude o outro.
 
-### Rodando em portas alternativas
+### Observabilidade (opcional)
+
+Os traces do agente — cada chamada de LLM e cada tool de CAD, com entradas e
+saídas — vão para um [Arize Phoenix](https://phoenix.arize.com/) local, que sobe
+em Docker a partir deste repositório:
+
+```bash
+make phoenix-up      # collector + UI em http://localhost:6006
+make phoenix-logs    # acompanha o container
+make phoenix-down    # derruba (os traces ficam no volume phoenix_data)
+```
+
+Com o Phoenix no ar, `make dev` deve logar `observabilidade ativa — projeto
+CAD_VIEWER em http://localhost:6006`. Abra `http://localhost:6006` e escolha o
+projeto `CAD_VIEWER`.
+
+Se a 6006 já estiver ocupada (outro Phoenix na máquina, por exemplo), suba em
+outra porta e aponte o `.env` para ela:
+
+```bash
+make phoenix-up PHOENIX_PORT=6007     # e COLLECTOR_ENDPOINT="http://localhost:6007"
+```
+
+Para desligar, esvazie `COLLECTOR_ENDPOINT` no `.env` — o backend sobe igual, sem
+erro e sem tracing.
+
+## Rodando em portas alternativas
 
 Para demonstrar este projeto ao lado de outro (evitando conflito de porta),
 tanto `make dev` quanto `make dev-web` aceitam override por variável, sem
@@ -90,7 +116,7 @@ Tudo via `.env`, acessado somente por `get_app_settings()` em `src/api/core/conf
 | `MAX_UPLOAD_MB` | `64` | teto do arquivo enviado |
 | `MAX_DOCUMENTS` | `8` | documentos simultâneos no store |
 | `DOCUMENT_TTL_SECONDS` | `7200` | expiração de um documento ocioso |
-| `COLLECTOR_ENDPOINT` | vazio | Arize Phoenix via OTLP; **vazio desliga sem erro** |
+| `COLLECTOR_ENDPOINT` | `http://localhost:6006` | URL base do Arize Phoenix (OTLP); **vazio desliga sem erro** |
 | `COLLECTOR_PROJECT_NAME` | `CAD_VIEWER` | |
 
 ## Testes e lint

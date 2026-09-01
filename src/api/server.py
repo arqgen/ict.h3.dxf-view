@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from src.api.core.config import get_app_settings, require_ai_gateway
 from src.api.logger import logger
-from src.api.observability import init_observability
+from src.api.observability import init_observability, shutdown_observability
 from src.api.routers import chat, documents
 
 
@@ -20,6 +20,7 @@ async def lifespan(app: FastAPI):
         settings.LLM_PROVIDER,
     )
     yield
+    shutdown_observability()
 
 
 def create_app() -> FastAPI:

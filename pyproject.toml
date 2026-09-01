@@ -12,6 +12,7 @@ dependencies = [
     "ezdxf>=1.4.4",
     "fastapi>=0.140.0",
     "openai>=2.0.0",
+    "openinference-instrumentation-agno>=1.0.6",
     "pillow>=11.0.0",
     "pydantic>=2.13.4",
     "pydantic-settings>=2.14.2",

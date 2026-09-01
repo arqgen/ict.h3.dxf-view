@@ -147,7 +147,7 @@ Duas regras globais, detalhadas nos sub-CLAUDEs:
 
 ### Observabilidade
 
-Arize Phoenix via OTLP. `init_observability()` é chamado no `lifespan` e instrumenta as chamadas do agno. Se `COLLECTOR_ENDPOINT` estiver vazio, retorna silenciosamente — sem crash; é o que se faz em desenvolvimento local. Variáveis: `COLLECTOR_ENDPOINT` e `COLLECTOR_PROJECT_NAME`.
+Arize Phoenix via OTLP. `init_observability()` é chamado no `lifespan` e instrumenta as chamadas do agno; `shutdown_observability()` faz o flush dos spans após o `yield`. Se `COLLECTOR_ENDPOINT` estiver vazio, retorna silenciosamente — sem crash. O collector sobe pelo `docker-compose.yml` da raiz (`make phoenix-up`, UI em http://localhost:6006). Variáveis: `COLLECTOR_ENDPOINT` (URL base, sem `/v1/traces`) e `COLLECTOR_PROJECT_NAME`.
 
 ### Tratamento de Erros
 
