@@ -46,7 +46,7 @@ Requisitos: Python ≥ 3.11 com [uv](https://docs.astral.sh/uv/), Node ≥ 20.
 
 ```bash
 make install                 # uv sync + npm install em web/
-cp .env.example .env         # e preencha ANTHROPIC_API_KEY
+cp .env.example .env         # e preencha PROXY_AI_BASE_URL/LITELLM_API_KEY
 ```
 
 Dois terminais:
@@ -81,11 +81,12 @@ Tudo via `.env`, acessado somente por `get_app_settings()` em `src/api/core/conf
 | Variável | Default | Para que serve |
 | --- | --- | --- |
 | `LLM_PROVIDER` | `anthropic` | `anthropic` ou `openai` |
-| `ANTHROPIC_API_KEY` | — | obrigatória com o provider anthropic |
-| `ANTHROPIC_MODEL` | `claude-opus-5` | |
+| `PROXY_AI_BASE_URL` | — | obrigatória; endpoint do gateway LiteLLM — sem ela o startup falha |
+| `LITELLM_API_KEY` | — | credencial do gateway, usada para os dois providers |
+| `ANTHROPIC_MODEL` | `claude-opus-5` | alias registrado no gateway |
 | `ANTHROPIC_MAX_TOKENS` | `16000` | |
 | `ANTHROPIC_EFFORT` | `medium` | `low`…`max`; o default da API é `high`, `medium` troca profundidade por latência de chat |
-| `OPENAI_API_KEY` / `OPENAI_MODEL` | — / `gpt-4.1` | usados quando `LLM_PROVIDER=openai` |
+| `OPENAI_MODEL` | `gpt-4.1` | alias registrado no gateway, usado quando `LLM_PROVIDER=openai` |
 | `MAX_UPLOAD_MB` | `64` | teto do arquivo enviado |
 | `MAX_DOCUMENTS` | `8` | documentos simultâneos no store |
 | `DOCUMENT_TTL_SECONDS` | `7200` | expiração de um documento ocioso |

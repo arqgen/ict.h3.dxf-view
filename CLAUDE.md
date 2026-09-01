@@ -175,7 +175,7 @@ Ruff (`make lint` + `make format`). Line-length 88, rules E/F/I/B. Rodar antes d
 
 ## Segurança
 
-`ANTHROPIC_API_KEY` e `OPENAI_API_KEY` nunca commitar — `.env` está no `.gitignore`. CORS permissivo apenas em `local`/`dev`; produção deve restringir origens.
+`LITELLM_API_KEY` nunca commitar — `.env` está no `.gitignore`. Todo tráfego de LLM passa pelo gateway (`PROXY_AI_BASE_URL`); não há mais caminho direto para `api.anthropic.com`/`api.openai.com`. CORS permissivo apenas em `local`/`dev`; produção deve restringir origens.
 
 O arquivo DXF é enviado ao servidor (diferente da implementação de referência, que o mantinha no browser). Se o conteúdo dos desenhos for sensível, isso é uma mudança de postura a considerar antes de expor a aplicação.
 
