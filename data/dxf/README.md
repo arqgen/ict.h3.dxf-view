@@ -2,6 +2,8 @@
 
 Os arquivos `.dxf` não são versionados (ver `.gitignore`) — ficam apenas localmente em `data/dxf/`. Um clone novo do repositório traz este catálogo, mas não os desenhos.
 
+Os arquivos podem ser encontrados neste [link](https://drive.google.com/drive/folders/1fP2gHbHQoLeuTxt2OU6oxBB_ECDhL0qN).
+
 |nome|contexto|observações|nome original (controle interno)|
 |--|--|--|--|
 |loja_de_varejo_1|Zoneamento de ambiente|hachuras da layer "PDF2_Solid Fills" representam ambientes, nomeados pelo texto no layer "A-AREA-____-IDEN"|BUTANTÃ_ETD_R02_ (1) (1) (1).dwg|
