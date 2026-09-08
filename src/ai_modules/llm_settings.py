@@ -1,16 +1,19 @@
 """Unica fonte de instanciacao de modelo LLM do projeto.
 
-Nenhum outro modulo deve construir um `Claude` ou um `OpenAIChat`.
+Nenhum outro modulo deve construir um `GatewayChat`/`OpenAIChat`.
+
+Todo provider passa pelo gateway LiteLLM (`PROXY_AI_BASE_URL`) — nao ha
+caminho direto para `api.anthropic.com`/`api.openai.com`. O que muda entre
+`anthropic` e `openai` e so o `id` (o alias registrado no gateway); os dois
+casos usam o mesmo `GatewayChat`, o `OpenAIChat` do agno sem as tool calls
+fantasma (ver `gateway_model.py`).
 
 Nao ha sobrescrita de modelo por usuario aqui: esta aplicacao nao tem banco
 (ver decisao de escopo no CLAUDE.md). O parametro `user_id` permanece na
 assinatura porque e o ponto de extensao natural caso isso mude.
 """
 
-from agno.models.anthropic import Claude
-from agno.models.base import Model
-from agno.models.openai import OpenAIChat
-
+from src.ai_modules.gateway_model import GatewayChat
 from src.api.core.config import get_app_settings
 from src.api.logger import logger
 
@@ -23,50 +26,40 @@ DEFAULT_TEMPERATURE = 0.3
 async def get_model(
     provider: str | None = None,
     user_id: str | None = None,
-) -> Model:
+) -> GatewayChat:
     """Instancia o modelo do provider pedido, ou do configurado no ambiente."""
     settings = get_app_settings()
     chosen = (provider or settings.LLM_PROVIDER).lower()
 
     match chosen:
         case "anthropic":
-            return _anthropic_model()
+            return _gateway_model(settings.ANTHROPIC_MODEL, thinking=True)
         case "openai":
-            return _openai_model()
+            return _gateway_model(settings.OPENAI_MODEL, thinking=False)
         case _:
             logger.warning("provider '%s' nao suportado — usando anthropic", chosen)
-            return _anthropic_model()
+            return _gateway_model(settings.ANTHROPIC_MODEL, thinking=True)
 
 
-def _anthropic_model() -> Claude:
-    settings = get_app_settings()
-
-    return Claude(
-        id=settings.ANTHROPIC_MODEL,
-        api_key=settings.ANTHROPIC_API_KEY,
-        max_tokens=settings.ANTHROPIC_MAX_TOKENS,
-        # Raciocinio resumido: o painel de chat o expoe num toggle "mostrar
-        # raciocinio", entao pedimos o resumo e nao o bloco completo.
-        thinking={"type": "adaptive", "display": "summarized"},
-        output_config={"effort": settings.ANTHROPIC_EFFORT},
-        # O resumo do desenho e um prefixo estavel enquanto o mesmo arquivo
-        # estiver aberto — cachear evita repagar por ele a cada pergunta.
-        cache_system_prompt=True,
-    )
-
-
-def _openai_model() -> OpenAIChat:
+def _gateway_model(model_id: str, thinking: bool) -> GatewayChat:
     settings = get_app_settings()
 
     args: dict = {
-        "id": settings.OPENAI_MODEL,
-        "api_key": settings.OPENAI_API_KEY,
+        "id": model_id,
+        "api_key": settings.LITELLM_API_KEY,
+        "base_url": settings.PROXY_AI_BASE_URL,
     }
 
-    if _supports_temperature(settings.OPENAI_MODEL):
+    if thinking:
+        # O gateway traduz `reasoning_effort` para `thinking.budget_tokens` na
+        # Anthropic, que exige `max_tokens` maior que esse orcamento — sem
+        # `max_completion_tokens` aqui a Anthropic recusa a request.
+        args["extra_body"] = {"reasoning_effort": settings.ANTHROPIC_EFFORT}
+        args["max_completion_tokens"] = settings.ANTHROPIC_MAX_TOKENS
+    elif _supports_temperature(model_id):
         args["temperature"] = DEFAULT_TEMPERATURE
 
-    return OpenAIChat(**args)
+    return GatewayChat(**args)
 
 
 def _supports_temperature(model_id: str) -> bool:

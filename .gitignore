@@ -239,3 +239,5 @@ web/dist/
 
 # DXF de teste — gerado por `uv run python tests/make_sample.py`
 tests/fixtures/
+# DXFs de teste — pesados demais para o Git (ver data/dxf/catalogo_dxfs.md)
+data/dxf/*.dxf

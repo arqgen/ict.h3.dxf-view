@@ -147,7 +147,7 @@ Duas regras globais, detalhadas nos sub-CLAUDEs:
 
 ### Observabilidade
 
-Arize Phoenix via OTLP. `init_observability()` é chamado no `lifespan` e instrumenta as chamadas do agno. Se `COLLECTOR_ENDPOINT` estiver vazio, retorna silenciosamente — sem crash; é o que se faz em desenvolvimento local. Variáveis: `COLLECTOR_ENDPOINT` e `COLLECTOR_PROJECT_NAME`.
+Arize Phoenix via OTLP. `init_observability()` é chamado no `lifespan` e instrumenta as chamadas do agno; `shutdown_observability()` faz o flush dos spans após o `yield`. Se `COLLECTOR_ENDPOINT` estiver vazio, retorna silenciosamente — sem crash. O collector sobe pelo `docker-compose.yml` da raiz (`make phoenix-up`, UI em http://localhost:6006). Variáveis: `COLLECTOR_ENDPOINT` (URL base, sem `/v1/traces`) e `COLLECTOR_PROJECT_NAME`.
 
 ### Tratamento de Erros
 
@@ -175,7 +175,7 @@ Ruff (`make lint` + `make format`). Line-length 88, rules E/F/I/B. Rodar antes d
 
 ## Segurança
 
-`ANTHROPIC_API_KEY` e `OPENAI_API_KEY` nunca commitar — `.env` está no `.gitignore`. CORS permissivo apenas em `local`/`dev`; produção deve restringir origens.
+`LITELLM_API_KEY` nunca commitar — `.env` está no `.gitignore`. Todo tráfego de LLM passa pelo gateway (`PROXY_AI_BASE_URL`); não há mais caminho direto para `api.anthropic.com`/`api.openai.com`. CORS permissivo apenas em `local`/`dev`; produção deve restringir origens.
 
 O arquivo DXF é enviado ao servidor (diferente da implementação de referência, que o mantinha no browser). Se o conteúdo dos desenhos for sensível, isso é uma mudança de postura a considerar antes de expor a aplicação.
 

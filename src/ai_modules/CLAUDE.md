@@ -13,7 +13,8 @@ Toda lógica de IA vive aqui. Nenhum import de FastAPI, Request ou objetos HTTP 
 | `workflows/`      | Fluxos multi-step usando agno `Workflow`                            |
 | `prompts/`        | Prompt templates compartilhados                                     |
 | `runner.py`       | Gateway central de execução — `run_chat(agent, payload, user_id, cad_model)` e `continue_chat(...)` (retoma run pausada) |
-| `llm_settings.py` | Única fonte de instanciação do LLM — `get_model(provider, user_id)` |
+| `llm_settings.py` | Única fonte de instanciação do LLM — `get_model(provider, user_id)`. Todo provider é um `GatewayChat` apontado ao gateway LiteLLM; o que muda é o `id` |
+| `gateway_model.py` | `GatewayChat` — o `OpenAIChat` do agno sem as tool calls fantasma (`{"id": "<uuid>"}` sem `function`), que o gateway recusa com `tool call not supported`. É a classe que o `llm_settings.py` instancia |
 | `agents/base.py`  | `get_base_agent_kwargs(db)` e `get_agent_db()` — defaults comuns a todo `Agent` |
 
 ## O Índice CAD nas Tools
@@ -47,7 +48,7 @@ async def get_<nome>_agent(user_id: str, db: BaseDb | None = None) -> Agent:
 Regras:
 
 - Sempre `async def`, sempre tipada
-- `model` via `await get_model()` — nunca instanciar `Claude` ou `OpenAIChat` diretamente. O provider vem de `LLM_PROVIDER` no `.env` (`anthropic` default, `openai` suportado)
+- `model` via `await get_model()` — nunca instanciar `GatewayChat`/`OpenAIChat` diretamente. O provider vem de `LLM_PROVIDER` no `.env` (`anthropic` default, `openai` suportado)
 - Sempre iniciar o `Agent(...)` com `**get_base_agent_kwargs(db)` (de `agents/base.py`) — cobre `db`, histórico, cache de sessão e `debug_mode`/`debug_level`. Só sobrescreva uma dessas chaves se o agente precisar de comportamento diferente do default
 - `instructions` sempre carregadas do `instructions.md` da pasta do agent
 
@@ -87,6 +88,12 @@ async def get_<nome>_team(user_id: str, db: BaseDb | None = None) -> Team:
 ## Como Adicionar um Workflow
 
 Criar `workflows/<nome>/<nome>.py` com classe que herda de `agno.workflow.Workflow`. Workflows são executados via router dedicado — não passam pelo `run_chat()` atual.
+
+## Gateway LiteLLM
+
+`PROXY_AI_BASE_URL` é obrigatória — `require_ai_gateway()` (em `src/api/core/config.py`) derruba o startup sem ela. Não existe caminho direto para `api.openai.com`/`api.anthropic.com`: os dois providers são o mesmo `GatewayChat` apontado ao gateway, mudando só o `id` (o alias registrado lá) — os SDKs nativos (`agno.models.anthropic.Claude`) não voltam a ser usados de propósito, porque cada um monta a URL do seu jeito a partir do `base_url` e o `/v1` do gateway virava `/v1/v1/messages` (404) na Anthropic.
+
+Sem catálogo de modelos aqui (diferente do hub-ai): o `id` configurado em `ANTHROPIC_MODEL`/`OPENAI_MODEL` é usado como está, sem validar contra o gateway — esta app é single-user, sem virtual key por credencial, então essa complexidade não se paga.
 
 ## Restrições
 

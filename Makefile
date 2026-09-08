@@ -1,9 +1,10 @@
-.PHONY: install lint format test dev dev-web build-web
+.PHONY: install lint format test dev dev-web build-web phoenix-up phoenix-down phoenix-logs
 
 PORT ?= 8787
 HOST ?= 0.0.0.0
 VITE_PORT ?= 5173
 VITE_API_PORT ?= $(PORT)
+PHOENIX_PORT ?= 6006
 
 install:
 	uv sync
@@ -27,3 +28,12 @@ dev-web:
 
 build-web:
 	npm --prefix web run build
+
+phoenix-up:
+	PHOENIX_PORT=$(PHOENIX_PORT) docker compose up -d phoenix
+
+phoenix-down:
+	PHOENIX_PORT=$(PHOENIX_PORT) docker compose down
+
+phoenix-logs:
+	docker compose logs -f phoenix
