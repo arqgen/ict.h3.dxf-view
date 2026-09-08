@@ -21,11 +21,11 @@ class Settings(BaseSettings):
     PROXY_AI_BASE_URL: str = ""
     LITELLM_API_KEY: str = ""
 
-    ANTHROPIC_MODEL: str = "claude-opus-5"
+    ANTHROPIC_MODEL: str = "claude-sonnet-4-6"
     ANTHROPIC_MAX_TOKENS: int = 16000
     ANTHROPIC_EFFORT: Literal["low", "medium", "high", "xhigh", "max"] = "medium"
 
-    OPENAI_MODEL: str = "gpt-4.1"
+    OPENAI_MODEL: str = "gpt-5.5"
 
     MAX_UPLOAD_MB: int = 64
     MAX_DOCUMENTS: int = 8
@@ -55,8 +55,16 @@ def require_ai_gateway() -> None:
     para os providers — melhor falhar cedo do que so na primeira mensagem
     de chat.
     """
-    if not get_app_settings().PROXY_AI_BASE_URL:
+    settings = get_app_settings()
+
+    if not settings.PROXY_AI_BASE_URL:
         raise RuntimeError(
             "PROXY_AI_BASE_URL não configurada — todo tráfego de LLM passa pelo "
             "gateway LiteLLM e não há caminho direto para os providers."
+        )
+
+    if not settings.LITELLM_API_KEY:
+        raise RuntimeError(
+            "LITELLM_API_KEY não configurada — o gateway recusaria toda chamada "
+            "com 401 na primeira mensagem de chat."
         )
