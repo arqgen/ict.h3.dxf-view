@@ -115,6 +115,20 @@ backend em `src/api/observability.py`.
 Para desligar, esvazie `COLLECTOR_ENDPOINT` no `.env` — o backend sobe igual, sem
 erro e sem tracing.
 
+## Notebooks (`experiments/`)
+
+Notebooks de EDA e exploração ficam em `experiments/` — ver [`experiments/README.md`](experiments/README.md) para o propósito de cada um. Como os notebooks utilizam pacotes que não fazem parte do backend da aplicação, ficam num dependency-group separado:
+
+```bash
+# Instala os pacotes do grupo
+uv sync --group notebooks
+# Registra o kernel
+uv run python -m ipykernel install --user \
+  --name cad-viewer --display-name "cad-viewer (.venv)"
+```
+
+Abra o `.ipynb` e selecione o kernel `cad-viewer (.venv)`.
+
 ## Rodando em portas alternativas
 
 Para demonstrar este projeto ao lado de outro (evitando conflito de porta),
