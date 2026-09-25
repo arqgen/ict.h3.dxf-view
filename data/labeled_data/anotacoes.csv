@@ -1,0 +1,344 @@
+ambiente,secao,categoria,item,block_name,quantidade,juncao,observacao,linha
+Posto para Anestesia e RPA,,Mobiliário móvel,Lixo Comum,ARQGEN_LIXOCOMUM,14,,,2
+Posto para Anestesia e RPA,,Equipamento,Monitor,M095-21-PBAQ-0001-P-2S-01$0$EQL_MD_monitor lcd - 32_ - com pedestal-4016699-PLANTA LAYOUT 1_ PAVIMENTO,14,,,3
+Posto para Anestesia e RPA,,Equipamento,Tablet,ARQGEN_TABLETMENOR,14,,,4
+Posto para Anestesia e RPA,,Mobiliário fixo,Régua de gases,M095-21-PBAQ-0001-P-2S-01$0$E071a-p,14,,,5
+Posto para Anestesia e RPA,,Mobiliário móvel,Maca,M095-21-PBAQ-0001-P-2S-01$0$E018b-p,14,,,6
+Posto para Anestesia e RPA,,Mobiliário móvel,Mesa lateral,M095-21-PBAQ-0001-P-2S-01$0$MOB 7499C,14,,,7
+Posto para Anestesia e RPA,,Mobiliário móvel,Cadeira de espera,M095-21-PBAQ-0001-P-2S-01$0$CADERIA TANTI - RSDESIGN,14,,,8
+Posto para Anestesia e RPA,,Mobiliário fixo,Bancada do Posto de Anestesia 01,ARQGEN_BANCADA_PANESTESIA,1,,,9
+Posto para Anestesia e RPA,,Equipamento,Computador,M095-21-PBAQ-0001-P-2S-01$0$E054a-p,5,,,10
+Posto para Anestesia e RPA,,Acessório,Chamada Enfermeira,M095-21-PBAQ-0001-P-2S-01$0$Chamada_enfermeira_110_pl,28,,,11
+Posto para Anestesia e RPA,,Mobiliário móvel,Cadeira atendente,M095-21-PBAQ-0001-P-2S-01$0$M019-p,5,,,12
+Posto para Anestesia e RPA,,Acessório,Depósito de sabão líquido,M095-21-PBAQ-0001-P-2S-01$0$S03-p,3,,,13
+Posto para Anestesia e RPA,,Acessório,Depósito de papel toalha,M095-21-PBAQ-0001-P-2S-01$0$S04-p,3,,,14
+Posto para Anestesia e RPA,,Acessório,PO,M095-21-PBAQ-0001-P-2S-01$0$S28-p,1,,,15
+Posto para Anestesia e RPA,,Acessório,Torneira,M095-21-PBAQ-0001-P-2S-01$0$S10-p,1,,,16
+Posto para Anestesia e RPA,,Mobiliário fixo,Lavatório,M095-21-PBAQ-0001-P-2S-01$0$S18-p,1,,,17
+Posto para Anestesia e RPA,,Mobiliário fixo,Bancada do Posto de Anestesia 02,ARQGEN_BANCADA_PANESTESIA02,1,,,18
+Posto para Anestesia e RPA,,Equipamento,Monitor 50'',M095-21-PBAQ-0001-P-2S-01$0$TV 50,1,,,19
+Posto para Anestesia e RPA,,Equipamento,Telefone,M095-21-PBAQ-0001-P-2S-01$0$M091-13_XREF$0$Telefone-p,2,,,20
+Posto para Anestesia e RPA,,Mobiliário fixo,Bancada Curva com Pia,ARQGEN_BANCADAPEDRA01,1,,,21
+Posto para Anestesia e RPA,,Mobiliário fixo,Torneira bica alta,M095-21-PBAQ-0001-P-2S-01$0$1175.C_P,2,,,22
+Posto para Anestesia e RPA,,Equipamento,Frigobar,M095-21-PBAQ-0001-P-2S-01$0$E016b-p,1,,,23
+Posto para Anestesia e RPA,,Mobiliário fixo,Bancada de Apoio 55x185cm,M095-21-PBAQ-0001-P-2S-01$0$MOB 7499C,1,,,24
+Posto para Anestesia e RPA,,Mobiliário fixo,Armário Alto,ARQGEN_ARMALTOANEST,1,,,25
+Posto para Anestesia e RPA,,Mobiliário fixo,Bancada com Pia 55X150cm,ARQGEN_BANCADAPEDRA02,1,,,26
+Posto para Anestesia e RPA,,Equipamento,Filtro de Parede,M095-21-PBAQ-0001-P-2S-01$0$E378-p,1,,,27
+Posto para Anestesia e RPA,,Mobiliário móvel,Biombo,M095-21-PBAQ-0001-P-2S-01$0$biombo,14,ou,,28
+Posto para Anestesia e RPA,,Mobiliário móvel,Biombo,ARQGEN_BIOMBO,14,ou,,28
+Posto para Anestesia e RPA,,Mobiliário móvel,Biombo,ARQGEN_BIOMBO02,14,ou,,28
+Posto para Anestesia e RPA,,Mobiliário móvel,Biombo,ARQGEN_BIOMBO03,14,ou,,28
+Posto para Anestesia e RPA,,Mobiliário móvel,Biombo,ARQGEN_BIOMBO04,14,ou,,28
+Posto para Anestesia e RPA,,Mobiliário móvel,Biombo,ARQGEN_BIOMBO05,14,ou,,28
+Posto para Anestesia e RPA,,Mobiliário móvel,Biombo,ARQGEN_BIOMBO06,14,ou,,28
+Posto para Anestesia e RPA,,Mobiliário móvel,Biombo,ARQGEN_BIOMBO07,14,ou,,28
+Posto para Anestesia e RPA,,Equipamento,Impressora,M095-21-PBAQ-0001-P-2S-01$0$E043-p,1,,,29
+Posto para Anestesia e RPA,,Equipamento,Correio Pneumatico,ARQGEN_CORREIOPNEUMATICO,1,,,30
+Posto para Anestesia e RPA,,Equipamento,Carrinho emergencial,M095-21-PBAQ-0001-P-2S-01$0$carrinho1,1,,,31
+Posto para Anestesia e RPA,,Mobiliário fixo,Rouparia,ARQGEN_ROUPARIA,1,,,32
+Gestão de Enfermagem,,Mobiliário móvel,Cadeira,M095-21-PBAQ-0001-P-2S-01$0$M019-p,2,,,2
+Gestão de Enfermagem,,Mobiliário fixo,Bancada,M095-21-PBAQ-0001-P-2S-01$0$MOB 7499C,2,,,3
+Gestão de Enfermagem,,Equipamento,Computador,M095-21-PBAQ-0001-P-2S-01$0$E054a-p,2,,,4
+Gestão de Enfermagem,,Equipamento,Telefone,M095-21-PBAQ-0001-P-2S-01$0$M091-13_XREF$0$Telefone-p,2,,,5
+Gestão de Enfermagem,,Mobiliário fixo,Armário,M095-21-PBAQ-0001-P-2S-01$0$ARMÁRIO 7503C,1,,,6
+Apoio Enfermagem,,Mobiliário móvel,Cadeira,M095-21-PBAQ-0001-P-2S-01$0$M019-p,5,,,2
+Apoio Enfermagem,,Mobiliário fixo,Bancada,M095-21-PBAQ-0001-P-2S-01$0$MOB 7499C,2,,,3
+Apoio Enfermagem,,Equipamento,Computador,M095-21-PBAQ-0001-P-2S-01$0$E054a-p,5,,,4
+Apoio Enfermagem,,Equipamento,Telefone,M095-21-PBAQ-0001-P-2S-01$0$M091-13_XREF$0$Telefone-p,4,,,5
+Apoio Enfermagem,,Mobiliário fixo,Arnário,M095-21-PBAQ-0001-P-2S-01$0$ARMÁRIO 7503C,1,,,6
+Apoio Enfermagem,,Equipamento,Impressora,M095-21-PBAQ-0001-P-2S-01$0$E043-p,2,,,7
+"Sanitário PCD 1,2,3,4,5,6,7 e 8",,Mobiliário fixo,Vaso sanitário PCD,M095-21-PBAQ-0001-P-2S-01$0$S23-p,1,,,2
+"Sanitário PCD 1,2,3,4,5,6,7 e 8",,Acessório PCD,Barra horizontal lateral de apoio ao vaso,M095-21-PBAQ-0001-P-2S-01$0$E288-B80-p,2,,,3
+"Sanitário PCD 1,2,3,4,5,6,7 e 8",,Acessório PCD,Barra de apoio pia,M095-21-PBAQ-0001-P-2S-01$0$E288-BL-p,2,,,4
+"Sanitário PCD 1,2,3,4,5,6,7 e 8",,Mobiliário fixo,Espelho,M095-21-PBAQ-0001-P-2S-01$0$S02-p,1,,,5
+"Sanitário PCD 1,2,3,4,5,6,7 e 8",,Acessório PCD,Barra vertical de apoio ao vaso,M095-21-PBAQ-0001-P-2S-01$0$E288-B-p,1,,,6
+"Sanitário PCD 1,2,3,4,5,6,7 e 8",,Acessório,Depósito de papel higiênico,M095-21-PBAQ-0001-P-2S-01$0$S05-p,1,,,7
+"Sanitário PCD 1,2,3,4,5,6,7 e 8",,Acessório,Depósito de sabão líquido,M095-21-PBAQ-0001-P-2S-01$0$S03-p,1,,,8
+"Sanitário PCD 1,2,3,4,5,6,7 e 8",,Acessório,Depósito de papel toalha,M095-21-PBAQ-0001-P-2S-01$0$S04-p,1,,,9
+"Sanitário PCD 1,2,3,4,5,6,7 e 8",,Mobiliário fixo,Registro,M095-21-PBAQ-0001-P-2S-01$0$S15-p,2,,No PCD 05 temos 2 Registros,10
+"Sanitário PCD 1,2,3,4,5,6,7 e 8",,Mobiliário fixo,Ralo,M095-21-PBAQ-0001-P-2S-01$0$S06-p,1,,,11
+"Sanitário PCD 1,2,3,4,5,6,7 e 8",,Mobiliário fixo,Caixa de descargue embutida??,M095-21-PBAQ-0001-P-2S-01$0$S25-p,1,,Ver com o pessoal se seria isso mesmo,12
+"Sanitário PCD 1,2,3,4,5,6,7 e 8",,Mobiliário fixo,Lavatório,M095-21-PBAQ-0001-P-2S-01$0$S18-p,1,,,13
+"Sanitário PCD 1,2,3,4,5,6,7 e 8",,Acessório,Toalheiro,M095-21-PBAQ-0001-P-2S-01$0$S08-p,1,,,14
+"Sanitário PCD 1,2,3,4,5,6,7 e 8",,Acessório,Torneira,M095-21-PBAQ-0001-P-2S-01$0$S10-p,1,,,15
+"Sanitário PCD 1,2,3,4,5,6,7 e 8",,Mobiliário fixo,Chamada Enfermeira,M095-21-PBAQ-0001-P-2S-01$0$Chamada_enfermeira_110_pl,1,,,16
+"Sanitário PCD 1,2,3,4,5,6,7 e 8",,Acessório,PO,M095-21-PBAQ-0001-P-2S-01$0$S28-p,1,,,17
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Mobiliário fixo,Vaso sanitário PCD,M095-21-PBAQ-0001-P-2S-01$0$S23-p,1,,,2
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Acessório PCD,Barra horizontal lateral de apoio ao vaso,M095-21-PBAQ-0001-P-2S-01$0$E288-B80-p,2,,,3
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Acessório PCD,Barra vertical de apoio - vaso,M095-21-PBAQ-0001-P-2S-01$0$E288-B-p,2,,No banho 09 essa barra está distante e serve mais como um apoio - chuveiro.,4
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Acessório PCD,Barra de apoio pia,M095-21-PBAQ-0001-P-2S-01$0$E288-BL-p,2,,,5
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Acessório PCD,Barra vertical de apoio - chuveiro,M095-21-PBAQ-0001-P-2S-01$0$MCH_p,1,ou,No banho 08 e 09 não temos essas barras,6
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Acessório PCD,Barra vertical de apoio - chuveiro,M095-21-PBAQ-0001-P-2S-01$0$E288-B-p,1,ou,No banho 08 e 09 não temos essas barras,6
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Acessório PCD,Barra horizontal lateral de apoio - chuveiro,M095-21-PBAQ-0001-P-2S-01$0$E288-BLL-p,1,,No banho 08 não temos essas barras,7
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Mobiliário fixo,Espelho,M095-21-PBAQ-0001-P-2S-01$0$S02-p,1,,,8
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Acessório,Depósito de papel higiênico,M095-21-PBAQ-0001-P-2S-01$0$S05-p,1,,,9
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Acessório,Depósito de sabão líquido,M095-21-PBAQ-0001-P-2S-01$0$S03-p,2,,,10
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Acessório,Depósito de papel toalha,M095-21-PBAQ-0001-P-2S-01$0$S04-p,1,,,11
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Mobiliário fixo,Registro,M095-21-PBAQ-0001-P-2S-01$0$S15-p,1,,,12
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Mobiliário fixo,Ralo,M095-21-PBAQ-0001-P-2S-01$0$S06-p,1,,,13
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Mobiliário fixo,Caixa de descargue embutida??,M095-21-PBAQ-0001-P-2S-01$0$S25-p,1,,Ver com o pessoal se seria isso mesmo,14
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Mobiliário fixo,Lavatório,M095-21-PBAQ-0001-P-2S-01$0$S18-p,1,,,15
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Acessório,Toalheiro,M095-21-PBAQ-0001-P-2S-01$0$S08-p,1,,,16
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Acessório,Torneira,M095-21-PBAQ-0001-P-2S-01$0$S10-p,1,,,17
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Mobiliário fixo,Chamada Enfermeira,M095-21-PBAQ-0001-P-2S-01$0$Chamada_enfermeira_110_pl,1,,,18
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Acessório,PO,M095-21-PBAQ-0001-P-2S-01$0$S28-p,1,,,19
+"Banho PCD 1,2,3,4,5,6,7,8,9",,Mobiliário fixo,Chuveiro,M095-21-PBAQ-0001-P-2S-01$0$0025R060,1,,,20
+Utilidades 02,,Mobiliário fixo,Bancada,ARQGEN_BANCADAUTILIDADES,1,,,2
+Utilidades 02,,Equipamento,Expurgo,M095-21-PBAQ-0001-P-2S-01$0$S26-p,1,,,3
+Utilidades 02,,Equipamento,Torneira de parede - Utilidades,M095-21-PBAQ-0001-P-2S-01$0$S11-p,1,,,4
+Utilidades 02,,Acessório,Depósito de sabão líquido,M095-21-PBAQ-0001-P-2S-01$0$S03-p,1,,,5
+Utilidades 02,,Acessório,Depósito de papel toalha,M095-21-PBAQ-0001-P-2S-01$0$S04-p,1,,,6
+Utilidades 02,,Mobiliário fixo,Registro,M095-21-PBAQ-0001-P-2S-01$0$S15-p,1,,,7
+Utilidades 02,,Mobiliário fixo,Ducha Higiênica,M095-21-PBAQ-0001-P-2S-01$0$S14-p,1,,,8
+Utilidades 02,,Mobiliário fixo,Caixa de Inspeção??,M095-21-PBAQ-0001-P-2S-01$0$S25-p,1,,Ver com o pessoal se é isso mesmo,9
+Utilidades 02,,Mobiliário fixo,Ralo,M095-21-PBAQ-0001-P-2S-01$0$S06-p,1,,,10
+Área Técnica,,Mobiliário fixo,Ralo,M095-21-PBAQ-0001-P-2S-01$0$S06-p,1,,,2
+DML 02,,Mobiliário fixo,Amário,M095-21-PBAQ-0001-P-2S-01$0$A60x43-p,1,,,2
+DML 02,,Mobiliário fixo,Ralo,M095-21-PBAQ-0001-P-2S-01$0$S06-p,1,,,3
+DML 02,,Mobiliário fixo,Pia,M095-21-PBAQ-0001-P-2S-01$0$S22-p,1,,,4
+DML 02,,Mobiliário fixo,Torneira,M095-21-PBAQ-0001-P-2S-01$0$S13-p,1,,,5
+Salas de Exame da 1 a 10,,Mobiliário fixo,Armário alto (tem variações para se adaptar aos ambientes),ARQGEN_ARMALT,1,ou,Precisei criar blocos diferentes devido a variação das dimensões de salas. Na sala de exame 10 existes dois armários altos devido ao dente que existe na planta,2
+Salas de Exame da 1 a 10,,Mobiliário fixo,Armário alto (tem variações para se adaptar aos ambientes),ARQGEN_ARMALTO55X90,1,ou,Precisei criar blocos diferentes devido a variação das dimensões de salas. Na sala de exame 10 existes dois armários altos devido ao dente que existe na planta,2
+Salas de Exame da 1 a 10,,Mobiliário fixo,Armário alto (tem variações para se adaptar aos ambientes),ARQGEN_332X35,1,ou,Precisei criar blocos diferentes devido a variação das dimensões de salas. Na sala de exame 10 existes dois armários altos devido ao dente que existe na planta,2
+Salas de Exame da 1 a 10,,Mobiliário fixo,Armário alto (tem variações para se adaptar aos ambientes),ARQGEN_ARMALTO35X100,1,ou,Precisei criar blocos diferentes devido a variação das dimensões de salas. Na sala de exame 10 existes dois armários altos devido ao dente que existe na planta,2
+Salas de Exame da 1 a 10,,Mobiliário fixo,Armário alto (tem variações para se adaptar aos ambientes),ARQGEN_ARMALT388X35,1,ou,Precisei criar blocos diferentes devido a variação das dimensões de salas. Na sala de exame 10 existes dois armários altos devido ao dente que existe na planta,2
+Salas de Exame da 1 a 10,,Mobiliário fixo,Armário alto (tem variações para se adaptar aos ambientes),ARQGEN_ARMALT440X35,1,ou,Precisei criar blocos diferentes devido a variação das dimensões de salas. Na sala de exame 10 existes dois armários altos devido ao dente que existe na planta,2
+Salas de Exame da 1 a 10,,Mobiliário fixo,Armário alto (tem variações para se adaptar aos ambientes),ARQGEN_ARMALT382X35,1,ou,Precisei criar blocos diferentes devido a variação das dimensões de salas. Na sala de exame 10 existes dois armários altos devido ao dente que existe na planta,2
+Salas de Exame da 1 a 10,,Mobiliário fixo,Bancada de apoio (tem variações para se adaptar aos ambientes),M095-21-PBAQ-0001-P-2S-01$0$MOB 7499C,2,,,3
+Salas de Exame da 1 a 10,,Mobiliário,Hamper (coletor de roupas/tecidos),ARQGEN_HAMPER,1,,,4
+Salas de Exame da 1 a 10,,Mobiliário,Mesa auxiliar inox pequena (Flow),ARQGEN_MESAAUX,1,,,5
+Salas de Exame da 1 a 10,,Equipamento,Impressora,ARQGEN_IMPRESSORA,1,,,6
+Salas de Exame da 1 a 10,,Equipamento,Tablet,ARQGEN_TABLET,1,,,7
+Salas de Exame da 1 a 10,,Equipamento,Bisturi (normal/argônio),ARQGEN_BISTURI,1,,,8
+Salas de Exame da 1 a 10,,Mobiliário móvel,Carrinho de farmácia,ARQGEN_CARFARM,1,,,9
+Salas de Exame da 1 a 10,,Mobiliário/Resíduos,Lixo comum/Lixo reciclável/Descarte de materiais,ARQGEN_LIXOS,1,,,10
+Salas de Exame da 1 a 10,,Mobiliário/Resíduos,Lixo infectante,ARQGEN_LIXOINFEC,1,,,11
+Salas de Exame da 1 a 10,,Equipamento,Monitor multiparametro,ARQGEN_MONITORM,1,,,12
+Salas de Exame da 1 a 10,,Equipamento,Monitor,M095-21-PBAQ-0001-P-2S-01$0$EQL_MD_monitor lcd - 32_ - com pedestal-4016699-PLANTA LAYOUT 1_ PAVIMENTO,2,,,13
+Salas de Exame da 1 a 10,,Equipamento,Carro de anestesia,ARQGEN_CARANESTESIA,1,,,14
+Salas de Exame da 1 a 10,,Equipamento,PC volante (anestesia) 50X50cm,ARQGEN_VOLANESTC,1,,,15
+Salas de Exame da 1 a 10,,Equipamento,PC volante (anestesia) 40x40cm,ARQGEN_VOLANESTQ,1,,,16
+Salas de Exame da 1 a 10,,Mobiliário móvel,"Trolley (altura de 1,10 m)",ARQGEN_TROLLEY,1,,,17
+Salas de Exame da 1 a 10,,Mobiliário fixo,Chamada Enfermeira,M095-21-PBAQ-0001-P-2S-01$0$Chamada_enfermeira_110_pl,1,,,18
+Salas de Exame da 1 a 10,,Mobiliário fixo,Bancada de apoio com pia em pedra,ARQGEN_BANCADAPEDRA03,1,,,19
+Salas de Exame da 1 a 10,,Mobiliário móvel,Cadeira,M095-21-PBAQ-0001-P-2S-01$0$E010-18-BS-MOBILIARIO$0$Furniture-Stool-Midmark-Midmark_425-Stool - Air Lift Physician Stool-4317490-PLANTA LAYOUT 1_ PAVIMENTO,1,,,20
+Salas de Exame da 1 a 10,,Mobiliário móvel,Maca,M095-21-PBAQ-0001-P-2S-01$0$E018b-p,1,,,21
+Salas de Exame da 1 a 10,,Mobiliário fixo,Régua de gases,M095-21-PBAQ-0001-P-2S-01$0$E071a-p,1,,,22
+Salas de Exame da 1 a 10,,Mobiliário móvel,Telefone,M095-21-PBAQ-0001-P-2S-01$0$M091-13_XREF$0$Telefone-p,1,,,23
+Salas de Exame da 1 a 10,,Acessório,Depósito de sabão líquido,M095-21-PBAQ-0001-P-2S-01$0$S03-p,1,,,24
+Salas de Exame da 1 a 10,,Acessório,Depósito de papel toalha,M095-21-PBAQ-0001-P-2S-01$0$S04-p,1,,,25
+Salas de Exame da 1 a 10,,Mobiliário fixo,Torneira com Sensor,M095-21-PBAQ-0001-P-2S-01$0$SAN-TORNEIRA COM SENSOR DE MESA COM BICA ALTA,1,,,26
+Salas de Exame da 1 a 10,Considerações,Equipamento,Arco Cirurgico,ARQGEN_ARCOCIR,1,,"Não tem em todos os ambientes, só no caso dos de proteção radiológica",30
+Salas de Exame da 1 a 10,Considerações,,Armário Alto 55x90cm,ARQGEN_ARMALTO55X90,,,,58
+Vestiário,,Mobiliário fixo,Armário,M095-21-PBAQ-0001-P-2S-01$0$NK 1302,25,,,2
+Copa,,Mobiliário fixo,Bancada de apoio,ARQGEN_BANCADAAPOIO,1,,,2
+Copa,,Mobiliário fixo,Bancada em pedra com pia,ARQGEN_BANCADAPEDRA04,1,,,3
+Copa,,Acessório,Torneira,M095-21-PBAQ-0001-P-2S-01$0$S11-p,1,,,4
+Copa,,Acessório,Depósito de sabão líquido,M095-21-PBAQ-0001-P-2S-01$0$S03-p,2,,,5
+Copa,,Acessório,Depósito de papel toalha,M095-21-PBAQ-0001-P-2S-01$0$S04-p,2,,,6
+Copa,,Mobiliário fixo,Registro,M095-21-PBAQ-0001-P-2S-01$0$S15-p,1,,,7
+Copa,,Equipamento,Microondas,M095-21-PBAQ-0001-P-2S-01$0$E383-p,1,,,8
+Copa,,Equipamento,Filtro de Parede,M095-21-PBAQ-0001-P-2S-01$0$E378-p,1,,,9
+Copa,,Equipamento,Geladeira,M095-21-PBAQ-0001-P-2S-01$0$BRX49BX,1,,,10
+Copa,,Mobiliário fixo,Ralo,M095-21-PBAQ-0001-P-2S-01$0$S06-p,1,,,11
+Copa,,Mobiliário fixo,Lavatório,M095-21-PBAQ-0001-P-2S-01$0$S18-p,1,,,12
+Copa,,Acessório,Torneira,M095-21-PBAQ-0001-P-2S-01$0$S10-p,1,,,13
+Copa,,Acessório,PO,M095-21-PBAQ-0001-P-2S-01$0$S28-p,1,,,14
+Copa,,Equipamento,Monitor Dashboard,M095-21-PBAQ-0001-P-2S-01$0$TV 50,1,,,15
+Copa,,Equipamento,TV,M095-21-PBAQ-0001-P-2S-01$0$plasma 32,1,,,16
+Copa,,Mobiliário móvel,Cadeiras,M095-21-PBAQ-0001-P-2S-01$0$FRISOKAR_-_NEO,7,,,17
+Copa,,Mobiliário fixo,Bancada,ARQGEN_BANCADACOPA,1,,,18
+Copa,,,Armário Alto 55x90cm,ARQGEN_ARMALTO55X90,,,,45
+Café,,Mobiliário móvel,Poltrona,M095-21-PBAQ-0001-P-2S-01$0$A$C4D354738,3,,,2
+Café,,Mobiliário móvel,Mesa de apoio,ARQGEN_MESADEAPOIO01,2,e,Uma unidade cada,3
+Café,,Mobiliário móvel,Mesa de apoio,ARQGEN_MESADEAPOIO02,2,e,Uma unidade cada,3
+Café,,Mobiliário fixo,Sofa - Canto Alemão,M095-21-PBAQ-0001-P-2S-01$0$A$Cab0cf17f,1,,,4
+Café,,Mobiliário móvel,Cadeira,M095-21-PBAQ-0001-P-2S-01$0$Max_Brc_4Pes,6,,,5
+Café,,Mobiliário móvel,Mesa,M095-21-PBAQ-0001-P-2S-01$0$MOB-16,6,,,6
+Café,,Mobiliário fixo,Bancada,ARQGEN_BANCADACAFE,1,,,7
+Café,,Mobiliário fixo,Bancada em pedra com pia,ARQGEN_BANCADAPEDRA05,1,,,8
+Café,,Mobiliário fixo,Bancada de apoio,ARQGEN_BANCADAAPOIOCAF,1,,,9
+Café,,Acessório,Torneira,M095-21-PBAQ-0001-P-2S-01$0$S11-p,1,,,10
+Café,,Equipamento,Filtro de parede,M095-21-PBAQ-0001-P-2S-01$0$E378-p,1,,,11
+Café,,Acessório,Depósito de sabão líquido,M095-21-PBAQ-0001-P-2S-01$0$S03-p,1,,,12
+Café,,Acessório,Depósito de papel toalha,M095-21-PBAQ-0001-P-2S-01$0$S04-p,1,,,13
+Café,,Mobiliário fixo,Registro,M095-21-PBAQ-0001-P-2S-01$0$S15-p,1,,,14
+Café,,Equipamento,Microondas,M095-21-PBAQ-0001-P-2S-01$0$E383-p,2,,,15
+Café,,Equipamento,Geladeira,M095-21-PBAQ-0001-P-2S-01$0$BRX49BX,1,,,16
+Café,,Mobiliário fixo,Armário Alto,ARQGEN_ARMALTO430X35,1,,,17
+Café,,,Armário Alto 55x90cm,ARQGEN_ARMALTO55X90,,,,44
+Sala Leiliane,,Mobiliário fixo,Bancada,M095-21-PBAQ-0001-P-2S-01$0$MOB 7499C,2,,,2
+Sala Leiliane,,Equipamento,Impressora,M095-21-PBAQ-0001-P-2S-01$0$E043-p,1,,,3
+Sala Leiliane,,Equipamento,Computador,M095-21-PBAQ-0001-P-2S-01$0$E054a-p,2,,,4
+Sala Leiliane,,Mobiliário móvel,Cadeira,M095-21-PBAQ-0001-P-2S-01$0$M019-p,2,,,5
+Sala Leiliane,,,Armário Alto 55x90cm,ARQGEN_ARMALTO55X90,,,,33
+Sala Maris,,Equipamento,Monitor Dashboard,M095-21-PBAQ-0001-P-2S-01$0$TV 50,1,,,2
+Sala Maris,,Mobiliário fixo,Bancada,M095-21-PBAQ-0001-P-2S-01$0$MOB 7499C,2,,,3
+Sala Maris,,Equipamento,Computador,M095-21-PBAQ-0001-P-2S-01$0$E054a-p,1,,,4
+Sala Maris,,Mobiliário móvel,Cadeira,M095-21-PBAQ-0001-P-2S-01$0$M019-p,1,,,5
+Sala Maris,,Mobiliário móvel,Cadeira de espera,M095-21-PBAQ-0001-P-2S-01$0$Cadeira_Espera_01,1,,,6
+Sala Maris,,,Armário Alto 55x90cm,ARQGEN_ARMALTO55X90,,,,34
+Biblioteca,,Mobiliário fixo,Bancada atendimento,ARQGEN_BANCADAATEND01,2,e,Um de cada,2
+Biblioteca,,Mobiliário fixo,Bancada atendimento,ARQGEN_BANCADAATEND01,2,e,Um de cada,2
+Biblioteca,,Mobiliário fixo,Bancada em pedra com pia,ARQGEN_BANCADAPEDRA06,1,,,3
+Biblioteca,,Mobiliário fixo,Bancada de apoio mini copa,M095-21-PBAQ-0001-P-2S-01$0$MOB 7499C,1,,,4
+Biblioteca,,Mobiliário fixo,Armário mini copa,ARQGEN_ARMARIOTQ,1,,,5
+Biblioteca,,Equipamento,Frigobar,M095-21-PBAQ-0001-P-2S-01$0$E016b-p,1,,,6
+Biblioteca,,Acessório,Torneira,M095-21-PBAQ-0001-P-2S-01$0$S11-p,1,,,7
+Biblioteca,,Acessório,Depósito de sabão líquido,M095-21-PBAQ-0001-P-2S-01$0$S03-p,1,,,8
+Biblioteca,,Acessório,Depósito de papel toalha,M095-21-PBAQ-0001-P-2S-01$0$S04-p,1,,,9
+Biblioteca,,Acessório,Registro,M095-21-PBAQ-0001-P-2S-01$0$S15-p,1,,,10
+Biblioteca,,Mobiliário fixo,Armário alto mini copa,M095-21-PBAQ-0001-P-2S-01$0$ARMÁRIO 7503C,1,,,11
+Biblioteca,,Mobiliário móvel,Armário locker,M095-21-PBAQ-0001-P-2S-01$0$NK 1302,14,,,12
+Biblioteca,,Mobiliário fixo,Bancada - estudo/trabalho,M095-21-PBAQ-0001-P-2S-01$0$MOB 7499C,8,,,13
+Biblioteca,,Mobiliário móvel,Cadeiras simples - estudo,M095-21-PBAQ-0001-P-2S-01$0$M019-p,27,,,14
+Biblioteca,,Mobiliário móvel,Poltrona tipo 01,ARQGEN_POLTRONABIB,4,,,15
+Biblioteca,,Mobiliário móvel,Mesas de apoio -  central,ARQGEN_MESAAPOIOBIB01,1,,,16
+Biblioteca,,Mobiliário móvel,Mesas de apoio -  lateral,ARQGEN_MESAAPOIOBIB02,2,,,17
+Biblioteca,,Mobiliário móvel,Armário,M095-21-PBAQ-0001-P-2S-01$0$ARMÁRIO 7503C,1,,,18
+Biblioteca,,Mobiliário móvel,Vaso de plantas,M095-21-PBAQ-0001-P-2S-01$0$arv-12,1,,,19
+Biblioteca,,Mobiliário móvel,Poltrona tipo 02,M095-21-PBAQ-0001-P-2S-01$0$FRISOKAR_-_NEO,8,,,20
+Biblioteca,,Mobiliário móvel,Mesa redonda menor,ARQGEN_MESAREDONDA,1,,,21
+Biblioteca,,Mobiliário móvel,Totem,M095-21-PBAQ-0001-P-2S-01$0$totem_p,1,,,22
+Biblioteca,,Mobiliário móvel,Mesa redonda maior,ARQGEN_MESAREDONDA02,1,,,23
+Biblioteca,,Equipamento,Notebook,M095-21-PBAQ-0001-P-2S-01$0$Notebook,6,,,24
+Biblioteca,,Equipamento,Impressora,M095-21-PBAQ-0001-P-2S-01$0$Impressora planta,1,,,25
+Biblioteca,,Equipamento,Computador,M095-21-PBAQ-0001-P-2S-01$0$E054a-p,15,,,26
+Biblioteca,,Mobiliário móvel,Telefone,M095-21-PBAQ-0001-P-2S-01$0$M091-13_XREF$0$Telefone-p,12,,,27
+Biblioteca,,Mobiliário fixo,Painel de correr mini copa,ARQGEN_MARCORRERMCOPA,1,,,28
+Biblioteca,Acervo de revistas prateleiras,Equipamento,Arquivo-volante,M095-21-PBAQ-0001-P-2S-01$0$A$C4EC82884,1,,,31
+Biblioteca,Acervo de revistas prateleiras,Mobiliário fixo,Armário,M095-21-PBAQ-0001-P-2S-01$0$ARMÁRIO 7503C,1,,,32
+Diretoria,,Mobiliário móvel,Armário baixo café,M095-21-PBAQ-0001-P-2S-01$0$MOB 7499C,1,,,2
+Diretoria,,Mobiliário móvel,Cadeiras,M095-21-PBAQ-0001-P-2S-01$0$M019-p,3,,,3
+Diretoria,,Mobiliário móvel,Bancada Diretoria,ARQGEN_BANCADADIR,1,,,4
+Diretoria,,Equipamento,Computador,M095-21-PBAQ-0001-P-2S-01$0$E054a-p,1,,,5
+Diretoria,,Equipamento,Telefone,M095-21-PBAQ-0001-P-2S-01$0$M091-13_XREF$0$Telefone-p,1,,,6
+Atendimento,,Mobiliário móvel,Poltrona tipo 01,M095-21-PBAQ-0001-P-2S-01$0$Grand Repos,2,,,2
+Atendimento,,Mobiliário móvel,Mesa de apoio,ARQGEN_MESAAPOIOAT,3,,,3
+Atendimento,,Mobiliário móvel,Poltrona tipo 02,M095-21-PBAQ-0001-P-2S-01$0$A$C4D354738,6,,,4
+Atendimento,,Mobiliário móvel,Vaso de plantas,M095-21-PBAQ-0001-P-2S-01$0$arv-12,1,,,5
+Atendimento,,Equipamento,Totem,M095-21-PBAQ-0001-P-2S-01$0$totem_p,2,,,6
+Atendimento,,Mobiliário móvel,Bancada atendimento,ARQGEN_BANCADATEN,4,,,7
+Atendimento,,Equipamento,Computador,M095-21-PBAQ-0001-P-2S-01$0$E054a-p,4,,,8
+Atendimento,,Mobiliário móvel,Cadeira atendimento,M095-21-PBAQ-0001-P-2S-01$0$72VIBO2D__000000,4,,,9
+Atendimento,,Mobiliário móvel,Cadeira atendente,M095-21-PBAQ-0001-P-2S-01$0$M019-p,4,,,10
+Atendimento,,Mobiliário fixo,Bancada de apoio - Atendimento,ARQGEN_BANCADAAPOIOATEN,1,,,11
+Atendimento,,Equipamento,Monitor Senhas,M095-21-PBAQ-0001-P-2S-01$0$TV 50,1,,,12
+Atendimento,,Equipamento,Impressora,M095-21-PBAQ-0001-P-2S-01$0$E043-p,2,,,13
+Atendimento,,Mobiliário fixo,Armário,M095-21-PBAQ-0001-P-2S-01$0$ARMÁRIO 7503C,1,,,14
+Sala de Neurociência,,Mobiliário móvel,Bancada,ARQGEN_BANCADANEURO,1,,,2
+Sala de Neurociência,,Mobiliário móvel,Gaveteiro,ARQGEN_GAVETEIRO,1,,,3
+Sala de Neurociência,,Mobiliário móvel,Maca??,M095-21-PBAQ-0001-P-2S-01$0$A$Cda2cae31,1,,"Pode ser um outro item, confirma com o pessoal da clínica",4
+Sala de Neurociência,,Acessório,Depósito de papel toalha,M095-21-PBAQ-0001-P-2S-01$0$S04-p,1,,,5
+Sala de Neurociência,,Acessório,PO,M095-21-PBAQ-0001-P-2S-01$0$S28-p,1,,,6
+Sala de Neurociência,,Mobiliário fixo,Régua de gases,M095-21-PBAQ-0001-P-2S-01$0$E071a-p,1,,,7
+Sala de Neurociência,,Mobiliário móvel,Cadeira,M095-21-PBAQ-0001-P-2S-01$0$M019-p,3,,,8
+Sala de Neurociência,,Equipamento,Notebook,M095-21-PBAQ-0001-P-2S-01$0$Notebook,1,,,9
+Sala de Neurociência,,Mobiliário fixo,TV/Monitor,M095-21-PBAQ-0001-P-2S-01$0$plasma 32,1,,,10
+Resíduos 01 e 02,,Acessório,Torneira,M095-21-PBAQ-0001-P-2S-01$0$0025R060,2,,,2
+Resíduos 01 e 02,,Mobiliário fixo,Pia,M095-21-PBAQ-0001-P-2S-01$0$S22-p,1,,,3
+Resíduos 01 e 02,,Mobiliário fixo,Registro,M095-21-PBAQ-0001-P-2S-01$0$S15-p,1,,,4
+Resíduos 01 e 02,,Mobiliário fixo,Ralo,M095-21-PBAQ-0001-P-2S-01$0$S06-p,1,,,5
+Expurgo 01,,Mobiliário fixo,Bancada com seis pias,ARQGEN_BANCADACOMPIAEXPURGO,1,,,2
+Expurgo 01,,Acessório,Torneira bica alta,M095-21-PBAQ-0001-P-2S-01$0$S11-p,6,,,3
+Expurgo 01,,Acessório,Torneira bica baixa,M095-21-PBAQ-0001-P-2S-01$0$S10-p,1,,,4
+Expurgo 01,,Acessório,Ducha higiênica,M095-21-PBAQ-0001-P-2S-01$0$S14-p,6,,,5
+Expurgo 01,,Mobiliário fixo,Pia,M095-21-PBAQ-0001-P-2S-01$0$S18-p,1,,,6
+Expurgo 01,,Mobiliário fixo,Registro,M095-21-PBAQ-0001-P-2S-01$0$S15-p,1,,,7
+Expurgo 01,,Acessório,Depósito de sabão líquido,M095-21-PBAQ-0001-P-2S-01$0$S03-p,3,,,8
+Expurgo 01,,Acessório,Depósito de papel toalha,M095-21-PBAQ-0001-P-2S-01$0$S04-p,3,,,9
+Expurgo 01,,Mobiliário fixo,Ralo,M095-21-PBAQ-0001-P-2S-01$0$S06-p,1,,,10
+Expurgo 01,,Mobiliário móvel,Lixo,M095-21-PBAQ-0001-P-2S-01$0$E010-18-BS-MOBILIARIO$0$MO_Lixeira Quadrada 30L - MO_Lixeira Quadrada 30L-V253-PLANTA LAYOUT 1_ PAVIMENTO,2,,,11
+Expurgo 01,,Mobiliário móvel,Armário de inox,M095-21-PBAQ-0001-P-2S-01$0$ARMÁRIO 7503C,1,,,12
+Antecâmera,,Acessório,Torneira,M095-21-PBAQ-0001-P-2S-01$0$S11-p,1,,,2
+Antecâmera,,Acessório,Depósito de sabão líquido,M095-21-PBAQ-0001-P-2S-01$0$S03-p,1,,,3
+Antecâmera,,Acessório,Depósito de papel toalha,M095-21-PBAQ-0001-P-2S-01$0$S04-p,1,,,4
+Antecâmera,,Mobiliário fixo,Pia,M095-21-PBAQ-0001-P-2S-01$0$S18-p,1,,,5
+Antecâmera,,Mobiliário fixo,Ralo,M095-21-PBAQ-0001-P-2S-01$0$S06-p,1,,,6
+Antecâmera,,Mobiliário móvel,Lixo,M095-21-PBAQ-0001-P-2S-01$0$E010-18-BS-MOBILIARIO$0$MO_Lixeira Quadrada 30L - MO_Lixeira Quadrada 30L-V253-PLANTA LAYOUT 1_ PAVIMENTO,2,,,7
+Antecâmera,,,Nichos,ARQGEN_NICHOSANTE,1,,Achei meio estranha a posição desses nichos,8
+Antecâmera,,Acessório,Bancada,ARQGEN_BANCADAANTE,1,,,9
+Lavagem,,Mobiliário fixo,Bancada seladora com caixas de inox desativadoras do saneantes na parte de baixo,M095-21-PBAQ-0001-P-2S-01$0$MOB 7499C,1,,,2
+Lavagem,,Mobiliário fixo,Armário alto 170X35,ARQGEN_ARMALTOLAV01,1,,,3
+Lavagem,,Mobiliário móvel,Lixo Reciclável,ARQGEN_LIXORECI,1,,,4
+Lavagem,,Mobiliário fixo,Armário alto 157X35,ARQGEN_ARMALTOLAV02,1,,,5
+Lavagem,,Mobiliário fixo,Bancada seladora com pia e caixas de inox desativadoras do saneantes na parte de baixo,ARQGEN_BANCADALAV,1,,,6
+Lavagem,,Acessório,Lava olhos,M095-21-PBAQ-0001-P-2S-01$0$TM-EQP_Lava Olhos de Piso - Lava Olhos de Piso-V99-00º and - 02 LAY BASE PROJETISTA -ÁREA 1,1,,,7
+Lavagem,,Mobiliário fixo,Armário inox,--,1,,Bloco faltando no arquivo dwg. Checar com o pessoal para ver se de fato existe.,8
+Lavagem,,Mobiliário fixo,Ralo,M095-21-PBAQ-0001-P-2S-01$0$S06-p,1,,,9
+Lavagem,,Equipamento,Lavadora,ARQGEN_ARMALTOLAV01,8,,,10
+Lavagem,,Acessório,Torneira,M095-21-PBAQ-0001-P-2S-01$0$S11-p,1,,,11
+Lavagem,,Acessório,Depósito de sabão líquido,M095-21-PBAQ-0001-P-2S-01$0$S03-p,1,,,12
+Lavagem,,Acessório,Depósito de papel toalha,M095-21-PBAQ-0001-P-2S-01$0$S04-p,1,,,13
+Guarda equipamentos,,Mobiliário fixo,Instalação de ar comprimido,ARQGEN_INSTALAR,1,,,2
+Guarda equipamentos,,Mobiliário fixo,Armário existente,ARQGEN_ARMEQUIP,3,,,3
+Guarda equipamentos,,Mobiliário móvel,Armário novo,ARQGEN_ARMNOVOGE,1,,,4
+Expurgo,,Mobiliário fixo,Bancada com pia,ARQGEN_BANCADAEXP,1,,,2
+Expurgo,,Equipamento,Expurgo,M095-21-PBAQ-0001-P-2S-01$0$S26-p,1,,,3
+Expurgo,,Equipamento,Torneira de parede,M095-21-PBAQ-0001-P-2S-01$0$S11-p,1,,,4
+Expurgo,,Acessório,Depósito de sabão líquido,M095-21-PBAQ-0001-P-2S-01$0$S03-p,1,,,5
+Expurgo,,Acessório,Depósito de papel toalha,M095-21-PBAQ-0001-P-2S-01$0$S04-p,1,,,6
+Expurgo,,Mobiliário fixo,Registro,M095-21-PBAQ-0001-P-2S-01$0$S15-p,1,,,7
+Expurgo,,Mobiliário fixo,Ducha Higiênica,M095-21-PBAQ-0001-P-2S-01$0$S14-p,1,,,8
+Expurgo,,Mobiliário fixo,Caixa de Inspeção??,M095-21-PBAQ-0001-P-2S-01$0$S25-p,1,,Ver com o pessoal se seria esse o nome,9
+Expurgo,,Mobiliário fixo,Ralo,M095-21-PBAQ-0001-P-2S-01$0$S06-p,1,,,10
+Arsenal,,Mobiliário fixo,Bancada,M095-21-PBAQ-0001-P-2S-01$0$MOB 7499C,2,,,2
+Arsenal,,Mobiliário móvel,Armário,ARQGEN_ARMARSENAL,6,ou,,3
+Arsenal,,Mobiliário móvel,Armário,ARQGEN_ARMARSENAL02,6,ou,,3
+Arsenal,,Mobiliário móvel,Armário,ARQGEN_ARMARSENAL03,6,ou,,3
+Arsenal,,Equipamento,Cadeira,M095-21-PBAQ-0001-P-2S-01$0$M019-p,4,,,4
+Arsenal,,Equipamento,Computador,M095-21-PBAQ-0001-P-2S-01$0$E054a-p,4,,,5
+Arsenal,,Equipamento,Telefone,M095-21-PBAQ-0001-P-2S-01$0$M091-13_XREF$0$Telefone-p,3,,,6
+Guarda de materiais,,Mobiliário móvel,Armário de malas,ARQGEN_ARMMALAS,1,,,2
+Guarda de materiais,,Mobiliário móvel,Armário,ARQGEN_ARMGM,1,,,3
+Laudos,,Mobiliário fixo,Bancada,M095-21-PBAQ-0001-P-2S-01$0$MOB 7499C,3,,,2
+Laudos,,Mobiliário móvel,Armário médico,ARQGEN_ARMMEDICO,1,,,3
+Laudos,,Equipamento,Frigobar,M095-21-PBAQ-0001-P-2S-01$0$E016b-p,1,,,4
+Laudos,,Mobiliário móvel,Cadeira,M095-21-PBAQ-0001-P-2S-01$0$M019-p,10,,,5
+Laudos,,Equipamento,Computador,M095-21-PBAQ-0001-P-2S-01$0$E054a-p,10,,,6
+Laudos,,Equipamento,Telefone,M095-21-PBAQ-0001-P-2S-01$0$M091-13_XREF$0$Telefone-p,10,,,7
+Laudos,,Equipamento,Impressora,M095-21-PBAQ-0001-P-2S-01$0$E043-p,1,,,8
+Preparo do 01 ao 08,,Mobiliário móvel,Gaveteiro,ARQGEN_GAVETEIRO,1,,,2
+Preparo do 01 ao 08,,Mobiliário móvel,Poltrona espera,M095-21-PBAQ-0001-P-2S-01$0$Poltrona Ela,1,,,3
+Preparo do 01 ao 08,,Equipamento,Tablet,ARQGEN_TABLET,1,ou,,4
+Preparo do 01 ao 08,,Equipamento,Tablet,ARQGEN_TABLETMENOR,1,ou,,4
+Preparo do 01 ao 08,,Acessório,Régua de gases,M095-21-PBAQ-0001-P-2S-01$0$E071a-p,1,,,5
+Preparo do 01 ao 08,,Mobiliário móvel,Maca,M095-21-PBAQ-0001-P-2S-01$0$E018b-p,1,,,6
+Preparo do 01 ao 08,,Acessório,Chamada Enfermeira,M095-21-PBAQ-0001-P-2S-01$0$Chamada_enfermeira_110_pl,2,,,7
+Preparo do 01 ao 08,,Equipamento,Monitor,M095-21-PBAQ-0001-P-2S-01$0$EQL_MD_monitor lcd - 32_ - com pedestal-4016699-PLANTA LAYOUT 1_ PAVIMENTO,1,,,8
+Preparo do 01 ao 08,,Equipamento,TV,M095-21-PBAQ-0001-P-2S-01$0$plasma 32,1,,,9
+Posto de enfermagem,,Mobiliário móvel,Bancada com pia,ARQGEN_BANCADAPEDRA07,1,,,2
+Posto de enfermagem,,Mobiliário fixo,Bancada de apoio,M095-21-PBAQ-0001-P-2S-01$0$MOB 7499C,1,,,3
+Posto de enfermagem,,Mobiliário fixo,Bancada atendimento,ARQGEN_BANCADAPOSTO,1,,,4
+Posto de enfermagem,,Acessório,Torneira bica alta,M095-21-PBAQ-0001-P-2S-01$0$1175.C_P,1,,,5
+Posto de enfermagem,,Acessório,Depósito de sabão líquido,M095-21-PBAQ-0001-P-2S-01$0$S03-p,2,,,6
+Posto de enfermagem,,Acessório,Depósito de papel toalha,M095-21-PBAQ-0001-P-2S-01$0$S04-p,2,,,7
+Posto de enfermagem,,Equipamento,Filtro de Parede,M095-21-PBAQ-0001-P-2S-01$0$E378-p,1,,,8
+Posto de enfermagem,,Acessório,PO,M095-21-PBAQ-0001-P-2S-01$0$S28-p,1,,,9
+Posto de enfermagem,,Mobiliário fixo,Lavatório,M095-21-PBAQ-0001-P-2S-01$0$S18-p,1,,,10
+Posto de enfermagem,,Acessório,Torneira simples,M095-21-PBAQ-0001-P-2S-01$0$S10-p,1,,,11
+Posto de enfermagem,,Equipamento,Frigobar,M095-21-PBAQ-0001-P-2S-01$0$E016b-p,1,,,12
+Posto de enfermagem,,Equipamento,Impressora,M095-21-PBAQ-0001-P-2S-01$0$E043-p,1,,,13
+Posto de enfermagem,,Mobiliário móvel,Cadeira atendimento,M095-21-PBAQ-0001-P-2S-01$0$M019-p,3,,,14
+Posto de enfermagem,,Equipamento,Computador,M095-21-PBAQ-0001-P-2S-01$0$E054a-p,3,,,15
+Posto de enfermagem,,Equipamento,Telefone,M095-21-PBAQ-0001-P-2S-01$0$M091-13_XREF$0$Telefone-p,2,,,16
+Posto de enfermagem,,Equipamento,Monitor Dashboar,M095-21-PBAQ-0001-P-2S-01$0$TV 50,1,,,17
+Posto de enfermagem,,Mobiliário fixo,Armário alto,ARQGEN_ARMALTO370X35,1,,,18
+Trocador Feminino e Masculino,,Mobiliário móvel,Banco,M095-21-PBAQ-0001-P-2S-01$0$MOB_ME_banco vestiário - 100cm-3505394-PLANTA LAYOUT 2_ PAVIMENTO,2,,,2
+Trocador Feminino e Masculino,,Mobiliário móvel,Hamper,ARQGEN_HAMPER,1,,,3
+Trocador Feminino e Masculino,,Mobiliário fixo,Ralo,M095-21-PBAQ-0001-P-2S-01$0$S06-p,1,,,4
+Trocador Feminino e Masculino,,Mobiliário móvel,Armário Locker,M095-21-PBAQ-0001-P-2S-01$0$NK 1302,3,,,5
+Circulações,Circulação Salas de Exame,Mobiliário fixo,Bancada Anatomia,ARQGEN_BANCADAANATOM,1,,,3
+Circulações,Circulação Salas de Exame,Mobiliário móvel,Bancada S.I.C.S,M095-21-PBAQ-0001-P-2S-01$0$MOB 7499C,1,,,4
+Circulações,Circulação Salas de Exame,Equipamento,Monitor,M095-21-PBAQ-0001-P-2S-01$0$TV 50,2,,,5
+Circulações,Circulação Salas de Exame,Equipamento,Computador,M095-21-PBAQ-0001-P-2S-01$0$E054a-p,1,,,6
+Circulações,Circulação Preparos,Mobiliário fixo,Armário,ARQGEN_ARMCIRCPREP,1,,,9
+Circulações,Circulação Preparos,Acessório,Depósito de sabão líquido,M095-21-PBAQ-0001-P-2S-01$0$S03-p,2,,,10
+Circulações,Circulação Preparos,Acessório,Depósito de papel toalha,M095-21-PBAQ-0001-P-2S-01$0$S04-p,2,,,11
+Circulações,Circulação Preparos,Acessório,PO,M095-21-PBAQ-0001-P-2S-01$0$S28-p,1,,,12
+Circulações,Circulação Preparos,Mobiliário fixo,Lavatório,M095-21-PBAQ-0001-P-2S-01$0$S18-p,1,,,13
+Circulações,Circulação Preparos,Acessório,Torneira simples,M095-21-PBAQ-0001-P-2S-01$0$S10-p,1,,,14
+Circulações,Circulação Preparos,Mobiliário móvel,Bancada,M095-21-PBAQ-0001-P-2S-01$0$MOB 7499C,1,,,15
+Circulações,Circulação Preparos,Equipamento,Computador,M095-21-PBAQ-0001-P-2S-01$0$E054a-p,1,,,16
+Circulações,Circulação Preparos,Mobiliário móvel,Carrinho de emergência,M095-21-PBAQ-0001-P-2S-01$0$carrinho1,1,,,17
