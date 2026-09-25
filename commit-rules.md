@@ -6,7 +6,7 @@ Regras de versionamento do projeto. Seguir este guia garante histórico limpo, P
 
 Verifique a branch atual com `git branch --show-current`. Se estiver em `main`, `staging` ou `develop`, **não comece** — crie uma nova branch:
 
-- Nova funcionalidade → `feat/<nome>`
+- Nova funcionalidade → `feature/<nome>`
 - Correção de bug → `fix/<nome>`
 - Tarefa técnica/infra → `chore/<nome>`
 - Refactor → `refactor/<nome>`
