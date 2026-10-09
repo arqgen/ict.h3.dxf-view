@@ -190,9 +190,9 @@ uv run python tests/make_sample.py   # → tests/fixtures/sample.dxf
 O DXF sintético dos testes é gerado por `tests/make_sample.py` e as assertivas são **exatas** de propósito: o contorno é um retângulo 20 × 14, logo perímetro 68 e área 280, sem tolerância. Assertiva aproximada aqui já esteve escondendo perda silenciosa de geometria na implementação de referência.
 
 Para testar contra desenhos reais, `data/dxf/` guarda uma coleção catalogada em
-[`data/dxf/catalogo_dxfs.md`](data/dxf/catalogo_dxfs.md) — os `.dxf` ficam fora do
-Git por peso. Vários passam de `MAX_UPLOAD_MB=64` e são rejeitados no upload: ou
-aumente o teto no `.env`, ou escolha um menor pelo catálogo.
+[`data/README.md`](data/README.md); os `.dxf` ficam fora do Git por peso. O
+`pile_layout_1` passa de `MAX_UPLOAD_MB=64` e é rejeitado no upload: ou aumente o
+teto no `.env`, ou escolha outro pelo catálogo.
 
 `web/src/api/__tests__/recorded-stream.txt` é um stream SSE real capturado do agno. O teste roda contra ele — se o formato de evento do agno mudar, a suíte quebra em vez de o destaque silenciosamente parar de funcionar.
 
