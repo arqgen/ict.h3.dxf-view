@@ -4,7 +4,7 @@ Guia para agentes de IA que vão trabalhar neste projeto. Leia antes de criar ou
 
 ## Antes de Começar
 
-Antes de iniciar qualquer implementação, verifique a branch atual. Evite trabalhar em `main`, `staging` ou `develop`, crie uma nova branch seguindo as convenções em [commit-rules.md](commit-rules.md).
+Antes de iniciar qualquer implementação, verifique a branch atual. Evite trabalhar em `main`, `staging` ou `develop`, crie uma nova branch seguindo as convenções em [Workflow de Desenvolvimento](README.md#workflow-de-desenvolvimento).
 
 **Tasks pontuais** (uma implementação focada que termina em um ciclo): todo commit exige autorização. Mesmo que já tenha commitado várias vezes na mesma sessão, **nunca assuma que a autorização se repete**. Após cada implementação, rode as validações (lint, testes) e pergunte sobre o commit.
 
@@ -54,7 +54,7 @@ Crie um sub-CLAUDE quando um módulo tiver padrões que desviam do global ou que
 
 **Arquivos auxiliares na raiz:**
 
-A raiz pode conter arquivos `.md` com regras pontuais (ex: `commit-rules.md`). Eles complementam este arquivo com detalhe que não cabe aqui. Liste-os na seção **Arquivos Auxiliares** e mantenha a lista atualizada.
+A raiz pode conter arquivos `.md` com regras pontuais. Eles complementam este arquivo com detalhe que não cabe aqui. Liste-os na seção **Arquivos Auxiliares** e mantenha a lista atualizada.
 
 **Regras deste arquivo:**
 
@@ -67,7 +67,7 @@ A raiz pode conter arquivos `.md` com regras pontuais (ex: `commit-rules.md`). E
 
 ## Arquivos Auxiliares
 
-- [`commit-rules.md`](commit-rules.md) — regras de commit, branch, push e PR
+Nenhum no momento.
 
 ## O Que Este Projeto É
 
@@ -128,7 +128,7 @@ Chaves dos resultados de tool e strings de interface são em **pt-BR** (`tipo`, 
 
 ## Commits, Branches e PRs
 
-Consulte [commit-rules.md](commit-rules.md) para regras de commit, branch, push e PR.
+Padrões de branch e commit em [Workflow de Desenvolvimento](README.md#workflow-de-desenvolvimento). Commit, push e PR só com autorização explícita.
 
 ## Regras Globais
 
