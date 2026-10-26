@@ -16,9 +16,10 @@ const SUGGESTIONS = [
 interface Props {
   document: LoadedDocument | null
   ui: ToolUI
+  draft: { text: string } | null
 }
 
-export function ChatPanel({ document: loaded, ui }: Props) {
+export function ChatPanel({ document: loaded, ui, draft }: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
@@ -26,6 +27,7 @@ export function ChatPanel({ document: loaded, ui }: Props) {
 
   const abortRef = useRef<AbortController | null>(null)
   const scrollRef = useRef<HTMLDivElement | null>(null)
+  const inputRef = useRef<HTMLTextAreaElement | null>(null)
 
   // Uma sessão do agno por documento: o histórico de um desenho não faz sentido
   // aplicado a outro, e os ids de entidade sequer coincidem.
@@ -41,6 +43,12 @@ export function ChatPanel({ document: loaded, ui }: Props) {
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight })
   }, [messages])
+
+  useEffect(() => {
+    if (!draft) return
+    setInput(draft.text)
+    inputRef.current?.focus()
+  }, [draft])
 
   /** Aplica uma mutação ao último bloco da última mensagem do assistente. */
   const mutateLast = (fn: (blocks: ChatBlock[]) => ChatBlock[]) => {
@@ -197,6 +205,7 @@ export function ChatPanel({ document: loaded, ui }: Props) {
         }}
       >
         <textarea
+          ref={inputRef}
           value={input}
           placeholder={loaded ? 'Pergunte sobre o desenho…' : 'Abra um projeto primeiro'}
           disabled={!loaded || busy}

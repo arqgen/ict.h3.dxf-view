@@ -6,6 +6,7 @@ const HIGHLIGHT_COLOR = '#ff9500'
 const SELECT_COLOR = '#22d3ee'
 const AXIS_COLOR = '#2a3038'
 const BACKGROUND = '#0e1116'
+const FILL_ALPHA = 0.25
 
 /** Acima disto o desenho fica ilegível e o custo de layout de texto domina o
  *  frame com milhares de textos. */
@@ -120,6 +121,10 @@ export function CadCanvas({
     // Um Path2D por cor e um único stroke por cor: sem isso um desenho de 100 mil
     // entidades faria 100 mil chamadas de stroke e o pan ficaria inutilizável.
     const paths = new Map<string, Path2D>()
+    // ponytail: um path de preenchimento por cor com evenodd (preserva os furos);
+    // polígonos da mesma cor que se sobrepõem se cancelam. Path por entidade se
+    // isso aparecer.
+    const fills = new Map<string, Path2D>()
     const texts: { entity: PrimEntity; shape: Extract<Shape, { k: 't' }> }[] = []
     const visible: PrimEntity[] = []
 
@@ -135,14 +140,30 @@ export function CadCanvas({
         paths.set(entity.color, path)
       }
 
+      let fill = entity.filled ? fills.get(entity.color) : undefined
+      if (entity.filled && !fill) {
+        fill = new Path2D()
+        fills.set(entity.color, fill)
+      }
+
       for (const shape of entity.shapes) {
         if (shape.k === 't') {
           texts.push({ entity, shape })
         } else {
           addShape(path, shape, toScreenX, toScreenY)
+          if (fill) addShape(fill, shape, toScreenX, toScreenY)
         }
       }
     }
+
+    // Preenchimento translúcido antes de todo contorno, na ordem do payload
+    // (terreno antes das torres).
+    ctx.globalAlpha = FILL_ALPHA
+    for (const [color, fill] of fills) {
+      ctx.fillStyle = color
+      ctx.fill(fill, 'evenodd')
+    }
+    ctx.globalAlpha = 1
 
     ctx.lineWidth = 1
     for (const [color, path] of paths) {

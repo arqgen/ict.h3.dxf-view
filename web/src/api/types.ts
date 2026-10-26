@@ -16,6 +16,7 @@ export interface PrimEntity {
   color: string
   bbox: BBox | null
   shapes: Shape[]
+  filled: boolean
 }
 
 export interface LayerInfo {

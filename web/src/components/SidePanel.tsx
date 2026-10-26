@@ -12,6 +12,7 @@ interface Props {
   onHideAllLayers: () => void
   onZoomToLayer: (name: string) => void
   onZoomToSelected: () => void
+  onAskAbout: (id: string) => void
 }
 
 type Tab = 'layers' | 'info'
@@ -26,6 +27,7 @@ export function SidePanel({
   onHideAllLayers,
   onZoomToLayer,
   onZoomToSelected,
+  onAskAbout,
 }: Props) {
   const [tab, setTab] = useState<Tab>('layers')
   const [filter, setFilter] = useState('')
@@ -156,6 +158,9 @@ export function SidePanel({
             <h3>Entidade {selected.id}</h3>
             <button type="button" onClick={onZoomToSelected}>
               dar zoom nesta
+            </button>
+            <button type="button" onClick={() => onAskAbout(selected.id)}>
+              Perguntar sobre isto
             </button>
           </header>
           <dl className="info">

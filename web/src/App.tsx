@@ -24,6 +24,8 @@ export default function App() {
   const [highlighted, setHighlighted] = useState<Set<string>>(new Set())
   const [highlightLabel, setHighlightLabel] = useState('')
   const [selected, setSelected] = useState<EntityDetails | null>(null)
+  // Objeto novo a cada clique: pedir o mesmo id duas vezes repreenche o campo.
+  const [chatDraft, setChatDraft] = useState<{ text: string } | null>(null)
   const [viewRequest, setViewRequest] = useState<ViewRequest | null>(null)
   const [splitPct, setSplitPct] = useState(34)
   const [dragOver, setDragOver] = useState(false)
@@ -218,7 +220,7 @@ export default function App() {
 
       <div className="split">
         <div className="split-left" style={{ width: `${splitPct}%` }}>
-          <ChatPanel document={loaded} ui={ui} />
+          <ChatPanel document={loaded} ui={ui} draft={chatDraft} />
         </div>
 
         <div className="divider" onPointerDown={startSplitDrag} />
@@ -266,6 +268,7 @@ export default function App() {
                 onZoomToSelected={() => {
                   if (selected?.bbox) requestView(selected.bbox)
                 }}
+                onAskAbout={(id) => setChatDraft({ text: `Sobre ${id}: ` })}
               />
             </>
           )}
