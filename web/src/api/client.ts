@@ -17,6 +17,7 @@ const TOOL_LABELS: Record<string, string> = {
   search_text: 'procurando textos',
   measure: 'medindo',
   get_project_indicators: 'lendo indicadores do projeto',
+  compare_indicators: 'comparando indicadores',
   highlight_entities: 'destacando no desenho',
   clear_highlight: 'limpando destaque',
   zoom_to: 'reenquadrando a vista',

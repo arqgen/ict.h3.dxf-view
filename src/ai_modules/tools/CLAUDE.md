@@ -8,7 +8,7 @@ Toda tool que **não** for específica de um único agent — ou seja, que pode 
 
 | Arquivo / pasta        | Exporta        | Papel                                                                 |
 | ---------------------- | -------------- | --------------------------------------------------------------------- |
-| `cad_tools/`           | `CAD_TOOLS`    | As 11 tools do projeto — 7 de consulta e 4 de interface. Ver abaixo.  |
+| `cad_tools/`           | `CAD_TOOLS`    | As 12 tools do projeto — 8 de consulta e 4 de interface. Ver abaixo.  |
 | `test_tool_call.py`    | `test_tool_call` | Tool de função simples, para testar tool calling                    |
 | `fetch_pdf.py`         | `fetch_pdf`    | Baixa um PDF de uma URL e o devolve como `ToolResult(files=[File(...)])` |
 | `user_control_flow.py` | `user_control_flow` | `UserControlFlowTools` — pausa a run para pedir input livre/tipado |
@@ -20,7 +20,7 @@ Toda tool que **não** for específica de um único agent — ou seja, que pode 
 
 ## As Tools de CAD
 
-`cad_tools/` tem três arquivos: `helpers.py` (acesso ao índice, serialização, utilitários), `query_tools.py` (as 7 de consulta, incluindo `get_project_indicators`) e `ui_tools.py` (as 4 de interface).
+`cad_tools/` tem três arquivos: `helpers.py` (acesso ao índice, serialização, utilitários), `query_tools.py` (as 8 de consulta, incluindo `get_project_indicators` e `compare_indicators`) e `ui_tools.py` (as 4 de interface).
 
 ### Acesso ao índice
 
@@ -59,6 +59,8 @@ Uma instância (`p<i>`: torre, vaga, portaria) não é entidade — as entidades
 ### Indicadores
 
 `get_project_indicators` devolve `solution.outputs`, `site.inputs`, `site.processed_info` e `solution.scores` sem transformação, mais as famílias com suas `properties`. É a fonte de unidades, vagas, áreas construídas e índices — a planta mostra um pavimento só, então nada disso sai de contagem ou medida de geometria. A `observacao` fixa lembra que os `DescritivoTorre` não identificam as torres desenhadas.
+
+`compare_indicators(projetado, limite)` é a única forma de o agente apresentar uma conta (percentual usado, folga): recebe **nomes** de indicador e lê os valores do arquivo, então não dá para calcular sobre número inventado. O `instructions.md` proíbe contas fora de tool, e as tools devolvem os totais prontos para o modelo não somar nem contar listas à mão: `por_tipo_familia`, `familias_por_tipo` e `grupos` em `count_entities(group_by="family")`, `total_instancias` em `query_entities`.
 
 ### Descrições prescritivas
 

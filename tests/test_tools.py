@@ -1,4 +1,4 @@
-"""Executa as 11 tools contra o AQG sintetico, sem subir a API nem o LLM.
+"""Executa as 12 tools contra o AQG sintetico, sem subir a API nem o LLM.
 
 Duas coisas sao verificadas aqui e em nenhum outro lugar:
 - `run_context` e invisivel no schema JSON que vai para o modelo;
@@ -7,12 +7,14 @@ Duas coisas sao verificadas aqui e em nenhum outro lugar:
 
 import asyncio
 import json
+import math
 
 import pytest
 from agno.run.base import RunContext
 
 from src.ai_modules.tools.cad_tools import CAD_TOOLS, UI_TOOL_NAMES
 from src.ai_modules.tools.cad_tools.query_tools import (
+    compare_indicators,
     count_entities,
     get_entity_details,
     get_project_indicators,
@@ -50,10 +52,10 @@ def call(tool, ctx: RunContext, **kwargs) -> dict:
 # --------------------------------------------------------------------------- #
 
 
-def test_eleven_tools_are_registered():
-    assert len(CAD_TOOLS) == 11
+def test_twelve_tools_are_registered():
+    assert len(CAD_TOOLS) == 12
     names = {tool.name for tool in CAD_TOOLS}
-    assert len(names) == 11
+    assert len(names) == 12
     for ui_name in UI_TOOL_NAMES:
         assert ui_name in names
 
@@ -80,6 +82,7 @@ CALLS = {
     "search_text": {"query": "x"},
     "measure": {"ids": ["p0"]},
     "get_project_indicators": {},
+    "compare_indicators": {"projetado": "CAProjetado", "limite": "CAMaximoExigido"},
     "highlight_entities": {"ids": ["p0"]},
     "clear_highlight": {},
     "zoom_to": {"ids": ["p0"]},
@@ -117,8 +120,16 @@ def test_list_layers_sorted_by_count(ctx: RunContext):
 def test_count_entities_by_family_counts_instances(ctx: RunContext):
     payload = call(count_entities, ctx, group_by="family")
     assert payload["contagens"] == {"T/4": 2, "Vaga 0": 2}
+    assert payload["grupos"] == 2
     assert payload["total"] == 4
     assert payload["unidade"] == "instancias"
+
+
+def test_count_entities_by_family_reports_family_type_totals(ctx: RunContext):
+    payload = call(count_entities, ctx, group_by="family")
+    assert payload["por_tipo_familia"] == {"Tower": 2, "Vaga": 2}
+    assert payload["familias_por_tipo"] == {"Tower": 1, "Vaga": 1}
+    assert payload["tipo_de_cada_familia"] == {"T/4": "Tower", "Vaga 0": "Vaga"}
 
 
 def test_count_entities_by_layer(ctx: RunContext):
@@ -141,6 +152,13 @@ def test_query_entities_by_instance(ctx: RunContext):
 def test_query_entities_by_family_and_type(ctx: RunContext):
     payload = call(query_entities, ctx, family="t/4", entity_type="apartamento")
     assert payload["total_encontrado"] == 4
+
+
+def test_query_entities_lists_every_instance_beyond_the_page(ctx: RunContext):
+    payload = call(query_entities, ctx, family="T/4", limit=1)
+    assert payload["devolvidas"] == 1
+    assert payload["instancias"] == ["p0", "p1"]
+    assert payload["total_instancias"] == 2
 
 
 def test_query_entities_text_contains_searches_label(ctx: RunContext):
@@ -198,6 +216,13 @@ def test_measure_expands_instance_id(ctx: RunContext):
     assert payload["area_total"] == 311
 
 
+def test_measure_distance_between_instances(ctx: RunContext):
+    payload = call(measure, ctx, ids=["p0", "p1"], metric="distance")
+    # Centros das caixas: p0 (25, 20) e p1 (50, 15).
+    assert payload["entre"] == ["p0", "p1"]
+    assert payload["distancia"] == round(math.hypot(25, 5), 3)
+
+
 def test_measure_unknown_ids_are_data(ctx: RunContext):
     payload = call(measure, ctx, ids=["x"])
     assert payload["rejeitados"] == ["x"]
@@ -252,6 +277,23 @@ def test_get_project_indicators_filters_by_type(ctx: RunContext):
     assert "TotalDeUnidades" in payload["tipos_disponiveis"]
 
 
+def test_compare_indicators(ctx: RunContext):
+    payload = call(
+        compare_indicators, ctx, projetado="CAProjetado", limite="caMaximoExigido"
+    )
+    assert payload["projetado"] == {"tipo": "CAProjetado", "valor": 1.78}
+    assert payload["limite"]["valor"] == 2.9
+    assert payload["percentual_usado"] == round(1.78 / 2.9 * 100, 3)
+    assert payload["folga"] == round(2.9 - 1.78, 3)
+
+
+def test_compare_indicators_unknown_or_non_numeric_is_data(ctx: RunContext):
+    payload = call(compare_indicators, ctx, projetado="Municipio", limite="Xyz")
+    assert "erro" in payload
+    assert "CAProjetado" in payload["tipos_disponiveis"]
+    assert "Municipio" not in payload["tipos_disponiveis"]
+
+
 # --------------------------------------------------------------------------- #
 # Tools de interface
 # --------------------------------------------------------------------------- #
@@ -299,12 +341,12 @@ def test_set_layer_visibility_unknown_layer_is_data(ctx: RunContext):
 # --------------------------------------------------------------------------- #
 
 
-def test_agent_builds_with_eleven_tools_and_the_document_summary(sample_model):
+def test_agent_builds_with_twelve_tools_and_the_document_summary(sample_model):
     from src.ai_modules.agents import get_cad_agent
 
     agent = asyncio.run(get_cad_agent(user_id="local", model=sample_model))
 
-    assert len(agent.tools) == 11
+    assert len(agent.tools) == 12
     assert agent.tool_call_limit == 14
 
     instructions = "\n".join(agent.instructions)

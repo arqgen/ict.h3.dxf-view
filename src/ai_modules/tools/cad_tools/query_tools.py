@@ -1,4 +1,4 @@
-"""As 7 tools de consulta ao indice do projeto.
+"""As 8 tools de consulta ao indice do projeto.
 
 O modelo nunca ve o arquivo AQG. Ele ve o resumo textual no system prompt e o
 que estas tools devolvem — e essa e a razao de existirem: sao o unico caminho
@@ -6,6 +6,7 @@ pelo qual uma quantidade, medida ou coordenada pode entrar numa resposta.
 """
 
 import re
+from collections import Counter
 from typing import Any, Literal
 
 from agno.run.base import RunContext
@@ -86,8 +87,12 @@ def count_entities(
 
     PREFIRA ESTA TOOL para perguntas "quantos/quantas" sobre o que esta
     desenhado. Para "quantas torres/vagas" use `group_by="family"`, que conta
-    instancias, nao partes. NAO use para unidades habitacionais nem areas
-    construidas: a planta mostra um pavimento so — use `get_project_indicators`.
+    instancias, nao partes, e devolve o total pronto por tipo de familia
+    (`por_tipo_familia`: Tower, Vaga, Portaria...) — cite esse total, nao some
+    as contagens. `tipo_de_cada_familia` diz quais familias sao torres e
+    `familias_por_tipo` quantas familias ha de cada tipo.
+    NAO use para unidades habitacionais nem areas construidas: a planta mostra
+    um pavimento so — use `get_project_indicators`.
 
     Args:
         group_by: "type" e "layer" contam entidades (partes); "family" conta
@@ -107,12 +112,25 @@ def count_entities(
     selected = _filter_entities(model, layer=layer, entity_type=entity_type)
 
     counts: dict[str, int] = {}
+    extra: dict[str, Any] = {}
     if group_by == "family":
         unit = "instancias"
-        instances = {e.instance: e.family for e in selected if e.instance}
-        for family in instances.values():
-            counts[family] = counts.get(family, 0) + 1
+        instances = {e.instance for e in selected if e.instance}
+        family_types: dict[str, str] = {}
+        by_family_type: dict[str, int] = {}
+        for instance_id in instances:
+            inst = model.instances[instance_id]
+            counts[inst.family] = counts.get(inst.family, 0) + 1
+            family_types[inst.family] = inst.family_type
+            by_family_type[inst.family_type] = (
+                by_family_type.get(inst.family_type, 0) + 1
+            )
         total = len(instances)
+        extra = {
+            "por_tipo_familia": dict(sorted(by_family_type.items())),
+            "familias_por_tipo": dict(sorted(Counter(family_types.values()).items())),
+            "tipo_de_cada_familia": dict(sorted(family_types.items())),
+        }
     else:
         unit = "entidades"
         for entity in selected:
@@ -126,8 +144,10 @@ def count_entities(
         {
             "agrupado_por": group_by,
             "contagens": ordered,
+            "grupos": len(ordered),
             "total": total,
             "unidade": unit,
+            **extra,
             "filtros": {"layer": layer, "tipo": entity_type},
         },
         f"{total} {unit} contadas por {group_by}",
@@ -159,7 +179,8 @@ def query_entities(
     Esta e a tool para "qual e o maior apartamento", "quais entidades estao
     nesta regiao", "liste as partes da torre p3", "onde esta a tipologia X".
     Os ids devolvidos sao exatamente os que `highlight_entities` e `zoom_to`
-    aceitam.
+    aceitam. `instancias` lista TODAS as instancias encontradas, sem paginacao:
+    para destacar uma familia inteira, passe essa lista a `highlight_entities`.
 
     Args:
         entity_type: tipo exato (ex: apartamento, varanda, core, vaga, CadPolygon).
@@ -214,6 +235,7 @@ def query_entities(
     )
 
     selected = _sort_entities(selected, sort_by)
+    instances = list(dict.fromkeys(e.instance for e in selected if e.instance))
 
     total = len(selected)
     offset = max(0, offset)
@@ -224,6 +246,10 @@ def query_entities(
         {
             "entidades": [entity_brief(entity) for entity in page],
             "ids": [entity.id for entity in page],
+            # Sem paginacao: destacar "todas as torres de uma familia" precisa
+            # de todas as instancias, mesmo quando as partes passam do limite.
+            "instancias": instances,
+            "total_instancias": len(instances),
             "total_encontrado": total,
             "devolvidas": len(page),
             "offset": offset,
@@ -383,12 +409,13 @@ def measure(
     entities = [model.by_id[entity_id] for entity_id in known]
 
     if metric == "distance":
-        if len(entities) != 2:
+        refs = list(dict.fromkeys(str(i) for i in ids if str(i) not in rejected))
+        if len(refs) != 2:
             return fail(
                 "a metrica 'distance' exige exatamente 2 ids validos, recebeu "
-                f"{len(entities)}"
+                f"{len(refs)}"
             )
-        return _measure_distance(entities, rejected)
+        return _measure_distance(model, refs, rejected)
 
     if metric == "bbox":
         from src.cad.geometry import union_bbox
@@ -432,14 +459,20 @@ def measure(
     return dump(payload, f"{key} total de {len(per_entity)} entidades: {rnd(total)}")
 
 
-def _measure_distance(entities: list[CadEntity], rejected: list[str]) -> str:
+def _measure_distance(model: CadModel, refs: list[str], rejected: list[str]) -> str:
     import math
 
+    from src.cad.geometry import union_bbox
+
+    # Uma referencia de instancia vale pela caixa de todas as suas partes.
     centers: list[tuple[float, float]] = []
-    for entity in entities:
-        if entity.bbox is None:
-            return fail(f"entidade {entity.id} nao tem geometria para medir distancia")
-        min_x, min_y, max_x, max_y = entity.bbox
+    for ref in refs:
+        bbox = None
+        for entity_id in split_known_ids(model, [ref])[0]:
+            bbox = union_bbox(bbox, model.by_id[entity_id].bbox)
+        if bbox is None:
+            return fail(f"{ref} nao tem geometria para medir distancia")
+        min_x, min_y, max_x, max_y = bbox
         centers.append(((min_x + max_x) / 2.0, (min_y + max_y) / 2.0))
 
     distance = math.hypot(centers[1][0] - centers[0][0], centers[1][1] - centers[0][1])
@@ -447,7 +480,7 @@ def _measure_distance(entities: list[CadEntity], rejected: list[str]) -> str:
     return dump(
         {
             "metrica": "distancia",
-            "entre": [entities[0].id, entities[1].id],
+            "entre": refs,
             "distancia": rnd(distance),
             "referencia": "centro das caixas envolventes",
             "aproximado": True,
@@ -526,6 +559,86 @@ def get_project_indicators(
 
     count = sum(len(items) for items in groups.values())
     return dump(payload, f"{count} indicadores lidos")
+
+
+@tool
+def compare_indicators(run_context: RunContext, projetado: str, limite: str) -> str:
+    """Compara um indicador projetado com o seu limite: percentual usado e folga.
+
+    USE ESTA TOOL sempre que a resposta precisar de uma conta entre indicadores
+    ("quanto do CA foi usado", "qual a folga da TO", "esta dentro do limite?").
+    Voce passa os NOMES dos indicadores, nunca valores: a tool le os numeros do
+    arquivo. Nao faca essas contas por conta propria.
+
+    Args:
+        projetado: tipo do indicador projetado (ex: "CAProjetado").
+        limite: tipo do indicador de referencia (ex: "CAMaximoExigido").
+
+    Returns:
+        JSON com os dois valores, o percentual do limite usado e a folga
+        (limite - projetado).
+    """
+    try:
+        model = cad_model(run_context)
+    except MissingDocument as exc:
+        return fail(str(exc))
+
+    values: dict[str, float] = {}
+    for name in (projetado, limite):
+        value = _numeric_indicator(model, name)
+        if value is None:
+            return dump(
+                {
+                    "erro": f"indicador numerico '{name}' nao existe neste projeto",
+                    "tipos_disponiveis": _numeric_indicator_types(model),
+                },
+                f"indicador '{name}' indisponivel",
+            )
+        values[name] = value
+
+    used, ref = values[projetado], values[limite]
+    percent = rnd(used / ref * 100) if ref else None
+
+    return dump(
+        {
+            "projetado": {"tipo": projetado, "valor": used},
+            "limite": {"tipo": limite, "valor": ref},
+            "percentual_usado": percent,
+            "folga": rnd(ref - used),
+        },
+        f"{projetado} usa {percent}% de {limite}",
+    )
+
+
+def _indicator_items(model: CadModel) -> list[dict[str, Any]]:
+    return [
+        item
+        for key in ("outputs", "inputs", "processed_info")
+        for item in model.indicators[key]
+        if isinstance(item, dict)
+    ]
+
+
+def _numeric_indicator(model: CadModel, name: str) -> float | None:
+    for item in _indicator_items(model):
+        value = item.get("value")
+        if str(item.get("type", "")).lower() != name.lower():
+            continue
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
+            return float(value)
+    return None
+
+
+def _numeric_indicator_types(model: CadModel) -> list[str]:
+    return sorted(
+        {
+            str(item["type"])
+            for item in _indicator_items(model)
+            if item.get("type")
+            and isinstance(item.get("value"), (int, float))
+            and not isinstance(item.get("value"), bool)
+        }
+    )
 
 
 def _filter_entities(
@@ -612,4 +725,5 @@ QUERY_TOOLS = [
     search_text,
     measure,
     get_project_indicators,
+    compare_indicators,
 ]

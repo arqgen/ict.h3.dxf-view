@@ -166,6 +166,7 @@ Base: 24 arquivos, 15 em `avaliadas/` e 9 em `favoritadas/`.
 - **`DescritivoTorre` não é vinculado a instância** até a regra ser conhecida.
 - **Indicadores expostos:** `solution.outputs`, `site.inputs`, `site.processed_info` e `solution.scores`.
 - **Markdown no chat:** `react-markdown` + `remark-gfm`, sem HTML cru, em vez de estender o parser próprio.
+- **Contas só em tool:** o agente não soma, não calcula percentual nem diferença. `compare_indicators(projetado, limite)` recebe nomes de indicador e devolve percentual usado e folga; `count_entities(group_by="family")` devolve o total por tipo de família. Motivo: o primeiro eval mostrou o modelo derivando "61% do CA" e somas de contagens sem procedência.
 - **Label de família duplicado:** aceito como limitação. Famílias diferentes com o mesmo label (caso real: `I/15`, 1 de 24 arquivos) compartilham as `properties` da primeira no detalhe e somam na contagem por família.
 - **Sem versão mínima:** o parser é tolerante, o que ele não reconhece vira aviso, e as 24 versões do acervo têm de passar.
 
