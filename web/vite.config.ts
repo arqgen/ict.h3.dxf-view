@@ -12,6 +12,8 @@ export default defineConfig({
   server: {
     port,
     strictPort: true,
+    // Escuta em todas as interfaces para o navegador do Windows alcancar o WSL
+    host: true,
     proxy: {
       '/api': {
         target: `http://localhost:${apiPort}`,
