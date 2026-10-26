@@ -1,15 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 import { sendChat, toolLabel } from '../api/client'
 import type { ChatBlock, ChatMessage, LoadedDocument, ToolUI } from '../api/types'
-import { Markdownish } from './Markdownish'
 
 const SUGGESTIONS = [
-  'Faça um resumo do que existe neste desenho.',
-  'Quais são os layers com mais entidades?',
-  'Qual é a maior área fechada? Destaque no desenho.',
-  'Existe algum texto de escala ou título?',
-  'Quantas inserções de bloco existem e de quais blocos?',
+  'Faça um resumo deste projeto.',
+  'Quantas torres e quantas unidades o projeto tem? Destaque as torres.',
+  'Qual o CA projetado e qual o máximo permitido?',
+  'Onde estão os apartamentos de 2 quartos?',
+  'Quantas vagas foram projetadas?',
 ]
 
 interface Props {
@@ -233,7 +234,7 @@ function BlockView({
   if (block.kind === 'text') {
     return (
       <div className="block-text">
-        <Markdownish text={block.text} />
+        <Markdown remarkPlugins={[remarkGfm]}>{block.text}</Markdown>
       </div>
     )
   }
