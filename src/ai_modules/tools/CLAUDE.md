@@ -58,7 +58,7 @@ Uma instância (`p<i>`: torre, vaga, portaria) não é entidade — as entidades
 
 ### Indicadores
 
-`get_project_indicators` devolve `solution.outputs`, `site.inputs`, `site.processed_info` e `solution.scores` sem transformação, mais as famílias com suas `properties`. É a fonte de unidades, vagas, áreas construídas e índices — a planta mostra um pavimento só, então nada disso sai de contagem ou medida de geometria. A `observacao` fixa lembra que os `DescritivoTorre` não identificam as torres desenhadas.
+`get_project_indicators` devolve `solution.outputs`, `site.inputs`, `site.processed_info` e `solution.scores` sem transformação, mais as famílias com suas `properties` só na chamada sem filtro: com `tipos`, elas inchariam o resultado, e as propriedades de uma torre vêm de `get_entity_details`. É a fonte de unidades, vagas, áreas construídas e índices — a planta mostra um pavimento só, então nada disso sai de contagem ou medida de geometria. A `observacao` fixa lembra que os `DescritivoTorre` não identificam as torres desenhadas.
 
 `compare_indicators(projetado, limite)` é a única forma de o agente apresentar uma conta (percentual usado, folga): recebe **nomes** de indicador e lê os valores do arquivo, então não dá para calcular sobre número inventado. O `instructions.md` proíbe contas fora de tool, e as tools devolvem os totais prontos para o modelo não somar nem contar listas à mão: `por_tipo_familia`, `familias_por_tipo` e `grupos` em `count_entities(group_by="family")`, `total_instancias` em `query_entities`.
 

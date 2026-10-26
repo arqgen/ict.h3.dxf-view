@@ -287,6 +287,7 @@ def test_get_project_indicators_filters_by_type(ctx: RunContext):
     assert payload["exigidos"] == []
     assert payload["indisponiveis"] == ["Xyz"]
     assert "TotalDeUnidades" in payload["tipos_disponiveis"]
+    assert "familias" not in payload
 
 
 def test_compare_indicators(ctx: RunContext):

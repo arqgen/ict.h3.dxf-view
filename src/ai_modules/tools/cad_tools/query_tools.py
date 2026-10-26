@@ -504,11 +504,12 @@ def get_project_indicators(
     Args:
         tipos: filtra indicadores, exigidos e dados do terreno pelo campo
             `type` (ex: ["TotalDeUnidades", "CAMaximoExigido"]). Se omitido,
-            devolve tudo.
+            devolve tudo, inclusive as familias com suas propriedades. Para as
+            propriedades de uma torre, use `get_entity_details("p<i>")`.
 
     Returns:
         JSON com indicadores projetados, exigidos, dados do terreno, notas da
-        solucao e as familias com suas propriedades.
+        solucao e, sem filtro, as familias com suas propriedades.
     """
     try:
         model = cad_model(run_context)
@@ -549,10 +550,11 @@ def get_project_indicators(
 
     payload.update(groups)
     payload["notas"] = model.indicators["scores"]
-    payload["familias"] = [
-        {"familia": f.label, "tipo": f.type, "propriedades": f.properties}
-        for f in model.families
-    ]
+    if not tipos:
+        payload["familias"] = [
+            {"familia": f.label, "tipo": f.type, "propriedades": f.properties}
+            for f in model.families
+        ]
     payload["observacao"] = (
         "os DescritivoTorre (01, 02…) nao identificam as torres desenhadas (p<i>)"
     )
