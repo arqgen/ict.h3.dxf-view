@@ -7,6 +7,7 @@ from src.cad.geometry import (
     bbox_intersects,
     bbox_of_prims,
     distance_point_segment,
+    min_distance,
     normalize_closed,
     polygon_area,
     polyline_length,
@@ -89,3 +90,32 @@ def test_distance_point_segment_clamps_to_endpoints():
 
 def test_distance_point_segment_degenerate_segment():
     assert distance_point_segment((3.0, 4.0), (0.0, 0.0), (0.0, 0.0)) == 5.0
+
+
+def _rect(x0: float, y0: float, x1: float, y1: float) -> PolylinePrim:
+    return PolylinePrim([(x0, y0), (x1, y0), (x1, y1), (x0, y1)], closed=True)
+
+
+def test_min_distance_between_separate_rectangles():
+    assert min_distance([_rect(0, 0, 10, 10)], [_rect(20, 0, 30, 10)]) == 10
+
+
+def test_min_distance_of_touching_rectangles_is_zero():
+    assert min_distance([_rect(0, 0, 10, 10)], [_rect(10, 0, 20, 10)]) == 0
+
+
+def test_min_distance_of_crossing_rectangles_is_zero():
+    assert min_distance([_rect(0, 0, 10, 10)], [_rect(5, -5, 15, 5)]) == 0
+
+
+def test_min_distance_line_to_polygon():
+    line = PolylinePrim([(0.0, -3.0), (30.0, -3.0)], closed=False)
+    assert min_distance([line], [_rect(10, 0, 20, 10)]) == 3
+
+
+def test_min_distance_inside_measures_to_outer_edge():
+    assert min_distance([_rect(10, 4, 20, 10)], [_rect(0, 0, 100, 80)]) == 4
+
+
+def test_min_distance_without_geometry_is_infinite():
+    assert min_distance([], [_rect(0, 0, 1, 1)]) == math.inf

@@ -17,6 +17,7 @@ from src.cad.model import (
     describe_model,
     load_aqg,
     prims_payload,
+    tower_units,
 )
 from tests.make_aqg_sample import build_sample_project
 
@@ -193,6 +194,7 @@ def test_indicators_copied_as_is(sample_model: CadModel):
         "inputs": project["site"]["inputs"],
         "processed_info": project["site"]["processed_info"],
         "scores": project["solution"]["scores"],
+        "inclinacao_media": None,
     }
 
 
@@ -203,6 +205,7 @@ def test_indicators_default_when_missing():
         "inputs": [],
         "processed_info": [],
         "scores": {},
+        "inclinacao_media": None,
     }
 
 
@@ -230,12 +233,30 @@ def test_prims_payload_matches_index(sample_model: CadModel):
     payload = prims_payload(sample_model)
     assert len(payload) == 18
     assert [item["id"] for item in payload] == list(sample_model.by_id)
-    assert set(payload[0]) == {"id", "type", "layer", "color", "bbox", "shapes"}
+    assert set(payload[0]) == {
+        "id",
+        "type",
+        "layer",
+        "color",
+        "bbox",
+        "shapes",
+        "filled",
+    }
+    filled = {item["id"]: item["filled"] for item in payload}
+    assert filled["p4"] is True
+    assert filled["s2"] is False
 
 
 def test_describe_model_has_no_numbers(sample_model: CadModel):
     summary = describe_model(sample_model)
-    for expected in ("T/4", "Vaga 0", "AQG_TALUDE", "TotalDeUnidades", "metros"):
+    for expected in (
+        "T/4",
+        "Vaga 0",
+        "AQG_TALUDE",
+        "TotalDeUnidades",
+        "AreaDoTerreno",
+        "metros",
+    ):
         assert expected in summary
     for forbidden in ("37", "1234", "8000", "276"):
         assert forbidden not in summary
@@ -246,3 +267,46 @@ def test_load_aqg_rejects_malformed_field() -> None:
     project["solution"]["placed_objects"][0]["position"]["x"] = "abc"
     with pytest.raises(AqgLoadError):
         load_aqg(json.dumps(project).encode(), "x")
+
+
+def test_tower_units_reads_tower_pav_tipo():
+    properties = {
+        "type": "Tower",
+        "n_pavimentos_unidades": 10,
+        "pav_tipo": {
+            "tipologias": {"/area/apartamento/a": 3, "/area/apartamento/b": 1}
+        },
+    }
+    assert tower_units(properties) == (4, 40)
+
+
+def test_tower_units_reads_dynamic_tower_top_level():
+    properties = {
+        "type": "DynamicTower3d",
+        "n_pavimentos_unidades": 16,
+        "tipologias": {"/area/apartamento/a": 2, "/area/apartamento/b": 2},
+    }
+    assert tower_units(properties) == (4, 64)
+
+
+def test_tower_units_without_typologies_is_none():
+    assert tower_units({"type": "Tower", "n_pavimentos_unidades": 10}) is None
+
+
+def test_tower_units_with_non_integer_floors_is_none():
+    properties = {
+        "n_pavimentos_unidades": "10",
+        "tipologias": {"/area/apartamento/a": 2},
+    }
+    assert tower_units(properties) is None
+
+
+def test_avg_inclination_from_site_analysis(sample_project: dict):
+    sample_project["site"]["analysis"] = {
+        "avg_inclination": 5.25,
+        "inclination_groups": [],
+    }
+    model = build_model(sample_project, "x")
+    assert model.indicators["inclinacao_media"] == 5.25
+    assert "InclinacaoMedia" in describe_model(model)
+    assert "5.25" not in describe_model(model)

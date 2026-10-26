@@ -240,11 +240,20 @@ def build_model(project: dict, filename: str) -> CadModel:
             "inputs": _or_default(site.get("inputs"), []),
             "processed_info": _or_default(site.get("processed_info"), []),
             "scores": _or_default(solution.get("scores"), {}),
+            "inclinacao_media": _avg_inclination(site),
         },
         bbox=bbox,
         units="metros",
         warnings=_dedupe(warnings),
     )
+
+
+def _avg_inclination(site: dict) -> float | None:
+    analysis = site.get("analysis")
+    value = analysis.get("avg_inclination") if isinstance(analysis, dict) else None
+    if isinstance(value, int | float) and not isinstance(value, bool):
+        return float(value)
+    return None
 
 
 def _or_default(value: Any, default: Any) -> Any:
@@ -537,6 +546,27 @@ def _dedupe(items: list[str]) -> list[str]:
     return result
 
 
+def tower_units(properties: dict[str, Any]) -> tuple[int, int] | None:
+    """(unidades por pavimento, unidades da torre), ou None sem o dado.
+
+    As tipologias (class_path -> unidades por pavimento) ficam em `pav_tipo`
+    na `Tower` e no topo na `DynamicTower3d`.
+    """
+    pav_tipo = properties.get("pav_tipo")
+    typologies = properties.get("tipologias")
+    if typologies is None and isinstance(pav_tipo, dict):
+        typologies = pav_tipo.get("tipologias")
+    floors = properties.get("n_pavimentos_unidades")
+    if not isinstance(typologies, dict) or not typologies:
+        return None
+    counts = [*typologies.values(), floors]
+    if not all(isinstance(n, int) and not isinstance(n, bool) for n in counts):
+        return None
+
+    per_floor = sum(typologies.values())
+    return per_floor, per_floor * floors
+
+
 def describe_model(model: CadModel) -> str:
     """Resumo textual do projeto, em pt-BR, para o system prompt.
 
@@ -553,10 +583,16 @@ def describe_model(model: CadModel) -> str:
     indicator_types = list(
         dict.fromkeys(
             str(item["type"])
-            for item in [*model.indicators["outputs"], *model.indicators["inputs"]]
+            for item in [
+                *model.indicators["outputs"],
+                *model.indicators["inputs"],
+                *model.indicators["processed_info"],
+            ]
             if isinstance(item, dict) and item.get("type")
         )
     )
+    if model.indicators["inclinacao_media"] is not None:
+        indicator_types.append("InclinacaoMedia")
 
     lines = [
         f"Arquivo: {model.filename}",
@@ -625,6 +661,8 @@ def prims_payload(model: CadModel) -> list[dict[str, Any]]:
                 "color": entity.color,
                 "bbox": [round(v, 4) for v in entity.bbox] if entity.bbox else None,
                 "shapes": shapes,
+                # So poligono com area: curva de nivel fechada nao e preenchida.
+                "filled": entity.area is not None,
             }
         )
 

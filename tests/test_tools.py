@@ -226,6 +226,18 @@ def test_measure_distance_between_instances(ctx: RunContext):
     assert payload["distancia"] == round(math.hypot(25, 5), 3)
 
 
+def test_measure_edge_distance_between_towers(ctx: RunContext):
+    payload = call(measure, ctx, ids=["p0", "p1"], metric="edge_distance")
+    # Core de p0 em x 20..30; p1, girado 90 graus, em x 40..60.
+    assert payload["distancia"] == pytest.approx(10, abs=1e-9)
+    assert "pavimento-tipo" in payload["referencia"]
+
+
+def test_measure_edge_distance_needs_two_ids(ctx: RunContext):
+    payload = call(measure, ctx, ids=["p0"], metric="edge_distance")
+    assert "erro" in payload
+
+
 def test_measure_unknown_ids_are_data(ctx: RunContext):
     payload = call(measure, ctx, ids=["x"])
     assert payload["rejeitados"] == ["x"]
@@ -249,6 +261,35 @@ def test_get_entity_details_uses_the_instance_family(
     assert payload["propriedades_familia"] == {"type": "Tower", "total_pavimentos": 3}
     counts = call(count_entities, ctx, group_by="family")
     assert counts["contagens"]["T/4"] == 2
+
+
+def _units_ctx() -> RunContext:
+    project = build_sample_project()
+    project["families"][0]["properties"] = {
+        "type": "Tower",
+        "n_pavimentos_unidades": 2,
+        "pav_tipo": {"tipologias": {"/area/apartamento/2 Quartos/aaaa": 2}},
+    }
+    model = build_model(project, "unidades.json")
+    return RunContext(run_id="r1", session_id="s1", dependencies={"cad": model})
+
+
+def test_get_entity_details_reports_tower_units():
+    payload = call(get_entity_details, _units_ctx(), entity_id="p0")
+    assert payload["unidades_por_pavimento"] == 2
+    assert payload["unidades_da_torre"] == 4
+
+
+def test_count_entities_by_family_sums_units():
+    payload = call(count_entities, _units_ctx(), group_by="family")
+    assert payload["unidades_por_familia"] == {"T/4": 8}
+    assert payload["total_unidades"] == 8
+    assert payload["unidades_por_torre"] == {"T/4": [4]}
+
+
+def test_count_entities_without_tower_units_omits_them(ctx: RunContext):
+    payload = call(count_entities, ctx, group_by="family")
+    assert "unidades_por_familia" not in payload
 
 
 def test_get_entity_details_of_part(ctx: RunContext):
@@ -291,6 +332,18 @@ def test_get_project_indicators_filters_by_type(ctx: RunContext):
     assert payload["indisponiveis"] == ["Xyz"]
     assert "TotalDeUnidades" in payload["tipos_disponiveis"]
     assert "familias" not in payload
+
+
+def test_get_project_indicators_reports_avg_inclination():
+    project = build_sample_project()
+    project["site"]["analysis"] = {"avg_inclination": 5.2591}
+    model = build_model(project, "inclinacao.json")
+    ctx = RunContext(run_id="r1", session_id="s1", dependencies={"cad": model})
+    payload = call(get_project_indicators, ctx, tipos=["InclinacaoMedia"])
+    assert payload["terreno"] == [
+        {"type": "InclinacaoMedia", "value": 5.259, "unidade": "%"}
+    ]
+    assert "indisponiveis" not in payload
 
 
 def test_compare_indicators(ctx: RunContext):

@@ -164,3 +164,60 @@ def distance_point_segment(p: Vec2, a: Vec2, b: Vec2) -> float:
     t = max(0.0, min(1.0, t))
 
     return math.hypot(px - (ax + t * dx), py - (ay + t * dy))
+
+
+def _segments(prims: list[Prim]) -> list[tuple[Vec2, Vec2]]:
+    """Segmentos das primitivas; ponto e texto viram um segmento degenerado."""
+    segments: list[tuple[Vec2, Vec2]] = []
+    for prim in prims:
+        if not isinstance(prim, PolylinePrim):
+            segments.append((prim.p, prim.p))
+            continue
+        pts = prim.pts
+        segments += zip(pts, pts[1:], strict=False)
+        if prim.closed and len(pts) > 2:
+            segments.append((pts[-1], pts[0]))
+        if len(pts) == 1:
+            segments.append((pts[0], pts[0]))
+    return segments
+
+
+def _orient(o: Vec2, a: Vec2, b: Vec2) -> float:
+    return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+
+
+def segments_cross(a: Vec2, b: Vec2, c: Vec2, d: Vec2) -> bool:
+    """Cruzamento proprio: cada segmento corta a reta do outro.
+
+    Toque em extremo ou colinear fica de fora: a distancia ponto-segmento ja
+    da 0 nesses casos.
+    """
+    return (
+        _orient(c, d, a) * _orient(c, d, b) < 0
+        and _orient(a, b, c) * _orient(a, b, d) < 0
+    )
+
+
+def min_distance(a: list[Prim], b: list[Prim]) -> float:
+    """Menor distancia entre as bordas de dois conjuntos de primitivas.
+
+    Mede borda a borda, sem teste de ponto dentro do poligono: uma torre dentro
+    do perimetro da a distancia ate a linha do perimetro, que e o recuo. 0
+    quando as bordas se tocam ou se cruzam; infinito se um lado nao tem
+    geometria.
+    """
+    # ponytail: O(n*m) segmentos; indice espacial (grade ou R-tree) se ficar lento.
+    best = math.inf
+    other = _segments(b)
+    for p, q in _segments(a):
+        for r, s in other:
+            if segments_cross(p, q, r, s):
+                return 0.0
+            best = min(
+                best,
+                distance_point_segment(p, r, s),
+                distance_point_segment(q, r, s),
+                distance_point_segment(r, p, q),
+                distance_point_segment(s, p, q),
+            )
+    return best

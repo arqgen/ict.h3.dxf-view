@@ -12,8 +12,8 @@ from typing import Any, Literal
 from agno.run.base import RunContext
 from agno.tools import tool
 
-from src.cad.geometry import bbox_contains, bbox_intersects
-from src.cad.model import CadEntity, CadModel
+from src.cad.geometry import Prim, bbox_contains, bbox_intersects, min_distance
+from src.cad.model import CadEntity, CadModel, _category, tower_units
 
 from .helpers import (
     MissingDocument,
@@ -91,8 +91,13 @@ def count_entities(
     (`por_tipo_familia`: Tower, Vaga, Portaria...) — cite esse total, nao some
     as contagens. `tipo_de_cada_familia` diz quais familias sao torres e
     `familias_por_tipo` quantas familias ha de cada tipo.
-    NAO use para unidades habitacionais nem areas construidas: a planta mostra
-    um pavimento so — use `get_project_indicators`.
+    Para "quantas unidades ha em cada familia de torre", use
+    `group_by="family"` e cite `unidades_por_familia`, `total_unidades` e
+    `unidades_por_torre` (as unidades de cada torre da familia): vem
+    das propriedades da familia (tipologias x pavimentos com unidades), nao
+    da contagem de poligonos. O total do projeto continua sendo o
+    `TotalDeUnidades` de `get_project_indicators`. Areas construidas tambem
+    vem de `get_project_indicators`: a planta mostra um pavimento so.
 
     Args:
         group_by: "type" e "layer" contam entidades (partes); "family" conta
@@ -118,6 +123,8 @@ def count_entities(
         instances = {e.instance for e in selected if e.instance}
         family_types: dict[str, str] = {}
         by_family_type: dict[str, int] = {}
+        units_by_family: dict[str, int] = {}
+        units_per_tower: dict[str, set[int]] = {}
         for instance_id in instances:
             inst = model.instances[instance_id]
             counts[inst.family] = counts.get(inst.family, 0) + 1
@@ -125,12 +132,26 @@ def count_entities(
             by_family_type[inst.family_type] = (
                 by_family_type.get(inst.family_type, 0) + 1
             )
+            # Pela familia da instancia: o label pode se repetir com outro dado.
+            units = tower_units(model.families[inst.family_index].properties)
+            if units:
+                units_by_family[inst.family] = (
+                    units_by_family.get(inst.family, 0) + units[1]
+                )
+                units_per_tower.setdefault(inst.family, set()).add(units[1])
         total = len(instances)
         extra = {
             "por_tipo_familia": dict(sorted(by_family_type.items())),
             "familias_por_tipo": dict(sorted(Counter(family_types.values()).items())),
             "tipo_de_cada_familia": dict(sorted(family_types.items())),
         }
+        if units_by_family:
+            extra["unidades_por_familia"] = dict(sorted(units_by_family.items()))
+            extra["unidades_por_torre"] = {
+                label: sorted(values)
+                for label, values in sorted(units_per_tower.items())
+            }
+            extra["total_unidades"] = sum(units_by_family.values())
     else:
         unit = "entidades"
         for entity in selected:
@@ -266,6 +287,10 @@ def get_entity_details(run_context: RunContext, entity_id: str) -> str:
     Use para detalhar uma torre: passe o id da instancia (`p<i>`) e receba a
     familia, as propriedades dela e os ids das partes. Com o id de uma parte
     (`p<i>.<j>`) ou do terreno (`s<i>`), devolve medidas e atributos.
+    USE ESTA TOOL para "quantas unidades tem a torre p<i>": cite
+    `unidades_da_torre` (e `unidades_por_pavimento`), calculados das
+    propriedades da familia (tipologias x pavimentos com unidades), nao da
+    contagem de poligonos.
 
     Args:
         entity_id: id de entidade ou de instancia.
@@ -300,13 +325,17 @@ def get_entity_details(run_context: RunContext, entity_id: str) -> str:
 def _instance_info(model: CadModel, instance_id: str) -> dict[str, Any]:
     inst = model.instances[instance_id]
     family = model.families[inst.family_index]
-    return {
+    info = {
         "instancia": inst.id,
         "hid": inst.hid,
         "familia": inst.family,
         "tipo_familia": inst.family_type,
         "propriedades_familia": family.properties,
     }
+    units = tower_units(family.properties)
+    if units:
+        info["unidades_por_pavimento"], info["unidades_da_torre"] = units
+    return info
 
 
 @tool
@@ -376,9 +405,13 @@ def search_text(
 def measure(
     run_context: RunContext,
     ids: list[str],
-    metric: Literal["length", "area", "bbox", "distance"] = "length",
+    metric: Literal["length", "area", "bbox", "distance", "edge_distance"] = "length",
 ) -> str:
     """Mede entidades: comprimento, area, caixa envolvente ou distancia.
+
+    Para recuo, afastamento ou "qual a distancia entre a torre e o perimetro/
+    a outra torre", USE `metric="edge_distance"`: a menor distancia entre as
+    bordas. `"distance"` e entre os centros das caixas e NAO serve para recuo.
 
     Area existe somente para poligonos, ja descontados os furos. Area em planta
     NAO e area construida: a planta mostra um pavimento so — area construida vem
@@ -389,7 +422,10 @@ def measure(
             todas as partes dela.
         metric: "length" soma comprimentos; "area" soma areas; "bbox" devolve a
             caixa envolvente do conjunto; "distance" exige exatamente 2 ids e
-            devolve a distancia entre os centros das suas caixas.
+            devolve a distancia entre os centros das suas caixas;
+            "edge_distance" exige exatamente 2 ids e devolve a menor distancia
+            entre as bordas (0 se se tocam ou cruzam). Uma torre (`p<i>`) e
+            medida pelo pavimento-tipo desenhado, sem afastamento nem plato.
 
     Returns:
         JSON com a medida pedida, por entidade e o total.
@@ -408,13 +444,15 @@ def measure(
 
     entities = [model.by_id[entity_id] for entity_id in known]
 
-    if metric == "distance":
+    if metric in ("distance", "edge_distance"):
         refs = list(dict.fromkeys(str(i) for i in ids if str(i) not in rejected))
         if len(refs) != 2:
             return fail(
-                "a metrica 'distance' exige exatamente 2 ids validos, recebeu "
+                f"a metrica '{metric}' exige exatamente 2 ids validos, recebeu "
                 f"{len(refs)}"
             )
+        if metric == "edge_distance":
+            return _measure_edge_distance(model, refs, rejected)
         return _measure_distance(model, refs, rejected)
 
     if metric == "bbox":
@@ -459,6 +497,50 @@ def measure(
     return dump(payload, f"{key} total de {len(per_entity)} entidades: {rnd(total)}")
 
 
+def _edge_prims(model: CadModel, ref: str) -> list[Prim]:
+    # Torre vale pelo pavimento-tipo desenhado: o envelope de afastamento e o
+    # plato sao maiores que o predio e falseariam o recuo.
+    inst = model.instances.get(ref)
+    tower = inst is not None and _category(inst.family_type) == "torre"
+    return [
+        prim
+        for entity_id in split_known_ids(model, [ref])[0]
+        if not tower or model.by_id[entity_id].layer == "pav_tipo"
+        for prim in model.by_id[entity_id].prims
+    ]
+
+
+def _measure_edge_distance(
+    model: CadModel, refs: list[str], rejected: list[str]
+) -> str:
+    prims = [_edge_prims(model, ref) for ref in refs]
+    for ref, ref_prims in zip(refs, prims, strict=True):
+        if not ref_prims:
+            return fail(f"{ref} nao tem geometria para medir distancia")
+
+    distance = min_distance(prims[0], prims[1])
+    towers = [
+        ref
+        for ref in refs
+        if ref in model.instances
+        and _category(model.instances[ref].family_type) == "torre"
+    ]
+    reference = "menor distancia entre as bordas"
+    if towers:
+        reference += "; torre medida pelo pavimento-tipo desenhado"
+    return dump(
+        {
+            "metrica": "distancia_entre_bordas",
+            "entre": refs,
+            "distancia": rnd(distance),
+            "referencia": reference,
+            "unidade": model.units,
+            "rejeitados": rejected,
+        },
+        f"distancia entre bordas de {rnd(distance)}",
+    )
+
+
 def _measure_distance(model: CadModel, refs: list[str], rejected: list[str]) -> str:
     import math
 
@@ -497,7 +579,9 @@ def get_project_indicators(
     """Le os indicadores do projeto calculados pelo exportador.
 
     PREFIRA ESTA TOOL para unidades, vagas, areas construidas, CA, TO,
-    permeabilidade, gabarito e indices exigidos. Esses numeros NAO saem da
+    permeabilidade, gabarito, indices exigidos e dados do terreno (cota de
+    referencia `CotaTopografia`, `InclinacaoMedia` em %, `Zoneamento`,
+    `Municipio`, movimento de terra em `MovimentoDeTerra`). Esses numeros NAO saem da
     planta: ela mostra um pavimento so. Os `DescritivoTorre` (01, 02...) nao
     identificam as torres desenhadas (`p<i>`) — nao associe um ao outro.
 
@@ -516,10 +600,19 @@ def get_project_indicators(
     except MissingDocument as exc:
         return fail(str(exc))
 
+    site = list(model.indicators["processed_info"])
+    if model.indicators["inclinacao_media"] is not None:
+        site.append(
+            {
+                "type": "InclinacaoMedia",
+                "value": rnd(model.indicators["inclinacao_media"]),
+                "unidade": "%",
+            }
+        )
     groups = {
         "indicadores": model.indicators["outputs"],
         "exigidos": model.indicators["inputs"],
-        "terreno": model.indicators["processed_info"],
+        "terreno": site,
     }
     payload: dict[str, Any] = {}
 
@@ -556,7 +649,9 @@ def get_project_indicators(
             for f in model.families
         ]
     payload["observacao"] = (
-        "os DescritivoTorre (01, 02…) nao identificam as torres desenhadas (p<i>)"
+        "os DescritivoTorre (01, 02…) nao identificam as torres desenhadas "
+        "(p<i>). Folga, percentual ou se um indice atende: chame check_zoning, "
+        "nao subtraia nem divida estes valores"
     )
 
     count = sum(len(items) for items in groups.values())
@@ -623,7 +718,10 @@ def check_zoning(run_context: RunContext) -> str:
     indice isolado ("atende o CA?", "qual a folga da TO?", "a permeabilidade
     atende?"). Cada indice e comparado no sentido certo: CA, TO e gabarito sao
     maximos; permeabilidade e minimo. Cite `atende`, `folga` e os totais
-    prontos (`nao_atende`, `atende_todas`) — nao refaca a conta.
+    prontos (`nao_atende`, `atende_todas`) — nao refaca a conta. A `folga` ja
+    vem com o sinal certo: positiva quando atende, negativa quando nao atende.
+    Cite-a com o sinal devolvido, sem inverter. Nao derive outras relacoes
+    ("N vezes o minimo", "X% acima"): cite so `folga` e `percentual_do_limite`.
 
     Returns:
         JSON com uma comparacao por indice em `regras` (ou `indisponivel` com

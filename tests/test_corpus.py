@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from src.cad.geometry import bbox_contains
-from src.cad.model import load_aqg
+from src.cad.model import load_aqg, tower_units
 
 FILES = sorted((Path(__file__).parents[1] / "data" / "aqg").rglob("*.json"))
 PARAMS = FILES or [
@@ -29,12 +29,14 @@ def test_corpus_file(path: Path):
         if entity.type in ("core", "vaga", "portaria"):
             assert bbox_contains(perimeter.bbox, entity.bbox), entity.id
 
-    towers = sum(
-        1
+    towers = [
+        inst
         for inst in model.instances.values()
         if inst.family_type.lower() in ("tower", "dynamictower3d")
-    )
-    total = next(
-        o["value"] for o in model.indicators["outputs"] if o["type"] == "TotalDeTorres"
-    )
-    assert towers == total
+    ]
+    outputs = {o["type"]: o.get("value") for o in model.indicators["outputs"]}
+    assert len(towers) == outputs["TotalDeTorres"]
+
+    units = [tower_units(model.families[t.family_index].properties) for t in towers]
+    assert None not in units
+    assert sum(u[1] for u in units) == outputs["TotalDeUnidades"]

@@ -11,7 +11,7 @@ Formato do AQG: [`data/aqg/README.md`](../../data/aqg/README.md). Requisitos e d
 | Arquivo | Papel |
 | --- | --- |
 | `geometry.py` | Os tipos `Prim` e as medidas: bbox, comprimento, área, hit-test |
-| `model.py` | `load_aqg()` (bytes → `CadModel`, ou `AqgLoadError`), `build_model()`, `describe_model()`, `prims_payload()` e os tipos `CadEntity`, `CadInstance`, `CadFamily`, `CadLayer`, `CadModel` |
+| `model.py` | `load_aqg()` (bytes → `CadModel`, ou `AqgLoadError`), `build_model()`, `describe_model()`, `prims_payload()`, `tower_units()` (unidades por pavimento e da torre, das `properties` da família) e os tipos `CadEntity`, `CadInstance`, `CadFamily`, `CadLayer`, `CadModel` |
 
 ## A Abstração Central
 

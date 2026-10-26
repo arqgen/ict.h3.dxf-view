@@ -25,7 +25,7 @@ from src.ai_modules.tools.cad_tools.helpers import split_known_ids
 from src.ai_modules.tools.cad_tools.query_tools import ZONING_RULES
 from src.api.logger import logger
 from src.api.models.chat import ChatRequest
-from src.cad.model import CadModel, _category, describe_model, load_aqg
+from src.cad.model import CadModel, _category, describe_model, load_aqg, tower_units
 
 AQG_DIR = Path("data/aqg/avaliadas")
 RESULTS_DIR = Path(__file__).parent / "results"
@@ -67,6 +67,27 @@ def _zoning(model: CadModel) -> list[float | None]:
     ]
 
 
+def _tower_units(model: CadModel) -> list[tuple[str, int]]:
+    """(familia, unidades da torre) de cada torre com o dado."""
+    result = []
+    for inst in model.instances.values():
+        units = tower_units(model.families[inst.family_index].properties)
+        if _category(inst.family_type) == "torre" and units:
+            result.append((inst.family, units[1]))
+    return result
+
+
+def _units_per_tower(model: CadModel) -> list[float | None]:
+    return sorted({float(units) for _, units in _tower_units(model)}) or [None]
+
+
+def _units_per_family(model: CadModel) -> list[float | None]:
+    by_family: dict[str, int] = {}
+    for family, units in _tower_units(model):
+        by_family[family] = by_family.get(family, 0) + units
+    return [float(v) for v in by_family.values()] or [None]
+
+
 CASES: list[tuple[str, str, Expected]] = [
     ("torres", "Quantas torres tem este projeto?", _outputs("TotalDeTorres")),
     (
@@ -98,6 +119,25 @@ CASES: list[tuple[str, str, Expected]] = [
         "zoneamento",
         "O projeto atende CA, TO, permeabilidade e gabarito?",
         _zoning,
+    ),
+    ("unidades_torre", "Quantas unidades tem cada torre?", _units_per_tower),
+    (
+        "unidades_familia",
+        "Quantas unidades há em cada família de torre?",
+        _units_per_family,
+    ),
+    (
+        "terra",
+        "Quanto de corte e aterro o projeto prevê?",
+        lambda m: [
+            _indicator(m, "outputs", "MovimentoDeTerra", "corte"),
+            _indicator(m, "outputs", "MovimentoDeTerra", "aterro"),
+        ],
+    ),
+    (
+        "inclinacao",
+        "Qual a inclinação média do terreno?",
+        lambda m: [m.indicators["inclinacao_media"]],
     ),
 ]
 
