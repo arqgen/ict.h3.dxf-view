@@ -236,6 +236,18 @@ def test_get_entity_details_of_instance(ctx: RunContext):
     assert payload["tipo_familia"] == "Tower"
 
 
+def test_get_entity_details_uses_the_instance_family(
+    duplicate_label_model: CadModel,
+):
+    ctx = RunContext(
+        run_id="r1", session_id="s1", dependencies={"cad": duplicate_label_model}
+    )
+    payload = call(get_entity_details, ctx, entity_id="p1")
+    assert payload["propriedades_familia"] == {"type": "Tower", "total_pavimentos": 3}
+    counts = call(count_entities, ctx, group_by="family")
+    assert counts["contagens"]["T/4"] == 2
+
+
 def test_get_entity_details_of_part(ctx: RunContext):
     payload = call(get_entity_details, ctx, entity_id="p0.0")
     assert payload["familia"] == "T/4"

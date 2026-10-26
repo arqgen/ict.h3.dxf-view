@@ -69,6 +69,13 @@ def test_count_by_family(sample_model: CadModel):
     assert counts == {"T/4": 2, "Vaga 0": 2}
 
 
+def test_instance_keeps_its_family_position(duplicate_label_model: CadModel):
+    instances = duplicate_label_model.instances
+    assert instances["p0"].family_index == 0
+    assert instances["p1"].family_index == 2
+    assert instances["p1"].family == "T/4"
+
+
 def test_families(sample_model: CadModel):
     assert [(f.label, f.type) for f in sample_model.families] == [
         ("T/4", "Tower"),

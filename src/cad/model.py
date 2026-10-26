@@ -107,6 +107,7 @@ class CadInstance:
     hid: str
     family: str
     family_type: str
+    family_index: int  # posicao em model.families; o label pode se repetir
     x: float
     y: float
     angle: float
@@ -210,7 +211,7 @@ def build_model(project: dict, filename: str) -> CadModel:
             continue
 
         instance, parts = _place_family(
-            pid, hid, obj, families[k], raw_families[k], warnings
+            pid, hid, obj, k, families[k], raw_families[k], warnings
         )
         instances[pid] = instance
         entities.extend(parts)
@@ -364,6 +365,7 @@ def _place_family(
     pid: str,
     hid: str,
     obj: dict,
+    family_index: int,
     family: CadFamily,
     raw_family: dict,
     warnings: list[str],
@@ -402,6 +404,7 @@ def _place_family(
         hid=hid,
         family=family.label,
         family_type=family.type,
+        family_index=family_index,
         x=x,
         y=y,
         angle=angle,

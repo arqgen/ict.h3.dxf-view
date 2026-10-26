@@ -299,7 +299,7 @@ def get_entity_details(run_context: RunContext, entity_id: str) -> str:
 
 def _instance_info(model: CadModel, instance_id: str) -> dict[str, Any]:
     inst = model.instances[instance_id]
-    family = next(f for f in model.families if f.label == inst.family)
+    family = model.families[inst.family_index]
     return {
         "instancia": inst.id,
         "hid": inst.hid,

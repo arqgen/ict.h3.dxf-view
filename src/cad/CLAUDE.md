@@ -46,7 +46,7 @@ Verificadas nos 24 AQGs locais; todas falham em silêncio.
 4. **Layers `talude` e `topografia` vêm em minúsculas e sem `AQG_`.**
 5. **Furos existem:** 12 taludes (em `MultiPolygon`) e 1 `AQG_RUA`. `_area_of` ingênuo somaria os anéis.
 6. **`road_network` pode vir `null`.** O parser é tolerante: o que não reconhece vira aviso.
-7. **Label de família duplicado (limitação aceita):** famílias diferentes podem ter o mesmo label normalizado (caso real: `I/15`, 1 de 24 arquivos). A instância guarda só o label, então o detalhe pega as `properties` da primeira família com aquele label e a contagem por família soma as duas.
+7. **Label de família duplicado:** famílias diferentes podem ter o mesmo label normalizado (caso real: `I/15`, 1 de 24 arquivos). Por isso a instância guarda `family_index`, a posição em `model.families`: tudo que precisa das `properties` usa `model.families[inst.family_index]`, nunca uma busca pelo label. A contagem por família agrupa pelo label e soma as duas.
 
 ## `describe_model()`
 
