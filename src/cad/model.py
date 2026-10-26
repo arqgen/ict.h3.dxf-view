@@ -160,7 +160,15 @@ def load_aqg(data: bytes, filename: str) -> CadModel:
             "o arquivo não parece um Project AQG: falta a lista solution.placed_objects"
         )
 
-    return build_model(project, filename)
+    # build_model so transforma em aviso o que reconhece como dado ruim; um tipo
+    # inesperado em lugar que ele nao confere (position.x = "abc", site lista)
+    # ainda estoura aqui, e isso e arquivo invalido, nao erro do servidor.
+    try:
+        return build_model(project, filename)
+    except (TypeError, ValueError, AttributeError) as exc:
+        raise AqgLoadError(
+            f"o arquivo AQG tem um campo em formato inesperado: {exc}"
+        ) from exc
 
 
 def build_model(project: dict, filename: str) -> CadModel:

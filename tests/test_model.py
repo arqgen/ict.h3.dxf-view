@@ -232,3 +232,10 @@ def test_describe_model_has_no_numbers(sample_model: CadModel):
         assert expected in summary
     for forbidden in ("37", "1234", "8000", "276"):
         assert forbidden not in summary
+
+
+def test_load_aqg_rejects_malformed_field() -> None:
+    project = build_sample_project()
+    project["solution"]["placed_objects"][0]["position"]["x"] = "abc"
+    with pytest.raises(AqgLoadError):
+        load_aqg(json.dumps(project).encode(), "x")
