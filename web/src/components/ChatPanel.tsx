@@ -156,7 +156,7 @@ export function ChatPanel({ document: loaded, ui }: Props) {
 
       <div className="chat-log" ref={scrollRef}>
         {!loaded && (
-          <p className="empty">Abra um arquivo DXF para começar a conversar sobre ele.</p>
+          <p className="empty">Abra um projeto AQG para começar a conversar sobre ele.</p>
         )}
 
         {loaded && !messages.length && (
@@ -197,7 +197,7 @@ export function ChatPanel({ document: loaded, ui }: Props) {
       >
         <textarea
           value={input}
-          placeholder={loaded ? 'Pergunte sobre o desenho…' : 'Abra um DXF primeiro'}
+          placeholder={loaded ? 'Pergunte sobre o desenho…' : 'Abra um projeto primeiro'}
           disabled={!loaded || busy}
           rows={2}
           onChange={(event) => setInput(event.target.value)}

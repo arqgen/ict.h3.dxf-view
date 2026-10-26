@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 
-import { fetchEntityDetails, uploadDocument } from './api/client'
+import { expandIds, fetchEntityDetails, uploadDocument } from './api/client'
 import type {
   BBox,
   EntityDetails,
@@ -44,7 +44,7 @@ export default function App() {
       if (!document) return null
 
       let result: BBox | null = null
-      for (const id of ids) {
+      for (const id of expandIds(ids, document.byId.keys())) {
         const entity = document.byId.get(id)
         if (!entity?.bbox) continue
         result = result
@@ -97,7 +97,7 @@ export default function App() {
   const ui = useMemo<ToolUI>(
     () => ({
       highlight: (ids, label, zoom) => {
-        setHighlighted(new Set(ids))
+        setHighlighted(new Set(loaded ? expandIds(ids, loaded.byId.keys()) : []))
         setHighlightLabel(label)
         if (zoom) requestView(bboxOfIds(ids, loaded))
       },
@@ -193,7 +193,7 @@ export default function App() {
           <input
             ref={fileInputRef}
             type="file"
-            accept=".dxf,application/dxf,text/plain"
+            accept=".json,application/json"
             hidden
             onChange={(event) => {
               const file = event.target.files?.[0]
@@ -202,7 +202,7 @@ export default function App() {
             }}
           />
           <button type="button" onClick={() => fileInputRef.current?.click()}>
-            {loaded ? 'Trocar arquivo' : 'Abrir DXF'}
+            {loaded ? 'Trocar arquivo' : 'Abrir projeto'}
           </button>
         </div>
       </header>
@@ -228,8 +228,8 @@ export default function App() {
 
           {!loaded && !loading && (
             <div className="dropzone">
-              <p>Arraste um arquivo .dxf aqui</p>
-              <p className="hint">ou use o botão “Abrir DXF”</p>
+              <p>Arraste um arquivo .json (AQG) aqui</p>
+              <p className="hint">ou use o botão “Abrir projeto”</p>
             </div>
           )}
 

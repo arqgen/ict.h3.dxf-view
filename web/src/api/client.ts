@@ -16,8 +16,7 @@ const TOOL_LABELS: Record<string, string> = {
   get_entity_details: 'lendo detalhes da entidade',
   search_text: 'procurando textos',
   measure: 'medindo',
-  get_block_definition: 'lendo definição de bloco',
-  get_header_variables: 'lendo cabeçalho do arquivo',
+  get_project_indicators: 'lendo indicadores do projeto',
   highlight_entities: 'destacando no desenho',
   clear_highlight: 'limpando destaque',
   zoom_to: 'reenquadrando a vista',
@@ -26,6 +25,16 @@ const TOOL_LABELS: Record<string, string> = {
 
 export function toolLabel(name: string): string {
   return TOOL_LABELS[name] ?? name
+}
+
+/** Resolve referências em ids de entidade: um id de instância (`p3`) vale por
+ *  todas as partes dela (`p3.0`, `p3.1`…). Mesma regra do `split_known_ids`. */
+export function expandIds(ids: string[], entityIds: Iterable<string>): string[] {
+  const result: string[] = []
+  for (const id of entityIds) {
+    if (ids.some((ref) => id === ref || id.startsWith(ref + '.'))) result.push(id)
+  }
+  return result
 }
 
 /** As 4 ferramentas cujo efeito é visual. Aplicadas a partir do stream. */

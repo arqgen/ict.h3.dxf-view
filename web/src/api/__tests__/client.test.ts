@@ -3,7 +3,7 @@
  *
  * `recorded-stream.txt` foi capturado de `POST /api/chat` respondendo
  * "Qual e a maior entidade fechada do desenho? Me mostre onde ela esta." sobre
- * o DXF sintetico dos testes do backend. Usar a gravacao em vez de um evento
+ * o desenho sintetico dos testes do backend. Usar a gravacao em vez de um evento
  * escrito a mao e o ponto: se o formato de evento do agno mudar, este teste
  * quebra — e a premissa de que o viewer consegue ler `tool_args` do stream e
  * exatamente o que sustenta as 4 ferramentas de interface.
@@ -15,7 +15,7 @@ import { join } from 'node:path'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type { ToolUI } from '../types'
-import { sendChat, toolLabel } from '../client'
+import { expandIds, sendChat, toolLabel } from '../client'
 
 const RECORDED = readFileSync(join(__dirname, 'recorded-stream.txt'), 'utf-8')
 
@@ -266,5 +266,23 @@ describe('rotulos das ferramentas', () => {
 
   it('devolve o nome cru para o desconhecido', () => {
     expect(toolLabel('ferramenta_nova')).toBe('ferramenta_nova')
+  })
+})
+
+describe('expandIds', () => {
+  it('expande o id da instancia sem casar prefixo numerico', () => {
+    expect(expandIds(['p0'], ['p0.0', 'p0.1', 'p01.0', 's0'])).toEqual(['p0.0', 'p0.1'])
+  })
+
+  it('passa id de entidade direto', () => {
+    expect(expandIds(['s0'], ['p0.0', 's0'])).toEqual(['s0'])
+  })
+
+  it('descarta referencia desconhecida', () => {
+    expect(expandIds(['x'], ['p0.0', 's0'])).toEqual([])
+  })
+
+  it('nao duplica quando instancia e parte sao pedidas juntas', () => {
+    expect(expandIds(['p0', 'p0.1'], ['p0.0', 'p0.1'])).toEqual(['p0.0', 'p0.1'])
   })
 })
