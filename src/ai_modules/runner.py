@@ -20,7 +20,7 @@ async def run_chat(
     O indice vai em `dependencies` e nao em `session_state`: o agno so serializa
     `session_state` (que precisa ser JSON e e persistido na sessao), enquanto
     `dependencies` fica fora do prompt — `add_dependencies_to_context` e False
-    por default. Assim as 12 tools recebem o objeto Python vivo sem que uma
+    por default. Assim as tools de CAD recebem o objeto Python vivo sem que uma
     linha dele chegue ao modelo.
     """
     files = (

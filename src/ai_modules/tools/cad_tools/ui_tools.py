@@ -43,8 +43,11 @@ def highlight_entities(
     desenho e o principal valor desta ferramenta — uma resposta com ids que o
     usuario nao consegue localizar visualmente vale muito menos.
 
+    Aceita o id da instancia (`p<i>`) para destacar todas as partes dela — use
+    isso para mostrar uma torre ou vaga inteira.
+
     Args:
-        ids: ids das entidades a destacar (maximo 5000).
+        ids: ids das entidades ou instancias a destacar (maximo 5000 partes).
         label: rotulo curto mostrado no viewer (ex: "paredes externas").
         zoom: se True, tambem reenquadra a vista sobre o destaque.
 
@@ -115,10 +118,11 @@ def zoom_to(
     """ACAO DE INTERFACE: reenquadra a vista do desenho.
 
     Use para levar o usuario ate a regiao de que a resposta fala. Nao repita o
-    mesmo enquadramento que ja esta ativo.
+    mesmo enquadramento que ja esta ativo. Aceita o id da instancia (`p<i>`)
+    para enquadrar todas as partes dela.
 
     Args:
-        ids: ids a enquadrar, quando target="ids".
+        ids: ids de entidades ou instancias a enquadrar, quando target="ids".
         layer: nome do layer a enquadrar, quando target="layer".
         bbox: regiao [min_x, min_y, max_x, max_y], quando target="bbox".
         target: o que enquadrar — "ids", "layer", "bbox" ou "all" (desenho todo).

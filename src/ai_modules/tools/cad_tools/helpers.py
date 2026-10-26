@@ -1,9 +1,9 @@
 """Utilitarios compartilhados pelas tools de CAD.
 
-Duas regras que valem para todas as 12 tools:
+Duas regras que valem para todas as tools de CAD:
 
 1. **Elas nunca levantam excecao por dado invalido.** Um id inexistente ou um
-   bloco que nao existe voltam como dado (`erro`, `rejeitados`), porque uma
+   filtro que nao casa voltam como dado (`erro`, `rejeitados`), porque uma
    excecao encerra a rodada de tools e o modelo perde a chance de se corrigir.
 2. **As chaves do resultado sao em pt-BR** e os numeros arredondados em 3 casas —
    o modelo repete essas chaves na resposta ao usuario.
@@ -75,9 +75,11 @@ def entity_brief(entity: CadEntity) -> dict[str, Any]:
     if entity.area is not None:
         brief["area"] = rnd(entity.area)
     if entity.text:
-        brief["texto"] = entity.text
-    if entity.block:
-        brief["bloco"] = entity.block
+        brief["rotulo"] = entity.text
+    if entity.instance:
+        brief["instancia"] = entity.instance
+    if entity.family:
+        brief["familia"] = entity.family
     if entity.bbox:
         brief["bbox"] = rnd_bbox(entity.bbox)
 
@@ -85,20 +87,29 @@ def entity_brief(entity: CadEntity) -> dict[str, Any]:
 
 
 def split_known_ids(model: CadModel, ids: list[str]) -> tuple[list[str], list[str]]:
-    """Separa ids validos dos rejeitados, preservando a ordem e sem duplicar."""
+    """Separa ids validos dos rejeitados, preservando a ordem e sem duplicar.
+
+    Um id de instancia (`p<i>`) vale por todas as partes dela — o frontend
+    aplica a mesma regra ao ler o `ToolCallStarted`.
+    """
     known: list[str] = []
     rejected: list[str] = []
     seen: set[str] = set()
 
     for raw in ids:
-        entity_id = str(raw)
-        if entity_id in seen:
-            continue
-        seen.add(entity_id)
-
-        if entity_id in model.by_id:
-            known.append(entity_id)
+        ref = str(raw)
+        if ref in model.by_id:
+            expanded = [ref]
+        elif ref in model.instances:
+            expanded = model.instances[ref].entity_ids
         else:
-            rejected.append(entity_id)
+            if ref not in rejected:
+                rejected.append(ref)
+            continue
+
+        for entity_id in expanded:
+            if entity_id not in seen:
+                seen.add(entity_id)
+                known.append(entity_id)
 
     return known, rejected

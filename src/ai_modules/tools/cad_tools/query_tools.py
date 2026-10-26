@@ -1,6 +1,6 @@
-"""As 8 tools de consulta ao indice do desenho.
+"""As 7 tools de consulta ao indice do projeto.
 
-O modelo nunca ve o arquivo DXF. Ele ve o resumo textual no system prompt e o
+O modelo nunca ve o arquivo AQG. Ele ve o resumo textual no system prompt e o
 que estas tools devolvem — e essa e a razao de existirem: sao o unico caminho
 pelo qual uma quantidade, medida ou coordenada pode entrar numa resposta.
 """
@@ -78,23 +78,26 @@ def list_layers(
 @tool
 def count_entities(
     run_context: RunContext,
-    group_by: Literal["type", "layer", "block"] = "type",
+    group_by: Literal["type", "layer", "family"] = "type",
     layer: str | None = None,
     entity_type: str | None = None,
 ) -> str:
-    """Conta entidades, agrupadas por tipo, layer ou bloco.
+    """Conta entidades do desenho, agrupadas por tipo, layer ou familia.
 
-    PREFIRA ESTA TOOL para qualquer pergunta do tipo "quantos/quantas". Ela e
-    mais barata e mais confiavel que listar entidades e contar o resultado.
+    PREFIRA ESTA TOOL para perguntas "quantos/quantas" sobre o que esta
+    desenhado. Para "quantas torres/vagas" use `group_by="family"`, que conta
+    instancias, nao partes. NAO use para unidades habitacionais nem areas
+    construidas: a planta mostra um pavimento so — use `get_project_indicators`.
 
     Args:
-        group_by: dimensao do agrupamento — "type", "layer" ou "block".
+        group_by: "type" e "layer" contam entidades (partes); "family" conta
+            instancias distintas por familia.
         layer: se informado, conta somente neste layer.
-        entity_type: se informado, conta somente entidades deste tipo DXF
-            (ex: LINE, LWPOLYLINE, INSERT).
+        entity_type: se informado, conta somente entidades deste tipo
+            (ex: apartamento, core, vaga, CadPolygon).
 
     Returns:
-        JSON com as contagens por grupo e o total filtrado.
+        JSON com as contagens por grupo, o total e a unidade contada.
     """
     try:
         model = cad_model(run_context)
@@ -104,14 +107,18 @@ def count_entities(
     selected = _filter_entities(model, layer=layer, entity_type=entity_type)
 
     counts: dict[str, int] = {}
-    for entity in selected:
-        if group_by == "type":
-            key = entity.type
-        elif group_by == "layer":
-            key = entity.layer
-        else:
-            key = entity.block or "(sem bloco)"
-        counts[key] = counts.get(key, 0) + 1
+    if group_by == "family":
+        unit = "instancias"
+        instances = {e.instance: e.family for e in selected if e.instance}
+        for family in instances.values():
+            counts[family] = counts.get(family, 0) + 1
+        total = len(instances)
+    else:
+        unit = "entidades"
+        for entity in selected:
+            key = entity.type if group_by == "type" else entity.layer
+            counts[key] = counts.get(key, 0) + 1
+        total = len(selected)
 
     ordered = dict(sorted(counts.items(), key=lambda item: (-item[1], item[0])))
 
@@ -119,10 +126,11 @@ def count_entities(
         {
             "agrupado_por": group_by,
             "contagens": ordered,
-            "total": len(selected),
+            "total": total,
+            "unidade": unit,
             "filtros": {"layer": layer, "tipo": entity_type},
         },
-        f"{len(selected)} entidades contadas por {group_by}",
+        f"{total} {unit} contadas por {group_by}",
     )
 
 
@@ -132,7 +140,8 @@ def query_entities(
     entity_type: str | None = None,
     layer: str | None = None,
     layer_contains: str | None = None,
-    block_name: str | None = None,
+    family: str | None = None,
+    instance: str | None = None,
     text_contains: str | None = None,
     in_bbox: list[float] | None = None,
     bbox_mode: Literal["intersects", "contains"] = "intersects",
@@ -147,17 +156,20 @@ def query_entities(
 ) -> str:
     """Busca entidades por filtros combinados e devolve seus ids e medidas.
 
-    Esta e a tool para "qual e a maior parede", "quais entidades estao nesta
-    regiao", "liste as pecas do layer X". Os ids devolvidos sao exatamente os
-    que `highlight_entities` e `zoom_to` aceitam.
+    Esta e a tool para "qual e o maior apartamento", "quais entidades estao
+    nesta regiao", "liste as partes da torre p3", "onde esta a tipologia X".
+    Os ids devolvidos sao exatamente os que `highlight_entities` e `zoom_to`
+    aceitam.
 
     Args:
-        entity_type: tipo DXF exato (ex: LINE, LWPOLYLINE, CIRCLE, INSERT).
+        entity_type: tipo exato (ex: apartamento, varanda, core, vaga, CadPolygon).
         layer: nome exato do layer.
         layer_contains: trecho do nome do layer, sem diferenciar maiusculas.
-        block_name: nome do bloco, para filtrar insercoes.
-        text_contains: trecho do texto da entidade, sem diferenciar maiusculas.
-        in_bbox: regiao [min_x, min_y, max_x, max_y] em unidades do desenho.
+        family: label da familia (ex: "T/4"), sem diferenciar maiusculas.
+        instance: id da instancia (ex: "p3"), para listar as partes dela.
+        text_contains: trecho do rotulo (tipologia ou familia), sem diferenciar
+            maiusculas.
+        in_bbox: regiao [min_x, min_y, max_x, max_y] em metros.
         bbox_mode: "intersects" pega quem toca a regiao; "contains" so quem
             esta inteiramente dentro dela.
         min_length: comprimento minimo.
@@ -191,7 +203,8 @@ def query_entities(
         layer=layer,
         entity_type=entity_type,
         layer_contains=layer_contains,
-        block_name=block_name,
+        family=family,
+        instance=instance,
         text_contains=text_contains,
         region=region,
         bbox_mode=bbox_mode,
@@ -222,37 +235,52 @@ def query_entities(
 
 @tool
 def get_entity_details(run_context: RunContext, entity_id: str) -> str:
-    """Devolve todos os atributos DXF crus de uma entidade especifica.
+    """Devolve os detalhes de uma entidade ou de uma instancia (torre, vaga...).
 
-    Use quando precisar de uma propriedade que as outras tools nao expoem
-    (raio, angulos, escala de insercao, estilo de texto).
+    Use para detalhar uma torre: passe o id da instancia (`p<i>`) e receba a
+    familia, as propriedades dela e os ids das partes. Com o id de uma parte
+    (`p<i>.<j>`) ou do terreno (`s<i>`), devolve medidas e atributos.
 
     Args:
-        entity_id: id da entidade, como devolvido por `query_entities`.
+        entity_id: id de entidade ou de instancia.
 
     Returns:
-        JSON com tipo, layer, medidas e os atributos DXF crus.
+        JSON com tipo, layer, medidas, familia e propriedades da familia.
     """
     try:
         model = cad_model(run_context)
     except MissingDocument as exc:
         return fail(str(exc))
 
-    entity = model.by_id.get(str(entity_id))
+    ref = str(entity_id)
+    if ref in model.instances:
+        inst = model.instances[ref]
+        return dump(
+            {**_instance_info(model, ref), "partes": inst.entity_ids},
+            f"detalhes da instancia {ref}",
+        )
+
+    entity = model.by_id.get(ref)
     if entity is None:
         return fail(f"entidade {entity_id} nao existe neste desenho")
 
-    from src.cad.model import entity_raw_props
+    payload = {**entity_brief(entity), "fechada": entity.closed, "cor": entity.color}
+    if entity.instance:
+        payload.update(_instance_info(model, entity.instance))
 
-    return dump(
-        {
-            **entity_brief(entity),
-            "fechada": entity.closed,
-            "cor": entity.color,
-            "props_dxf": entity_raw_props(model, entity.id) or {},
-        },
-        f"detalhes da entidade {entity.id}",
-    )
+    return dump(payload, f"detalhes da entidade {entity.id}")
+
+
+def _instance_info(model: CadModel, instance_id: str) -> dict[str, Any]:
+    inst = model.instances[instance_id]
+    family = next(f for f in model.families if f.label == inst.family)
+    return {
+        "instancia": inst.id,
+        "hid": inst.hid,
+        "familia": inst.family,
+        "tipo_familia": inst.family_type,
+        "propriedades_familia": family.properties,
+    }
 
 
 @tool
@@ -263,9 +291,11 @@ def search_text(
     case_sensitive: bool = False,
     limit: int = DEFAULT_LIMIT,
 ) -> str:
-    """Procura texto entre as entidades de texto do desenho (TEXT, MTEXT, cotas).
+    """Procura no rotulo das entidades: a tipologia (apartamento e varanda) ou o
+    label da familia.
 
-    Use para achar legendas, titulos, numeros de ambiente ou qualquer anotacao.
+    Use para achar onde esta uma tipologia ("2 Quartos") ou as partes de uma
+    familia. O AQG nao tem texto livre: legendas e anotacoes nao existem aqui.
 
     Args:
         query: termo procurado.
@@ -274,7 +304,7 @@ def search_text(
         limit: maximo de resultados (teto de 200).
 
     Returns:
-        JSON com as entidades cujo texto casou, incluindo seus ids.
+        JSON com as entidades cujo rotulo casou, incluindo seus ids.
     """
     try:
         model = cad_model(run_context)
@@ -312,7 +342,7 @@ def search_text(
             "total_encontrado": len(found),
             "truncado": len(found) > len(page),
         },
-        f"{len(found)} textos casaram com '{query}'",
+        f"{len(found)} rotulos casaram com '{query}'",
     )
 
 
@@ -324,11 +354,13 @@ def measure(
 ) -> str:
     """Mede entidades: comprimento, area, caixa envolvente ou distancia.
 
-    As medidas sao aproximacoes calculadas sobre a geometria achatada, e area
-    existe somente para entidades fechadas. Declare isso ao usuario.
+    Area existe somente para poligonos, ja descontados os furos. Area em planta
+    NAO e area construida: a planta mostra um pavimento so — area construida vem
+    de `get_project_indicators`.
 
     Args:
-        ids: ids das entidades a medir.
+        ids: ids das entidades a medir; o id da instancia (`p<i>`) vale por
+            todas as partes dela.
         metric: "length" soma comprimentos; "area" soma areas; "bbox" devolve a
             caixa envolvente do conjunto; "distance" exige exatamente 2 ids e
             devolve a distancia entre os centros das suas caixas.
@@ -426,95 +458,74 @@ def _measure_distance(entities: list[CadEntity], rejected: list[str]) -> str:
 
 
 @tool
-def get_block_definition(run_context: RunContext, name: str) -> str:
-    """Descreve a definicao de um bloco: o que ele contem e quantas vezes e usado.
-
-    Use quando o usuario perguntar o que um bloco representa ou quantas vezes
-    aparece no desenho.
-
-    Args:
-        name: nome do bloco, como aparece em `count_entities(group_by="block")`.
-
-    Returns:
-        JSON com os tipos de entidade dentro do bloco e o numero de insercoes.
-    """
-    try:
-        model = cad_model(run_context)
-    except MissingDocument as exc:
-        return fail(str(exc))
-
-    if name not in model.doc.blocks:
-        available = model.block_names[:20]
-        return dump(
-            {
-                "erro": f"bloco '{name}' nao existe neste desenho",
-                "blocos_disponiveis": available,
-            },
-            f"bloco '{name}' nao encontrado",
-        )
-
-    block = model.doc.blocks[name]
-
-    counts: dict[str, int] = {}
-    for entity in block:
-        counts[entity.dxftype()] = counts.get(entity.dxftype(), 0) + 1
-
-    insert_ids = [entity.id for entity in model.entities if entity.block == name]
-
-    return dump(
-        {
-            "bloco": name,
-            "conteudo": dict(sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))),
-            "total_entidades": sum(counts.values()),
-            "insercoes": len(insert_ids),
-            "ids_das_insercoes": insert_ids[:MAX_LIMIT],
-        },
-        f"bloco '{name}' com {sum(counts.values())} entidades e "
-        f"{len(insert_ids)} insercoes",
-    )
-
-
-@tool
-def get_header_variables(
-    run_context: RunContext, names: list[str] | None = None
+def get_project_indicators(
+    run_context: RunContext, tipos: list[str] | None = None
 ) -> str:
-    """Le variaveis do cabecalho do DXF ($INSUNITS, $ACADVER, $LTSCALE, ...).
+    """Le os indicadores do projeto calculados pelo exportador.
 
-    Use quando a pergunta depender de configuracao do arquivo, em especial a
-    unidade de desenho.
+    PREFIRA ESTA TOOL para unidades, vagas, areas construidas, CA, TO,
+    permeabilidade, gabarito e indices exigidos. Esses numeros NAO saem da
+    planta: ela mostra um pavimento so. Os `DescritivoTorre` (01, 02...) nao
+    identificam as torres desenhadas (`p<i>`) — nao associe um ao outro.
 
     Args:
-        names: variaveis desejadas. Se omitido, devolve todas as disponiveis.
+        tipos: filtra indicadores, exigidos e dados do terreno pelo campo
+            `type` (ex: ["TotalDeUnidades", "CAMaximoExigido"]). Se omitido,
+            devolve tudo.
 
     Returns:
-        JSON com as variaveis encontradas e as nao disponiveis.
+        JSON com indicadores projetados, exigidos, dados do terreno, notas da
+        solucao e as familias com suas propriedades.
     """
     try:
         model = cad_model(run_context)
     except MissingDocument as exc:
         return fail(str(exc))
 
-    if not names:
-        return dump(
-            {"variaveis": model.header, "unidade": model.units},
-            f"{len(model.header)} variaveis de cabecalho",
+    groups = {
+        "indicadores": model.indicators["outputs"],
+        "exigidos": model.indicators["inputs"],
+        "terreno": model.indicators["processed_info"],
+    }
+    payload: dict[str, Any] = {}
+
+    if tipos:
+        wanted = {str(t).lower() for t in tipos}
+        available = sorted(
+            {
+                str(item.get("type"))
+                for items in groups.values()
+                for item in items
+                if isinstance(item, dict) and item.get("type")
+            }
         )
+        known = {t.lower() for t in available}
+        groups = {
+            key: [
+                item
+                for item in items
+                if isinstance(item, dict)
+                and str(item.get("type", "")).lower() in wanted
+            ]
+            for key, items in groups.items()
+        }
+        missing = [str(t) for t in tipos if str(t).lower() not in known]
+        if missing:
+            payload["indisponiveis"] = missing
+            payload["tipos_disponiveis"] = available
 
-    found: dict[str, Any] = {}
-    missing: list[str] = []
-    for raw_name in names:
-        key = str(raw_name).upper()
-        if not key.startswith("$"):
-            key = "$" + key
-        if key in model.header:
-            found[key] = model.header[key]
-        else:
-            missing.append(key)
-
-    return dump(
-        {"variaveis": found, "indisponiveis": missing, "unidade": model.units},
-        f"{len(found)} variaveis lidas",
+    payload.update(groups)
+    payload["notas"] = model.indicators["scores"]
+    payload["familias"] = [
+        {"familia": f.label, "tipo": f.type, "propriedades": f.properties}
+        for f in model.families
+    ]
+    payload["observacao"] = (
+        "os DescritivoTorre (01, 02…) nao identificam as torres desenhadas (p<i>)"
     )
+
+    count = sum(len(items) for items in groups.values())
+    return dump(payload, f"{count} indicadores lidos")
 
 
 def _filter_entities(
@@ -522,7 +533,8 @@ def _filter_entities(
     layer: str | None = None,
     entity_type: str | None = None,
     layer_contains: str | None = None,
-    block_name: str | None = None,
+    family: str | None = None,
+    instance: str | None = None,
     text_contains: str | None = None,
     region: tuple[float, float, float, float] | None = None,
     bbox_mode: str = "intersects",
@@ -534,18 +546,20 @@ def _filter_entities(
 
     layer_exact = layer.lower() if layer else None
     layer_part = layer_contains.lower() if layer_contains else None
-    block_exact = block_name.lower() if block_name else None
-    type_exact = entity_type.upper() if entity_type else None
+    family_exact = family.lower() if family else None
+    type_exact = entity_type.lower() if entity_type else None
     text_part = text_contains.lower() if text_contains else None
 
     for entity in model.entities:
-        if type_exact and entity.type != type_exact:
+        if type_exact and entity.type.lower() != type_exact:
             continue
         if layer_exact and entity.layer.lower() != layer_exact:
             continue
         if layer_part and layer_part not in entity.layer.lower():
             continue
-        if block_exact and (entity.block or "").lower() != block_exact:
+        if family_exact and (entity.family or "").lower() != family_exact:
+            continue
+        if instance and entity.instance != instance:
             continue
         if text_part and (not entity.text or text_part not in entity.text.lower()):
             continue
@@ -597,6 +611,5 @@ QUERY_TOOLS = [
     get_entity_details,
     search_text,
     measure,
-    get_block_definition,
-    get_header_variables,
+    get_project_indicators,
 ]
