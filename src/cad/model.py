@@ -1,37 +1,27 @@
-"""O indice: transforma um DXF em estrutura consultavel sem reabrir o arquivo.
+"""O indice: transforma um AQG em estrutura consultavel sem reabrir o arquivo.
 
 Este modulo e a unica fonte de verdade sobre "o que existe no desenho". As tools
 do agente e o payload de render do frontend derivam os dois daqui, o que garante
 que o id que a IA cita e o id que o canvas destaca sao o mesmo.
 
-Divisao de trabalho com o ezdxf — nao reimplemente nada disto:
-- `recursive_decompose` resolve INSERT aninhado, arrays MINSERT, DIMENSION via
-  bloco anonimo, LEADER e MLINE.
-- `make_path().flattening()` amostra ARC/CIRCLE/ELLIPSE, converte bulge em arco
-  e avalia SPLINE (de Boor).
-- `RenderContext.resolve_all()` resolve BYLAYER/BYBLOCK/true_color para hex.
-- `mtext.plain_text()` limpa os escapes de formatacao.
+Ids (posicao 0-based no arquivo, contada antes de qualquer exclusao):
+- `s<i>`: `site.elements[i]`;
+- `p<i>`: instancia de familia (`PlacedFamily`) ou elemento posicionado;
+- `p<i>.<j>`: parte `volume[j]` da familia da instancia `p<i>`.
 """
 
+import json
 import math
 from collections import Counter
-from dataclasses import dataclass, field
+from collections.abc import Callable
+from dataclasses import dataclass
 from typing import Any
-
-import ezdxf.bbox
-from ezdxf import colors as ezcolors
-from ezdxf.addons.drawing.properties import RenderContext
-from ezdxf.disassemble import recursive_decompose
-from ezdxf.document import Drawing
-from ezdxf.entities import DXFEntity
-from ezdxf.path import make_path
 
 from src.cad.geometry import (
     BBox,
     PointPrim,
     PolylinePrim,
     Prim,
-    TextPrim,
     Vec2,
     bbox_of_prims,
     normalize_closed,
@@ -43,64 +33,41 @@ from src.cad.geometry import (
 DEFAULT_COLOR = "#d6d6d6"
 MAX_WARNINGS = 20
 
-# Tipos que `make_path` nao suporta e que tratamos explicitamente.
-_TEXT_TYPES = frozenset({"TEXT", "MTEXT", "ATTRIB", "ATTDEF"})
-_POINT_TYPES = frozenset({"POINT"})
+_EXCLUDED_TOWER = ("/reference", "/road_access", "/access")
+_EXCLUDED_OTHER = (*_EXCLUDED_TOWER, "/road_network", "/core/zito")
 
-# Nomes de unidade em pt-BR, indexados pelo codigo $INSUNITS.
-_UNIT_NAMES: dict[int, str] = {
-    0: "sem unidade",
-    1: "polegadas",
-    2: "pes",
-    3: "milhas",
-    4: "milimetros",
-    5: "centimetros",
-    6: "metros",
-    7: "quilometros",
-    8: "micropolegadas",
-    9: "mils",
-    10: "jardas",
-    11: "angstroms",
-    12: "nanometros",
-    13: "microns",
-    14: "decimetros",
-    15: "decametros",
-    16: "hectometros",
-    17: "gigametros",
-    18: "unidades astronomicas",
-    19: "anos-luz",
-    20: "parsecs",
+# (prefixo, layer, type ou None para o padrao, rotulo e tipologia, cor)
+_TOWER_PARTS: tuple[tuple[str, str, str | None, bool, str], ...] = (
+    ("/area/apartamento", "pav_tipo", "apartamento", True, "#BDD9E7"),
+    ("/area/varanda", "pav_tipo", "varanda", True, "#BDD9E7"),
+    ("/area/circ_vertical", "pav_tipo", None, False, "#F0F0F0"),
+    ("/area/circ_horizontal", "pav_tipo", None, False, "#F0F0F0"),
+    ("/area/shaft", "shaft", "shaft", False, "#E8E8E8"),
+    ("/core", "pav_tipo", "core", False, "#D0D0CF"),
+    ("/building_pad", "projecao_plato", "building_pad", False, "#DEDEDC"),
+    ("/afastamento", "afastamento", "afastamento", False, "#FE8484"),
+)
+
+_SITE_COLORS = {
+    "AQG_PERIMETRO": DEFAULT_COLOR,
+    "AQG_OFFSET": "#FE8484",
+    "AQG_FRENTE": "#9AA5B1",
+    "AQG_FUNDOS": "#9AA5B1",
+    "AQG_ACESSO": "#009961",
+    "AQG_RUA": "#7C8798",
 }
 
-# Variaveis de cabecalho expostas para consulta pelo agente.
-_HEADER_WHITELIST = (
-    "$ACADVER",
-    "$INSUNITS",
-    "$MEASUREMENT",
-    "$LUNITS",
-    "$LUPREC",
-    "$AUNITS",
-    "$AUPREC",
-    "$DIMSCALE",
-    "$LTSCALE",
-    "$EXTMIN",
-    "$EXTMAX",
-    "$LIMMIN",
-    "$LIMMAX",
-    "$DWGCODEPAGE",
-    "$CLAYER",
-)
+# (layer, type, text, color)
+PartSpec = tuple[str, str, str | None, str]
+Place = Callable[[Vec2], Vec2]
+
+
+class AqgLoadError(Exception):
+    """Bytes que não são JSON, ou JSON que não é um Project AQG."""
 
 
 @dataclass(slots=True)
 class CadEntity:
-    """Uma entidade de modelspace, com a geometria ja achatada.
-
-    `id` e o handle DXF da entidade de topo — o unico identificador que o LLM
-    ve. Sub-entidades geradas por decomposicao tem `handle` None no ezdxf e por
-    isso nunca sao enderecaveis.
-    """
-
     id: str
     type: str
     layer: str
@@ -111,7 +78,8 @@ class CadEntity:
     length: float | None
     area: float | None
     text: str | None
-    block: str | None
+    instance: str | None
+    family: str | None
 
 
 @dataclass(slots=True)
@@ -126,20 +94,38 @@ class CadLayer:
 
 
 @dataclass(slots=True)
+class CadFamily:
+    class_path: str
+    label: str
+    type: str
+    properties: dict[str, Any]
+
+
+@dataclass(slots=True)
+class CadInstance:
+    id: str
+    hid: str
+    family: str
+    family_type: str
+    x: float
+    y: float
+    angle: float
+    entity_ids: list[str]
+
+
+@dataclass(slots=True)
 class CadModel:
     filename: str
     entities: list[CadEntity]
     by_id: dict[str, CadEntity]
     layers: list[CadLayer]
     by_type: dict[str, int]
-    insert_counts: dict[str, int]
-    block_names: list[str]
+    instances: dict[str, CadInstance]
+    families: list[CadFamily]
+    indicators: dict[str, Any]
     bbox: BBox | None
     units: str
-    acad_version: str
-    header: dict[str, Any]
     warnings: list[str]
-    doc: Drawing = field(repr=False)
 
     @property
     def layer_names(self) -> list[str]:
@@ -153,31 +139,74 @@ class CadModel:
         return None
 
 
-def build_model(
-    doc: Drawing, filename: str, warnings: list[str] | None = None
-) -> CadModel:
-    """Constroi o indice a partir de um documento ezdxf ja aberto."""
-    msp = doc.modelspace()
-    collected: list[str] = list(warnings or [])
+def load_aqg(data: bytes, filename: str) -> CadModel:
+    """Le os bytes de um AQG e constroi o indice."""
+    try:
+        project = json.loads(data)
+    except (UnicodeDecodeError, ValueError) as exc:
+        raise AqgLoadError(f"o arquivo não é um JSON válido: {exc}") from exc
 
-    _render_dimensions(msp, collected)
+    if not isinstance(project, dict):
+        raise AqgLoadError("o arquivo não parece um Project AQG: não é um objeto")
+    if not isinstance(project.get("families"), list):
+        raise AqgLoadError(
+            "o arquivo não parece um Project AQG: falta a lista families"
+        )
+    solution = project.get("solution")
+    if not isinstance(solution, dict) or not isinstance(
+        solution.get("placed_objects"), list
+    ):
+        raise AqgLoadError(
+            "o arquivo não parece um Project AQG: falta a lista solution.placed_objects"
+        )
 
-    flatten_distance = _flatten_distance(msp)
-    ctx = RenderContext(doc)
+    return build_model(project, filename)
 
+
+def build_model(project: dict, filename: str) -> CadModel:
+    """Constroi o indice. Problemas de dado viram avisos, nunca excecao."""
+    site = project.get("site") or {}
+    solution = project.get("solution") or {}
+    raw_families = [f for f in project.get("families") or [] if isinstance(f, dict)]
+    families = [_family(raw) for raw in raw_families]
+
+    warnings: list[str] = []
     entities: list[CadEntity] = []
-    insert_counts: Counter[str] = Counter()
+    instances: dict[str, CadInstance] = {}
 
-    for raw in msp:
-        entity = _build_entity(raw, ctx, flatten_distance, collected)
-        if entity is None:
+    for i, element in enumerate(site.get("elements") or []):
+        entity = _site_entity(f"s{i}", element, None, warnings)
+        if entity:
+            entities.append(entity)
+
+    for i, obj in enumerate(solution.get("placed_objects") or []):
+        if not isinstance(obj, dict):
+            continue
+        pid = f"p{i}"
+        kind = obj.get("type")
+
+        if kind in ("PlacedElement", "PlacedAuxiliaryArea"):
+            entity = _site_entity(pid, obj, obj.get("label"), warnings)
+            if entity:
+                entities.append(entity)
             continue
 
-        entities.append(entity)
-        if entity.block:
-            insert_counts[entity.block] += 1
+        if kind != "PlacedFamily":
+            warnings.append(f"objeto {pid} de tipo {kind} não suportado — ignorado")
+            continue
 
-    by_id = {entity.id: entity for entity in entities}
+        hid = str(obj.get("hid") or "")
+        k = _find_family(hid, families)
+        if k is None:
+            warnings.append(f"instância {pid} ({hid}) sem família — ignorada")
+            continue
+
+        instance, parts = _place_family(
+            pid, hid, obj, families[k], raw_families[k], warnings
+        )
+        instances[pid] = instance
+        entities.extend(parts)
+
     by_type = dict(
         sorted(
             Counter(entity.type for entity in entities).items(),
@@ -185,307 +214,302 @@ def build_model(
         )
     )
 
+    bbox: BBox | None = None
+    for entity in entities:
+        bbox = union_bbox(bbox, entity.bbox)
+
     return CadModel(
         filename=filename,
         entities=entities,
-        by_id=by_id,
-        layers=_build_layers(doc, entities),
+        by_id={entity.id: entity for entity in entities},
+        layers=_build_layers(entities),
         by_type=by_type,
-        insert_counts=dict(insert_counts.most_common()),
-        block_names=sorted(
-            block.name for block in doc.blocks if not block.name.startswith("*")
-        ),
-        bbox=_document_bbox(entities),
-        units=_UNIT_NAMES.get(_units_code(doc), "unidades de desenho"),
-        acad_version=str(doc.header.get("$ACADVER", doc.dxfversion)),
-        header=_header_vars(doc),
-        warnings=_dedupe(collected),
-        doc=doc,
+        instances=instances,
+        families=families,
+        indicators={
+            "outputs": _or_default(solution.get("outputs"), []),
+            "inputs": _or_default(site.get("inputs"), []),
+            "processed_info": _or_default(site.get("processed_info"), []),
+            "scores": _or_default(solution.get("scores"), {}),
+        },
+        bbox=bbox,
+        units="metros",
+        warnings=_dedupe(warnings),
     )
 
 
-def _build_entity(
-    raw: DXFEntity,
-    ctx: RenderContext,
-    flatten_distance: float,
+def _or_default(value: Any, default: Any) -> Any:
+    return default if value is None else value
+
+
+def _matches(a: str, b: str) -> bool:
+    return a == b or a.startswith(b.rstrip("/") + "/")
+
+
+def _find_family(hid: str, families: list[CadFamily]) -> int | None:
+    # Nos dois sentidos: ha vagas com hid mais curto que o class_path da familia.
+    for k, family in enumerate(families):
+        if _matches(hid, family.class_path) or _matches(family.class_path, hid):
+            return k
+    return None
+
+
+def _family(raw: dict) -> CadFamily:
+    class_path = str(raw.get("class_path") or "")
+    properties = raw.get("properties") or {}
+    family_type = str(properties.get("type") or "")
+    return CadFamily(
+        class_path=class_path,
+        label=_family_label(raw.get("label"), class_path, family_type),
+        type=family_type,
+        properties=properties,
+    )
+
+
+def _family_label(label: Any, class_path: str, family_type: str) -> str:
+    text = str(label or "").strip()
+    if not text:
+        text = class_path.strip("/").split("/")[-1]
+    if text.isdigit():
+        return f"{family_type} {text}".strip()
+    return text
+
+
+def _category(family_type: str) -> str:
+    lowered = family_type.lower()
+    if lowered in ("tower", "dynamictower3d"):
+        return "torre"
+    if lowered in ("vaga", "portaria"):
+        return lowered
+    return "outra"
+
+
+def _part_spec(family: CadFamily, class_path: str) -> PartSpec | None:
+    """Layer, type, rotulo e cor de uma parte, ou None se ela nao e desenhada."""
+    segs = class_path.strip("/").split("/")
+    default_type = segs[1] if segs[0] == "area" and len(segs) > 1 else segs[0]
+    label = family.label
+    category = _category(family.type)
+
+    if category == "vaga":
+        return (
+            ("viario_vaga", "vaga", label, "#E1E1E1") if class_path == "/core" else None
+        )
+    if category == "portaria":
+        return (
+            ("portaria", "portaria", label, "#E6DCC8")
+            if class_path == "/core"
+            else None
+        )
+
+    if category == "outra":
+        if any(_matches(class_path, p) for p in _EXCLUDED_OTHER):
+            return None
+        layer = f"familia:{family.type.lower()}"
+        if _matches(class_path, "/core"):
+            return (layer, "core", label, "#E6DCC8")
+        return (layer, default_type, label, "#C9DCCB")
+
+    if any(_matches(class_path, p) for p in _EXCLUDED_TOWER):
+        return None
+    for prefix, layer, part_type, typology, color in _TOWER_PARTS:
+        if not _matches(class_path, prefix):
+            continue
+        text = segs[2] if typology and len(segs) > 2 else label
+        return (layer, part_type or default_type, text, color)
+    return ("pav_tipo", default_type, label, "#C9DCCB")
+
+
+def _normalize_layer(name: Any) -> str:
+    upper = str(name or "").upper()
+    return upper if upper.startswith("AQG_") else f"AQG_{upper}"
+
+
+def _site_entity(
+    eid: str, element: Any, text: Any, warnings: list[str]
+) -> CadEntity | None:
+    """Entidade de terreno ou viario: ja vem em coordenadas do terreno."""
+    if not isinstance(element, dict):
+        return None
+    cad = element.get("cad") or {}
+    cad_type = str(cad.get("type") or "")
+    if cad_type == "CadMesh":
+        return None
+
+    layer = _normalize_layer(cad.get("layer"))
+    color = _SITE_COLORS.get(layer, "#B7C3D0")
+    if str(element.get("hid") or "").startswith("/road_network"):
+        color = "#7C8798"
+
+    return _entity(
+        eid,
+        cad.get("geometry"),
+        lambda pt: pt,
+        (layer, cad_type, str(text) if text else None, color),
+        None,
+        None,
+        warnings,
+    )
+
+
+def _place_family(
+    pid: str,
+    hid: str,
+    obj: dict,
+    family: CadFamily,
+    raw_family: dict,
+    warnings: list[str],
+) -> tuple[CadInstance, list[CadEntity]]:
+    position = obj.get("position") or {}
+    x = float(position.get("x") or 0.0)
+    y = float(position.get("y") or 0.0)
+    angle = float(position.get("angle") or 0.0)
+    cos_t, sin_t = math.cos(math.radians(angle)), math.sin(math.radians(angle))
+
+    def place(pt: Vec2) -> Vec2:
+        px, py = pt
+        return (x + px * cos_t - py * sin_t, y + px * sin_t + py * cos_t)
+
+    parts: list[CadEntity] = []
+    for j, volume in enumerate(raw_family.get("volume") or []):
+        if not isinstance(volume, dict):
+            continue
+        spec = _part_spec(family, str(volume.get("class_path") or ""))
+        if spec is None:
+            continue
+        entity = _entity(
+            f"{pid}.{j}",
+            volume.get("geometry"),
+            place,
+            spec,
+            pid,
+            family.label,
+            warnings,
+        )
+        if entity:
+            parts.append(entity)
+
+    instance = CadInstance(
+        id=pid,
+        hid=hid,
+        family=family.label,
+        family_type=family.type,
+        x=x,
+        y=y,
+        angle=angle,
+        entity_ids=[part.id for part in parts],
+    )
+    return instance, parts
+
+
+def _entity(
+    eid: str,
+    geometry: Any,
+    place: Place,
+    spec: PartSpec,
+    instance: str | None,
+    family: str | None,
     warnings: list[str],
 ) -> CadEntity | None:
-    handle = raw.dxf.get("handle", None)
-    if not handle:
-        # Sem handle nao ha como a IA se referir a entidade nem o canvas
-        # destaca-la. Ignorar em silencio geraria um desenho incompleto, por
-        # isso registramos.
-        warnings.append(f"entidade {raw.dxftype()} sem handle foi ignorada")
+    try:
+        built = _geometry(geometry, place)
+    except (TypeError, ValueError, IndexError, KeyError):
+        warnings.append(f"entidade {eid} com geometria inválida — ignorada")
         return None
 
-    prims: list[Prim] = []
-    for sub in _decompose(raw, warnings):
-        prims.extend(_prims_of(sub, flatten_distance, warnings))
-
-    try:
-        props = ctx.resolve_all(raw)
-        color = _normalize_hex(props.color)
-        layer_name = props.layer or raw.dxf.get("layer", "0")
-    except Exception as exc:
-        warnings.append(f"nao foi possivel resolver cor de {raw.dxftype()}: {exc}")
-        color = DEFAULT_COLOR
-        layer_name = str(raw.dxf.get("layer", "0"))
-
-    closed = any(isinstance(prim, PolylinePrim) and prim.closed for prim in prims)
-
-    return CadEntity(
-        id=str(handle),
-        type=raw.dxftype(),
-        layer=str(layer_name),
-        color=color,
-        prims=prims,
-        bbox=bbox_of_prims(prims),
-        closed=closed,
-        length=_length_of(prims),
-        area=_area_of(prims) if closed else None,
-        text=_text_of(prims),
-        block=_block_name(raw),
-    )
-
-
-def _decompose(raw: DXFEntity, warnings: list[str]):
-    """Achata entidades compostas.
-
-    Sempre `recursive_decompose` — `virtual_entities()` nao expande arrays
-    MINSERT (devolveu 2 de 12 num array 3x2).
-    """
-    try:
-        return list(recursive_decompose([raw]))
-    except Exception as exc:
-        warnings.append(f"falha ao decompor {raw.dxftype()}: {exc}")
-        return [raw]
-
-
-def _prims_of(
-    sub: DXFEntity, flatten_distance: float, warnings: list[str]
-) -> list[Prim]:
-    dxftype = sub.dxftype()
-
-    if dxftype in _TEXT_TYPES:
-        prim = _text_prim(sub, warnings)
-        return [prim] if prim else []
-
-    if dxftype in _POINT_TYPES:
-        location = sub.dxf.get("location", None)
-        if location is None:
-            return []
-        return [PointPrim(p=(float(location.x), float(location.y)))]
-
-    try:
-        path = make_path(sub)
-    except TypeError:
-        # HATCH, LEADER e afins entram na contagem mas nao ganham geometria —
-        # mesma limitacao da implementacao de referencia.
-        return []
-    except Exception as exc:
-        warnings.append(f"falha ao achatar {dxftype}: {exc}")
-        return []
-
-    pts = [(float(v.x), float(v.y)) for v in path.flattening(flatten_distance)]
-    if len(pts) < 2:
-        return [PointPrim(p=pts[0])] if pts else []
-
-    return [
-        PolylinePrim(pts=normalize_closed(pts, path.is_closed), closed=path.is_closed)
-    ]
-
-
-def _text_prim(sub: DXFEntity, warnings: list[str]) -> TextPrim | None:
-    try:
-        content = sub.plain_text()
-    except Exception as exc:
-        warnings.append(f"falha ao extrair texto de {sub.dxftype()}: {exc}")
+    if built is None:
+        kind = geometry.get("type") if isinstance(geometry, dict) else None
+        warnings.append(f"entidade {eid} sem geometria suportada ({kind}) — ignorada")
         return None
 
-    if not content:
-        return None
-
-    insert = sub.dxf.get("insert", None)
-    if insert is None:
-        return None
-
-    # `DXFNamespace.get` levanta DXFAttributeError quando o atributo nao existe
-    # no tipo — nao devolve o default. Por isso escolhemos a chave pelo tipo em
-    # vez de tentar as duas: MTEXT usa `char_height`, TEXT/ATTRIB usam `height`.
-    key = "char_height" if sub.dxftype() == "MTEXT" else "height"
-    height = sub.dxf.get(key, 1.0)
-
-    return TextPrim(
-        p=(float(insert.x), float(insert.y)),
-        text=content,
-        height=float(height or 1.0),
-        rotation=float(sub.dxf.get("rotation", 0.0) or 0.0),
-    )
-
-
-def _length_of(prims: list[Prim]) -> float | None:
+    prims, closed, area = built
     lengths = [
         polyline_length(prim.pts, prim.closed)
         for prim in prims
         if isinstance(prim, PolylinePrim)
     ]
-    return sum(lengths) if lengths else None
+    layer, entity_type, text, color = spec
+    return CadEntity(
+        id=eid,
+        type=entity_type,
+        layer=layer,
+        color=color,
+        prims=prims,
+        bbox=bbox_of_prims(prims),
+        closed=closed,
+        length=sum(lengths) if lengths else None,
+        area=area,
+        text=text,
+        instance=instance,
+        family=family,
+    )
 
 
-def _area_of(prims: list[Prim]) -> float | None:
-    areas = [
-        polygon_area(prim.pts)
-        for prim in prims
-        if isinstance(prim, PolylinePrim) and prim.closed
-    ]
-    return sum(areas) if areas else None
-
-
-def _text_of(prims: list[Prim]) -> str | None:
-    texts = [prim.text for prim in prims if isinstance(prim, TextPrim)]
-    return "\n".join(texts) if texts else None
-
-
-def _block_name(raw: DXFEntity) -> str | None:
-    if raw.dxftype() != "INSERT":
+def _geometry(
+    geometry: Any, place: Place
+) -> tuple[list[Prim], bool, float | None] | None:
+    """GeoJSON -> (primitivas, fechada, area). None se o tipo nao e suportado."""
+    if not isinstance(geometry, dict):
         return None
-    name = raw.dxf.get("name", None)
-    return str(name) if name else None
+    kind = geometry.get("type")
+    coords = geometry.get("coordinates")
+
+    def line(raw: list) -> list[Vec2]:
+        return [place((float(c[0]), float(c[1]))) for c in raw]
+
+    def ring(raw: list) -> list[Vec2]:
+        return normalize_closed(line(raw), True)
+
+    if kind in ("Polygon", "MultiPolygon"):
+        polygons = [coords] if kind == "Polygon" else coords
+        prims: list[Prim] = []
+        area = 0.0
+        for polygon in polygons:
+            rings = [ring(raw) for raw in polygon]
+            prims.extend(PolylinePrim(pts=pts, closed=True) for pts in rings)
+            if rings:
+                # Aneis seguintes ao primeiro sao furos: subtraem.
+                area += polygon_area(rings[0]) - sum(map(polygon_area, rings[1:]))
+        return prims, True, area
+    if kind == "LinearRing":
+        return [PolylinePrim(pts=ring(coords), closed=True)], True, None
+    if kind == "LineString":
+        return [PolylinePrim(pts=line(coords), closed=False)], False, None
+    if kind == "MultiLineString":
+        return (
+            [PolylinePrim(pts=line(raw), closed=False) for raw in coords],
+            False,
+            None,
+        )
+    if kind == "Point":
+        return [PointPrim(p=line([coords])[0])], False, None
+    return None
 
 
-def _render_dimensions(msp, warnings: list[str]) -> None:
-    """Garante que cada DIMENSION tenha seu bloco anonimo de geometria.
-
-    Arquivos reais ja vem com o bloco `*D<n>`. Documentos gerados
-    programaticamente podem nao ter, e sem ele a cota fica invisivel.
-    """
-    doc = msp.doc
-    for dim in msp.query("DIMENSION"):
-        geometry = dim.dxf.get("geometry", None)
-        if geometry and geometry in doc.blocks:
-            continue
-        try:
-            dim.render()
-        except Exception as exc:
-            warnings.append(f"falha ao renderizar cota {dim.dxf.get('handle')}: {exc}")
-
-
-def _flatten_distance(msp) -> float:
-    """Tolerancia de achatamento proporcional ao tamanho do desenho.
-
-    Um valor fixo produziria curvas facetadas em desenhos grandes e milhoes de
-    vertices em desenhos pequenos. `fast=True` usa bbox de primitiva, o que e
-    barato — a bbox definitiva vem depois, das proprias primitivas achatadas.
-    """
-    try:
-        extents = ezdxf.bbox.extents(msp, fast=True)
-    except Exception:
-        return 0.01
-
-    if not extents.has_data:
-        return 0.01
-
-    size = max(extents.size.x, extents.size.y)
-    if not math.isfinite(size) or size <= 0:
-        return 0.01
-
-    return max(size * 5e-4, 1e-9)
-
-
-def _units_code(doc: Drawing) -> int:
-    try:
-        return int(doc.header.get("$INSUNITS", 0) or 0)
-    except (TypeError, ValueError):
-        return 0
-
-
-def _header_vars(doc: Drawing) -> dict[str, Any]:
-    header: dict[str, Any] = {}
-    for name in _HEADER_WHITELIST:
-        if name not in doc.header:
-            continue
-        header[name] = _jsonable(doc.header.get(name))
-    return header
-
-
-def _jsonable(value: Any) -> Any:
-    if hasattr(value, "x") and hasattr(value, "y"):
-        return [round(float(value.x), 6), round(float(value.y), 6)]
-    if isinstance(value, (int, float, str, bool)) or value is None:
-        return value
-    return str(value)
-
-
-def _build_layers(doc: Drawing, entities: list[CadEntity]) -> list[CadLayer]:
-    """Layers = uniao da tabela LAYER com os layers realmente usados.
-
-    Um DXF pode referenciar um layer que nao esta na tabela, e a tabela pode
-    listar layers sem nenhuma entidade. As duas situacoes importam para o painel.
-    """
+def _build_layers(entities: list[CadEntity]) -> list[CadLayer]:
     counts: Counter[str] = Counter()
     per_type: dict[str, Counter[str]] = {}
     boxes: dict[str, BBox | None] = {}
+    colors: dict[str, str] = {}
 
     for entity in entities:
         counts[entity.layer] += 1
         per_type.setdefault(entity.layer, Counter())[entity.type] += 1
         boxes[entity.layer] = union_bbox(boxes.get(entity.layer), entity.bbox)
+        colors.setdefault(entity.layer, entity.color)
 
-    table: dict[str, Any] = {}
-    for layer in doc.layers:
-        table[layer.dxf.name] = layer
-
-    layers: list[CadLayer] = []
-    for name in sorted(set(table) | set(counts), key=str.lower):
-        record = table.get(name)
-        rgb = getattr(record, "rgb", None) if record else None
-        aci = int(record.dxf.color) if record else 7
-
-        layers.append(
-            CadLayer(
-                name=name,
-                color=_rgb_to_hex(rgb) if rgb else _aci_to_hex(aci),
-                count=counts.get(name, 0),
-                by_type=dict(per_type.get(name, Counter()).most_common()),
-                bbox=boxes.get(name),
-                frozen=bool(record.is_frozen()) if record else False,
-                on=bool(record.is_on()) if record else True,
-            )
+    return [
+        CadLayer(
+            name=name,
+            color=colors[name],
+            count=counts[name],
+            by_type=dict(per_type[name].most_common()),
+            bbox=boxes[name],
+            frozen=False,
+            on=True,
         )
-
-    return layers
-
-
-def _document_bbox(entities: list[CadEntity]) -> BBox | None:
-    """Bbox do desenho a partir das primitivas.
-
-    Nao ler `$EXTMIN`/`$EXTMAX`: em documentos novos vem com as sentinelas
-    +-1e20, que arruinariam qualquer enquadramento.
-    """
-    result: BBox | None = None
-    for entity in entities:
-        result = union_bbox(result, entity.bbox)
-    return result
-
-
-def _aci_to_hex(aci: int) -> str:
-    try:
-        r, g, b = ezcolors.aci2rgb(aci)
-    except Exception:
-        return DEFAULT_COLOR
-    return f"#{r:02x}{g:02x}{b:02x}"
-
-
-def _rgb_to_hex(rgb: tuple[int, int, int]) -> str:
-    r, g, b = rgb
-    return f"#{int(r):02x}{int(g):02x}{int(b):02x}"
-
-
-def _normalize_hex(color: str | None) -> str:
-    """`RenderContext` devolve `#RRGGBB` ou `#RRGGBBAA` — descartamos o alfa."""
-    if not color or not color.startswith("#"):
-        return DEFAULT_COLOR
-    return color[:7]
+        for name in sorted(counts, key=str.lower)
+    ]
 
 
 def _dedupe(items: list[str]) -> list[str]:
@@ -502,87 +526,47 @@ def _dedupe(items: list[str]) -> list[str]:
     return result
 
 
-def entity_raw_props(model: CadModel, entity_id: str) -> dict[str, Any] | None:
-    """Atributos DXF crus de uma entidade, para o painel de detalhes."""
-    entity = model.by_id.get(entity_id)
-    if entity is None:
-        return None
-
-    raw = model.doc.entitydb.get(entity_id)
-    if raw is None:
-        return {}
-
-    props: dict[str, Any] = {}
-    for key, value in raw.dxfattribs().items():
-        props[key] = _jsonable(value)
-
-    if raw.dxftype() in ("LWPOLYLINE", "POLYLINE"):
-        try:
-            props["vertices"] = [
-                [round(float(x), 4), round(float(y), 4)]
-                for x, y in raw.get_points("xy")
-            ]
-        except Exception:
-            pass
-
-    return props
-
-
 def describe_model(model: CadModel) -> str:
-    """Resumo textual do desenho, em pt-BR, para o system prompt.
+    """Resumo textual do projeto, em pt-BR, para o system prompt.
 
-    Fora das tools, este texto e a UNICA visao que o modelo tem do desenho —
-    por isso ele lista o que existe sem nunca afirmar medidas que so uma tool
-    poderia calcular.
+    Fora das tools, este texto e a UNICA visao que o modelo tem do desenho. Por
+    isso ele so lista o que existe: nenhuma contagem, medida, extensao ou valor
+    de indicador. Um numero aqui seria um caminho para o modelo citar
+    quantidade sem tool call, o que o projeto proibe.
     """
-    lines: list[str] = [
+    families = list(
+        dict.fromkeys(
+            (inst.family, inst.family_type) for inst in model.instances.values()
+        )
+    )
+    indicator_types = list(
+        dict.fromkeys(
+            str(item["type"])
+            for item in [*model.indicators["outputs"], *model.indicators["inputs"]]
+            if isinstance(item, dict) and item.get("type")
+        )
+    )
+
+    lines = [
         f"Arquivo: {model.filename}",
-        f"Versao AutoCAD: {model.acad_version}",
-        f"Unidade de insercao: {model.units}",
-    ]
-
-    if model.bbox:
-        min_x, min_y, max_x, max_y = model.bbox
-        lines.append(
-            f"Extensao: ({min_x:.3f}, {min_y:.3f}) a ({max_x:.3f}, {max_y:.3f})"
-            f" — largura {max_x - min_x:.3f}, altura {max_y - min_y:.3f}"
-        )
-    else:
-        lines.append("Extensao: indisponivel (nenhuma geometria com bbox)")
-
-    text_count = sum(1 for e in model.entities if e.text)
-    dimension_count = model.by_type.get("DIMENSION", 0)
-    lines += [
+        f"Unidade: {model.units}",
         "",
-        f"Total de entidades indexadas: {len(model.entities)}",
-        f"Layers: {len(model.layers)}",
-        f"Definicoes de bloco: {len(model.block_names)}",
-        f"Insercoes de bloco: {sum(model.insert_counts.values())}",
-        f"Entidades com texto: {text_count}",
-        f"Cotas: {dimension_count}",
+        "Ids: p<i> e uma instancia de familia (torre, vaga, portaria...), "
+        "p<i>.<j> e uma parte desenhada dessa instancia e s<i> e um elemento "
+        "do terreno. Elementos posicionados (viario, taludes) tambem usam p<i>.",
         "",
-        "Entidades por tipo:",
+        "Layers:",
+        *[f"  {name}" for name in model.layer_names],
+        "",
+        "Familias instanciadas:",
+        *[f"  {label} ({family_type})" for label, family_type in families],
+        "",
+        "Tipos de indicador disponiveis:",
+        *[f"  {name}" for name in indicator_types],
     ]
-    lines += [f"  {name}: {count}" for name, count in model.by_type.items()]
-
-    ranked = sorted(model.layers, key=lambda layer: (-layer.count, layer.name.lower()))
-    lines += ["", f"Layers (top {min(25, len(ranked))} por contagem):"]
-    for layer in ranked[:25]:
-        top_types = ", ".join(
-            f"{name} {count}" for name, count in list(layer.by_type.items())[:4]
-        )
-        frozen = " [congelada]" if layer.frozen else ""
-        detail = f" — {top_types}" if top_types else ""
-        lines.append(f"  {layer.name}: {layer.count}{detail}{frozen}")
-
-    if model.insert_counts:
-        top_blocks = list(model.insert_counts.items())[:15]
-        lines += ["", f"Blocos mais inseridos (top {len(top_blocks)}):"]
-        lines += [f"  {name}: {count}" for name, count in top_blocks]
 
     if model.warnings:
-        lines += ["", "Avisos do parser:"]
-        lines += [f"  {warning}" for warning in model.warnings]
+        lines += ["", "Avisos do parser:", *[f"  {w}" for w in model.warnings]]
 
     return "\n".join(lines)
 
@@ -590,8 +574,8 @@ def describe_model(model: CadModel) -> str:
 def prims_payload(model: CadModel) -> list[dict[str, Any]]:
     """Serializa as entidades para o canvas do frontend.
 
-    Coordenadas arredondadas em 4 casas — o payload de um DXF grande e dominado
-    por digitos que nenhum pixel consegue distinguir.
+    Coordenadas arredondadas em 4 casas — o payload de um projeto grande e
+    dominado por digitos que nenhum pixel consegue distinguir.
     """
     payload: list[dict[str, Any]] = []
 
