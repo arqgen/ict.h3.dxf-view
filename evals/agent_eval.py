@@ -167,6 +167,10 @@ async def _run_case(
         return {**result, "status": "falha", "erro": str(exc)}
 
     allowed = question + "\n" + describe_model(model)
+    if case_id == "vinculo":
+        # A recusa correta cita os rotulos dos descritivos e ids de exemplo.
+        labels = [str(d.get("label", "")) for d in descriptives]
+        allowed += "\n" + " ".join([*labels, *model.instances, *model.by_id])
     missing = unsourced(answer, [str(t["result"]) for t in tools], allowed)
     numbers = extract_numbers(answer)
     hits = [
