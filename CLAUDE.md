@@ -70,6 +70,9 @@ A raiz pode conter arquivos `.md` com regras pontuais (ex: `commit-rules.md`). E
 - [`commit-rules.md`](commit-rules.md) — regras de commit, branch, push e PR
 - [`PRD.md`](PRD.md) — requisitos e decisões da migração DXF → AQG
 - [`IMPLEMENTATION.md`](IMPLEMENTATION.md) — contratos e tasks da migração
+- [`CAPABILITIES.md`](CAPABILITIES.md) — o que o assistente faz e o que ainda não faz; base para o próximo refinamento
+- [`PRD-tools.md`](PRD-tools.md) — catálogo de tools candidatas, um cartão por ideia, decididos um a um
+- [`IMPLEMENTATION-tools.md`](IMPLEMENTATION-tools.md) — contratos, ordem e tasks dos cartões do `PRD-tools.md`
 
 ## O Que Este Projeto É
 
