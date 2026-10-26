@@ -12,8 +12,7 @@ from src.api.models.document import (
     to_prims_response,
 )
 from src.api.store import DocumentStore, get_document_store
-from src.cad.loader import DxfLoadError, load_dxf
-from src.cad.model import build_model, entity_raw_props
+from src.cad.model import AqgLoadError, load_aqg
 
 router = APIRouter(prefix="/api/documents", tags=["documents"])
 
@@ -25,9 +24,9 @@ SettingsDep = Annotated[Settings, Depends(get_app_settings)]
 async def upload_document(
     store: StoreDep,
     settings: SettingsDep,
-    file: Annotated[UploadFile, File(description="Arquivo DXF")],
+    file: Annotated[UploadFile, File(description="Arquivo AQG (.json)")],
 ) -> DocumentResponse:
-    """Indexa um DXF e devolve seus metadados."""
+    """Indexa um AQG e devolve seus metadados."""
     data = await file.read()
 
     if len(data) > settings.max_upload_bytes:
@@ -36,22 +35,20 @@ async def upload_document(
             detail=f"arquivo maior que o limite de {settings.MAX_UPLOAD_MB} MB",
         )
 
+    filename = file.filename or "projeto.json"
     try:
-        doc, load_warnings = load_dxf(data)
-    except DxfLoadError as exc:
+        model = load_aqg(data, filename)
+    except AqgLoadError as exc:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)
         ) from exc
 
-    filename = file.filename or "desenho.dxf"
-    model = build_model(doc, filename, warnings=load_warnings)
-
-    # Um DXF sem entidades de modelspace nao tem nada a mostrar nem a consultar —
+    # Um projeto sem geometria nao tem nada a mostrar nem a consultar —
     # aceitar geraria um viewer vazio e um agente sem dados.
     if not model.entities:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="o arquivo nao contem entidades no modelspace",
+            detail="o arquivo não contém geometria desenhável",
         )
 
     document_id = store.put(model)
@@ -86,6 +83,11 @@ async def get_entity(
             detail=f"entidade {entity_id} nao existe neste documento",
         )
 
+    instance = model.instances.get(entity.instance) if entity.instance else None
+    family = next(
+        (f for f in model.families if instance and f.label == instance.family), None
+    )
+
     return EntityDetailsResponse(
         id=entity.id,
         type=entity.type,
@@ -96,8 +98,10 @@ async def get_entity(
         length=entity.length,
         area=entity.area,
         text=entity.text,
-        block=entity.block,
-        raw=entity_raw_props(model, entity_id) or {},
+        instance=entity.instance,
+        family=entity.family,
+        hid=instance.hid if instance else None,
+        properties=family.properties if family else {},
     )
 
 
