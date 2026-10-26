@@ -4,9 +4,9 @@
 
 ## Visão geral
 
-O assistente responde perguntas sobre um projeto AQG com 12 tools, e todo número que ele afirma vem de uma delas. Ele nunca vê o arquivo: vê um resumo que lista o que existe (layers, famílias, tipos de indicador), sem nenhuma contagem ou medida.
+O assistente responde perguntas sobre um projeto AQG com 13 tools, e todo número que ele afirma vem de uma delas. Ele nunca vê o arquivo: vê um resumo que lista o que existe (layers, famílias, tipos de indicador), sem nenhuma contagem ou medida.
 
-As tools se dividem em 8 de consulta e 4 de ação na planta. As de ação destacam, enquadram e isolam layers no desenho, e o efeito aparece no canvas enquanto o agente responde.
+As tools se dividem em 9 de consulta e 4 de ação na planta. As de ação destacam, enquadram e isolam layers no desenho, e o efeito aparece no canvas enquanto o agente responde.
 
 | Id | O que identifica | Exemplo |
 | --- | --- | --- |
@@ -27,7 +27,7 @@ Hoje o assistente lê a planta 2D e os indicadores que o exportador gravou. Não
 | "Qual torre desenhada é a torre 02 dos indicadores?" | A ordem dos `DescritivoTorre` não segue a das instâncias desenhadas (difere em 6 de 24 arquivos), e nenhuma ordenação testada explica isso. Associar seria inventar. | O time do exportador informar a regra que liga `order_index` à instância, ou o vínculo por grupo de torres (cartão T3 de [`PRD-tools.md`](PRD-tools.md)) |
 | Contar unidades pela planta | Os apartamentos desenhados são os de um pavimento-tipo (por exemplo, 7 numa torre de 35 unidades). | — (unidades vêm dos indicadores) |
 
-O modelo também não faz contas (somas, percentuais, diferenças, contar itens de uma lista). Elas saem prontas de `compare_indicators` e dos totais das tools, e qualquer outra conta pede uma tool nova.
+O modelo também não faz contas (somas, percentuais, diferenças, contar itens de uma lista). Elas saem prontas de `check_zoning`, `compare_indicators` e dos totais das tools, e qualquer outra conta pede uma tool nova.
 
 ### Fica fora do índice
 
@@ -61,7 +61,6 @@ O catálogo de candidatas está em [`PRD-tools.md`](PRD-tools.md), em cartões p
 
 - **Famílias com o mesmo nome:** famílias diferentes com o mesmo label (caso real: `I/15`, 1 de 24 arquivos) são somadas na contagem por família. O detalhe de cada torre já usa as propriedades da família dela.
 - **Vagas:** nos 15 arquivos com `NumeroDeVagasProjetado`, as vagas desenhadas batem 1:1 com o indicador. Os 9 sem o indicador não têm nenhuma vaga desenhada. Diferente dos apartamentos, vaga pode ser contada na planta (`count_entities(group_by="family")`). 2 dos 5 projetos do eval estão no segundo grupo, e o eval não confere vagas neles.
-- **`compare_indicators` trata todo limite como máximo:** na permeabilidade (que é um mínimo), a folga sai com sinal invertido e o percentual engana. Num arquivo real, a permeabilidade projetada é 19,99 e a exigida 20: a tool devolve folga +0,01, e o projeto não atende. A tool também lê só `value`, e o `GabaritoMaximoExigido` traz o número em `altura`, então o gabarito nunca é comparado. Ver o cartão C1 de [`PRD-tools.md`](PRD-tools.md).
 - **Linha TOTAL nos `DescritivoTorre`:** todo arquivo tem um descritivo `TOTAL`, com a soma das torres, ao lado dos `01`, `02`… O modelo pode tratá-lo como uma torre. Há ainda um indicador à parte, `DescritivoTorreTotal` (23 de 24), com a área construída e a computável somadas.
 - **Nota citada como percentual:** se o modelo citar `0,94` como "94%", o eval acusa número sem procedência. Não apareceu na última rodada.
 - **Memória e acesso:** o projeto vive em memória, e reiniciar o servidor exige reenviar o arquivo. Não há autenticação nem multiusuário.
@@ -74,12 +73,13 @@ O catálogo de candidatas está em [`PRD-tools.md`](PRD-tools.md), em cartões p
 
 ## Indicadores: unidades, áreas e índices
 
-Unidades, áreas construídas e índices saem só destas duas tools, porque a planta mostra um pavimento só. Vagas são exceção: as desenhadas batem com o indicador.
+Unidades, áreas construídas e índices saem só destas três tools, porque a planta mostra um pavimento só. Vagas são exceção: as desenhadas batem com o indicador.
 
 | Tool | O que faz | Perguntas que responde |
 | --- | --- | --- |
 | `get_project_indicators` | Lê os indicadores do exportador sem transformar: projetados (`solution.outputs`), exigidos (`site.inputs`), dados do terreno (`site.processed_info`), notas da solução (`solution.scores`) e as propriedades de cada família. Filtra por tipo de indicador. | "Quantas unidades?", "Qual a área construída?", "Quantas vagas foram projetadas?", "Qual o CA máximo permitido?", "Qual a área do terreno?", "Qual a nota da solução?" |
-| `compare_indicators` | Compara um indicador projetado com o seu limite e devolve os dois valores, o percentual usado e a folga. Recebe só os nomes; os valores vêm do arquivo, então não há conta sobre número inventado. | "Quanto do CA foi usado?", "Qual a folga da TO?", "O projeto está dentro do limite?" |
+| `check_zoning` | Compara CA, TO, permeabilidade e gabarito com os limites, cada um no seu sentido (permeabilidade é mínimo; o gabarito usa a `altura` exigida). Devolve por índice se atende, a folga e o percentual do limite, mais os totais `nao_atende` e `atende_todas`. O veredito é estrito: 19,99 contra 20 exigidos não atende. | "O projeto está dentro dos índices?", "A permeabilidade atende?", "Qual a folga da TO?" |
+| `compare_indicators` | Compara um par de indicadores fora desses quatro, com a mesma saída. Recebe só os nomes; os valores vêm do arquivo, então não há conta sobre número inventado. | "Quanto de X foi usado em relação a Y?" |
 
 `get_project_indicators` também devolve dados que o `instructions.md` ainda não roteia:
 

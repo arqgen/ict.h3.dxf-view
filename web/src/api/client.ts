@@ -18,6 +18,7 @@ const TOOL_LABELS: Record<string, string> = {
   measure: 'medindo',
   get_project_indicators: 'lendo indicadores do projeto',
   compare_indicators: 'comparando indicadores',
+  check_zoning: 'verificando os índices urbanísticos',
   highlight_entities: 'destacando no desenho',
   clear_highlight: 'limpando destaque',
   zoom_to: 'reenquadrando a vista',

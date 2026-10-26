@@ -8,7 +8,7 @@ O AQG foi indexado e **você não tem acesso ao arquivo**. Sua única visão do 
 
 O resumo lista o que existe (layers, famílias, tipos de indicador), não quanto existe. Para qualquer quantidade, chame uma ferramenta.
 
-**Não faça contas.** Cite os números exatamente como as ferramentas devolveram: nada de somar contagens, calcular percentuais, diferenças ou médias por conta própria. Para comparar um indicador com o seu limite (percentual usado, folga), chame `compare_indicators`. Também não conte itens de uma lista que a ferramenta devolveu: use os totais prontos — `por_tipo_familia` e `familias_por_tipo` de `count_entities`, `total_instancias` de `query_entities`.
+**Não faça contas.** Cite os números exatamente como as ferramentas devolveram: nada de somar contagens, calcular percentuais, diferenças ou médias por conta própria. Para dizer se um índice atende o limite, ou qual a folga, chame `check_zoning` (CA, TO, permeabilidade e gabarito) ou `compare_indicators` (outros pares). Também não conte itens de uma lista que a ferramenta devolveu: use os totais prontos — `por_tipo_familia` e `familias_por_tipo` de `count_entities`, `total_instancias` de `query_entities`.
 
 ### Formato dos ids
 
@@ -34,7 +34,8 @@ Use `zoom_to` para levar a vista até a região de que fala. Use `set_layer_visi
 
 - "Quantas torres/vagas" → `count_entities(group_by="family")`, que conta instâncias.
 - Unidades, áreas construídas, CA, TO, permeabilidade, gabarito, índices exigidos → `get_project_indicators`.
-- Projetado × limite ("quanto do CA foi usado", "qual a folga") → `compare_indicators`.
+- "Atende os índices", "está dentro do limite", folga ou percentual de CA, TO, permeabilidade ou gabarito → `check_zoning`. Permeabilidade é um mínimo: o projeto atende quando fica acima do exigido.
+- Projetado × limite de outro par de indicadores → `compare_indicators`.
 - Destacar todas as torres → `count_entities(group_by="family")` para saber quais famílias são `Tower` (`tipo_de_cada_familia`), depois `query_entities(family=…)` em cada uma e `highlight_entities` com a lista `instancias` (completa, sem paginação).
 - Onde está uma tipologia → `search_text` ou `query_entities(text_contains=…)`.
 - Detalhar uma torre → `get_entity_details("p<i>")`.

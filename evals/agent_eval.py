@@ -11,6 +11,7 @@ import argparse
 import asyncio
 import json
 import re
+from collections.abc import Callable
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -21,6 +22,7 @@ from agno.run.agent import RunContentEvent, ToolCallCompletedEvent
 from src.ai_modules.agents.cad_agent import get_cad_agent
 from src.ai_modules.runner import run_chat
 from src.ai_modules.tools.cad_tools.helpers import split_known_ids
+from src.ai_modules.tools.cad_tools.query_tools import ZONING_RULES
 from src.api.logger import logger
 from src.api.models.chat import ChatRequest
 from src.cad.model import CadModel, _category, describe_model, load_aqg
@@ -34,28 +36,73 @@ _NUMBER_RE = re.compile(r"\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:[.,]\d+)?")
 # Numeros como a maquina escreve (JSON dos resultados de tool): ponto decimal.
 _PLAIN_RE = re.compile(r"\d+(?:\.\d+)?")
 
-# (id, pergunta, [(lista do indicators, type)])
-CASES: list[tuple[str, str, list[tuple[str, str]]]] = [
-    ("torres", "Quantas torres tem este projeto?", [("outputs", "TotalDeTorres")]),
+# (id, pergunta, valores esperados na resposta; None pula o caso)
+Expected = Callable[[CadModel], list[float | None]]
+
+
+def _indicator(
+    model: CadModel, section: str, indicator_type: str, field: str = "value"
+) -> float | None:
+    for item in model.indicators[section]:
+        if not isinstance(item, dict) or item.get("type") != indicator_type:
+            continue
+        value = item.get(field)
+        if isinstance(value, int | float) and not isinstance(value, bool):
+            return float(value)
+    return None
+
+
+def _outputs(*types: str) -> Expected:
+    return lambda model: [_indicator(model, "outputs", t) for t in types]
+
+
+def _zoning(model: CadModel) -> list[float | None]:
+    return [
+        value
+        for _, projected, limit, field, _ in ZONING_RULES
+        for value in (
+            _indicator(model, "outputs", projected),
+            _indicator(model, "inputs", limit, field),
+        )
+    ]
+
+
+CASES: list[tuple[str, str, Expected]] = [
+    ("torres", "Quantas torres tem este projeto?", _outputs("TotalDeTorres")),
     (
         "unidades",
         "Quantas unidades habitacionais o projeto tem no total?",
-        [("outputs", "TotalDeUnidades")],
+        _outputs("TotalDeUnidades"),
     ),
-    ("area", "Qual é a área total construída?", [("outputs", "AreaTotalConstruida")]),
+    ("area", "Qual é a área total construída?", _outputs("AreaTotalConstruida")),
     (
         "ca",
         "Qual o CA projetado e qual o CA máximo permitido?",
-        [("outputs", "CAProjetado"), ("inputs", "CAMaximoExigido")],
+        lambda m: [
+            _indicator(m, "outputs", "CAProjetado"),
+            _indicator(m, "inputs", "CAMaximoExigido"),
+        ],
     ),
     (
         "vagas",
         "Quantas vagas de estacionamento foram projetadas?",
-        [("outputs", "NumeroDeVagasProjetado")],
+        _outputs("NumeroDeVagasProjetado"),
     ),
-    ("destaque", "Destaque todas as torres no desenho.", []),
-    ("vinculo", "Qual das torres desenhadas é a torre 02 dos indicadores?", []),
+    ("destaque", "Destaque todas as torres no desenho.", lambda m: []),
+    (
+        "vinculo",
+        "Qual das torres desenhadas é a torre 02 dos indicadores?",
+        lambda m: [],
+    ),
+    (
+        "zoneamento",
+        "O projeto atende CA, TO, permeabilidade e gabarito?",
+        _zoning,
+    ),
 ]
+
+# Casos em que acertar o numero nao basta: a tool tem de ter sido chamada.
+REQUIRED_TOOL = {"zoneamento": "check_zoning"}
 
 
 def _parse(raw: str) -> tuple[float, int]:
@@ -88,16 +135,6 @@ def unsourced(answer: str, tool_results: list[str], allowed_text: str) -> list[s
         for raw in _NUMBER_RE.findall(answer)
         if not is_sourced(*_parse(raw), sources)
     ]
-
-
-def _indicator(model: CadModel, section: str, indicator_type: str) -> float | None:
-    for item in model.indicators[section]:
-        if not isinstance(item, dict) or item.get("type") != indicator_type:
-            continue
-        value = item.get("value")
-        if isinstance(value, int | float) and not isinstance(value, bool):
-            return float(value)
-    return None
 
 
 def _tower_parts(model: CadModel) -> set[str]:
@@ -143,11 +180,11 @@ async def _ask(model: CadModel, question: str) -> tuple[str, list[dict[str, Any]
 
 
 async def _run_case(
-    model: CadModel, case_id: str, question: str, expected_keys: list[tuple[str, str]]
+    model: CadModel, case_id: str, question: str, expected_of: Expected
 ) -> dict[str, Any]:
     result: dict[str, Any] = {"caso": case_id, "pergunta": question}
 
-    expected = [_indicator(model, section, key) for section, key in expected_keys]
+    expected = expected_of(model)
     descriptives = [
         item
         for item in model.indicators["outputs"]
@@ -190,6 +227,8 @@ async def _run_case(
         return {**result, "status": "revisar" if not missing else "falha"}
 
     hit = all(hits) if case_id != "destaque" else _covers_towers(model, tools)
+    if case_id in REQUIRED_TOOL:
+        hit = hit and any(t["tool"] == REQUIRED_TOOL[case_id] for t in tools)
     result["acerto"] = hit
     return {**result, "status": "ok" if hit and not missing else "falha"}
 
@@ -199,8 +238,8 @@ async def run_eval(paths: list[Path]) -> list[dict[str, Any]]:
     for path in paths:
         logger.info(f"eval: {path}")
         model = load_aqg(path.read_bytes(), path.name)
-        for case_id, question, expected_keys in CASES:
-            case = await _run_case(model, case_id, question, expected_keys)
+        for case_id, question, expected_of in CASES:
+            case = await _run_case(model, case_id, question, expected_of)
             report.append({"arquivo": str(path), **case})
     return report
 

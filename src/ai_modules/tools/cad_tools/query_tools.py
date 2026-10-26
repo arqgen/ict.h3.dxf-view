@@ -563,53 +563,126 @@ def get_project_indicators(
     return dump(payload, f"{count} indicadores lidos")
 
 
+# (indice, projetado, limite, campo do limite, sentido)
+ZONING_RULES = (
+    ("CA", "CAProjetado", "CAMaximoExigido", "value", "maximo"),
+    ("TO", "TOProjetada", "TOExigida", "value", "maximo"),
+    (
+        "Permeabilidade",
+        "PermeabilidadeProjetada",
+        "PermeabilidadeExigida",
+        "value",
+        "minimo",
+    ),
+    ("Gabarito", "GabaritoProjetado", "GabaritoMaximoExigido", "altura", "maximo"),
+)
+
+
 @tool
 def compare_indicators(run_context: RunContext, projetado: str, limite: str) -> str:
-    """Compara um indicador projetado com o seu limite: percentual usado e folga.
+    """Compara um indicador projetado com um limite: se atende, folga e percentual.
 
-    USE ESTA TOOL sempre que a resposta precisar de uma conta entre indicadores
-    ("quanto do CA foi usado", "qual a folga da TO", "esta dentro do limite?").
-    Voce passa os NOMES dos indicadores, nunca valores: a tool le os numeros do
-    arquivo. Nao faca essas contas por conta propria.
+    Para CA, TO, permeabilidade e gabarito, PREFIRA `check_zoning`, que ja
+    compara os quatro com o sentido certo. Use esta tool para um par fora
+    desses quatro. Voce passa os NOMES dos indicadores, nunca valores: a tool
+    le os numeros do arquivo. Nao faca essas contas por conta propria.
 
     Args:
         projetado: tipo do indicador projetado (ex: "CAProjetado").
         limite: tipo do indicador de referencia (ex: "CAMaximoExigido").
 
     Returns:
-        JSON com os dois valores, o percentual do limite usado e a folga
-        (limite - projetado).
+        JSON com os dois valores, o `sentido` do limite (maximo ou minimo),
+        se `atende`, a `folga` (positiva quando atende) e o
+        `percentual_do_limite`.
     """
     try:
         model = cad_model(run_context)
     except MissingDocument as exc:
         return fail(str(exc))
 
-    values: dict[str, float] = {}
-    for name in (projetado, limite):
-        value = _numeric_indicator(model, name)
-        if value is None:
-            return dump(
-                {
-                    "erro": f"indicador numerico '{name}' nao existe neste projeto",
-                    "tipos_disponiveis": _numeric_indicator_types(model),
-                },
-                f"indicador '{name}' indisponivel",
-            )
-        values[name] = value
+    result, missing = _compare(model, projetado, limite)
+    if result is None:
+        return dump(
+            {
+                "erro": f"indicador numerico '{missing[0]}' nao existe neste projeto",
+                "tipos_disponiveis": _numeric_indicator_types(model),
+            },
+            f"indicador '{missing[0]}' indisponivel",
+        )
 
-    used, ref = values[projetado], values[limite]
-    percent = rnd(used / ref * 100) if ref else None
+    verdict = "atende" if result["atende"] else "nao atende"
+    return dump(result, f"{projetado} {verdict} {limite}")
 
+
+@tool
+def check_zoning(run_context: RunContext) -> str:
+    """Verifica se o projeto atende CA, TO, permeabilidade e gabarito.
+
+    USE ESTA TOOL para "o projeto esta dentro dos indices?" e para qualquer
+    indice isolado ("atende o CA?", "qual a folga da TO?", "a permeabilidade
+    atende?"). Cada indice e comparado no sentido certo: CA, TO e gabarito sao
+    maximos; permeabilidade e minimo. Cite `atende`, `folga` e os totais
+    prontos (`nao_atende`, `atende_todas`) — nao refaca a conta.
+
+    Returns:
+        JSON com uma comparacao por indice em `regras` (ou `indisponivel` com
+        os tipos ausentes), a lista `nao_atende` e `atende_todas`, que e
+        `null` quando falta dado para concluir.
+    """
+    try:
+        model = cad_model(run_context)
+    except MissingDocument as exc:
+        return fail(str(exc))
+
+    rules: list[dict[str, Any]] = []
+    failing: list[str] = []
+    unavailable = False
+    for index, projected, limit, _, _ in ZONING_RULES:
+        result, missing = _compare(model, projected, limit)
+        if result is None:
+            rules.append({"indice": index, "indisponivel": missing})
+            unavailable = True
+            continue
+        rules.append({"indice": index, **result})
+        if not result["atende"]:
+            failing.append(index)
+
+    if failing:
+        all_ok: bool | None = False
+    else:
+        all_ok = None if unavailable else True
+
+    summary = f"nao atende: {', '.join(failing)}" if failing else "nenhum indice falha"
     return dump(
-        {
-            "projetado": {"tipo": projetado, "valor": used},
-            "limite": {"tipo": limite, "valor": ref},
-            "percentual_usado": percent,
-            "folga": rnd(ref - used),
-        },
-        f"{projetado} usa {percent}% de {limite}",
+        {"regras": rules, "nao_atende": failing, "atende_todas": all_ok}, summary
     )
+
+
+def _compare(
+    model: CadModel, projetado: str, limite: str
+) -> tuple[dict[str, Any] | None, list[str]]:
+    """Resultado de uma comparacao, ou None e os tipos que faltam."""
+    field, sense = "value", "maximo"
+    for _, _, name, rule_field, rule_sense in ZONING_RULES:
+        if name.lower() == limite.lower():
+            field, sense = rule_field, rule_sense
+
+    used = _numeric_indicator(model, projetado)
+    ref = _numeric_indicator(model, limite, field)
+    missing = [name for name, v in ((projetado, used), (limite, ref)) if v is None]
+    if used is None or ref is None:
+        return None, missing
+
+    maximum = sense == "maximo"
+    return {
+        "projetado": {"tipo": projetado, "valor": used},
+        "limite": {"tipo": limite, "valor": ref},
+        "sentido": sense,
+        "atende": used <= ref if maximum else used >= ref,
+        "folga": rnd(ref - used if maximum else used - ref),
+        "percentual_do_limite": rnd(used / ref * 100) if ref else None,
+    }, []
 
 
 def _indicator_items(model: CadModel) -> list[dict[str, Any]]:
@@ -621,9 +694,11 @@ def _indicator_items(model: CadModel) -> list[dict[str, Any]]:
     ]
 
 
-def _numeric_indicator(model: CadModel, name: str) -> float | None:
+def _numeric_indicator(
+    model: CadModel, name: str, field: str = "value"
+) -> float | None:
     for item in _indicator_items(model):
-        value = item.get("value")
+        value = item.get(field)
         if str(item.get("type", "")).lower() != name.lower():
             continue
         if isinstance(value, (int, float)) and not isinstance(value, bool):
@@ -728,4 +803,5 @@ QUERY_TOOLS = [
     measure,
     get_project_indicators,
     compare_indicators,
+    check_zoning,
 ]

@@ -1,4 +1,4 @@
-"""Executa as 12 tools contra o AQG sintetico, sem subir a API nem o LLM.
+"""Executa as 13 tools contra o AQG sintetico, sem subir a API nem o LLM.
 
 Duas coisas sao verificadas aqui e em nenhum outro lugar:
 - `run_context` e invisivel no schema JSON que vai para o modelo;
@@ -14,6 +14,7 @@ from agno.run.base import RunContext
 
 from src.ai_modules.tools.cad_tools import CAD_TOOLS, UI_TOOL_NAMES
 from src.ai_modules.tools.cad_tools.query_tools import (
+    check_zoning,
     compare_indicators,
     count_entities,
     get_entity_details,
@@ -29,7 +30,8 @@ from src.ai_modules.tools.cad_tools.ui_tools import (
     set_layer_visibility,
     zoom_to,
 )
-from src.cad.model import CadModel
+from src.cad.model import CadModel, build_model
+from tests.make_aqg_sample import build_sample_project
 
 
 @pytest.fixture
@@ -52,10 +54,10 @@ def call(tool, ctx: RunContext, **kwargs) -> dict:
 # --------------------------------------------------------------------------- #
 
 
-def test_twelve_tools_are_registered():
-    assert len(CAD_TOOLS) == 12
+def test_thirteen_tools_are_registered():
+    assert len(CAD_TOOLS) == 13
     names = {tool.name for tool in CAD_TOOLS}
-    assert len(names) == 12
+    assert len(names) == 13
     for ui_name in UI_TOOL_NAMES:
         assert ui_name in names
 
@@ -83,6 +85,7 @@ CALLS = {
     "measure": {"ids": ["p0"]},
     "get_project_indicators": {},
     "compare_indicators": {"projetado": "CAProjetado", "limite": "CAMaximoExigido"},
+    "check_zoning": {},
     "highlight_entities": {"ids": ["p0"]},
     "clear_highlight": {},
     "zoom_to": {"ids": ["p0"]},
@@ -296,8 +299,78 @@ def test_compare_indicators(ctx: RunContext):
     )
     assert payload["projetado"] == {"tipo": "CAProjetado", "valor": 1.78}
     assert payload["limite"]["valor"] == 2.9
-    assert payload["percentual_usado"] == round(1.78 / 2.9 * 100, 3)
+    assert payload["percentual_do_limite"] == round(1.78 / 2.9 * 100, 3)
     assert payload["folga"] == round(2.9 - 1.78, 3)
+    assert payload["sentido"] == "maximo"
+    assert payload["atende"] is True
+
+
+def _zoning_ctx(outputs: list[dict], inputs: list[dict]) -> RunContext:
+    project = build_sample_project()
+    project["solution"]["outputs"] += outputs
+    project["site"]["inputs"] += inputs
+    model = build_model(project, "zoneamento.json")
+    return RunContext(run_id="r1", session_id="s1", dependencies={"cad": model})
+
+
+def test_compare_indicators_minimum_is_strict():
+    ctx = _zoning_ctx(
+        [{"type": "PermeabilidadeProjetada", "value": 19.99}],
+        [{"type": "PermeabilidadeExigida", "value": 20}],
+    )
+    payload = call(
+        compare_indicators,
+        ctx,
+        projetado="PermeabilidadeProjetada",
+        limite="PermeabilidadeExigida",
+    )
+    assert payload["sentido"] == "minimo"
+    assert payload["atende"] is False
+    assert payload["folga"] == -0.01
+
+
+def test_compare_indicators_reads_gabarito_height():
+    ctx = _zoning_ctx(
+        [{"type": "GabaritoProjetado", "value": 30}],
+        [{"type": "GabaritoMaximoExigido", "altura": 45, "pavimentos": 15}],
+    )
+    payload = call(
+        compare_indicators,
+        ctx,
+        projetado="GabaritoProjetado",
+        limite="GabaritoMaximoExigido",
+    )
+    assert payload["limite"] == {"tipo": "GabaritoMaximoExigido", "valor": 45}
+    assert payload["atende"] is True
+    assert payload["folga"] == 15
+
+
+def test_check_zoning_on_sample(ctx: RunContext):
+    payload = call(check_zoning, ctx)
+    assert [r["indice"] for r in payload["regras"]] == [
+        "CA",
+        "TO",
+        "Permeabilidade",
+        "Gabarito",
+    ]
+    assert payload["regras"][0]["atende"] is True
+    assert payload["regras"][1]["indisponivel"] == ["TOProjetada", "TOExigida"]
+    assert payload["regras"][3]["indisponivel"] == [
+        "GabaritoProjetado",
+        "GabaritoMaximoExigido",
+    ]
+    assert payload["nao_atende"] == []
+    assert payload["atende_todas"] is None
+
+
+def test_check_zoning_reports_failing_index():
+    ctx = _zoning_ctx(
+        [{"type": "PermeabilidadeProjetada", "value": 19.99}],
+        [{"type": "PermeabilidadeExigida", "value": 20}],
+    )
+    payload = call(check_zoning, ctx)
+    assert payload["nao_atende"] == ["Permeabilidade"]
+    assert payload["atende_todas"] is False
 
 
 def test_compare_indicators_unknown_or_non_numeric_is_data(ctx: RunContext):
@@ -354,12 +427,12 @@ def test_set_layer_visibility_unknown_layer_is_data(ctx: RunContext):
 # --------------------------------------------------------------------------- #
 
 
-def test_agent_builds_with_twelve_tools_and_the_document_summary(sample_model):
+def test_agent_builds_with_thirteen_tools_and_the_document_summary(sample_model):
     from src.ai_modules.agents import get_cad_agent
 
     agent = asyncio.run(get_cad_agent(user_id="local", model=sample_model))
 
-    assert len(agent.tools) == 12
+    assert len(agent.tools) == 13
     assert agent.tool_call_limit == 14
 
     instructions = "\n".join(agent.instructions)
