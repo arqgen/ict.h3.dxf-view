@@ -1,11 +1,25 @@
-from src.cad.loader import load_dxf
-from src.cad.model import CadEntity, CadLayer, CadModel, build_model, describe_model
+from src.cad.model import (
+    AqgLoadError,
+    CadEntity,
+    CadFamily,
+    CadInstance,
+    CadLayer,
+    CadModel,
+    build_model,
+    describe_model,
+    load_aqg,
+    prims_payload,
+)
 
 __all__ = [
+    "AqgLoadError",
     "CadEntity",
+    "CadFamily",
+    "CadInstance",
     "CadLayer",
     "CadModel",
     "build_model",
     "describe_model",
-    "load_dxf",
+    "load_aqg",
+    "prims_payload",
 ]

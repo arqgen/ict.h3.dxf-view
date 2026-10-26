@@ -39,7 +39,7 @@ async def get_cad_agent(
         **base,
         name="Assistente CAD",
         id="cad-agent",
-        description="Especialista em leitura de desenhos tecnicos DXF",
+        description="Especialista em projetos AQG de implantacao imobiliaria",
         model=await get_model(user_id=user_id),
         instructions=[_INSTRUCTIONS_PATH.read_text(encoding="utf-8"), document_block],
         tools=CAD_TOOLS,

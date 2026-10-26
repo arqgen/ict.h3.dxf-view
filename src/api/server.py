@@ -28,7 +28,7 @@ def create_app() -> FastAPI:
 
     app = FastAPI(
         title="CAD Viewer AI API",
-        description="Indexa desenhos DXF e responde perguntas sobre eles",
+        description="Indexa projetos AQG e responde perguntas sobre eles",
         version="0.1.0",
         lifespan=lifespan,
     )

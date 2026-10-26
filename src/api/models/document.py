@@ -21,12 +21,9 @@ class DocumentResponse(BaseModel):
     document_id: str
     filename: str
     units: str
-    acad_version: str
     bbox: list[float] | None
     entity_count: int
     layer_count: int
-    block_count: int
-    insert_count: int
     by_type: dict[str, int]
     layers: list[LayerInfo]
     warnings: list[str]
@@ -50,8 +47,10 @@ class EntityDetailsResponse(BaseModel):
     length: float | None
     area: float | None
     text: str | None
-    block: str | None
-    raw: dict[str, Any] = Field(default_factory=dict)
+    instance: str | None
+    family: str | None
+    hid: str | None
+    properties: dict[str, Any] = Field(default_factory=dict)
 
 
 def to_document_response(document_id: str, model: CadModel) -> DocumentResponse:
@@ -59,12 +58,9 @@ def to_document_response(document_id: str, model: CadModel) -> DocumentResponse:
         document_id=document_id,
         filename=model.filename,
         units=model.units,
-        acad_version=model.acad_version,
         bbox=list(model.bbox) if model.bbox else None,
         entity_count=len(model.entities),
         layer_count=len(model.layers),
-        block_count=len(model.block_names),
-        insert_count=sum(model.insert_counts.values()),
         by_type=model.by_type,
         layers=[
             LayerInfo(

@@ -1,8 +1,9 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 
-import { fetchEntityDetails, uploadDocument } from './api/client'
+import { expandIds, fetchEntityDetails, uploadDocument } from './api/client'
 import type {
   BBox,
+  ColorAttribute,
   EntityDetails,
   LoadedDocument,
   ToolUI,
@@ -23,7 +24,10 @@ export default function App() {
   const [hiddenLayers, setHiddenLayers] = useState<Set<string>>(new Set())
   const [highlighted, setHighlighted] = useState<Set<string>>(new Set())
   const [highlightLabel, setHighlightLabel] = useState('')
+  const [colorBy, setColorBy] = useState<ColorAttribute | null>(null)
   const [selected, setSelected] = useState<EntityDetails | null>(null)
+  // Objeto novo a cada clique: pedir o mesmo id duas vezes repreenche o campo.
+  const [chatDraft, setChatDraft] = useState<{ text: string } | null>(null)
   const [viewRequest, setViewRequest] = useState<ViewRequest | null>(null)
   const [splitPct, setSplitPct] = useState(34)
   const [dragOver, setDragOver] = useState(false)
@@ -44,7 +48,7 @@ export default function App() {
       if (!document) return null
 
       let result: BBox | null = null
-      for (const id of ids) {
+      for (const id of expandIds(ids, document.byId.keys())) {
         const entity = document.byId.get(id)
         if (!entity?.bbox) continue
         result = result
@@ -71,6 +75,7 @@ export default function App() {
       setHiddenLayers(new Set())
       setHighlighted(new Set())
       setHighlightLabel('')
+      setColorBy(null)
       setSelected(null)
       setViewRequest(null)
     } catch (exc) {
@@ -92,12 +97,12 @@ export default function App() {
     }
   }
 
-  // O seam por onde as 4 ferramentas de interface da IA mutam a tela. Nada mais
+  // O seam por onde as 5 ferramentas de interface da IA mutam a tela. Nada mais
   // no frontend fala com o canvas em nome do agente.
   const ui = useMemo<ToolUI>(
     () => ({
       highlight: (ids, label, zoom) => {
-        setHighlighted(new Set(ids))
+        setHighlighted(new Set(loaded ? expandIds(ids, loaded.byId.keys()) : []))
         setHighlightLabel(label)
         if (zoom) requestView(bboxOfIds(ids, loaded))
       },
@@ -148,6 +153,7 @@ export default function App() {
           return next
         })
       },
+      colorBy: setColorBy,
     }),
     [loaded, bboxOfIds, requestView],
   )
@@ -193,7 +199,7 @@ export default function App() {
           <input
             ref={fileInputRef}
             type="file"
-            accept=".dxf,application/dxf,text/plain"
+            accept=".json,application/json"
             hidden
             onChange={(event) => {
               const file = event.target.files?.[0]
@@ -202,7 +208,7 @@ export default function App() {
             }}
           />
           <button type="button" onClick={() => fileInputRef.current?.click()}>
-            {loaded ? 'Trocar arquivo' : 'Abrir DXF'}
+            {loaded ? 'Trocar arquivo' : 'Abrir projeto'}
           </button>
         </div>
       </header>
@@ -218,7 +224,7 @@ export default function App() {
 
       <div className="split">
         <div className="split-left" style={{ width: `${splitPct}%` }}>
-          <ChatPanel document={loaded} ui={ui} />
+          <ChatPanel document={loaded} ui={ui} draft={chatDraft} />
         </div>
 
         <div className="divider" onPointerDown={startSplitDrag} />
@@ -228,8 +234,8 @@ export default function App() {
 
           {!loaded && !loading && (
             <div className="dropzone">
-              <p>Arraste um arquivo .dxf aqui</p>
-              <p className="hint">ou use o botão “Abrir DXF”</p>
+              <p>Arraste um arquivo .json (AQG) aqui</p>
+              <p className="hint">ou use o botão “Abrir projeto”</p>
             </div>
           )}
 
@@ -241,6 +247,7 @@ export default function App() {
                 hiddenLayers={hiddenLayers}
                 highlighted={highlighted}
                 highlightLabel={highlightLabel}
+                colorBy={colorBy}
                 selectedId={selected?.id ?? null}
                 viewRequest={viewRequest}
                 onPick={pickEntity}
@@ -266,6 +273,7 @@ export default function App() {
                 onZoomToSelected={() => {
                   if (selected?.bbox) requestView(selected.bbox)
                 }}
+                onAskAbout={(id) => setChatDraft({ text: `Sobre ${id}: ` })}
               />
             </>
           )}

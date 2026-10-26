@@ -8,7 +8,7 @@ Toda tool que **não** for específica de um único agent — ou seja, que pode 
 
 | Arquivo / pasta        | Exporta        | Papel                                                                 |
 | ---------------------- | -------------- | --------------------------------------------------------------------- |
-| `cad_tools/`           | `CAD_TOOLS`    | As 12 tools do desenho — 8 de consulta e 4 de interface. Ver abaixo.  |
+| `cad_tools/`           | `CAD_TOOLS`    | As 16 tools do projeto — 11 de consulta e 5 de interface. Ver abaixo.  |
 | `test_tool_call.py`    | `test_tool_call` | Tool de função simples, para testar tool calling                    |
 | `fetch_pdf.py`         | `fetch_pdf`    | Baixa um PDF de uma URL e o devolve como `ToolResult(files=[File(...)])` |
 | `user_control_flow.py` | `user_control_flow` | `UserControlFlowTools` — pausa a run para pedir input livre/tipado |
@@ -20,7 +20,7 @@ Toda tool que **não** for específica de um único agent — ou seja, que pode 
 
 ## As Tools de CAD
 
-`cad_tools/` tem três arquivos: `helpers.py` (acesso ao índice, serialização, utilitários), `query_tools.py` (as 8 de consulta) e `ui_tools.py` (as 4 de interface).
+`cad_tools/` tem três arquivos: `helpers.py` (acesso ao índice, serialização, utilitários), `query_tools.py` (as 11 de consulta, incluindo `get_project_indicators`, `compare_indicators`, `check_zoning`, `check_setbacks` e `compare_program`) e `ui_tools.py` (as 5 de interface).
 
 ### Acesso ao índice
 
@@ -41,22 +41,36 @@ O agno injeta `run_context` **por nome** e o remove do schema JSON que vai ao mo
 
 Toda tool devolve uma string JSON via `dump(payload, resumo)`:
 
-- **Chaves em pt-BR** (`tipo`, `comprimento`, `area`, `texto`, `bloco`, `contagens`, `destacadas`), números arredondados em 3 casas. O modelo repete essas chaves na resposta ao usuário.
+- **Chaves em pt-BR** (`tipo`, `comprimento`, `area`, `rotulo`, `instancia`, `familia`, `contagens`, `destacadas`), números arredondados em 3 casas. O modelo repete essas chaves na resposta ao usuário.
 - **`resumo`** é uma frase curta em pt-BR para a linha do tempo do chat, não para o modelo — o frontend a lê do evento `ToolCallCompleted`. Toda tool tem de ter um; há teste verificando.
 
 ### Dado inválido volta como dado
 
-**Uma tool nunca levanta exceção por dado ruim.** Id inexistente, bloco que não existe, bbox malformado, layer desconhecido: tudo volta como `erro`, `rejeitados`, `desconhecidos` ou `indisponiveis`, junto com o que *deu* para fazer e, quando útil, a lista de opções válidas.
+**Uma tool nunca levanta exceção por dado ruim.** Id inexistente, tipo de indicador que não existe, bbox malformado, layer desconhecido: tudo volta como `erro`, `rejeitados`, `desconhecidos` ou `indisponiveis`, junto com o que *deu* para fazer e, quando útil, a lista de opções válidas.
 
 O motivo é prático: exceção encerra a rodada de tools e o modelo perde a chance de se corrigir. Devolvendo `{"erro": "layer 'PAREDE' não existe", "layers_disponiveis": [...]}` ele acerta na tentativa seguinte.
+
+### Ids de instância
+
+Uma instância (`p<i>`: torre, vaga, portaria) não é entidade — as entidades são as partes dela (`p<i>.<j>`). Onde uma tool aceita `ids`, `split_known_ids` (`helpers.py`) expande `p<i>` em todas as partes, sem duplicar. Isso vale para `measure`, `highlight_entities` e `zoom_to`. O frontend aplica a mesma regra (`expandIds` em `web/src/api/client.ts`) ao ler o `ToolCallStarted`: mudou uma, mude a outra.
+
+`count_entities(group_by="family")` conta **instâncias distintas**, não partes, e o payload diz a unidade (`"instancias"` ou `"entidades"`).
+
+### Indicadores
+
+`get_project_indicators` devolve `solution.outputs`, `site.inputs`, `site.processed_info` e `solution.scores` sem transformação, mais as famílias com suas `properties` só na chamada sem filtro: com `tipos`, elas inchariam o resultado, e as propriedades de uma torre vêm de `get_entity_details`. É a fonte de unidades, vagas, áreas construídas e índices — a planta mostra um pavimento só, então nada disso sai de contagem ou medida de geometria. A `observacao` fixa lembra que os `DescritivoTorre` não identificam as torres desenhadas.
+
+`check_zoning()` e `compare_indicators(projetado, limite)` são a única forma de o agente apresentar uma conta entre indicadores (se atende, folga, percentual do limite). Elas recebem **nomes**, nunca valores, e leem os números do arquivo, então não dá para calcular sobre número inventado. As duas usam `_compare` e `ZONING_RULES`: a tabela dá, por limite, o campo lido (`altura` no gabarito) e o sentido (`minimo` na permeabilidade). O veredito é estrito, e a `folga` é positiva quando atende nos dois sentidos. Um par fora da tabela é tratado como máximo lido de `value`, e o `sentido` no resultado diz isso. O `instructions.md` proíbe contas fora de tool, e as tools devolvem os totais prontos para o modelo não somar nem contar listas à mão: `por_tipo_familia`, `familias_por_tipo` e `grupos` em `count_entities(group_by="family")`, `total_instancias` em `query_entities`.
 
 ### Descrições prescritivas
 
 As docstrings são o que o modelo lê para decidir quando chamar a tool, e elas são deliberadamente imperativas: `"AÇÃO DE INTERFACE: ..."`, `"PREFIRA ESTA TOOL para qualquer pergunta do tipo 'quantos'"`, `"Use SEMPRE que citar entidades específicas"`. Isso muda a taxa de ativação de forma mensurável. Ao editar uma docstring, não a torne meramente descritiva.
 
-### As 4 tools de interface
+### As 5 tools de interface
 
-`highlight_entities`, `clear_highlight`, `zoom_to`, `set_layer_visibility`.
+`highlight_entities`, `clear_highlight`, `zoom_to`, `set_layer_visibility`, `color_by`.
+
+`color_by` agrupa no frontend: `prims_payload` leva `label` e `family` de cada entidade, e a regra de grupo existe duas vezes, em `color_by` (`ui_tools.py`, para contar os grupos) e em `groupKey` (`CadCanvas.tsx`, para pintar). Mudou uma, mude a outra.
 
 No servidor elas **apenas validam e devolvem o que seria aplicado** — não existe estado de UI no backend. O efeito visual acontece porque o frontend observa o evento `ToolCallStarted` no stream SSE e lê `tool.tool_args` (`web/src/api/client.ts`).
 

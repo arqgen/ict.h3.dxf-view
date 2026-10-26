@@ -2,7 +2,7 @@
 
 Nao ha banco por decisao de escopo: um documento vive enquanto a aba do usuario
 estiver aberta. O limite de itens e o TTL existem para que uma sessao esquecida
-nao segure o indice de um DXF grande na RAM indefinidamente.
+nao segure o indice de um documento grande na RAM indefinidamente.
 """
 
 import time

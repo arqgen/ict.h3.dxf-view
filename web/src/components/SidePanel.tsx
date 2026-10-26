@@ -12,6 +12,7 @@ interface Props {
   onHideAllLayers: () => void
   onZoomToLayer: (name: string) => void
   onZoomToSelected: () => void
+  onAskAbout: (id: string) => void
 }
 
 type Tab = 'layers' | 'info'
@@ -26,6 +27,7 @@ export function SidePanel({
   onHideAllLayers,
   onZoomToLayer,
   onZoomToSelected,
+  onAskAbout,
 }: Props) {
   const [tab, setTab] = useState<Tab>('layers')
   const [filter, setFilter] = useState('')
@@ -117,18 +119,12 @@ export function SidePanel({
           <dl className="info">
             <dt>Arquivo</dt>
             <dd>{info.filename}</dd>
-            <dt>Versão</dt>
-            <dd>{info.acad_version}</dd>
             <dt>Unidade</dt>
             <dd>{info.units}</dd>
             <dt>Entidades</dt>
             <dd>{info.entity_count}</dd>
             <dt>Layers</dt>
             <dd>{info.layer_count}</dd>
-            <dt>Blocos</dt>
-            <dd>
-              {info.block_count} ({info.insert_count} inserções)
-            </dd>
             <dt>Extensão</dt>
             <dd>{info.bbox ? formatBBox(info.bbox) : '—'}</dd>
           </dl>
@@ -163,16 +159,25 @@ export function SidePanel({
             <button type="button" onClick={onZoomToSelected}>
               dar zoom nesta
             </button>
+            <button type="button" onClick={() => onAskAbout(selected.id)}>
+              Perguntar sobre isto
+            </button>
           </header>
           <dl className="info">
             <dt>Tipo</dt>
             <dd>{selected.type}</dd>
             <dt>Layer</dt>
             <dd>{selected.layer}</dd>
-            {selected.block && (
+            {selected.instance && (
               <>
-                <dt>Bloco</dt>
-                <dd>{selected.block}</dd>
+                <dt>Instância</dt>
+                <dd>{selected.instance}</dd>
+              </>
+            )}
+            {selected.family && (
+              <>
+                <dt>Família</dt>
+                <dd>{selected.family}</dd>
               </>
             )}
             {selected.length !== null && (
@@ -199,10 +204,12 @@ export function SidePanel({
             )}
           </dl>
 
-          <details>
-            <summary>props DXF</summary>
-            <pre className="raw">{JSON.stringify(selected.raw, null, 2)}</pre>
-          </details>
+          {Object.keys(selected.properties).length > 0 && (
+            <details>
+              <summary>propriedades da família</summary>
+              <pre className="raw">{JSON.stringify(selected.properties, null, 2)}</pre>
+            </details>
+          )}
         </div>
       )}
     </aside>

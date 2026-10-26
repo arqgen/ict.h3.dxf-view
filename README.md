@@ -1,50 +1,50 @@
 # cad_viewer
 
-Visualizador de desenhos DXF com um assistente de IA que responde perguntas sobre o desenho **e aponta de volta para ele**: destaca as entidades citadas, reenquadra a vista e isola layers.
+Visualizador de projetos AQG (o JSON de *Project* exportado pela Arqgen) com um assistente de IA que responde perguntas sobre o projeto — torres, vagas, tipologias, índices urbanísticos — **e aponta de volta para o desenho**: destaca as entidades citadas, reenquadra a vista e isola layers.
 
-A ideia central: a IA nunca vê o arquivo. Ela vê um resumo textual do desenho e o que 12 ferramentas devolvem quando consultam o índice geométrico. Isso é controle de alucinação, não economia de token — nenhuma quantidade, medida ou coordenada pode entrar numa resposta sem ter saído de uma ferramenta.
+A ideia central: a IA nunca vê o arquivo. Ela vê um resumo textual do projeto e o que 16 ferramentas devolvem quando consultam o índice geométrico. Isso é controle de alucinação, não economia de token — nenhuma quantidade, medida ou coordenada pode entrar numa resposta sem ter saído de uma ferramenta.
 
 ## Arquitetura
 
 Monorepo com dois lados:
 
 ```
-src/     backend Python — FastAPI + agno + ezdxf
+src/     backend Python — FastAPI + agno + parser AQG próprio
 web/     frontend — React + TypeScript + Vite, canvas 2D
 ```
 
-O DXF é enviado ao backend, que o indexa com `ezdxf` e mantém o resultado em memória. Desse mesmo índice saem duas coisas: a geometria achatada que o canvas desenha e as respostas das ferramentas do agente. Uma única fonte de parse, portanto o id que a IA cita é o mesmo id que o canvas destaca.
+O AQG é enviado ao backend, que o indexa em `src/cad/` e mantém o resultado em memória. Desse mesmo índice saem duas coisas: a geometria achatada que o canvas desenha e as respostas das ferramentas do agente. Uma única fonte de parse, portanto o id que a IA cita é o mesmo id que o canvas destaca.
 
 ```
-browser: arquivo .dxf
+browser: arquivo .json (AQG)
    │  POST /api/documents
    ▼
-server: ezdxf → Prim[] + índice (store em memória)
+server: load_aqg → Prim[] + índice (store em memória)
    ├── GET /api/documents/{id}/prims ──► canvas 2D desenha
-   └── POST /api/chat ─► agno ─► 12 tools consultam o índice
+   └── POST /api/chat ─► agno ─► 16 tools consultam o índice
                           │
                           └─ SSE ─► o frontend lê `ToolCallStarted.tool_args`
                                      e aplica destaque / zoom / isolar layer
 ```
 
-As 4 ferramentas de interface (`highlight_entities`, `clear_highlight`, `zoom_to`, `set_layer_visibility`) não têm canal próprio: no servidor elas só validam e devolvem o que seria aplicado, e o efeito visual acontece porque o frontend observa os eventos do agno no stream.
+As 5 ferramentas de interface (`highlight_entities`, `clear_highlight`, `zoom_to`, `set_layer_visibility`, `color_by`) não têm canal próprio: no servidor elas só validam e devolvem o que seria aplicado, e o efeito visual acontece porque o frontend observa os eventos do agno no stream.
 
 ### Camadas
 
 | Camada | Onde | Responsabilidade |
 | --- | --- | --- |
-| Motor de informação | `src/cad/` | Lê o DXF, achata a geometria, mantém o índice. Não desenha e não sabe o que é IA. |
+| Motor de informação | `src/cad/` | Lê o AQG, achata a geometria, mantém o índice. Não desenha e não sabe o que é IA. |
 | HTTP | `src/api/` | Rotas, store em memória, SSE. Sem lógica de negócio. |
 | IA | `src/ai_modules/` | Agente, ferramentas, prompt. Não importa nada de HTTP. |
 | Render | `web/src/viewer/` | Desenha. Não sabe o que as entidades significam. |
 
-A abstração que unifica tudo é `Prim`: cerca de 15 tipos de entidade DXF colapsam em três primitivas (`polyline`, `point`, `text`), então bbox, comprimento, área e hit-test derivam de um lugar só.
+A abstração que unifica tudo é `Prim`: toda geometria GeoJSON do AQG colapsa em três primitivas (`polyline`, `point`, `text`), então bbox, comprimento, área e hit-test derivam de um lugar só.
 
 ### Endpoints
 
 | Rota | Para que serve |
 | --- | --- |
-| `POST /api/documents` | envia o `.dxf`, indexa e devolve o `document_id` |
+| `POST /api/documents` | envia o `.json` (AQG), indexa e devolve o `document_id` |
 | `GET /api/documents/{id}` | metadados e resumo textual do documento |
 | `GET /api/documents/{id}/prims` | geometria achatada que o canvas desenha |
 | `GET /api/documents/{id}/entities/{entity_id}` | detalhe de uma entidade |
@@ -67,7 +67,9 @@ make dev        # backend  → http://localhost:8787
 make dev-web    # frontend → http://localhost:5173
 ```
 
-Abra `http://localhost:5173` e arraste um `.dxf`.
+Abra `http://localhost:5173` e arraste um `.json` de `data/aqg/` (ver [`data/aqg/README.md`](data/aqg/README.md)).
+
+Uma conversa útil para começar: "quantas torres e quantas unidades?", "destaque as torres", "isole o layer pav_tipo".
 
 > A porta do backend aparece em dois lugares: `PORT` no `.env` e o proxy em `web/vite.config.ts` (que aceita `VITE_API_PORT`). O default dos dois é **8787** — se mudar um, mude o outro.
 
@@ -181,35 +183,34 @@ npm --prefix web run typecheck
 make build-web               # build de produção do frontend → web/dist
 ```
 
-Para um DXF de teste em disco (útil para `curl` na API):
+O AQG sintético dos testes é gerado por `tests/make_aqg_sample.py` e as assertivas são **exatas** de propósito: o terreno é um retângulo 100 × 80 (área 8000) e o talude tem um furo, com área 20 × 14 − 2 × 2 = 276, sem tolerância. Assertiva aproximada aqui já esteve escondendo perda silenciosa de geometria na implementação de referência.
+
+`tests/test_corpus.py` roda o parser nos AQGs reais de `data/aqg/` — a pasta não é versionada, e o teste pula quando ela não existe.
+
+### Eval do agente
 
 ```bash
-uv run python tests/make_sample.py   # → tests/fixtures/sample.dxf
+make eval     # 5 projetos × 7 perguntas contra o LLM real
 ```
 
-O DXF sintético dos testes é gerado por `tests/make_sample.py` e as assertivas são **exatas** de propósito: o contorno é um retângulo 20 × 14, logo perímetro 68 e área 280, sem tolerância. Assertiva aproximada aqui já esteve escondendo perda silenciosa de geometria na implementação de referência.
-
-Para testar contra desenhos reais, `data/dxf/` guarda uma coleção catalogada em
-[`data/dxf/catalogo_dxfs.md`](data/dxf/catalogo_dxfs.md) — os `.dxf` ficam fora do
-Git por peso. Vários passam de `MAX_UPLOAD_MB=64` e são rejeitados no upload: ou
-aumente o teto no `.env`, ou escolha um menor pelo catálogo.
+Mede se o agente acerta as perguntas de domínio (torres, unidades, área construída, CA, vagas, destaque) e se **todo número da resposta tem procedência numa tool**. Usa o gateway (tem custo) e `data/aqg/`; o resultado completo vai para `evals/results/`. `uv run python -m evals.agent_eval --all` roda os 15 de `avaliadas/`.
 
 `web/src/api/__tests__/recorded-stream.txt` é um stream SSE real capturado do agno. O teste roda contra ele — se o formato de evento do agno mudar, a suíte quebra em vez de o destaque silenciosamente parar de funcionar.
 
 ## Limites conhecidos
 
-- **DXF ASCII apenas.** Sem DWG e sem DXF binário.
-- **2D.** A coordenada Z é ignorada.
-- **HATCH e LEADER** entram na contagem mas não têm geometria: não são medidos nem destacados.
-- Comprimentos e áreas são aproximações sobre a geometria achatada; **área existe só para entidades fechadas**.
+- **2D, um pavimento.** A planta mostra o pavimento-tipo das torres; unidades, vagas e áreas construídas vêm dos indicadores do arquivo. A coordenada Z é ignorada.
+- **Fora do índice:** topografia em mesh (`CadMesh`), anotações (`solution.annotations`), `archprog` e blocos externos de `families[].blocks`.
+- **Os `DescritivoTorre` não são ligados às torres desenhadas** — a regra que os associa não é conhecida.
+- **Área existe só para polígonos**, já descontados os furos.
 - O documento vive em memória. Reiniciar o servidor exige reenviar o arquivo.
 - Sem autenticação e sem multiusuário — um usuário lógico (`local`).
-- O texto é desenhado com fonte do sistema, não com as fontes SHX/TTF do CAD: as métricas diferem do AutoCAD.
 
 ## Documentação para agentes
 
 - [`CLAUDE.md`](CLAUDE.md) — regras globais do projeto
-- [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md) — motor de informação: primitivas, divisão de trabalho com o ezdxf, armadilhas
+- [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md) — motor de informação: parser AQG, primitivas, regras do formato, armadilhas
 - [`src/ai_modules/CLAUDE.md`](src/ai_modules/CLAUDE.md) — como adicionar agente, ferramenta, skill, time
 - [`src/ai_modules/tools/CLAUDE.md`](src/ai_modules/tools/CLAUDE.md) — convenções das ferramentas
 - [`commit-rules.md`](commit-rules.md) — commit, branch, push e PR
+- [`PRD.md`](PRD.md) e [`IMPLEMENTATION.md`](IMPLEMENTATION.md) — requisitos e plano da migração DXF → AQG

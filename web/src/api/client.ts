@@ -16,24 +16,37 @@ const TOOL_LABELS: Record<string, string> = {
   get_entity_details: 'lendo detalhes da entidade',
   search_text: 'procurando textos',
   measure: 'medindo',
-  get_block_definition: 'lendo definição de bloco',
-  get_header_variables: 'lendo cabeçalho do arquivo',
+  get_project_indicators: 'lendo indicadores do projeto',
+  compare_indicators: 'comparando indicadores',
+  check_zoning: 'verificando os índices urbanísticos',
   highlight_entities: 'destacando no desenho',
   clear_highlight: 'limpando destaque',
   zoom_to: 'reenquadrando a vista',
   set_layer_visibility: 'ajustando layers',
+  color_by: 'pintando o desenho',
 }
 
 export function toolLabel(name: string): string {
   return TOOL_LABELS[name] ?? name
 }
 
-/** As 4 ferramentas cujo efeito é visual. Aplicadas a partir do stream. */
+/** Resolve referências em ids de entidade: um id de instância (`p3`) vale por
+ *  todas as partes dela (`p3.0`, `p3.1`…). Mesma regra do `split_known_ids`. */
+export function expandIds(ids: string[], entityIds: Iterable<string>): string[] {
+  const result: string[] = []
+  for (const id of entityIds) {
+    if (ids.some((ref) => id === ref || id.startsWith(ref + '.'))) result.push(id)
+  }
+  return result
+}
+
+/** As 5 ferramentas cujo efeito é visual. Aplicadas a partir do stream. */
 const UI_TOOLS = new Set([
   'highlight_entities',
   'clear_highlight',
   'zoom_to',
   'set_layer_visibility',
+  'color_by',
 ])
 
 async function readError(response: Response): Promise<string> {
@@ -93,7 +106,7 @@ interface ChatHandlers {
  * Envia a pergunta e consome o stream SSE.
  *
  * As acoes de interface saem daqui: quando um `ToolCallStarted` traz o nome de
- * uma das 4 ferramentas de UI, aplicamos `tool_args` no viewer imediatamente.
+ * uma das 5 ferramentas de UI, aplicamos `tool_args` no viewer imediatamente.
  * Fazemos isso no *started* e nao no *completed* porque os argumentos ja estao
  * completos no inicio da chamada — o destaque aparece antes do texto da
  * resposta, que e a sensacao correta.
@@ -254,6 +267,15 @@ function applyUiTool(
       const layers = asStringArray(args.layers)
       if (!layers.length) return
       ui.setLayerVisibility(layers, args.visible !== false, args.isolate === true)
+      return
+    }
+
+    case 'color_by': {
+      const attribute = asString(args.attribute)
+      if (attribute === 'nenhum') ui.colorBy(null)
+      if (attribute === 'tipologia' || attribute === 'familia' || attribute === 'tipo') {
+        ui.colorBy(attribute)
+      }
       return
     }
   }

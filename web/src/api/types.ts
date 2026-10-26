@@ -2,7 +2,7 @@
 
 export type BBox = [number, number, number, number]
 
-/** Primitivas achatadas. As chaves sao curtas porque o payload de um DXF
+/** Primitivas achatadas. As chaves sao curtas porque o payload de um documento
  *  grande e dominado por elas. */
 export type Shape =
   | { k: 'p'; pts: [number, number][]; c: boolean }
@@ -16,6 +16,9 @@ export interface PrimEntity {
   color: string
   bbox: BBox | null
   shapes: Shape[]
+  filled: boolean
+  label: string | null
+  family: string | null
 }
 
 export interface LayerInfo {
@@ -32,12 +35,9 @@ export interface DocumentInfo {
   document_id: string
   filename: string
   units: string
-  acad_version: string
   bbox: BBox | null
   entity_count: number
   layer_count: number
-  block_count: number
-  insert_count: number
   by_type: Record<string, number>
   layers: LayerInfo[]
   warnings: string[]
@@ -53,8 +53,10 @@ export interface EntityDetails {
   length: number | null
   area: number | null
   text: string | null
-  block: string | null
-  raw: Record<string, unknown>
+  instance: string | null
+  family: string | null
+  hid: string | null
+  properties: Record<string, unknown>
 }
 
 /** O documento carregado: metadados + geometria + indice por id. */
@@ -104,7 +106,10 @@ export interface ToolUI {
   zoomToBBox: (bbox: BBox) => void
   zoomToAll: () => void
   setLayerVisibility: (layers: string[], visible: boolean, isolate: boolean) => void
+  colorBy: (attribute: ColorAttribute | null) => void
 }
+
+export type ColorAttribute = 'tipologia' | 'familia' | 'tipo'
 
 export type ChatBlock =
   | { kind: 'text'; text: string }

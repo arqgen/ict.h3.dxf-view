@@ -1,18 +1,32 @@
-"""As 8 tools de consulta ao indice do desenho.
+"""As 8 tools de consulta ao indice do projeto.
 
-O modelo nunca ve o arquivo DXF. Ele ve o resumo textual no system prompt e o
+O modelo nunca ve o arquivo AQG. Ele ve o resumo textual no system prompt e o
 que estas tools devolvem — e essa e a razao de existirem: sao o unico caminho
 pelo qual uma quantidade, medida ou coordenada pode entrar numa resposta.
 """
 
 import re
+from collections import Counter
 from typing import Any, Literal
 
 from agno.run.base import RunContext
 from agno.tools import tool
 
-from src.cad.geometry import bbox_contains, bbox_intersects
-from src.cad.model import CadEntity, CadModel
+from src.cad.geometry import (
+    PolylinePrim,
+    Prim,
+    bbox_contains,
+    bbox_intersects,
+    fits_inside,
+    min_distance,
+)
+from src.cad.model import (
+    CadEntity,
+    CadModel,
+    _category,
+    descriptor_groups,
+    tower_units,
+)
 
 from .helpers import (
     MissingDocument,
@@ -78,23 +92,35 @@ def list_layers(
 @tool
 def count_entities(
     run_context: RunContext,
-    group_by: Literal["type", "layer", "block"] = "type",
+    group_by: Literal["type", "layer", "family"] = "type",
     layer: str | None = None,
     entity_type: str | None = None,
 ) -> str:
-    """Conta entidades, agrupadas por tipo, layer ou bloco.
+    """Conta entidades do desenho, agrupadas por tipo, layer ou familia.
 
-    PREFIRA ESTA TOOL para qualquer pergunta do tipo "quantos/quantas". Ela e
-    mais barata e mais confiavel que listar entidades e contar o resultado.
+    PREFIRA ESTA TOOL para perguntas "quantos/quantas" sobre o que esta
+    desenhado. Para "quantas torres/vagas" use `group_by="family"`, que conta
+    instancias, nao partes, e devolve o total pronto por tipo de familia
+    (`por_tipo_familia`: Tower, Vaga, Portaria...) — cite esse total, nao some
+    as contagens. `tipo_de_cada_familia` diz quais familias sao torres e
+    `familias_por_tipo` quantas familias ha de cada tipo.
+    Para "quantas unidades ha em cada familia de torre", use
+    `group_by="family"` e cite `unidades_por_familia`, `total_unidades` e
+    `unidades_por_torre` (as unidades de cada torre da familia): vem
+    das propriedades da familia (tipologias x pavimentos com unidades), nao
+    da contagem de poligonos. O total do projeto continua sendo o
+    `TotalDeUnidades` de `get_project_indicators`. Areas construidas tambem
+    vem de `get_project_indicators`: a planta mostra um pavimento so.
 
     Args:
-        group_by: dimensao do agrupamento — "type", "layer" ou "block".
+        group_by: "type" e "layer" contam entidades (partes); "family" conta
+            instancias distintas por familia.
         layer: se informado, conta somente neste layer.
-        entity_type: se informado, conta somente entidades deste tipo DXF
-            (ex: LINE, LWPOLYLINE, INSERT).
+        entity_type: se informado, conta somente entidades deste tipo
+            (ex: apartamento, core, vaga, CadPolygon).
 
     Returns:
-        JSON com as contagens por grupo e o total filtrado.
+        JSON com as contagens por grupo, o total e a unidade contada.
     """
     try:
         model = cad_model(run_context)
@@ -104,14 +130,47 @@ def count_entities(
     selected = _filter_entities(model, layer=layer, entity_type=entity_type)
 
     counts: dict[str, int] = {}
-    for entity in selected:
-        if group_by == "type":
-            key = entity.type
-        elif group_by == "layer":
-            key = entity.layer
-        else:
-            key = entity.block or "(sem bloco)"
-        counts[key] = counts.get(key, 0) + 1
+    extra: dict[str, Any] = {}
+    if group_by == "family":
+        unit = "instancias"
+        instances = {e.instance for e in selected if e.instance}
+        family_types: dict[str, str] = {}
+        by_family_type: dict[str, int] = {}
+        units_by_family: dict[str, int] = {}
+        units_per_tower: dict[str, set[int]] = {}
+        for instance_id in instances:
+            inst = model.instances[instance_id]
+            counts[inst.family] = counts.get(inst.family, 0) + 1
+            family_types[inst.family] = inst.family_type
+            by_family_type[inst.family_type] = (
+                by_family_type.get(inst.family_type, 0) + 1
+            )
+            # Pela familia da instancia: o label pode se repetir com outro dado.
+            units = tower_units(model.families[inst.family_index].properties)
+            if units:
+                units_by_family[inst.family] = (
+                    units_by_family.get(inst.family, 0) + units[1]
+                )
+                units_per_tower.setdefault(inst.family, set()).add(units[1])
+        total = len(instances)
+        extra = {
+            "por_tipo_familia": dict(sorted(by_family_type.items())),
+            "familias_por_tipo": dict(sorted(Counter(family_types.values()).items())),
+            "tipo_de_cada_familia": dict(sorted(family_types.items())),
+        }
+        if units_by_family:
+            extra["unidades_por_familia"] = dict(sorted(units_by_family.items()))
+            extra["unidades_por_torre"] = {
+                label: sorted(values)
+                for label, values in sorted(units_per_tower.items())
+            }
+            extra["total_unidades"] = sum(units_by_family.values())
+    else:
+        unit = "entidades"
+        for entity in selected:
+            key = entity.type if group_by == "type" else entity.layer
+            counts[key] = counts.get(key, 0) + 1
+        total = len(selected)
 
     ordered = dict(sorted(counts.items(), key=lambda item: (-item[1], item[0])))
 
@@ -119,10 +178,13 @@ def count_entities(
         {
             "agrupado_por": group_by,
             "contagens": ordered,
-            "total": len(selected),
+            "grupos": len(ordered),
+            "total": total,
+            "unidade": unit,
+            **extra,
             "filtros": {"layer": layer, "tipo": entity_type},
         },
-        f"{len(selected)} entidades contadas por {group_by}",
+        f"{total} {unit} contadas por {group_by}",
     )
 
 
@@ -132,7 +194,8 @@ def query_entities(
     entity_type: str | None = None,
     layer: str | None = None,
     layer_contains: str | None = None,
-    block_name: str | None = None,
+    family: str | None = None,
+    instance: str | None = None,
     text_contains: str | None = None,
     in_bbox: list[float] | None = None,
     bbox_mode: Literal["intersects", "contains"] = "intersects",
@@ -140,30 +203,48 @@ def query_entities(
     max_length: float | None = None,
     closed_only: bool = False,
     sort_by: Literal[
-        "length_desc", "length_asc", "area_desc", "area_asc", "none"
+        "length_desc",
+        "length_asc",
+        "area_desc",
+        "area_asc",
+        "cota_desc",
+        "cota_asc",
+        "none",
     ] = "none",
+    near: str | None = None,
     limit: int = DEFAULT_LIMIT,
     offset: int = 0,
 ) -> str:
     """Busca entidades por filtros combinados e devolve seus ids e medidas.
 
-    Esta e a tool para "qual e a maior parede", "quais entidades estao nesta
-    regiao", "liste as pecas do layer X". Os ids devolvidos sao exatamente os
-    que `highlight_entities` e `zoom_to` aceitam.
+    Esta e a tool para "qual e o maior apartamento", "quais entidades estao
+    nesta regiao", "liste as partes da torre p3", "onde esta a tipologia X",
+    "qual a maior cota marcada" (`entity_type="cota"`, `sort_by="cota_desc"`)
+    e "qual a cota perto da torre p3" (`entity_type="cota"`, `near="p3"`,
+    `limit=1`). O valor da cota e o `rotulo` do marco, em metros.
+    Os ids devolvidos sao exatamente os que `highlight_entities` e `zoom_to`
+    aceitam. `instancias` lista TODAS as instancias encontradas, sem paginacao:
+    para destacar uma familia inteira, passe essa lista a `highlight_entities`.
 
     Args:
-        entity_type: tipo DXF exato (ex: LINE, LWPOLYLINE, CIRCLE, INSERT).
+        entity_type: tipo exato (ex: apartamento, varanda, core, vaga, CadPolygon).
         layer: nome exato do layer.
         layer_contains: trecho do nome do layer, sem diferenciar maiusculas.
-        block_name: nome do bloco, para filtrar insercoes.
-        text_contains: trecho do texto da entidade, sem diferenciar maiusculas.
-        in_bbox: regiao [min_x, min_y, max_x, max_y] em unidades do desenho.
+        family: label da familia (ex: "T/4"), sem diferenciar maiusculas.
+        instance: id da instancia (ex: "p3"), para listar as partes dela.
+        text_contains: trecho do rotulo (tipologia ou familia), sem diferenciar
+            maiusculas.
+        in_bbox: regiao [min_x, min_y, max_x, max_y] em metros.
         bbox_mode: "intersects" pega quem toca a regiao; "contains" so quem
             esta inteiramente dentro dela.
         min_length: comprimento minimo.
         max_length: comprimento maximo.
         closed_only: apenas entidades fechadas (as unicas que possuem area).
-        sort_by: ordenacao por comprimento ou area.
+        sort_by: ordenacao por comprimento, area ou valor da cota (marcos
+            `cota`).
+        near: id de referencia (entidade ou instancia); ordena pela menor
+            distancia entre as bordas ate ela e devolve `distancia` em cada
+            item. Tem precedencia sobre `sort_by`.
         limit: maximo de entidades devolvidas (teto de 200).
         offset: quantas entidades pular, para paginar.
 
@@ -191,7 +272,8 @@ def query_entities(
         layer=layer,
         entity_type=entity_type,
         layer_contains=layer_contains,
-        block_name=block_name,
+        family=family,
+        instance=instance,
         text_contains=text_contains,
         region=region,
         bbox_mode=bbox_mode,
@@ -200,7 +282,16 @@ def query_entities(
         closed_only=closed_only,
     )
 
-    selected = _sort_entities(selected, sort_by)
+    distances: dict[str, float] = {}
+    if near:
+        reference = _edge_prims(model, str(near))
+        if not reference:
+            return fail(f"near '{near}' nao e um id conhecido com geometria")
+        distances = {e.id: min_distance(e.prims, reference) for e in selected}
+        selected = sorted(selected, key=lambda e: distances[e.id])
+    else:
+        selected = _sort_entities(selected, sort_by)
+    instances = list(dict.fromkeys(e.instance for e in selected if e.instance))
 
     total = len(selected)
     offset = max(0, offset)
@@ -209,8 +300,16 @@ def query_entities(
 
     return dump(
         {
-            "entidades": [entity_brief(entity) for entity in page],
+            "entidades": [
+                entity_brief(entity)
+                | ({"distancia": rnd(distances[entity.id])} if near else {})
+                for entity in page
+            ],
             "ids": [entity.id for entity in page],
+            # Sem paginacao: destacar "todas as torres de uma familia" precisa
+            # de todas as instancias, mesmo quando as partes passam do limite.
+            "instancias": instances,
+            "total_instancias": len(instances),
             "total_encontrado": total,
             "devolvidas": len(page),
             "offset": offset,
@@ -222,37 +321,79 @@ def query_entities(
 
 @tool
 def get_entity_details(run_context: RunContext, entity_id: str) -> str:
-    """Devolve todos os atributos DXF crus de uma entidade especifica.
+    """Devolve os detalhes de uma entidade ou de uma instancia (torre, vaga...).
 
-    Use quando precisar de uma propriedade que as outras tools nao expoem
-    (raio, angulos, escala de insercao, estilo de texto).
+    Use para detalhar uma torre: passe o id da instancia (`p<i>`) e receba a
+    familia, as propriedades dela e os ids das partes. Com o id de uma parte
+    (`p<i>.<j>`) ou do terreno (`s<i>`), devolve medidas e atributos.
+    Numa torre, devolve tambem os `descritivos` (01, 02...) do grupo de
+    torres identicas a que ela pertence, os campos do primeiro (`descritivo`:
+    altura, pavimentos, areas) e as instancias do `grupo`.
+    USE ESTA TOOL para "quantas unidades tem a torre p<i>": cite
+    `unidades_da_torre` (e `unidades_por_pavimento`), calculados das
+    propriedades da familia (tipologias x pavimentos com unidades), nao da
+    contagem de poligonos.
 
     Args:
-        entity_id: id da entidade, como devolvido por `query_entities`.
+        entity_id: id de entidade ou de instancia.
 
     Returns:
-        JSON com tipo, layer, medidas e os atributos DXF crus.
+        JSON com tipo, layer, medidas, familia e propriedades da familia.
     """
     try:
         model = cad_model(run_context)
     except MissingDocument as exc:
         return fail(str(exc))
 
-    entity = model.by_id.get(str(entity_id))
+    ref = str(entity_id)
+    if ref in model.instances:
+        inst = model.instances[ref]
+        return dump(
+            {**_instance_info(model, ref), "partes": inst.entity_ids},
+            f"detalhes da instancia {ref}",
+        )
+
+    entity = model.by_id.get(ref)
     if entity is None:
         return fail(f"entidade {entity_id} nao existe neste desenho")
 
-    from src.cad.model import entity_raw_props
+    payload = {**entity_brief(entity), "fechada": entity.closed, "cor": entity.color}
+    if entity.instance:
+        payload.update(_instance_info(model, entity.instance))
 
-    return dump(
-        {
-            **entity_brief(entity),
-            "fechada": entity.closed,
-            "cor": entity.color,
-            "props_dxf": entity_raw_props(model, entity.id) or {},
-        },
-        f"detalhes da entidade {entity.id}",
-    )
+    return dump(payload, f"detalhes da entidade {entity.id}")
+
+
+def _instance_info(model: CadModel, instance_id: str) -> dict[str, Any]:
+    inst = model.instances[instance_id]
+    family = model.families[inst.family_index]
+    info = {
+        "instancia": inst.id,
+        "hid": inst.hid,
+        "familia": inst.family,
+        "tipo_familia": inst.family_type,
+        "propriedades_familia": family.properties,
+    }
+    units = tower_units(family.properties)
+    if units:
+        info["unidades_por_pavimento"], info["unidades_da_torre"] = units
+
+    groups = descriptor_groups(model)
+    labels = [label for label, ids in groups.items() if inst.id in ids]
+    if labels:
+        info["descritivos"] = labels
+        info["descritivo"] = next(
+            item
+            for item in model.indicators["outputs"]
+            if isinstance(item, dict)
+            and item.get("type") == "DescritivoTorre"
+            and str(item.get("label", "")) == labels[0]
+        )
+        info["grupo"] = groups[labels[0]]
+        info["observacao"] = (
+            "o vinculo e com o grupo de torres identicas, nao com uma instancia"
+        )
+    return info
 
 
 @tool
@@ -263,9 +404,12 @@ def search_text(
     case_sensitive: bool = False,
     limit: int = DEFAULT_LIMIT,
 ) -> str:
-    """Procura texto entre as entidades de texto do desenho (TEXT, MTEXT, cotas).
+    """Procura no rotulo das entidades: a tipologia (apartamento e varanda) ou o
+    label da familia.
 
-    Use para achar legendas, titulos, numeros de ambiente ou qualquer anotacao.
+    Use para achar onde esta uma tipologia ("2 Quartos") ou as partes de uma
+    familia, ou o valor de um marco de cota. O AQG nao tem texto livre: legendas
+    nao existem aqui. Para cotas, prefira `query_entities(entity_type="cota")`.
 
     Args:
         query: termo procurado.
@@ -274,7 +418,7 @@ def search_text(
         limit: maximo de resultados (teto de 200).
 
     Returns:
-        JSON com as entidades cujo texto casou, incluindo seus ids.
+        JSON com as entidades cujo rotulo casou, incluindo seus ids.
     """
     try:
         model = cad_model(run_context)
@@ -312,7 +456,7 @@ def search_text(
             "total_encontrado": len(found),
             "truncado": len(found) > len(page),
         },
-        f"{len(found)} textos casaram com '{query}'",
+        f"{len(found)} rotulos casaram com '{query}'",
     )
 
 
@@ -320,18 +464,27 @@ def search_text(
 def measure(
     run_context: RunContext,
     ids: list[str],
-    metric: Literal["length", "area", "bbox", "distance"] = "length",
+    metric: Literal["length", "area", "bbox", "distance", "edge_distance"] = "length",
 ) -> str:
     """Mede entidades: comprimento, area, caixa envolvente ou distancia.
 
-    As medidas sao aproximacoes calculadas sobre a geometria achatada, e area
-    existe somente para entidades fechadas. Declare isso ao usuario.
+    Para recuo, afastamento ou "qual a distancia entre a torre e o perimetro/
+    a outra torre", USE `metric="edge_distance"`: a menor distancia entre as
+    bordas. `"distance"` e entre os centros das caixas e NAO serve para recuo.
+
+    Area existe somente para poligonos, ja descontados os furos. Area em planta
+    NAO e area construida: a planta mostra um pavimento so — area construida vem
+    de `get_project_indicators`.
 
     Args:
-        ids: ids das entidades a medir.
+        ids: ids das entidades a medir; o id da instancia (`p<i>`) vale por
+            todas as partes dela.
         metric: "length" soma comprimentos; "area" soma areas; "bbox" devolve a
             caixa envolvente do conjunto; "distance" exige exatamente 2 ids e
-            devolve a distancia entre os centros das suas caixas.
+            devolve a distancia entre os centros das suas caixas;
+            "edge_distance" exige exatamente 2 ids e devolve a menor distancia
+            entre as bordas (0 se se tocam ou cruzam). Uma torre (`p<i>`) e
+            medida pelo pavimento-tipo desenhado, sem afastamento nem plato.
 
     Returns:
         JSON com a medida pedida, por entidade e o total.
@@ -350,13 +503,16 @@ def measure(
 
     entities = [model.by_id[entity_id] for entity_id in known]
 
-    if metric == "distance":
-        if len(entities) != 2:
+    if metric in ("distance", "edge_distance"):
+        refs = list(dict.fromkeys(str(i) for i in ids if str(i) not in rejected))
+        if len(refs) != 2:
             return fail(
-                "a metrica 'distance' exige exatamente 2 ids validos, recebeu "
-                f"{len(entities)}"
+                f"a metrica '{metric}' exige exatamente 2 ids validos, recebeu "
+                f"{len(refs)}"
             )
-        return _measure_distance(entities, rejected)
+        if metric == "edge_distance":
+            return _measure_edge_distance(model, refs, rejected)
+        return _measure_distance(model, refs, rejected)
 
     if metric == "bbox":
         from src.cad.geometry import union_bbox
@@ -400,14 +556,64 @@ def measure(
     return dump(payload, f"{key} total de {len(per_entity)} entidades: {rnd(total)}")
 
 
-def _measure_distance(entities: list[CadEntity], rejected: list[str]) -> str:
+def _edge_prims(model: CadModel, ref: str) -> list[Prim]:
+    # Torre vale pelo pavimento-tipo desenhado: o envelope de afastamento e o
+    # plato sao maiores que o predio e falseariam o recuo.
+    inst = model.instances.get(ref)
+    tower = inst is not None and _category(inst.family_type) == "torre"
+    return [
+        prim
+        for entity_id in split_known_ids(model, [ref])[0]
+        if not tower or model.by_id[entity_id].layer == "pav_tipo"
+        for prim in model.by_id[entity_id].prims
+    ]
+
+
+def _measure_edge_distance(
+    model: CadModel, refs: list[str], rejected: list[str]
+) -> str:
+    prims = [_edge_prims(model, ref) for ref in refs]
+    for ref, ref_prims in zip(refs, prims, strict=True):
+        if not ref_prims:
+            return fail(f"{ref} nao tem geometria para medir distancia")
+
+    distance = min_distance(prims[0], prims[1])
+    towers = [
+        ref
+        for ref in refs
+        if ref in model.instances
+        and _category(model.instances[ref].family_type) == "torre"
+    ]
+    reference = "menor distancia entre as bordas"
+    if towers:
+        reference += "; torre medida pelo pavimento-tipo desenhado"
+    return dump(
+        {
+            "metrica": "distancia_entre_bordas",
+            "entre": refs,
+            "distancia": rnd(distance),
+            "referencia": reference,
+            "unidade": model.units,
+            "rejeitados": rejected,
+        },
+        f"distancia entre bordas de {rnd(distance)}",
+    )
+
+
+def _measure_distance(model: CadModel, refs: list[str], rejected: list[str]) -> str:
     import math
 
+    from src.cad.geometry import union_bbox
+
+    # Uma referencia de instancia vale pela caixa de todas as suas partes.
     centers: list[tuple[float, float]] = []
-    for entity in entities:
-        if entity.bbox is None:
-            return fail(f"entidade {entity.id} nao tem geometria para medir distancia")
-        min_x, min_y, max_x, max_y = entity.bbox
+    for ref in refs:
+        bbox = None
+        for entity_id in split_known_ids(model, [ref])[0]:
+            bbox = union_bbox(bbox, model.by_id[entity_id].bbox)
+        if bbox is None:
+            return fail(f"{ref} nao tem geometria para medir distancia")
+        min_x, min_y, max_x, max_y = bbox
         centers.append(((min_x + max_x) / 2.0, (min_y + max_y) / 2.0))
 
     distance = math.hypot(centers[1][0] - centers[0][0], centers[1][1] - centers[0][1])
@@ -415,7 +621,7 @@ def _measure_distance(entities: list[CadEntity], rejected: list[str]) -> str:
     return dump(
         {
             "metrica": "distancia",
-            "entre": [entities[0].id, entities[1].id],
+            "entre": refs,
             "distancia": rnd(distance),
             "referencia": "centro das caixas envolventes",
             "aproximado": True,
@@ -426,94 +632,560 @@ def _measure_distance(entities: list[CadEntity], rejected: list[str]) -> str:
 
 
 @tool
-def get_block_definition(run_context: RunContext, name: str) -> str:
-    """Descreve a definicao de um bloco: o que ele contem e quantas vezes e usado.
+def get_project_indicators(
+    run_context: RunContext, tipos: list[str] | None = None
+) -> str:
+    """Le os indicadores do projeto calculados pelo exportador.
 
-    Use quando o usuario perguntar o que um bloco representa ou quantas vezes
-    aparece no desenho.
+    PREFIRA ESTA TOOL para unidades, vagas, areas construidas, CA, TO,
+    permeabilidade, gabarito, indices exigidos e dados do terreno (cota de
+    referencia `CotaTopografia`, `InclinacaoMedia` em %, `Zoneamento`,
+    `Municipio`, movimento de terra em `MovimentoDeTerra`). Esses numeros NAO saem da
+    planta: ela mostra um pavimento so. Cada `DescritivoTorre` (01, 02...)
+    aponta um GRUPO de torres identicas (`vinculo_descritivos`), nunca uma
+    instancia so; a linha `TOTAL` e a soma das torres, nao uma torre.
 
     Args:
-        name: nome do bloco, como aparece em `count_entities(group_by="block")`.
+        tipos: filtra indicadores, exigidos e dados do terreno pelo campo
+            `type` (ex: ["TotalDeUnidades", "CAMaximoExigido"]). Se omitido,
+            devolve tudo, inclusive as familias com suas propriedades. Para as
+            propriedades de uma torre, use `get_entity_details("p<i>")`.
 
     Returns:
-        JSON com os tipos de entidade dentro do bloco e o numero de insercoes.
+        JSON com indicadores projetados, exigidos, dados do terreno, notas da
+        solucao e, sem filtro, as familias com suas propriedades.
     """
     try:
         model = cad_model(run_context)
     except MissingDocument as exc:
         return fail(str(exc))
 
-    if name not in model.doc.blocks:
-        available = model.block_names[:20]
-        return dump(
+    site = list(model.indicators["processed_info"])
+    if model.indicators["inclinacao_media"] is not None:
+        site.append(
             {
-                "erro": f"bloco '{name}' nao existe neste desenho",
-                "blocos_disponiveis": available,
-            },
-            f"bloco '{name}' nao encontrado",
+                "type": "InclinacaoMedia",
+                "value": rnd(model.indicators["inclinacao_media"]),
+                "unidade": "%",
+            }
+        )
+    groups = {
+        "indicadores": model.indicators["outputs"],
+        "exigidos": model.indicators["inputs"],
+        "terreno": site,
+    }
+    payload: dict[str, Any] = {}
+
+    if tipos:
+        wanted = {str(t).lower() for t in tipos}
+        available = sorted(
+            {
+                str(item.get("type"))
+                for items in groups.values()
+                for item in items
+                if isinstance(item, dict) and item.get("type")
+            }
+        )
+        known = {t.lower() for t in available}
+        groups = {
+            key: [
+                item
+                for item in items
+                if isinstance(item, dict)
+                and str(item.get("type", "")).lower() in wanted
+            ]
+            for key, items in groups.items()
+        }
+        missing = [str(t) for t in tipos if str(t).lower() not in known]
+        if missing:
+            payload["indisponiveis"] = missing
+            payload["tipos_disponiveis"] = available
+
+    payload.update(groups)
+    payload["notas"] = model.indicators["scores"]
+    if not tipos:
+        payload["familias"] = [
+            {"familia": f.label, "tipo": f.type, "propriedades": f.properties}
+            for f in model.families
+        ]
+    payload["observacao"] = (
+        "Folga, percentual ou se um indice atende: chame check_zoning, nao "
+        "subtraia nem divida estes valores"
+    )
+    if any(item.get("type") == "DescritivoTorre" for item in groups["indicadores"]):
+        payload["vinculo_descritivos"] = descriptor_groups(model)
+        payload["observacao"] += (
+            ". Cada DescritivoTorre aponta o grupo de torres identicas em "
+            "vinculo_descritivos, nao uma instancia: dentro do grupo nao ha como "
+            "distinguir qual e a torre 01 ou 02 — destaque o grupo inteiro com "
+            "highlight_entities. O DescritivoTorre TOTAL e a soma das torres, "
+            "nao uma torre"
         )
 
-    block = model.doc.blocks[name]
+    count = sum(len(items) for items in groups.values())
+    return dump(payload, f"{count} indicadores lidos")
 
-    counts: dict[str, int] = {}
-    for entity in block:
-        counts[entity.dxftype()] = counts.get(entity.dxftype(), 0) + 1
 
-    insert_ids = [entity.id for entity in model.entities if entity.block == name]
-
-    return dump(
-        {
-            "bloco": name,
-            "conteudo": dict(sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))),
-            "total_entidades": sum(counts.values()),
-            "insercoes": len(insert_ids),
-            "ids_das_insercoes": insert_ids[:MAX_LIMIT],
-        },
-        f"bloco '{name}' com {sum(counts.values())} entidades e "
-        f"{len(insert_ids)} insercoes",
-    )
+# (indice, projetado, limite, campo do limite, sentido)
+ZONING_RULES = (
+    ("CA", "CAProjetado", "CAMaximoExigido", "value", "maximo"),
+    ("TO", "TOProjetada", "TOExigida", "value", "maximo"),
+    (
+        "Permeabilidade",
+        "PermeabilidadeProjetada",
+        "PermeabilidadeExigida",
+        "value",
+        "minimo",
+    ),
+    ("Gabarito", "GabaritoProjetado", "GabaritoMaximoExigido", "altura", "maximo"),
+)
 
 
 @tool
-def get_header_variables(
-    run_context: RunContext, names: list[str] | None = None
-) -> str:
-    """Le variaveis do cabecalho do DXF ($INSUNITS, $ACADVER, $LTSCALE, ...).
+def compare_indicators(run_context: RunContext, projetado: str, limite: str) -> str:
+    """Compara um indicador projetado com um limite: se atende, folga e percentual.
 
-    Use quando a pergunta depender de configuracao do arquivo, em especial a
-    unidade de desenho.
+    Para CA, TO, permeabilidade e gabarito, PREFIRA `check_zoning`, que ja
+    compara os quatro com o sentido certo. Use esta tool para um par fora
+    desses quatro. Voce passa os NOMES dos indicadores, nunca valores: a tool
+    le os numeros do arquivo. Nao faca essas contas por conta propria.
 
     Args:
-        names: variaveis desejadas. Se omitido, devolve todas as disponiveis.
+        projetado: tipo do indicador projetado (ex: "CAProjetado").
+        limite: tipo do indicador de referencia (ex: "CAMaximoExigido").
 
     Returns:
-        JSON com as variaveis encontradas e as nao disponiveis.
+        JSON com os dois valores, o `sentido` do limite (maximo ou minimo),
+        se `atende`, a `folga` (positiva quando atende) e o
+        `percentual_do_limite`.
     """
     try:
         model = cad_model(run_context)
     except MissingDocument as exc:
         return fail(str(exc))
 
-    if not names:
+    result, missing = _compare(model, projetado, limite)
+    if result is None:
         return dump(
-            {"variaveis": model.header, "unidade": model.units},
-            f"{len(model.header)} variaveis de cabecalho",
+            {
+                "erro": f"indicador numerico '{missing[0]}' nao existe neste projeto",
+                "tipos_disponiveis": _numeric_indicator_types(model),
+            },
+            f"indicador '{missing[0]}' indisponivel",
         )
 
-    found: dict[str, Any] = {}
-    missing: list[str] = []
-    for raw_name in names:
-        key = str(raw_name).upper()
-        if not key.startswith("$"):
-            key = "$" + key
-        if key in model.header:
-            found[key] = model.header[key]
-        else:
-            missing.append(key)
+    verdict = "atende" if result["atende"] else "nao atende"
+    return dump(result, f"{projetado} {verdict} {limite}")
 
+
+@tool
+def check_zoning(run_context: RunContext) -> str:
+    """Verifica se o projeto atende CA, TO, permeabilidade e gabarito.
+
+    USE ESTA TOOL para "o projeto esta dentro dos indices?" e para qualquer
+    indice isolado ("atende o CA?", "qual a folga da TO?", "a permeabilidade
+    atende?"). Cada indice e comparado no sentido certo: CA, TO e gabarito sao
+    maximos; permeabilidade e minimo. Cite `atende`, `folga` e os totais
+    prontos (`nao_atende`, `atende_todas`) — nao refaca a conta. A `folga` ja
+    vem com o sinal certo: positiva quando atende, negativa quando nao atende.
+    Cite-a com o sinal devolvido, sem inverter. Nao derive outras relacoes
+    ("N vezes o minimo", "X% acima"): cite so `folga` e `percentual_do_limite`.
+
+    Returns:
+        JSON com uma comparacao por indice em `regras` (ou `indisponivel` com
+        os tipos ausentes), a lista `nao_atende` e `atende_todas`, que e
+        `null` quando falta dado para concluir.
+    """
+    try:
+        model = cad_model(run_context)
+    except MissingDocument as exc:
+        return fail(str(exc))
+
+    rules: list[dict[str, Any]] = []
+    failing: list[str] = []
+    unavailable = False
+    for index, projected, limit, _, _ in ZONING_RULES:
+        result, missing = _compare(model, projected, limit)
+        if result is None:
+            rules.append({"indice": index, "indisponivel": missing})
+            unavailable = True
+            continue
+        rules.append({"indice": index, **result})
+        if not result["atende"]:
+            failing.append(index)
+
+    if failing:
+        all_ok: bool | None = False
+    else:
+        all_ok = None if unavailable else True
+
+    summary = f"nao atende: {', '.join(failing)}" if failing else "nenhum indice falha"
     return dump(
-        {"variaveis": found, "indisponiveis": missing, "unidade": model.units},
-        f"{len(found)} variaveis lidas",
+        {"regras": rules, "nao_atende": failing, "atende_todas": all_ok}, summary
+    )
+
+
+SETBACK_TYPES = ("RecuoFrontal", "RecuoLateral", "RecuoFundos")
+
+
+@tool
+def check_setbacks(run_context: RunContext) -> str:
+    """Verifica se as torres respeitam os recuos e o afastamento entre torres.
+
+    USE ESTA TOOL para "as torres respeitam os recuos?", "o afastamento entre
+    as torres atende?" e "qual torre esta fora do recuo?". Verifica so o que o
+    arquivo declara, sem interpretar a regra municipal:
+    - recuo: o pavimento-tipo desenhado de cada torre tem de caber na linha
+      de recuo do projeto (layer `AQG_OFFSET`, que ja desconta os recuos
+      frontal, lateral e de fundos declarados);
+    - afastamento: a menor distancia entre as bordas de cada par de torres
+      contra `AfastamentoProjetado.entre_blocos`.
+    Cite os totais prontos (`torres_que_nao_atendem`, `pares_que_nao_atendem`,
+    `total_pares`, `par_mais_proximo` e a `folga` de cada par); nao conte a
+    lista nem subtraia distancias.
+    Para mostrar, chame `highlight_entities` com `torres_que_nao_atendem`.
+
+    Returns:
+        JSON com `recuos` (por torre: se cabe no offset e a distancia ate a
+        linha) e `afastamento` (por par: distancia e se atende), ou
+        `indisponivel` com o que falta, mais os totais.
+    """
+    try:
+        model = cad_model(run_context)
+    except MissingDocument as exc:
+        return fail(str(exc))
+
+    towers = [
+        inst.id
+        for inst in model.instances.values()
+        if _category(inst.family_type) == "torre"
+    ]
+    footprints = {tower: _edge_prims(model, tower) for tower in towers}
+    failing_towers: list[str] = []
+    failing_pairs: list[list[str]] = []
+
+    offset = [
+        prim
+        for entity in model.entities
+        if entity.layer == "AQG_OFFSET" and entity.closed
+        for prim in entity.prims
+        if isinstance(prim, PolylinePrim)
+    ]
+    declared = {
+        name: value
+        for name in SETBACK_TYPES
+        if (value := _numeric_indicator(model, name)) is not None
+    }
+    setbacks: dict[str, Any]
+    if not offset or not declared:
+        missing = [] if offset else ["layer AQG_OFFSET"]
+        setbacks = {"indisponivel": missing + ([] if declared else list(SETBACK_TYPES))}
+    else:
+        rows = []
+        for tower, prims in footprints.items():
+            fits = fits_inside(prims, offset[0])
+            rows.append(
+                {
+                    "torre": tower,
+                    "atende": fits,
+                    "distancia_ate_linha_de_recuo": rnd(min_distance(prims, offset)),
+                }
+            )
+            if not fits:
+                failing_towers.append(tower)
+        setbacks = {"recuos_declarados": declared, "torres": rows}
+
+    required = _numeric_indicator(model, "AfastamentoProjetado", "entre_blocos")
+    spacing: dict[str, Any]
+    if required is None:
+        spacing = {"indisponivel": ["AfastamentoProjetado.entre_blocos"]}
+    else:
+        pairs = []
+        for i, a in enumerate(towers):
+            for b in towers[i + 1 :]:
+                distance = min_distance(footprints[a], footprints[b])
+                ok = distance >= required
+                pairs.append(
+                    {
+                        "torres": [a, b],
+                        "distancia": rnd(distance),
+                        "folga": rnd(distance - required),
+                        "atende": ok,
+                    }
+                )
+                if not ok:
+                    failing_pairs.append([a, b])
+        spacing = {
+            "exigido": required,
+            "total_pares": len(pairs),
+            "par_mais_proximo": min(pairs, key=lambda p: p["distancia"], default=None),
+            "pares": pairs,
+        }
+
+    summary = (
+        f"{len(failing_towers)} torres fora do recuo, "
+        f"{len(failing_pairs)} pares abaixo do afastamento"
+    )
+    return dump(
+        {
+            "recuos": setbacks,
+            "afastamento": spacing,
+            "torres_que_nao_atendem": failing_towers,
+            "pares_que_nao_atendem": failing_pairs,
+            "referencia": "torre medida pelo pavimento-tipo desenhado",
+        },
+        summary,
+    )
+
+
+# (regra, minimo pedido, maximo pedido, indicador projetado)
+PROGRAM_RANGES = (
+    ("Gabarito", None, "MaxHeight", "GabaritoProjetado"),
+    ("Pavimentos", "MinPavimentos", "MaxPavimentos", "NumeroDePavimentos"),
+    ("Torres", "MinTowersBySite", "MaxTowersBySite", "TotalDeTorres"),
+)
+
+
+@tool
+def compare_program(run_context: RunContext) -> str:
+    """Compara o programa pedido (`archprog`) com o projetado.
+
+    USE ESTA TOOL para "o projeto cumpre o programa pedido?", "o numero de
+    pavimentos/torres esta dentro do pedido?", "as torres respeitam as
+    unidades por pavimento pedidas?" e "a proporcao de tipologias/vagas por
+    unidade bate com o pedido?". Uma linha por regra; regra que o arquivo nao
+    pede volta como `nao_pedido`, nunca como falha.
+    - Gabarito, pavimentos, torres e unidades por pavimento tem veredito
+      (`atende`).
+    - CA minimo, vagas por unidade e proporcao de tipologias sao META: so
+      pedido, projetado e diferenca, sem veredito. Nao diga que "nao atende".
+    Cite os totais prontos (`regras_que_nao_atendem`, `torres_fora_da_faixa`)
+    e as diferencas devolvidas; nao recalcule.
+
+    Returns:
+        JSON com `regras` e os totais.
+    """
+    try:
+        model = cad_model(run_context)
+    except MissingDocument as exc:
+        return fail(str(exc))
+
+    asked = _program_values(model)
+    rules: list[dict[str, Any]] = []
+    for rule, low_name, high_name, projected_name in PROGRAM_RANGES:
+        low, high = asked.get(low_name or ""), asked.get(high_name or "")
+        rules.append(
+            _range_rule(
+                rule,
+                low,
+                high,
+                projected_name,
+                _numeric_indicator(model, projected_name),
+            )
+        )
+
+    outside: list[str] = []
+    low, high = asked.get("MinUnitsPerFloor"), asked.get("MaxUnitsPerFloor")
+    if low is None and high is None:
+        rules.append({"regra": "Unidades por pavimento", "nao_pedido": True})
+    else:
+        towers = []
+        for inst in model.instances.values():
+            units = tower_units(model.families[inst.family_index].properties)
+            if units is None:
+                continue
+            ok = (low is None or units[0] >= low) and (high is None or units[0] <= high)
+            towers.append({"torre": inst.id, "unidades_por_pavimento": units[0]})
+            if not ok:
+                outside.append(inst.id)
+        rules.append(
+            {
+                "regra": "Unidades por pavimento",
+                "minimo": low,
+                "maximo": high,
+                "torres": towers,
+                "atende": not outside if towers else None,
+            }
+        )
+
+    for rule, asked_name, projected_name in (
+        ("CA minimo", "CAMin", "CAProjetado"),
+        ("Vagas por unidade", "ParkingLotPerUnit", "VagasPorUnidade"),
+    ):
+        rules.append(
+            _goal_rule(
+                rule,
+                asked.get(asked_name),
+                projected_name,
+                _numeric_indicator(model, projected_name),
+            )
+        )
+
+    rules.append(_typology_rule(model))
+
+    failing = [r["regra"] for r in rules if r.get("atende") is False]
+    summary = f"nao atende: {', '.join(failing)}" if failing else "nenhuma regra falha"
+    return dump(
+        {
+            "regras": rules,
+            "regras_que_nao_atendem": failing,
+            "torres_fora_da_faixa": outside,
+        },
+        summary,
+    )
+
+
+def _program_values(model: CadModel) -> dict[str, float]:
+    """Valor numerico de cada regra do `archprog` (a primeira de cada tipo)."""
+    values: dict[str, float] = {}
+    for item in model.indicators["archprog"]:
+        value = item.get("value")
+        if isinstance(value, int | float) and not isinstance(value, bool):
+            values.setdefault(str(item.get("type")), float(value))
+    return values
+
+
+def _goal_rule(
+    rule: str, asked: float | None, projected_name: str, projected: float | None
+) -> dict[str, Any]:
+    """Meta do programa: pedido, projetado e diferenca, sem veredito."""
+    if asked is None:
+        return {"regra": rule, "nao_pedido": True}
+    if projected is None:
+        return {"regra": rule, "indisponivel": [projected_name]}
+    return {
+        "regra": rule,
+        "meta": True,
+        "pedido": asked,
+        "projetado": projected,
+        "diferenca": rnd(projected - asked),
+    }
+
+
+def _range_rule(
+    rule: str,
+    low: float | None,
+    high: float | None,
+    projected_name: str,
+    projected: float | None,
+) -> dict[str, Any]:
+    if low is None and high is None:
+        return {"regra": rule, "nao_pedido": True}
+    if projected is None:
+        return {"regra": rule, "indisponivel": [projected_name]}
+    return {
+        "regra": rule,
+        "projetado": {"tipo": projected_name, "valor": projected},
+        "minimo": low,
+        "maximo": high,
+        "atende": (low is None or projected >= low)
+        and (high is None or projected <= high),
+    }
+
+
+def _typology_rule(model: CadModel) -> dict[str, Any]:
+    """Proporcao de tipologias, casada pelo trecho depois de `/apartamento/`."""
+    asked = {
+        str(item.get("hid", "")).split("/apartamento/")[-1]: float(item["value"])
+        for item in model.indicators["archprog"]
+        if item.get("type") == "FamilyProportion"
+        and isinstance(item.get("value"), int | float)
+    }
+    if not asked:
+        return {"regra": "Proporcao de tipologias", "nao_pedido": True}
+
+    built = next(
+        (
+            item.get("value")
+            for item in model.indicators["outputs"]
+            if isinstance(item, dict) and item.get("type") == "UnidadesPorTipologia"
+        ),
+        None,
+    )
+    if not isinstance(built, dict) or not built:
+        return {
+            "regra": "Proporcao de tipologias",
+            "indisponivel": ["UnidadesPorTipologia"],
+        }
+
+    projected = {
+        str(key).split("/apartamento/")[-1]: value
+        for key, value in built.items()
+        if isinstance(value, int | float)
+    }
+    total = sum(projected.values())
+    rows = []
+    for typology, percent in asked.items():
+        built_percent = rnd(projected.get(typology, 0) / total * 100) if total else None
+        rows.append(
+            {
+                "tipologia": typology,
+                "pedido_pct": percent,
+                "projetado_pct": built_percent,
+                "diferenca_pp": rnd(built_percent - percent)
+                if built_percent is not None
+                else None,
+            }
+        )
+    return {"regra": "Proporcao de tipologias", "meta": True, "tipologias": rows}
+
+
+def _compare(
+    model: CadModel, projetado: str, limite: str
+) -> tuple[dict[str, Any] | None, list[str]]:
+    """Resultado de uma comparacao, ou None e os tipos que faltam."""
+    field, sense = "value", "maximo"
+    for _, _, name, rule_field, rule_sense in ZONING_RULES:
+        if name.lower() == limite.lower():
+            field, sense = rule_field, rule_sense
+
+    used = _numeric_indicator(model, projetado)
+    ref = _numeric_indicator(model, limite, field)
+    missing = [name for name, v in ((projetado, used), (limite, ref)) if v is None]
+    if used is None or ref is None:
+        return None, missing
+
+    maximum = sense == "maximo"
+    return {
+        "projetado": {"tipo": projetado, "valor": used},
+        "limite": {"tipo": limite, "valor": ref},
+        "sentido": sense,
+        "atende": used <= ref if maximum else used >= ref,
+        "folga": rnd(ref - used if maximum else used - ref),
+        "percentual_do_limite": rnd(used / ref * 100) if ref else None,
+    }, []
+
+
+def _indicator_items(model: CadModel) -> list[dict[str, Any]]:
+    return [
+        item
+        for key in ("outputs", "inputs", "processed_info")
+        for item in model.indicators[key]
+        if isinstance(item, dict)
+    ]
+
+
+def _numeric_indicator(
+    model: CadModel, name: str, field: str = "value"
+) -> float | None:
+    for item in _indicator_items(model):
+        value = item.get(field)
+        if str(item.get("type", "")).lower() != name.lower():
+            continue
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
+            return float(value)
+    return None
+
+
+def _numeric_indicator_types(model: CadModel) -> list[str]:
+    return sorted(
+        {
+            str(item["type"])
+            for item in _indicator_items(model)
+            if item.get("type")
+            and isinstance(item.get("value"), (int, float))
+            and not isinstance(item.get("value"), bool)
+        }
     )
 
 
@@ -522,7 +1194,8 @@ def _filter_entities(
     layer: str | None = None,
     entity_type: str | None = None,
     layer_contains: str | None = None,
-    block_name: str | None = None,
+    family: str | None = None,
+    instance: str | None = None,
     text_contains: str | None = None,
     region: tuple[float, float, float, float] | None = None,
     bbox_mode: str = "intersects",
@@ -534,18 +1207,20 @@ def _filter_entities(
 
     layer_exact = layer.lower() if layer else None
     layer_part = layer_contains.lower() if layer_contains else None
-    block_exact = block_name.lower() if block_name else None
-    type_exact = entity_type.upper() if entity_type else None
+    family_exact = family.lower() if family else None
+    type_exact = entity_type.lower() if entity_type else None
     text_part = text_contains.lower() if text_contains else None
 
     for entity in model.entities:
-        if type_exact and entity.type != type_exact:
+        if type_exact and entity.type.lower() != type_exact:
             continue
         if layer_exact and entity.layer.lower() != layer_exact:
             continue
         if layer_part and layer_part not in entity.layer.lower():
             continue
-        if block_exact and (entity.block or "").lower() != block_exact:
+        if family_exact and (entity.family or "").lower() != family_exact:
+            continue
+        if instance and entity.instance != instance:
             continue
         if text_part and (not entity.text or text_part not in entity.text.lower()):
             continue
@@ -576,6 +1251,11 @@ def _filter_entities(
 def _sort_entities(entities: list[CadEntity], sort_by: str) -> list[CadEntity]:
     if sort_by == "none":
         return entities
+    if sort_by.startswith("cota"):
+        markers = [e for e in entities if e.type == "cota" and e.text]
+        others = [e for e in entities if e.type != "cota" or not e.text]
+        markers.sort(key=lambda e: float(e.text or 0), reverse=sort_by == "cota_desc")
+        return markers + others
 
     metric = "length" if sort_by.startswith("length") else "area"
     descending = sort_by.endswith("_desc")
@@ -597,6 +1277,9 @@ QUERY_TOOLS = [
     get_entity_details,
     search_text,
     measure,
-    get_block_definition,
-    get_header_variables,
+    get_project_indicators,
+    compare_indicators,
+    check_zoning,
+    check_setbacks,
+    compare_program,
 ]

@@ -92,7 +92,7 @@ code {
 }
 
 .app.drag-over::after {
-  content: 'solte o arquivo .dxf';
+  content: 'solte o arquivo .json';
   position: fixed;
   inset: 0;
   z-index: 50;
@@ -312,13 +312,41 @@ code {
   margin-bottom: 0;
 }
 
-.md-heading {
+.msg h1,
+.msg h2,
+.msg h3,
+.msg h4 {
+  margin: 0 0 6px;
+  font-size: inherit;
   font-weight: 600;
 }
 
-.msg ul {
+.msg ul,
+.msg ol {
   margin: 0 0 6px;
   padding-left: 18px;
+}
+
+.msg table {
+  border-collapse: collapse;
+  margin: 0 0 6px;
+  font-size: 12px;
+}
+
+.msg th,
+.msg td {
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+  text-align: left;
+}
+
+.msg pre {
+  margin: 0 0 6px;
+  overflow-x: auto;
+}
+
+.msg a {
+  color: inherit;
 }
 
 .pending {

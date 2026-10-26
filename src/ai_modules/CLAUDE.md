@@ -54,7 +54,7 @@ Regras:
 
 Sem `db` explícito, `get_base_agent_kwargs` usa o `InMemoryDb` de `get_agent_db()`. É o que dá histórico multi-turno sem banco externo — sem `db` o agente não lembraria da pergunta anterior.
 
-**Exemplo real:** `agents/cad_agent/`. Ele acrescenta duas coisas ao contrato: `tool_call_limit=14` e o resumo do desenho (`describe_model(model)`) como segundo item de `instructions`, dentro de um bloco `<documento_carregado>`. Esse resumo é a única visão que o modelo tem do desenho fora das tools.
+**Exemplo real:** `agents/cad_agent/`. Ele acrescenta duas coisas ao contrato: `tool_call_limit=14` e o resumo do projeto (`describe_model(model)`) como segundo item de `instructions`, dentro de um bloco `<documento_carregado>`. Esse resumo é a única visão que o modelo tem do desenho fora das tools.
 
 ## Como Adicionar uma Tool
 

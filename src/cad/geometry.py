@@ -1,8 +1,8 @@
 """Primitivas geometricas — a abstracao que unifica a camada.
 
-Cerca de 15 tipos de entidade DXF colapsam em 3 primitivas. Por causa disso,
-bbox, comprimento, area e hit-test derivam de um lugar so, sem `match` por tipo
-espalhado pelo codigo.
+Toda geometria do AQG (Polygon, LineString, Point...) colapsa em 3 primitivas.
+Por causa disso, bbox, comprimento, area e hit-test derivam de um lugar so, sem
+`match` por tipo espalhado pelo codigo.
 """
 
 import math
@@ -49,8 +49,8 @@ Prim = Union[PolylinePrim, PointPrim, TextPrim]
 def normalize_closed(pts: list[Vec2], closed: bool) -> list[Vec2]:
     """Remove o vertice de fechamento duplicado.
 
-    `ezdxf.path.Path.flattening()` devolve o primeiro ponto repetido no fim de
-    um caminho fechado. Manter a duplicata contaria o segmento de fechamento
+    Os aneis GeoJSON do AQG repetem o primeiro ponto no fim de um caminho
+    fechado. Manter a duplicata contaria o segmento de fechamento
     duas vezes no comprimento e distorceria a area.
     """
     if closed and len(pts) > 1 and _same_point(pts[0], pts[-1]):
@@ -164,3 +164,112 @@ def distance_point_segment(p: Vec2, a: Vec2, b: Vec2) -> float:
     t = max(0.0, min(1.0, t))
 
     return math.hypot(px - (ax + t * dx), py - (ay + t * dy))
+
+
+def _segments(prims: list[Prim]) -> list[tuple[Vec2, Vec2]]:
+    """Segmentos das primitivas; ponto e texto viram um segmento degenerado."""
+    segments: list[tuple[Vec2, Vec2]] = []
+    for prim in prims:
+        if not isinstance(prim, PolylinePrim):
+            segments.append((prim.p, prim.p))
+            continue
+        pts = prim.pts
+        segments += zip(pts, pts[1:], strict=False)
+        if prim.closed and len(pts) > 2:
+            segments.append((pts[-1], pts[0]))
+        if len(pts) == 1:
+            segments.append((pts[0], pts[0]))
+    return segments
+
+
+def _orient(o: Vec2, a: Vec2, b: Vec2) -> float:
+    return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+
+
+def segments_cross(a: Vec2, b: Vec2, c: Vec2, d: Vec2) -> bool:
+    """Cruzamento proprio: cada segmento corta a reta do outro.
+
+    Toque em extremo ou colinear fica de fora: a distancia ponto-segmento ja
+    da 0 nesses casos.
+    """
+    return (
+        _orient(c, d, a) * _orient(c, d, b) < 0
+        and _orient(a, b, c) * _orient(a, b, d) < 0
+    )
+
+
+def min_distance(a: list[Prim], b: list[Prim]) -> float:
+    """Menor distancia entre as bordas de dois conjuntos de primitivas.
+
+    Mede borda a borda, sem teste de ponto dentro do poligono: uma torre dentro
+    do perimetro da a distancia ate a linha do perimetro, que e o recuo. 0
+    quando as bordas se tocam ou se cruzam; infinito se um lado nao tem
+    geometria.
+    """
+    # Pares de primitivas em ordem de distancia entre as caixas: quando essa
+    # distancia passa da melhor ja medida, nenhum par seguinte pode ganhar.
+    # ponytail: O(n*m) no pior caso; indice espacial (R-tree) se ficar lento.
+    boxed_a = [(box, prim) for prim in a if (box := bbox_of_prims([prim]))]
+    boxed_b = [(box, prim) for prim in b if (box := bbox_of_prims([prim]))]
+    pairs = sorted(
+        (
+            (_bbox_gap(box_a, box_b), i, j)
+            for i, (box_a, _) in enumerate(boxed_a)
+            for j, (box_b, _) in enumerate(boxed_b)
+        ),
+    )
+    segments_b = [_segments([prim]) for _, prim in boxed_b]
+
+    best = math.inf
+    for gap, i, j in pairs:
+        if gap >= best:
+            break
+        for p, q in _segments([boxed_a[i][1]]):
+            box_pq = _segment_bbox(p, q)
+            for r, s in segments_b[j]:
+                if _bbox_gap(box_pq, _segment_bbox(r, s)) >= best:
+                    continue
+                if segments_cross(p, q, r, s):
+                    return 0.0
+                best = min(
+                    best,
+                    distance_point_segment(p, r, s),
+                    distance_point_segment(q, r, s),
+                    distance_point_segment(r, p, q),
+                    distance_point_segment(s, p, q),
+                )
+    return best
+
+
+def _segment_bbox(p: Vec2, q: Vec2) -> BBox:
+    return (min(p[0], q[0]), min(p[1], q[1]), max(p[0], q[0]), max(p[1], q[1]))
+
+
+def _bbox_gap(a: BBox, b: BBox) -> float:
+    dx = max(b[0] - a[2], a[0] - b[2], 0.0)
+    dy = max(b[1] - a[3], a[1] - b[3], 0.0)
+    return math.hypot(dx, dy)
+
+
+def point_in_polygon(p: Vec2, pts: list[Vec2]) -> bool:
+    """Ray casting. Ponto exatamente na borda tem resposta indefinida."""
+    x, y = p
+    inside = False
+    for (ax, ay), (bx, by) in zip(pts, pts[1:] + pts[:1], strict=True):
+        if (ay > y) != (by > y) and x < ax + (y - ay) * (bx - ax) / (by - ay):
+            inside = not inside
+    return inside
+
+
+def fits_inside(inner: list[Prim], outer: PolylinePrim) -> bool:
+    """`inner` inteiro dentro do poligono `outer`, encostar na borda incluido."""
+    border = _segments([outer])
+    segments = _segments(inner)
+    if any(segments_cross(p, q, r, s) for p, q in segments for r, s in border):
+        return False
+    return all(
+        point_in_polygon(v, outer.pts)
+        or any(distance_point_segment(v, r, s) < 1e-9 for r, s in border)
+        for segment in segments
+        for v in segment
+    )

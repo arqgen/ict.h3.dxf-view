@@ -1,23 +1,25 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 import { sendChat, toolLabel } from '../api/client'
 import type { ChatBlock, ChatMessage, LoadedDocument, ToolUI } from '../api/types'
-import { Markdownish } from './Markdownish'
 
 const SUGGESTIONS = [
-  'Faça um resumo do que existe neste desenho.',
-  'Quais são os layers com mais entidades?',
-  'Qual é a maior área fechada? Destaque no desenho.',
-  'Existe algum texto de escala ou título?',
-  'Quantas inserções de bloco existem e de quais blocos?',
+  'Faça um resumo deste projeto.',
+  'Quantas torres e quantas unidades o projeto tem? Destaque as torres.',
+  'Qual o CA projetado e qual o máximo permitido?',
+  'Onde estão os apartamentos de 2 quartos?',
+  'Quantas vagas foram projetadas?',
 ]
 
 interface Props {
   document: LoadedDocument | null
   ui: ToolUI
+  draft: { text: string } | null
 }
 
-export function ChatPanel({ document: loaded, ui }: Props) {
+export function ChatPanel({ document: loaded, ui, draft }: Props) {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
@@ -25,6 +27,7 @@ export function ChatPanel({ document: loaded, ui }: Props) {
 
   const abortRef = useRef<AbortController | null>(null)
   const scrollRef = useRef<HTMLDivElement | null>(null)
+  const inputRef = useRef<HTMLTextAreaElement | null>(null)
 
   // Uma sessão do agno por documento: o histórico de um desenho não faz sentido
   // aplicado a outro, e os ids de entidade sequer coincidem.
@@ -40,6 +43,12 @@ export function ChatPanel({ document: loaded, ui }: Props) {
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight })
   }, [messages])
+
+  useEffect(() => {
+    if (!draft) return
+    setInput(draft.text)
+    inputRef.current?.focus()
+  }, [draft])
 
   /** Aplica uma mutação ao último bloco da última mensagem do assistente. */
   const mutateLast = (fn: (blocks: ChatBlock[]) => ChatBlock[]) => {
@@ -156,7 +165,7 @@ export function ChatPanel({ document: loaded, ui }: Props) {
 
       <div className="chat-log" ref={scrollRef}>
         {!loaded && (
-          <p className="empty">Abra um arquivo DXF para começar a conversar sobre ele.</p>
+          <p className="empty">Abra um projeto AQG para começar a conversar sobre ele.</p>
         )}
 
         {loaded && !messages.length && (
@@ -196,8 +205,9 @@ export function ChatPanel({ document: loaded, ui }: Props) {
         }}
       >
         <textarea
+          ref={inputRef}
           value={input}
-          placeholder={loaded ? 'Pergunte sobre o desenho…' : 'Abra um DXF primeiro'}
+          placeholder={loaded ? 'Pergunte sobre o desenho…' : 'Abra um projeto primeiro'}
           disabled={!loaded || busy}
           rows={2}
           onChange={(event) => setInput(event.target.value)}
@@ -233,7 +243,7 @@ function BlockView({
   if (block.kind === 'text') {
     return (
       <div className="block-text">
-        <Markdownish text={block.text} />
+        <Markdown remarkPlugins={[remarkGfm]}>{block.text}</Markdown>
       </div>
     )
   }

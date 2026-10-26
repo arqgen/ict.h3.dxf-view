@@ -1,238 +1,343 @@
-"""Assertivas EXATAS sobre o indice.
+"""Assertivas EXATAS sobre o indice, contra o projeto de tests/make_aqg_sample.py.
 
 Nada de `>=` aqui. Uma assertiva frouxa sobre contagem de entidades e capaz de
-passar com o indexador perdendo geometria silenciosamente.
+passar com o indexador perdendo geometria silenciosamente. `approx` so onde a
+geometria passou por rotacao (cos 90 nao e zero em float).
 """
 
-from src.cad.geometry import PolylinePrim, TextPrim
+import json
+from collections import Counter
+
+import pytest
+
 from src.cad.model import (
+    AqgLoadError,
     CadModel,
+    build_model,
     describe_model,
-    entity_raw_props,
+    descriptor_groups,
+    load_aqg,
     prims_payload,
+    tower_units,
 )
+from tests.conftest import two_tower_families, with_annotations
+from tests.make_aqg_sample import build_sample_project
 
-# Entidades de modelspace do DXF sintetico (ver tests/make_sample.py):
-# 2 LWPOLYLINE, 2 LINE, 1 CIRCLE, 1 ARC, 1 SPLINE, 1 POINT, 1 TEXT, 1 MTEXT,
-# 3 INSERT, 1 DIMENSION.
-EXPECTED_BY_TYPE = {
-    "INSERT": 3,
-    "LINE": 2,
-    "LWPOLYLINE": 2,
-    "ARC": 1,
-    "CIRCLE": 1,
-    "DIMENSION": 1,
-    "MTEXT": 1,
-    "POINT": 1,
-    "SPLINE": 1,
-    "TEXT": 1,
-}
-EXPECTED_ENTITY_COUNT = 14
-
-
-def _contour(model: CadModel):
-    entities = [e for e in model.entities if e.layer == "CONTORNO"]
-    assert len(entities) == 1
-    return entities[0]
-
-
-def test_entity_count_is_exact(sample_model: CadModel):
-    assert len(sample_model.entities) == EXPECTED_ENTITY_COUNT
+EXPECTED_IDS = [
+    "s0",
+    "s1",
+    "s2",
+    "s3",
+    "p0.0",
+    "p0.1",
+    "p0.2",
+    "p0.3",
+    "p0.4",
+    "p1.0",
+    "p1.1",
+    "p1.2",
+    "p1.3",
+    "p1.4",
+    "p2.0",
+    "p3.0",
+    "p4",
+    "p5",
+]
 
 
-def test_by_type_is_exact(sample_model: CadModel):
-    assert sample_model.by_type == EXPECTED_BY_TYPE
+def test_entity_ids_are_exact(sample_model: CadModel):
+    assert [e.id for e in sample_model.entities] == EXPECTED_IDS
+    assert list(sample_model.by_id) == EXPECTED_IDS
+    for missing in ("s4", "p0.5", "p0.6", "p0.7", "p2.1", "p2.2", "p6"):
+        assert missing not in sample_model.by_id
 
 
-def test_no_warnings(sample_model: CadModel):
-    assert sample_model.warnings == []
+def test_instances(sample_model: CadModel):
+    instances = sample_model.instances
+    assert list(instances) == ["p0", "p1", "p2", "p3"]
+    for pid in ("p0", "p1"):
+        assert instances[pid].family == "T/4"
+        assert instances[pid].family_type == "Tower"
+    for pid in ("p2", "p3"):
+        assert instances[pid].family == "Vaga 0"
+        assert instances[pid].family_type == "Vaga"
+    assert instances["p0"].entity_ids == ["p0.0", "p0.1", "p0.2", "p0.3", "p0.4"]
+    assert instances["p2"].entity_ids == ["p2.0"]
+    assert instances["p1"].angle == 90.0
+    assert not any(pid in sample_model.by_id for pid in instances)
 
 
-def test_units_are_meters(sample_model: CadModel):
+def test_count_by_family(sample_model: CadModel):
+    counts = Counter(inst.family for inst in sample_model.instances.values())
+    assert counts == {"T/4": 2, "Vaga 0": 2}
+
+
+def test_instance_keeps_its_family_position(duplicate_label_model: CadModel):
+    instances = duplicate_label_model.instances
+    assert instances["p0"].family_index == 0
+    assert instances["p1"].family_index == 2
+    assert instances["p1"].family == "T/4"
+
+
+def test_families(sample_model: CadModel):
+    assert [(f.label, f.type) for f in sample_model.families] == [
+        ("T/4", "Tower"),
+        ("Vaga 0", "Vaga"),
+    ]
+
+
+def test_single_warning_cites_p6(sample_model: CadModel):
+    assert sample_model.warnings == [
+        "instância p6 (/building/inexistente/x) sem família — ignorada"
+    ]
+
+
+def test_layers(sample_model: CadModel):
+    counts = {layer.name: layer.count for layer in sample_model.layers}
+    assert counts == {
+        "pav_tipo": 8,
+        "shaft": 2,
+        "viario_vaga": 2,
+        "AQG_PERIMETRO": 1,
+        "AQG_FRENTE": 1,
+        "AQG_CURVA_DE_NIVEL_MESTRA": 1,
+        "AQG_PORTARIA": 1,
+        "AQG_TALUDE": 1,
+        "AQG_RUA": 1,
+    }
+    names = sample_model.layer_names
+    assert names == sorted(names, key=str.lower)
+    assert sample_model.layer("aqg_rua").color == "#7C8798"
+
+
+def test_no_layer_frozen_or_hidden(sample_model: CadModel):
+    assert all(not layer.frozen and layer.on for layer in sample_model.layers)
+
+
+def test_by_type(sample_model: CadModel):
+    assert sample_model.by_type == {
+        "apartamento": 4,
+        "CadPolygon": 2,
+        "CadPolyline": 2,
+        "core": 2,
+        "shaft": 2,
+        "vaga": 2,
+        "varanda": 2,
+        "CadBlock": 1,
+        "CadMultiPolygon": 1,
+    }
+    assert list(sample_model.by_type)[0] == "apartamento"
+
+
+def test_areas(sample_model: CadModel):
+    by_id = sample_model.by_id
+    assert by_id["s0"].area == 8000
+    assert by_id["p0.0"].area == 50
+    assert by_id["p0.1"].area == 50
+    assert by_id["p0.2"].area == 10
+    assert by_id["p0.3"].area == 1
+    assert by_id["p0.4"].area == 200
+    assert by_id["p2.0"].area == 12.5
+    assert by_id["p3.0"].area == 12.5
+    assert by_id["p4"].area == 276
+    assert by_id["p5"].area == 500
+    assert by_id["p1.4"].area == pytest.approx(200, abs=1e-9)
+    for eid in ("s1", "s2", "s3"):
+        assert by_id[eid].area is None
+
+
+def test_lengths_and_closed(sample_model: CadModel):
+    by_id = sample_model.by_id
+    assert by_id["s0"].length == 360
+    assert by_id["s1"].length == 100
+    assert by_id["s2"].length == 60
+    assert by_id["s2"].closed is True
+    assert by_id["s1"].closed is False
+
+
+def test_bboxes(sample_model: CadModel):
+    by_id = sample_model.by_id
+    assert by_id["p0.4"].bbox == (20, 10, 30, 30)
+    assert by_id["p0.0"].bbox == (20, 10, 25, 20)
+    assert by_id["p1.4"].bbox == pytest.approx((40, 10, 60, 20), abs=1e-9)
+    assert by_id["p1.0"].bbox == pytest.approx((50, 10, 60, 15), abs=1e-9)
+    assert by_id["p2.0"].bbox == (5, 40, 7.5, 45)
+    assert by_id["p3.0"].bbox == (8, 40, 10.5, 45)
+    assert sample_model.bbox == (0, 0, 100, 80)
+
+
+def test_labels(sample_model: CadModel):
+    by_id = sample_model.by_id
+    for eid in ("p0.0", "p0.1", "p0.2"):
+        assert by_id[eid].text == "2 Quartos"
+    assert by_id["p0.3"].text == "T/4"
+    assert by_id["p0.4"].text == "T/4"
+    assert by_id["p4"].text == "talude"
+    assert by_id["s0"].text is None
+
+
+def test_part_attributes(sample_model: CadModel):
+    part = sample_model.by_id["p0.0"]
+    assert (part.type, part.layer, part.color) == ("apartamento", "pav_tipo", "#BDD9E7")
+    assert (part.instance, part.family) == ("p0", "T/4")
+    talude = sample_model.by_id["p4"]
+    assert (talude.layer, talude.type, talude.color) == (
+        "AQG_TALUDE",
+        "CadMultiPolygon",
+        "#B7C3D0",
+    )
+    assert (talude.instance, talude.family) == (None, None)
+
+
+def test_indicators_copied_as_is(sample_model: CadModel):
+    project = build_sample_project()
+    assert sample_model.indicators == {
+        "outputs": project["solution"]["outputs"],
+        "inputs": project["site"]["inputs"],
+        "processed_info": project["site"]["processed_info"],
+        "scores": project["solution"]["scores"],
+        "inclinacao_media": None,
+        "archprog": [],
+    }
+
+
+def test_indicators_default_when_missing():
+    model = build_model({"families": [], "solution": {"placed_objects": []}}, "x")
+    assert model.indicators == {
+        "outputs": [],
+        "inputs": [],
+        "processed_info": [],
+        "scores": {},
+        "inclinacao_media": None,
+        "archprog": [],
+    }
+
+
+def test_units(sample_model: CadModel):
     assert sample_model.units == "metros"
 
 
-def test_acad_version(sample_model: CadModel):
-    assert sample_model.acad_version == "AC1024"
+def test_load_aqg_rejects_non_json():
+    with pytest.raises(AqgLoadError):
+        load_aqg(b"nao e json", "x")
 
 
-def test_contour_perimeter_is_exactly_68(sample_model: CadModel):
-    assert _contour(sample_model).length == 68.0
+def test_load_aqg_rejects_non_project():
+    with pytest.raises(AqgLoadError):
+        load_aqg(b'{"a": 1}', "x")
 
 
-def test_contour_area_is_exactly_280(sample_model: CadModel):
-    assert _contour(sample_model).area == 280.0
+def test_load_aqg_equals_build_model(sample_project: dict):
+    loaded = load_aqg(json.dumps(sample_project).encode(), "x")
+    built = build_model(sample_project, "x")
+    assert loaded == built
 
 
-def test_contour_is_closed_with_four_vertices(sample_model: CadModel):
-    contour = _contour(sample_model)
-    assert contour.closed
-    assert len(contour.prims) == 1
-    prim = contour.prims[0]
-    assert isinstance(prim, PolylinePrim)
-    # O vertice de fechamento duplicado devolvido pelo ezdxf foi normalizado.
-    assert len(prim.pts) == 4
-
-
-def test_open_entities_have_no_area(sample_model: CadModel):
-    lines = [e for e in sample_model.entities if e.type == "LINE"]
-    assert len(lines) == 2
-    assert all(line.area is None for line in lines)
-    assert all(line.length == 20.0 or line.length == 14.0 for line in lines)
-
-
-def test_document_bbox_covers_the_contour(sample_model: CadModel):
-    assert sample_model.bbox is not None
-    min_x, min_y, max_x, max_y = sample_model.bbox
-    assert min_x <= 0.0
-    assert min_y < 0.0  # a cota fica abaixo do contorno
-    assert max_x >= 20.0
-    assert max_y >= 14.0
-
-
-def test_bulge_became_an_arc(sample_model: CadModel):
-    bulged = [
-        e
-        for e in sample_model.entities
-        if e.type == "LWPOLYLINE" and e.layer == "PAREDES"
-    ]
-    assert len(bulged) == 1
-    prim = bulged[0].prims[0]
-    assert isinstance(prim, PolylinePrim)
-    assert len(prim.pts) > 5
-
-
-def test_spline_was_sampled(sample_model: CadModel):
-    splines = [e for e in sample_model.entities if e.type == "SPLINE"]
-    assert len(splines) == 1
-    prim = splines[0].prims[0]
-    assert isinstance(prim, PolylinePrim)
-    assert len(prim.pts) > 20
-
-
-def test_circle_is_closed_and_has_area(sample_model: CadModel):
-    circles = [e for e in sample_model.entities if e.type == "CIRCLE"]
-    assert len(circles) == 1
-    circle = circles[0]
-    assert circle.closed
-    assert circle.area is not None
-    # Raio 2 -> area ~12.566. Poligono inscrito subestima; toleramos 1%.
-    assert abs(circle.area - 12.566) / 12.566 < 0.01
-
-
-def test_mtext_escapes_were_cleaned(sample_model: CadModel):
-    mtexts = [e for e in sample_model.entities if e.type == "MTEXT"]
-    assert len(mtexts) == 1
-    assert mtexts[0].text == "PLANTA BAIXA\nESCALA 1:50"
-
-
-def test_text_prim_carries_height_and_rotation(sample_model: CadModel):
-    texts = [e for e in sample_model.entities if e.type == "TEXT"]
-    assert len(texts) == 1
-    prim = texts[0].prims[0]
-    assert isinstance(prim, TextPrim)
-    assert prim.text == "PLAIN"
-    assert prim.height == 1.0
-    assert prim.rotation == 0.0
-
-
-def test_inserts_produced_block_geometry(sample_model: CadModel):
-    inserts = [e for e in sample_model.entities if e.type == "INSERT"]
-    assert len(inserts) == 3
-    for insert in inserts:
-        assert insert.block == "PORTA"
-        # O bloco tem LINE + ARC; ambos devem ter chegado achatados.
-        assert len(insert.prims) == 2
-        assert insert.bbox is not None
-
-
-def test_block_insert_count_is_three(sample_model: CadModel):
-    assert sample_model.insert_counts == {"PORTA": 3}
-
-
-def test_block_names_exclude_anonymous_blocks(sample_model: CadModel):
-    assert "PORTA" in sample_model.block_names
-    assert not any(name.startswith("*") for name in sample_model.block_names)
-
-
-def test_dimension_produced_geometry(sample_model: CadModel):
-    dims = [e for e in sample_model.entities if e.type == "DIMENSION"]
-    assert len(dims) == 1
-    assert dims[0].prims, "cota sem geometria — o bloco anonimo nao foi resolvido"
-
-
-def test_layers_include_table_and_used(sample_model: CadModel):
-    names = sample_model.layer_names
-    for expected in ("0", "CONTORNO", "PAREDES", "TEXTOS", "MOBILIARIO", "COTAS"):
-        assert expected in names
-
-
-def test_frozen_layer_is_flagged(sample_model: CadModel):
-    auxiliar = sample_model.layer("AUXILIAR")
-    assert auxiliar is not None
-    assert auxiliar.frozen
-    assert auxiliar.count == 1  # o POINT
-
-
-def test_layer_counts_sum_to_entity_count(sample_model: CadModel):
-    total = sum(layer.count for layer in sample_model.layers)
-    assert total == EXPECTED_ENTITY_COUNT
-
-
-def test_layer_colors_are_hex(sample_model: CadModel):
-    contorno = sample_model.layer("CONTORNO")
-    assert contorno is not None
-    assert contorno.color == "#ff0000"
-
-
-def test_entity_colors_are_hex(sample_model: CadModel):
-    assert _contour(sample_model).color == "#ff0000"
-
-
-def test_header_vars_are_exposed_and_jsonable(sample_model: CadModel):
-    assert sample_model.header["$INSUNITS"] == 6
-    assert sample_model.header["$ACADVER"] == "AC1024"
-
-
-def test_raw_props_of_contour(sample_model: CadModel):
-    contour = _contour(sample_model)
-    props = entity_raw_props(sample_model, contour.id)
-    assert props is not None
-    assert props["layer"] == "CONTORNO"
-    assert props["vertices"] == [[0.0, 0.0], [20.0, 0.0], [20.0, 14.0], [0.0, 14.0]]
-
-
-def test_raw_props_of_unknown_id_is_none(sample_model: CadModel):
-    assert entity_raw_props(sample_model, "nao-existe") is None
-
-
-def test_prims_payload_shape(sample_model: CadModel):
+def test_prims_payload_matches_index(sample_model: CadModel):
     payload = prims_payload(sample_model)
-    contour = next(item for item in payload if item["id"] == _contour(sample_model).id)
-    assert contour["color"] == "#ff0000"
-    assert contour["layer"] == "CONTORNO"
-    assert contour["bbox"] == [0.0, 0.0, 20.0, 14.0]
-    assert contour["shapes"] == [
-        {
-            "k": "p",
-            "pts": [[0.0, 0.0], [20.0, 0.0], [20.0, 14.0], [0.0, 14.0]],
-            "c": True,
-        }
-    ]
+    assert len(payload) == 18
+    assert [item["id"] for item in payload] == list(sample_model.by_id)
+    assert set(payload[0]) == {
+        "id",
+        "type",
+        "layer",
+        "color",
+        "bbox",
+        "shapes",
+        "filled",
+        "label",
+        "family",
+    }
+    filled = {item["id"]: item["filled"] for item in payload}
+    assert filled["p4"] is True
+    assert filled["s2"] is False
 
 
-def test_prims_payload_ids_match_index(sample_model: CadModel):
-    payload_ids = {item["id"] for item in prims_payload(sample_model)}
-    assert payload_ids <= set(sample_model.by_id)
-
-
-def test_describe_model_states_totals_without_inventing_measures(
-    sample_model: CadModel,
-):
+def test_describe_model_has_no_numbers(sample_model: CadModel):
     summary = describe_model(sample_model)
-    assert "sample.dxf" in summary
-    assert "metros" in summary
-    assert f"Total de entidades indexadas: {EXPECTED_ENTITY_COUNT}" in summary
-    assert "PORTA: 3" in summary
-    assert "[congelada]" in summary
-    assert "Avisos do parser" not in summary
+    for expected in (
+        "T/4",
+        "Vaga 0",
+        "AQG_TALUDE",
+        "TotalDeUnidades",
+        "AreaDoTerreno",
+        "metros",
+    ):
+        assert expected in summary
+    for forbidden in ("37", "1234", "8000", "276"):
+        assert forbidden not in summary
+
+
+def test_load_aqg_rejects_malformed_field() -> None:
+    project = build_sample_project()
+    project["solution"]["placed_objects"][0]["position"]["x"] = "abc"
+    with pytest.raises(AqgLoadError):
+        load_aqg(json.dumps(project).encode(), "x")
+
+
+def test_tower_units_reads_tower_pav_tipo():
+    properties = {
+        "type": "Tower",
+        "n_pavimentos_unidades": 10,
+        "pav_tipo": {
+            "tipologias": {"/area/apartamento/a": 3, "/area/apartamento/b": 1}
+        },
+    }
+    assert tower_units(properties) == (4, 40)
+
+
+def test_tower_units_reads_dynamic_tower_top_level():
+    properties = {
+        "type": "DynamicTower3d",
+        "n_pavimentos_unidades": 16,
+        "tipologias": {"/area/apartamento/a": 2, "/area/apartamento/b": 2},
+    }
+    assert tower_units(properties) == (4, 64)
+
+
+def test_tower_units_without_typologies_is_none():
+    assert tower_units({"type": "Tower", "n_pavimentos_unidades": 10}) is None
+
+
+def test_tower_units_with_non_integer_floors_is_none():
+    properties = {
+        "n_pavimentos_unidades": "10",
+        "tipologias": {"/area/apartamento/a": 2},
+    }
+    assert tower_units(properties) is None
+
+
+def test_avg_inclination_from_site_analysis(sample_project: dict):
+    sample_project["site"]["analysis"] = {
+        "avg_inclination": 5.25,
+        "inclination_groups": [],
+    }
+    model = build_model(sample_project, "x")
+    assert model.indicators["inclinacao_media"] == 5.25
+    assert "InclinacaoMedia" in describe_model(model)
+    assert "5.25" not in describe_model(model)
+
+
+def test_descriptor_groups_match_by_units():
+    model = build_model(two_tower_families(3), "x")
+    assert descriptor_groups(model) == {"01": ["p0"], "02": ["p1"]}
+
+
+def test_descriptor_with_ambiguous_units_is_left_out():
+    model = build_model(two_tower_families(2), "x")
+    assert descriptor_groups(model) == {}
+
+
+def test_annotations_become_entities():
+    model = build_model(with_annotations(), "x")
+    marker, far, arrow = (model.by_id[i] for i in ("a0", "a1", "a2"))
+    assert (marker.layer, marker.type, marker.text) == ("AQG_COTA", "cota", "101.50")
+    assert [type(p).__name__ for p in marker.prims] == ["PointPrim", "TextPrim"]
+    assert far.text == "120.25"
+    assert (arrow.layer, arrow.type, arrow.text) == (
+        "AQG_SETA_DECLIVE",
+        "seta_declive",
+        "declive gentle",
+    )
+    assert arrow.length == pytest.approx(200**0.5)
+    assert not [w for w in model.warnings if "anotação" in w or "cota" in w]
