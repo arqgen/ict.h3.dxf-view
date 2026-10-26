@@ -3,6 +3,7 @@ import { useCallback, useMemo, useRef, useState } from 'react'
 import { expandIds, fetchEntityDetails, uploadDocument } from './api/client'
 import type {
   BBox,
+  ColorAttribute,
   EntityDetails,
   LoadedDocument,
   ToolUI,
@@ -23,6 +24,7 @@ export default function App() {
   const [hiddenLayers, setHiddenLayers] = useState<Set<string>>(new Set())
   const [highlighted, setHighlighted] = useState<Set<string>>(new Set())
   const [highlightLabel, setHighlightLabel] = useState('')
+  const [colorBy, setColorBy] = useState<ColorAttribute | null>(null)
   const [selected, setSelected] = useState<EntityDetails | null>(null)
   // Objeto novo a cada clique: pedir o mesmo id duas vezes repreenche o campo.
   const [chatDraft, setChatDraft] = useState<{ text: string } | null>(null)
@@ -73,6 +75,7 @@ export default function App() {
       setHiddenLayers(new Set())
       setHighlighted(new Set())
       setHighlightLabel('')
+      setColorBy(null)
       setSelected(null)
       setViewRequest(null)
     } catch (exc) {
@@ -94,7 +97,7 @@ export default function App() {
     }
   }
 
-  // O seam por onde as 4 ferramentas de interface da IA mutam a tela. Nada mais
+  // O seam por onde as 5 ferramentas de interface da IA mutam a tela. Nada mais
   // no frontend fala com o canvas em nome do agente.
   const ui = useMemo<ToolUI>(
     () => ({
@@ -150,6 +153,7 @@ export default function App() {
           return next
         })
       },
+      colorBy: setColorBy,
     }),
     [loaded, bboxOfIds, requestView],
   )
@@ -243,6 +247,7 @@ export default function App() {
                 hiddenLayers={hiddenLayers}
                 highlighted={highlighted}
                 highlightLabel={highlightLabel}
+                colorBy={colorBy}
                 selectedId={selected?.id ?? null}
                 viewRequest={viewRequest}
                 onPick={pickEntity}

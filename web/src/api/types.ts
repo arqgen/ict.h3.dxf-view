@@ -17,6 +17,8 @@ export interface PrimEntity {
   bbox: BBox | null
   shapes: Shape[]
   filled: boolean
+  label: string | null
+  family: string | null
 }
 
 export interface LayerInfo {
@@ -104,7 +106,10 @@ export interface ToolUI {
   zoomToBBox: (bbox: BBox) => void
   zoomToAll: () => void
   setLayerVisibility: (layers: string[], visible: boolean, isolate: boolean) => void
+  colorBy: (attribute: ColorAttribute | null) => void
 }
+
+export type ColorAttribute = 'tipologia' | 'familia' | 'tipo'
 
 export type ChatBlock =
   | { kind: 'text'; text: string }

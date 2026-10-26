@@ -1,12 +1,32 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 
-import type { BBox, PrimEntity, Shape, ViewRequest } from '../api/types'
+import type {
+  BBox,
+  ColorAttribute,
+  PrimEntity,
+  Shape,
+  ViewRequest,
+} from '../api/types'
 
 const HIGHLIGHT_COLOR = '#ff9500'
 const SELECT_COLOR = '#22d3ee'
 const AXIS_COLOR = '#2a3038'
 const BACKGROUND = '#0e1116'
 const FILL_ALPHA = 0.25
+// Paleta do color_by, atribuída aos grupos em ordem alfabética.
+const PALETTE = [
+  '#4E79A7',
+  '#F28E2B',
+  '#E15759',
+  '#76B7B2',
+  '#59A14F',
+  '#EDC948',
+  '#B07AA1',
+  '#FF9DA7',
+  '#9C755F',
+  '#BAB0AC',
+]
+const MAX_LEGEND = 12
 
 /** Acima disto o desenho fica ilegível e o custo de layout de texto domina o
  *  frame com milhares de textos. */
@@ -30,6 +50,7 @@ interface Props {
   hiddenLayers: Set<string>
   highlighted: Set<string>
   highlightLabel: string
+  colorBy: ColorAttribute | null
   selectedId: string | null
   viewRequest: ViewRequest | null
   onPick: (id: string | null) => void
@@ -41,10 +62,28 @@ export function CadCanvas({
   hiddenLayers,
   highlighted,
   highlightLabel,
+  colorBy,
   selectedId,
   viewRequest,
   onPick,
 }: Props) {
+  // color_by troca só a cor; o resto do desenho segue igual.
+  const groupColors = useMemo(() => {
+    if (!colorBy) return new Map<string, string>()
+    const groups = [...new Set(entities.map((e) => groupKey(e, colorBy)))]
+      .filter((key): key is string => key !== null)
+      .sort()
+    return new Map(groups.map((key, i) => [key, PALETTE[i % PALETTE.length]]))
+  }, [entities, colorBy])
+
+  const drawn = useMemo(() => {
+    if (!colorBy) return entities
+    return entities.map((entity) => {
+      const key = groupKey(entity, colorBy)
+      return key === null ? entity : { ...entity, color: groupColors.get(key) ?? entity.color }
+    })
+  }, [entities, colorBy, groupColors])
+
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const cameraRef = useRef<Camera>({ cx: 0, cy: 0, scale: 1 })
   const sizeRef = useRef({ width: 1, height: 1 })
@@ -128,7 +167,7 @@ export function CadCanvas({
     const texts: { entity: PrimEntity; shape: Extract<Shape, { k: 't' }> }[] = []
     const visible: PrimEntity[] = []
 
-    for (const entity of entities) {
+    for (const entity of drawn) {
       if (hiddenLayers.has(entity.layer)) continue
       if (entity.bbox && !intersects(entity.bbox, viewport)) continue
 
@@ -192,6 +231,8 @@ export function CadCanvas({
     if (highlightLabel && highlighted.size > 0) {
       drawLabel(ctx, `${highlightLabel} (${highlighted.size})`)
     }
+
+    if (groupColors.size > 0) drawLegend(ctx, groupColors, width)
   }
 
   // --- ciclo de vida ------------------------------------------------------ //
@@ -231,7 +272,7 @@ export function CadCanvas({
 
   useEffect(() => {
     requestDraw()
-  }, [entities, hiddenLayers, highlighted, highlightLabel, selectedId, requestDraw])
+  }, [drawn, hiddenLayers, highlighted, highlightLabel, selectedId, requestDraw])
 
   // --- interação ---------------------------------------------------------- //
 
@@ -464,6 +505,46 @@ function drawAxes(
     ctx.lineTo(originX, height)
   }
   ctx.stroke()
+  ctx.restore()
+}
+
+/** Grupo da entidade no color_by. Mesma regra do `color_by` em ui_tools.py. */
+function groupKey(entity: PrimEntity, attribute: ColorAttribute): string | null {
+  if (attribute === 'tipo') return entity.type
+  if (attribute === 'familia') return entity.family
+  const typology = entity.type === 'apartamento' || entity.type === 'varanda'
+  return typology ? entity.label : null
+}
+
+function drawLegend(
+  ctx: CanvasRenderingContext2D,
+  colors: Map<string, string>,
+  width: number,
+): void {
+  const entries = [...colors].slice(0, MAX_LEGEND)
+  const extra = colors.size - entries.length
+  const rowHeight = 18
+  ctx.save()
+  ctx.font = '12px sans-serif'
+  const textWidth = Math.max(...entries.map(([name]) => ctx.measureText(name).width), 60)
+  const boxWidth = textWidth + 40
+  const boxHeight = (entries.length + (extra > 0 ? 1 : 0)) * rowHeight + 12
+  const x = width - boxWidth - 12
+
+  ctx.fillStyle = 'rgba(14, 17, 22, 0.85)'
+  ctx.fillRect(x, 12, boxWidth, boxHeight)
+  ctx.textBaseline = 'middle'
+  entries.forEach(([name, color], i) => {
+    const y = 18 + i * rowHeight + rowHeight / 2
+    ctx.fillStyle = color
+    ctx.fillRect(x + 10, y - 6, 12, 12)
+    ctx.fillStyle = '#e6e6e6'
+    ctx.fillText(name, x + 30, y)
+  })
+  if (extra > 0) {
+    ctx.fillStyle = '#9aa5b1'
+    ctx.fillText(`+${extra} grupos`, x + 30, 18 + entries.length * rowHeight + rowHeight / 2)
+  }
   ctx.restore()
 }
 

@@ -6,7 +6,7 @@
  * o desenho sintetico dos testes do backend. Usar a gravacao em vez de um evento
  * escrito a mao e o ponto: se o formato de evento do agno mudar, este teste
  * quebra — e a premissa de que o viewer consegue ler `tool_args` do stream e
- * exatamente o que sustenta as 4 ferramentas de interface.
+ * exatamente o que sustenta as 5 ferramentas de interface.
  */
 
 import { readFileSync } from 'node:fs'
@@ -52,6 +52,7 @@ function makeUi() {
     zoomToBBox: vi.fn(),
     zoomToAll: vi.fn(),
     setLayerVisibility: vi.fn(),
+    colorBy: vi.fn(),
   } satisfies ToolUI
 }
 
@@ -164,6 +165,21 @@ describe('despacho das ferramentas de interface', () => {
     )
     return run()
   }
+
+  it('color_by aplica o atributo', async () => {
+    const { ui } = await dispatch(started('color_by', { attribute: 'tipologia' }))
+    expect(ui.colorBy).toHaveBeenCalledWith('tipologia')
+  })
+
+  it('color_by nenhum volta as cores originais', async () => {
+    const { ui } = await dispatch(started('color_by', { attribute: 'nenhum' }))
+    expect(ui.colorBy).toHaveBeenCalledWith(null)
+  })
+
+  it('color_by com atributo desconhecido nao faz nada', async () => {
+    const { ui } = await dispatch(started('color_by', { attribute: 'cor' }))
+    expect(ui.colorBy).not.toHaveBeenCalled()
+  })
 
   it('zoom_to target=all', async () => {
     const { ui } = await dispatch(started('zoom_to', { target: 'all' }))

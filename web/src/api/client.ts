@@ -23,6 +23,7 @@ const TOOL_LABELS: Record<string, string> = {
   clear_highlight: 'limpando destaque',
   zoom_to: 'reenquadrando a vista',
   set_layer_visibility: 'ajustando layers',
+  color_by: 'pintando o desenho',
 }
 
 export function toolLabel(name: string): string {
@@ -39,12 +40,13 @@ export function expandIds(ids: string[], entityIds: Iterable<string>): string[] 
   return result
 }
 
-/** As 4 ferramentas cujo efeito é visual. Aplicadas a partir do stream. */
+/** As 5 ferramentas cujo efeito é visual. Aplicadas a partir do stream. */
 const UI_TOOLS = new Set([
   'highlight_entities',
   'clear_highlight',
   'zoom_to',
   'set_layer_visibility',
+  'color_by',
 ])
 
 async function readError(response: Response): Promise<string> {
@@ -104,7 +106,7 @@ interface ChatHandlers {
  * Envia a pergunta e consome o stream SSE.
  *
  * As acoes de interface saem daqui: quando um `ToolCallStarted` traz o nome de
- * uma das 4 ferramentas de UI, aplicamos `tool_args` no viewer imediatamente.
+ * uma das 5 ferramentas de UI, aplicamos `tool_args` no viewer imediatamente.
  * Fazemos isso no *started* e nao no *completed* porque os argumentos ja estao
  * completos no inicio da chamada — o destaque aparece antes do texto da
  * resposta, que e a sensacao correta.
@@ -265,6 +267,15 @@ function applyUiTool(
       const layers = asStringArray(args.layers)
       if (!layers.length) return
       ui.setLayerVisibility(layers, args.visible !== false, args.isolate === true)
+      return
+    }
+
+    case 'color_by': {
+      const attribute = asString(args.attribute)
+      if (attribute === 'nenhum') ui.colorBy(null)
+      if (attribute === 'tipologia' || attribute === 'familia' || attribute === 'tipo') {
+        ui.colorBy(attribute)
+      }
       return
     }
   }
