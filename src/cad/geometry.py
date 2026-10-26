@@ -1,8 +1,8 @@
 """Primitivas geometricas — a abstracao que unifica a camada.
 
-Cerca de 15 tipos de entidade DXF colapsam em 3 primitivas. Por causa disso,
-bbox, comprimento, area e hit-test derivam de um lugar so, sem `match` por tipo
-espalhado pelo codigo.
+Toda geometria do AQG (Polygon, LineString, Point...) colapsa em 3 primitivas.
+Por causa disso, bbox, comprimento, area e hit-test derivam de um lugar so, sem
+`match` por tipo espalhado pelo codigo.
 """
 
 import math
@@ -49,8 +49,8 @@ Prim = Union[PolylinePrim, PointPrim, TextPrim]
 def normalize_closed(pts: list[Vec2], closed: bool) -> list[Vec2]:
     """Remove o vertice de fechamento duplicado.
 
-    `ezdxf.path.Path.flattening()` devolve o primeiro ponto repetido no fim de
-    um caminho fechado. Manter a duplicata contaria o segmento de fechamento
+    Os aneis GeoJSON do AQG repetem o primeiro ponto no fim de um caminho
+    fechado. Manter a duplicata contaria o segmento de fechamento
     duas vezes no comprimento e distorceria a area.
     """
     if closed and len(pts) > 1 and _same_point(pts[0], pts[-1]):

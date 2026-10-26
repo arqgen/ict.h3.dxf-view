@@ -108,6 +108,8 @@ Estas regras entram no `instructions.md`:
    - os textos "DXF" viram genéricos;
    - `SidePanel.tsx` e `types.ts` perdem os campos DXF (versão, blocos, props DXF);
    - o id de instância é expandido em `client.ts`.
+   - o chat renderiza markdown com `react-markdown` + `remark-gfm` (tabelas, listas numeradas, links), no lugar do `Markdownish.tsx`;
+   - as sugestões do chat passam a ser perguntas do domínio AQG.
 6. **Testes:**
    - Fixture sintética de AQG com geometria exata, no mesmo princípio de `tests/make_sample.py`. Ela cobre:
      - instância rotacionada;
@@ -163,6 +165,8 @@ Base: 24 arquivos, 15 em `avaliadas/` e 9 em `favoritadas/`.
 - **Furos:** área = externo − internos.
 - **`DescritivoTorre` não é vinculado a instância** até a regra ser conhecida.
 - **Indicadores expostos:** `solution.outputs`, `site.inputs`, `site.processed_info` e `solution.scores`.
+- **Markdown no chat:** `react-markdown` + `remark-gfm`, sem HTML cru, em vez de estender o parser próprio.
+- **Label de família duplicado:** aceito como limitação. Famílias diferentes com o mesmo label (caso real: `I/15`, 1 de 24 arquivos) compartilham as `properties` da primeira no detalhe e somam na contagem por família.
 - **Sem versão mínima:** o parser é tolerante, o que ele não reconhece vira aviso, e as 24 versões do acervo têm de passar.
 
 ## Decisões em aberto

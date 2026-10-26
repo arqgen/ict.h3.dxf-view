@@ -8,7 +8,7 @@ const AXIS_COLOR = '#2a3038'
 const BACKGROUND = '#0e1116'
 
 /** Acima disto o desenho fica ilegível e o custo de layout de texto domina o
- *  frame. Um DXF de arquitetura passa fácil de 20 mil textos. */
+ *  frame com milhares de textos. */
 const MAX_TEXT_DRAW = 3000
 
 /** Altura mínima em pixels para valer a pena desenhar um texto. */
@@ -117,7 +117,7 @@ export function CadCanvas({
       cy + height / 2 / scale,
     ]
 
-    // Um Path2D por cor e um único stroke por cor: sem isso um DXF de 100 mil
+    // Um Path2D por cor e um único stroke por cor: sem isso um desenho de 100 mil
     // entidades faria 100 mil chamadas de stroke e o pan ficaria inutilizável.
     const paths = new Map<string, Path2D>()
     const texts: { entity: PrimEntity; shape: Extract<Shape, { k: 't' }> }[] = []

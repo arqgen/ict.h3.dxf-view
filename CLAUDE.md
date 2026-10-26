@@ -48,7 +48,7 @@ Crie um sub-CLAUDE quando um módulo tiver padrões que desviam do global ou que
 
 **Sub-CLAUDEs existentes:**
 
-- [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md) — motor de informação: primitivas, divisão de trabalho com o ezdxf, armadilhas
+- [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md) — motor de informação: parser AQG, primitivas, regras do formato, armadilhas
 - [`src/ai_modules/CLAUDE.md`](src/ai_modules/CLAUDE.md) — agents, tools, skills, workflows, teams: padrões e como adicionar
 - [`src/ai_modules/tools/CLAUDE.md`](src/ai_modules/tools/CLAUDE.md) — convenções das tools, incluindo as de CAD
 
@@ -68,18 +68,20 @@ A raiz pode conter arquivos `.md` com regras pontuais (ex: `commit-rules.md`). E
 ## Arquivos Auxiliares
 
 - [`commit-rules.md`](commit-rules.md) — regras de commit, branch, push e PR
+- [`PRD.md`](PRD.md) — requisitos e decisões da migração DXF → AQG
+- [`IMPLEMENTATION.md`](IMPLEMENTATION.md) — contratos e tasks da migração
 
 ## O Que Este Projeto É
 
-Monorepo de um visualizador DXF com assistente de IA. O usuário abre um desenho, vê o desenho renderizado, e conversa sobre ele — o assistente responde **e aponta de volta para o desenho** (destaca entidades, reenquadra, isola layer).
+Monorepo de um visualizador de projetos AQG (o JSON de *Project* exportado pela Arqgen) com assistente de IA. O usuário abre um projeto, vê o desenho renderizado, e conversa sobre ele — o assistente responde **e aponta de volta para o desenho** (destaca entidades, reenquadra, isola layer).
 
-**A regra que define a arquitetura:** a IA nunca vê o arquivo. Ela vê um resumo textual e o que 12 tools devolvem ao consultar o índice geométrico. Toda quantidade, medida ou coordenada numa resposta veio de uma tool call — é controle de alucinação, não economia de token, e é o requisito de produto mais importante do projeto. Qualquer mudança que permita ao modelo afirmar um número sem passar por uma tool está errada, por mais conveniente que pareça.
+**A regra que define a arquitetura:** a IA nunca vê o arquivo. Ela vê um resumo textual e o que 11 tools devolvem ao consultar o índice geométrico. Toda quantidade, medida ou coordenada numa resposta veio de uma tool call — é controle de alucinação, não economia de token, e é o requisito de produto mais importante do projeto. Qualquer mudança que permita ao modelo afirmar um número sem passar por uma tool está errada, por mais conveniente que pareça.
 
-Como o agente roda em Python, o índice roda em Python: não existe parse de DXF no browser.
+Como o agente roda em Python, o índice roda em Python: não existe parse de AQG no browser.
 
 ## Arquitetura em Uma Linha
 
-FastAPI + agno (agente e loop de tools) + ezdxf (parse e índice) no backend; React + Vite + canvas 2D no frontend (`web/`). Estado de documento em memória — sem banco, sem auth. Observabilidade opcional via Arize Phoenix/OTLP.
+FastAPI + agno (agente e loop de tools) + parser AQG próprio em `src/cad/` no backend; React + Vite + canvas 2D no frontend (`web/`). Estado de documento em memória — sem banco, sem auth. Observabilidade opcional via Arize Phoenix/OTLP.
 
 **Camadas:** `src/cad/` (motor de informação) · `src/api/` (HTTP) · `src/ai_modules/` (IA) · `web/src/viewer/` (render)
 
@@ -88,7 +90,7 @@ As 4 tools de interface não têm canal próprio: no servidor apenas validam, e 
 ## Mapa de Arquivos Críticos
 
 - `src/main.py` — entry point (uvicorn + uvloop)
-- `src/cad/` — `geometry.py` (tipos `Prim` e medidas), `loader.py` (`load_dxf()`), `model.py` (`build_model()`, `describe_model()`, `prims_payload()`)
+- `src/cad/` — `geometry.py` (tipos `Prim` e medidas), `model.py` (`load_aqg()`, `build_model()`, `describe_model()`, `prims_payload()`)
 - `src/api/server.py` — FastAPI app, CORS, health check, registro de routers
 - `src/api/core/config.py` — Pydantic Settings com lru_cache
 - `src/api/store.py` — store de documentos em memória (`get_document_store()`)
@@ -98,7 +100,7 @@ As 4 tools de interface não têm canal próprio: no servidor apenas validam, e 
 - `src/ai_modules/llm_settings.py` — instanciação do modelo LLM (`get_model()`)
 - `src/ai_modules/runner.py` — execução do chat (`run_chat()`)
 - `src/ai_modules/agents/base.py` — defaults comuns a todo `Agent`; `agents/cad_agent/` — a fábrica + `instructions.md`
-- `src/ai_modules/tools/cad_tools/` — as 12 tools (8 de consulta, 4 de interface)
+- `src/ai_modules/tools/cad_tools/` — as 11 tools (7 de consulta, 4 de interface)
 - `web/src/App.tsx` — dono de todo o estado do frontend e do seam `ToolUI`
 - `web/src/api/client.ts` — parser SSE e despacho das tools de interface
 - `web/src/viewer/CadCanvas.tsx` — render canvas 2D e hit-test
@@ -143,7 +145,7 @@ Consulte [commit-rules.md](commit-rules.md) para regras de commit, branch, push 
 Duas regras globais, detalhadas nos sub-CLAUDEs:
 
 - **Uma tool nunca levanta exceção por dado inválido** — devolve o erro como dado. Ver [`src/ai_modules/tools/CLAUDE.md`](src/ai_modules/tools/CLAUDE.md).
-- **Nunca reimplemente geometria que o `ezdxf` já faz**, e conheça as armadilhas que falham em silêncio. Ver [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md).
+- **Siga as regras do formato AQG** (casamento de família, rotação, partes desenhadas, furos) e conheça as armadilhas que falham em silêncio. Ver [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md).
 
 ### Observabilidade
 
@@ -165,7 +167,7 @@ Acesse sempre via `get_app_settings()` de `src.api.core.config`. Nunca use `os.e
 
 Backend: pytest via `make test`. Frontend: `npm --prefix web test`.
 
-**Assertivas sobre geometria e contagem são exatas, sem tolerância.** O DXF sintético de `tests/make_sample.py` tem um contorno 20 × 14 justamente para que perímetro seja 68 e área 280 em ponto flutuante fechado. Trocar isso por `>= 60` transforma perda silenciosa de geometria num teste verde.
+**Assertivas sobre geometria e contagem são exatas, sem tolerância.** O AQG sintético de `tests/make_aqg_sample.py` tem números escolhidos para fechar em ponto flutuante: perímetro do terreno com área 8000, talude com furo de área 276 (20 × 14 − 2 × 2). `tests/test_corpus.py` roda o parser nos AQGs reais de `data/aqg/` quando existem (a pasta não é versionada). Trocar isso por `>= 60` transforma perda silenciosa de geometria num teste verde.
 
 O teste do frontend roda contra `web/src/api/__tests__/recorded-stream.txt`, um stream SSE real gravado do agno: se o formato de evento mudar, a suíte quebra em vez de o destaque parar de funcionar em silêncio.
 
@@ -177,7 +179,7 @@ Ruff (`make lint` + `make format`). Line-length 88, rules E/F/I/B. Rodar antes d
 
 `LITELLM_API_KEY` nunca commitar — `.env` está no `.gitignore`. Todo tráfego de LLM passa pelo gateway (`PROXY_AI_BASE_URL`); não há mais caminho direto para `api.anthropic.com`/`api.openai.com`. CORS permissivo apenas em `local`/`dev`; produção deve restringir origens.
 
-O arquivo DXF é enviado ao servidor (diferente da implementação de referência, que o mantinha no browser). Se o conteúdo dos desenhos for sensível, isso é uma mudança de postura a considerar antes de expor a aplicação.
+O AQG é enviado ao servidor (diferente da implementação de referência, que o mantinha no browser). Se o conteúdo dos desenhos for sensível, isso é uma mudança de postura a considerar antes de expor a aplicação.
 
 ## O que NÃO Fazer
 
@@ -186,7 +188,7 @@ O arquivo DXF é enviado ao servidor (diferente da implementação de referênci
 - **Não instancie modelos LLM fora de `llm_settings.py`**
 - **Não chame `AgnoInstrumentor` ou `phoenix.otel.register` fora de `observability.py`**
 - **Não coloque lógica de negócio nos routers** — use `runner.py` ou `src/cad/`
-- **Não parseie DXF no frontend** — há uma única fonte de parse, no Python
+- **Não parseie AQG no frontend** — há uma única fonte de parse, no Python
 - **Não levante exceção numa tool por dado inválido** — devolva o erro como dado
 - **Não crie um segundo canal para ações de interface** — o stream de eventos do agno já é o canal
 - **Não use `print()` nem `logging.getLogger()` direto** — importe `logger` de `src.api.logger`

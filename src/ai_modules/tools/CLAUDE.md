@@ -8,7 +8,7 @@ Toda tool que **não** for específica de um único agent — ou seja, que pode 
 
 | Arquivo / pasta        | Exporta        | Papel                                                                 |
 | ---------------------- | -------------- | --------------------------------------------------------------------- |
-| `cad_tools/`           | `CAD_TOOLS`    | As 12 tools do desenho — 8 de consulta e 4 de interface. Ver abaixo.  |
+| `cad_tools/`           | `CAD_TOOLS`    | As 11 tools do projeto — 7 de consulta e 4 de interface. Ver abaixo.  |
 | `test_tool_call.py`    | `test_tool_call` | Tool de função simples, para testar tool calling                    |
 | `fetch_pdf.py`         | `fetch_pdf`    | Baixa um PDF de uma URL e o devolve como `ToolResult(files=[File(...)])` |
 | `user_control_flow.py` | `user_control_flow` | `UserControlFlowTools` — pausa a run para pedir input livre/tipado |
@@ -20,7 +20,7 @@ Toda tool que **não** for específica de um único agent — ou seja, que pode 
 
 ## As Tools de CAD
 
-`cad_tools/` tem três arquivos: `helpers.py` (acesso ao índice, serialização, utilitários), `query_tools.py` (as 8 de consulta) e `ui_tools.py` (as 4 de interface).
+`cad_tools/` tem três arquivos: `helpers.py` (acesso ao índice, serialização, utilitários), `query_tools.py` (as 7 de consulta, incluindo `get_project_indicators`) e `ui_tools.py` (as 4 de interface).
 
 ### Acesso ao índice
 
@@ -41,14 +41,24 @@ O agno injeta `run_context` **por nome** e o remove do schema JSON que vai ao mo
 
 Toda tool devolve uma string JSON via `dump(payload, resumo)`:
 
-- **Chaves em pt-BR** (`tipo`, `comprimento`, `area`, `texto`, `bloco`, `contagens`, `destacadas`), números arredondados em 3 casas. O modelo repete essas chaves na resposta ao usuário.
+- **Chaves em pt-BR** (`tipo`, `comprimento`, `area`, `rotulo`, `instancia`, `familia`, `contagens`, `destacadas`), números arredondados em 3 casas. O modelo repete essas chaves na resposta ao usuário.
 - **`resumo`** é uma frase curta em pt-BR para a linha do tempo do chat, não para o modelo — o frontend a lê do evento `ToolCallCompleted`. Toda tool tem de ter um; há teste verificando.
 
 ### Dado inválido volta como dado
 
-**Uma tool nunca levanta exceção por dado ruim.** Id inexistente, bloco que não existe, bbox malformado, layer desconhecido: tudo volta como `erro`, `rejeitados`, `desconhecidos` ou `indisponiveis`, junto com o que *deu* para fazer e, quando útil, a lista de opções válidas.
+**Uma tool nunca levanta exceção por dado ruim.** Id inexistente, tipo de indicador que não existe, bbox malformado, layer desconhecido: tudo volta como `erro`, `rejeitados`, `desconhecidos` ou `indisponiveis`, junto com o que *deu* para fazer e, quando útil, a lista de opções válidas.
 
 O motivo é prático: exceção encerra a rodada de tools e o modelo perde a chance de se corrigir. Devolvendo `{"erro": "layer 'PAREDE' não existe", "layers_disponiveis": [...]}` ele acerta na tentativa seguinte.
+
+### Ids de instância
+
+Uma instância (`p<i>`: torre, vaga, portaria) não é entidade — as entidades são as partes dela (`p<i>.<j>`). Onde uma tool aceita `ids`, `split_known_ids` (`helpers.py`) expande `p<i>` em todas as partes, sem duplicar. Isso vale para `measure`, `highlight_entities` e `zoom_to`. O frontend aplica a mesma regra (`expandIds` em `web/src/api/client.ts`) ao ler o `ToolCallStarted`: mudou uma, mude a outra.
+
+`count_entities(group_by="family")` conta **instâncias distintas**, não partes, e o payload diz a unidade (`"instancias"` ou `"entidades"`).
+
+### Indicadores
+
+`get_project_indicators` devolve `solution.outputs`, `site.inputs`, `site.processed_info` e `solution.scores` sem transformação, mais as famílias com suas `properties`. É a fonte de unidades, vagas, áreas construídas e índices — a planta mostra um pavimento só, então nada disso sai de contagem ou medida de geometria. A `observacao` fixa lembra que os `DescritivoTorre` não identificam as torres desenhadas.
 
 ### Descrições prescritivas
 

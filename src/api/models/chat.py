@@ -12,7 +12,7 @@ class Attachment(BaseModel):
 class ChatRequest(BaseModel):
     message: str = Field(min_length=1)
     chat_id: str
-    # O DXF nao viaja no chat: ele foi indexado em POST /api/documents e as tools
+    # O projeto nao viaja no chat: ele foi indexado em POST /api/documents e as tools
     # o alcancam por este id.
     document_id: str
     attachments: list[Attachment] | None = None

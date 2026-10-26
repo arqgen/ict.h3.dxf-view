@@ -19,7 +19,9 @@ JSON de um *Project* exportado pela Arqgen: um terreno (`site`) e uma solução 
 
 ### Regras que não são óbvias
 
-- **Instanciação:** uma `PlacedFamily` referencia a família cujo `class_path` é prefixo do seu `hid`. Posição: `mundo = R(angle) · local + (x, y)`, com `angle` em graus, anti-horário.
+- **Instanciação nos dois sentidos:** uma `PlacedFamily` referencia a família em que `class_path` e `hid` são prefixo um do outro. No sentido usual o `class_path` é prefixo do `hid`; em 6 arquivos (v16.4 a 18.0), 1.427 vagas têm `hid` = `/equipment/vaga/simples/front_access` e a família é `.../front_access/P/0`. Com a regra nos dois sentidos, todas as `PlacedFamily` dos 24 arquivos encontram família.
+- **Posição:** `mundo = R(angle) · local + (x, y)`, com `angle` em graus, anti-horário — verificado: com essa rotação todo `/core` cai dentro do `AQG_PERIMETRO`.
+- **`DescritivoTorre`:** a ordem dos descritivos em `solution.outputs` não segue a de `placed_objects` (difere em 6 arquivos, sem ordenação conhecida que explique). Não dá para ligar "torre 02" a uma instância.
 - **Identidade:** nem `hid` nem `(hid, index)` são únicos dentro de um arquivo — só a posição em `placed_objects` identifica uma instância.
 - **`road_network`** pode vir `null`; o viário aparece como `PlacedElement` no layer `AQG_RUA`.
 - **`families[].blocks`** referenciam blocos externos (ex.: `AQG_1Q`) que não vêm no arquivo.
