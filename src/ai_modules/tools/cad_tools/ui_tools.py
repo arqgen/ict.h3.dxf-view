@@ -1,11 +1,11 @@
-"""As 4 tools que agem sobre o viewer.
+"""As 5 tools que agem sobre o viewer.
 
 Elas sao o que transforma uma resposta de texto numa resposta *apontada*: o
 usuario ve no desenho as entidades que a frase menciona.
 
 Como o efeito visual chega ao browser: o servidor apenas valida e devolve o que
 seria aplicado. O frontend observa o stream SSE e, ao ver um evento
-`ToolCallStarted` cujo `tool.tool_name` esta entre estas quatro, aplica
+`ToolCallStarted` cujo `tool.tool_name` esta entre estas cinco, aplica
 `tool.tool_args` no canvas. Verificado em `agno/run/agent.py:416` e
 `agno/models/response.py:28` — nao existe canal paralelo nem `CustomEvent` aqui,
 e de proposito: um so caminho de dados, um so lugar para depurar.
@@ -263,11 +263,63 @@ def set_layer_visibility(
     )
 
 
+# Tipos cujo rotulo e a tipologia. Mesma regra em `groupKey` (CadCanvas.tsx).
+TYPOLOGY_TYPES = ("apartamento", "varanda")
+
+
+@tool
+def color_by(
+    run_context: RunContext,
+    attribute: Literal["tipologia", "familia", "tipo", "nenhum"],
+) -> str:
+    """ACAO DE INTERFACE: pinta o desenho por grupo, com legenda.
+
+    Use para "pinte os apartamentos por tipologia", "mostre as torres por
+    familia" ou "colora por tipo". "tipologia" pinta apartamentos e varandas
+    pelo rotulo; "familia" pinta as partes pela familia; "tipo" pinta tudo
+    pelo tipo da entidade. "nenhum" volta as cores originais. O que nao entra
+    no agrupamento mantem a cor original.
+
+    Args:
+        attribute: "tipologia", "familia", "tipo" ou "nenhum".
+
+    Returns:
+        JSON com o atributo aplicado e quantos grupos foram pintados.
+    """
+    try:
+        model = cad_model(run_context)
+    except MissingDocument as exc:
+        return fail(str(exc))
+
+    if attribute == "nenhum":
+        return dump({"atributo": "nenhum"}, "cores originais restauradas")
+
+    groups: set[str] = set()
+    for entity in model.entities:
+        if attribute == "tipo":
+            groups.add(entity.type)
+        elif attribute == "familia" and entity.family:
+            groups.add(entity.family)
+        elif attribute == "tipologia" and entity.type in TYPOLOGY_TYPES and entity.text:
+            groups.add(entity.text)
+
+    if not groups:
+        return dump(
+            {"atributo": attribute, "erro": f"nenhuma entidade com {attribute}"},
+            f"nada para pintar por {attribute}",
+        )
+    return dump(
+        {"atributo": attribute, "grupos": len(groups), "nomes": sorted(groups)[:30]},
+        f"desenho pintado por {attribute} em {len(groups)} grupos",
+    )
+
+
 UI_TOOLS = [
     highlight_entities,
     clear_highlight,
     zoom_to,
     set_layer_visibility,
+    color_by,
 ]
 
 # Nomes que o frontend precisa reconhecer no stream para aplicar no canvas.
@@ -276,4 +328,5 @@ UI_TOOL_NAMES = [
     "clear_highlight",
     "zoom_to",
     "set_layer_visibility",
+    "color_by",
 ]

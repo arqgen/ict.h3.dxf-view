@@ -15,10 +15,12 @@ from src.cad.model import (
     CadModel,
     build_model,
     describe_model,
+    descriptor_groups,
     load_aqg,
     prims_payload,
     tower_units,
 )
+from tests.conftest import two_tower_families, with_annotations
 from tests.make_aqg_sample import build_sample_project
 
 EXPECTED_IDS = [
@@ -195,6 +197,7 @@ def test_indicators_copied_as_is(sample_model: CadModel):
         "processed_info": project["site"]["processed_info"],
         "scores": project["solution"]["scores"],
         "inclinacao_media": None,
+        "archprog": [],
     }
 
 
@@ -206,6 +209,7 @@ def test_indicators_default_when_missing():
         "processed_info": [],
         "scores": {},
         "inclinacao_media": None,
+        "archprog": [],
     }
 
 
@@ -241,6 +245,8 @@ def test_prims_payload_matches_index(sample_model: CadModel):
         "bbox",
         "shapes",
         "filled",
+        "label",
+        "family",
     }
     filled = {item["id"]: item["filled"] for item in payload}
     assert filled["p4"] is True
@@ -310,3 +316,28 @@ def test_avg_inclination_from_site_analysis(sample_project: dict):
     assert model.indicators["inclinacao_media"] == 5.25
     assert "InclinacaoMedia" in describe_model(model)
     assert "5.25" not in describe_model(model)
+
+
+def test_descriptor_groups_match_by_units():
+    model = build_model(two_tower_families(3), "x")
+    assert descriptor_groups(model) == {"01": ["p0"], "02": ["p1"]}
+
+
+def test_descriptor_with_ambiguous_units_is_left_out():
+    model = build_model(two_tower_families(2), "x")
+    assert descriptor_groups(model) == {}
+
+
+def test_annotations_become_entities():
+    model = build_model(with_annotations(), "x")
+    marker, far, arrow = (model.by_id[i] for i in ("a0", "a1", "a2"))
+    assert (marker.layer, marker.type, marker.text) == ("AQG_COTA", "cota", "101.50")
+    assert [type(p).__name__ for p in marker.prims] == ["PointPrim", "TextPrim"]
+    assert far.text == "120.25"
+    assert (arrow.layer, arrow.type, arrow.text) == (
+        "AQG_SETA_DECLIVE",
+        "seta_declive",
+        "declive gentle",
+    )
+    assert arrow.length == pytest.approx(200**0.5)
+    assert not [w for w in model.warnings if "anotação" in w or "cota" in w]

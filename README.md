@@ -2,7 +2,7 @@
 
 Visualizador de projetos AQG (o JSON de *Project* exportado pela Arqgen) com um assistente de IA que responde perguntas sobre o projeto — torres, vagas, tipologias, índices urbanísticos — **e aponta de volta para o desenho**: destaca as entidades citadas, reenquadra a vista e isola layers.
 
-A ideia central: a IA nunca vê o arquivo. Ela vê um resumo textual do projeto e o que 13 ferramentas devolvem quando consultam o índice geométrico. Isso é controle de alucinação, não economia de token — nenhuma quantidade, medida ou coordenada pode entrar numa resposta sem ter saído de uma ferramenta.
+A ideia central: a IA nunca vê o arquivo. Ela vê um resumo textual do projeto e o que 16 ferramentas devolvem quando consultam o índice geométrico. Isso é controle de alucinação, não economia de token — nenhuma quantidade, medida ou coordenada pode entrar numa resposta sem ter saído de uma ferramenta.
 
 ## Arquitetura
 
@@ -21,13 +21,13 @@ browser: arquivo .json (AQG)
    ▼
 server: load_aqg → Prim[] + índice (store em memória)
    ├── GET /api/documents/{id}/prims ──► canvas 2D desenha
-   └── POST /api/chat ─► agno ─► 13 tools consultam o índice
+   └── POST /api/chat ─► agno ─► 16 tools consultam o índice
                           │
                           └─ SSE ─► o frontend lê `ToolCallStarted.tool_args`
                                      e aplica destaque / zoom / isolar layer
 ```
 
-As 4 ferramentas de interface (`highlight_entities`, `clear_highlight`, `zoom_to`, `set_layer_visibility`) não têm canal próprio: no servidor elas só validam e devolvem o que seria aplicado, e o efeito visual acontece porque o frontend observa os eventos do agno no stream.
+As 5 ferramentas de interface (`highlight_entities`, `clear_highlight`, `zoom_to`, `set_layer_visibility`, `color_by`) não têm canal próprio: no servidor elas só validam e devolvem o que seria aplicado, e o efeito visual acontece porque o frontend observa os eventos do agno no stream.
 
 ### Camadas
 

@@ -25,7 +25,14 @@ from src.ai_modules.tools.cad_tools.helpers import split_known_ids
 from src.ai_modules.tools.cad_tools.query_tools import ZONING_RULES
 from src.api.logger import logger
 from src.api.models.chat import ChatRequest
-from src.cad.model import CadModel, _category, describe_model, load_aqg, tower_units
+from src.cad.model import (
+    CadModel,
+    _category,
+    describe_model,
+    descriptor_groups,
+    load_aqg,
+    tower_units,
+)
 
 AQG_DIR = Path("data/aqg/avaliadas")
 RESULTS_DIR = Path(__file__).parent / "results"
@@ -75,6 +82,35 @@ def _tower_units(model: CadModel) -> list[tuple[str, int]]:
         if _category(inst.family_type) == "torre" and units:
             result.append((inst.family, units[1]))
     return result
+
+
+def _first_tower(model: CadModel) -> str | None:
+    """Troca `{torre}` nas perguntas: a primeira torre em ordem de id."""
+    return next(
+        (i.id for i in model.instances.values() if _category(i.family_type) == "torre"),
+        None,
+    )
+
+
+def _tower_height(model: CadModel) -> list[float | None]:
+    tower = _first_tower(model)
+    labels = [label for label, ids in descriptor_groups(model).items() if tower in ids]
+    for item in model.indicators["outputs"]:
+        if item.get("type") == "DescritivoTorre" and labels:
+            if str(item.get("label")) == labels[0]:
+                return [float(item["altura"])]
+    return [None]
+
+
+def _floors_program(model: CadModel) -> list[float | None]:
+    limits = [
+        float(item["value"])
+        for item in model.indicators["archprog"]
+        if item.get("type") in ("MinPavimentos", "MaxPavimentos")
+    ]
+    if not limits:
+        return [None]
+    return [_indicator(model, "outputs", "NumeroDePavimentos"), *limits]
 
 
 def _units_per_tower(model: CadModel) -> list[float | None]:
@@ -134,6 +170,24 @@ CASES: list[tuple[str, str, Expected]] = [
             _indicator(m, "outputs", "MovimentoDeTerra", "aterro"),
         ],
     ),
+    ("altura", "Qual a altura da torre {torre}?", _tower_height),
+    (
+        "cota",
+        "Qual a maior cota marcada no terreno?",
+        lambda m: [
+            max((float(e.text) for e in m.entities if e.type == "cota"), default=None)
+        ],
+    ),
+    (
+        "programa",
+        "O número de pavimentos está dentro do pedido no programa?",
+        _floors_program,
+    ),
+    (
+        "afastamento",
+        "As torres respeitam o afastamento entre blocos?",
+        lambda m: [_indicator(m, "outputs", "AfastamentoProjetado", "entre_blocos")],
+    ),
     (
         "inclinacao",
         "Qual a inclinação média do terreno?",
@@ -142,7 +196,11 @@ CASES: list[tuple[str, str, Expected]] = [
 ]
 
 # Casos em que acertar o numero nao basta: a tool tem de ter sido chamada.
-REQUIRED_TOOL = {"zoneamento": "check_zoning"}
+REQUIRED_TOOL = {
+    "zoneamento": "check_zoning",
+    "afastamento": "check_setbacks",
+    "programa": "compare_program",
+}
 
 
 def _parse(raw: str) -> tuple[float, int]:
@@ -186,9 +244,8 @@ def _tower_parts(model: CadModel) -> set[str]:
     }
 
 
-def _covers_towers(model: CadModel, tools: list[dict[str, Any]]) -> bool:
-    """Algum highlight cobre, expandindo ids de instancia, todas as torres."""
-    needed = _tower_parts(model)
+def _covers(model: CadModel, tools: list[dict[str, Any]], needed: set[str]) -> bool:
+    """Algum highlight cobre, expandindo ids de instancia, as partes pedidas."""
     for call in tools:
         if call["tool"] != "highlight_entities":
             continue
@@ -222,20 +279,17 @@ async def _ask(model: CadModel, question: str) -> tuple[str, list[dict[str, Any]
 async def _run_case(
     model: CadModel, case_id: str, question: str, expected_of: Expected
 ) -> dict[str, Any]:
+    question = question.replace("{torre}", _first_tower(model) or "")
     result: dict[str, Any] = {"caso": case_id, "pergunta": question}
 
     expected = expected_of(model)
-    descriptives = [
-        item
-        for item in model.indicators["outputs"]
-        if isinstance(item, dict) and item.get("type") == "DescritivoTorre"
-    ]
+    group_02 = descriptor_groups(model).get("02")
     if None in expected:
         return {**result, "status": "pulado", "motivo": "indicador ausente no arquivo"}
     if case_id == "destaque" and not _tower_parts(model):
         return {**result, "status": "pulado", "motivo": "nenhuma torre desenhada"}
-    if case_id == "vinculo" and len(descriptives) < 2:
-        return {**result, "status": "pulado", "motivo": "menos de 2 DescritivoTorre"}
+    if case_id == "vinculo" and not group_02:
+        return {**result, "status": "pulado", "motivo": "descritivo 02 sem grupo"}
 
     try:
         answer, tools = await _ask(model, question)
@@ -244,10 +298,6 @@ async def _run_case(
         return {**result, "status": "falha", "erro": str(exc)}
 
     allowed = question + "\n" + describe_model(model)
-    if case_id == "vinculo":
-        # A recusa correta cita os rotulos dos descritivos e ids de exemplo.
-        labels = [str(d.get("label", "")) for d in descriptives]
-        allowed += "\n" + " ".join([*labels, *model.instances, *model.by_id])
     missing = unsourced(answer, [str(t["result"]) for t in tools], allowed)
     numbers = extract_numbers(answer)
     hits = [
@@ -263,10 +313,13 @@ async def _run_case(
         "procedencia": not missing,
     }
 
-    if case_id == "vinculo":
-        return {**result, "status": "revisar" if not missing else "falha"}
-
-    hit = all(hits) if case_id != "destaque" else _covers_towers(model, tools)
+    if case_id == "destaque":
+        hit = _covers(model, tools, _tower_parts(model))
+    elif case_id == "vinculo":
+        parts = {e for i in group_02 or [] for e in model.instances[i].entity_ids}
+        hit = _covers(model, tools, parts)
+    else:
+        hit = all(hits)
     if case_id in REQUIRED_TOOL:
         hit = hit and any(t["tool"] == REQUIRED_TOOL[case_id] for t in tools)
     result["acerto"] = hit

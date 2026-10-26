@@ -1,4 +1,4 @@
-"""Executa as 13 tools contra o AQG sintetico, sem subir a API nem o LLM.
+"""Executa as 16 tools contra o AQG sintetico, sem subir a API nem o LLM.
 
 Duas coisas sao verificadas aqui e em nenhum outro lugar:
 - `run_context` e invisivel no schema JSON que vai para o modelo;
@@ -14,8 +14,10 @@ from agno.run.base import RunContext
 
 from src.ai_modules.tools.cad_tools import CAD_TOOLS, UI_TOOL_NAMES
 from src.ai_modules.tools.cad_tools.query_tools import (
+    check_setbacks,
     check_zoning,
     compare_indicators,
+    compare_program,
     count_entities,
     get_entity_details,
     get_project_indicators,
@@ -26,12 +28,14 @@ from src.ai_modules.tools.cad_tools.query_tools import (
 )
 from src.ai_modules.tools.cad_tools.ui_tools import (
     clear_highlight,
+    color_by,
     highlight_entities,
     set_layer_visibility,
     zoom_to,
 )
 from src.cad.model import CadModel, build_model
-from tests.make_aqg_sample import build_sample_project
+from tests.conftest import two_tower_families, with_annotations
+from tests.make_aqg_sample import build_sample_project, rect
 
 
 @pytest.fixture
@@ -54,10 +58,10 @@ def call(tool, ctx: RunContext, **kwargs) -> dict:
 # --------------------------------------------------------------------------- #
 
 
-def test_thirteen_tools_are_registered():
-    assert len(CAD_TOOLS) == 13
+def test_sixteen_tools_are_registered():
+    assert len(CAD_TOOLS) == 16
     names = {tool.name for tool in CAD_TOOLS}
-    assert len(names) == 13
+    assert len(names) == 16
     for ui_name in UI_TOOL_NAMES:
         assert ui_name in names
 
@@ -86,10 +90,13 @@ CALLS = {
     "get_project_indicators": {},
     "compare_indicators": {"projetado": "CAProjetado", "limite": "CAMaximoExigido"},
     "check_zoning": {},
+    "check_setbacks": {},
+    "compare_program": {},
     "highlight_entities": {"ids": ["p0"]},
     "clear_highlight": {},
     "zoom_to": {"ids": ["p0"]},
     "set_layer_visibility": {"layers": ["pav_tipo"]},
+    "color_by": {"attribute": "tipologia"},
 }
 
 
@@ -181,6 +188,32 @@ def test_query_entities_brief_keys(ctx: RunContext):
 def test_query_entities_sorted_by_area_desc(ctx: RunContext):
     payload = call(query_entities, ctx, sort_by="area_desc", limit=1)
     assert payload["ids"] == ["s0"]
+
+
+def _annotations_ctx() -> RunContext:
+    model = build_model(with_annotations(), "cotas.json")
+    return RunContext(run_id="r1", session_id="s1", dependencies={"cad": model})
+
+
+def test_query_entities_sorts_by_elevation():
+    payload = call(
+        query_entities, _annotations_ctx(), entity_type="cota", sort_by="cota_desc"
+    )
+    assert payload["ids"] == ["a1", "a0"]
+
+
+def test_query_entities_near_orders_by_edge_distance():
+    payload = call(
+        query_entities, _annotations_ctx(), entity_type="cota", near="p0", limit=1
+    )
+    assert payload["ids"] == ["a0"]
+    # Marco em y = 5; a borda mais baixa do pavimento-tipo de p0 esta em y = 10.
+    assert payload["entidades"][0]["distancia"] == 5
+
+
+def test_query_entities_unknown_near_is_data(ctx: RunContext):
+    payload = call(query_entities, ctx, near="zzz")
+    assert "erro" in payload
 
 
 def test_query_entities_rejects_malformed_bbox(ctx: RunContext):
@@ -290,6 +323,25 @@ def test_count_entities_by_family_sums_units():
 def test_count_entities_without_tower_units_omits_them(ctx: RunContext):
     payload = call(count_entities, ctx, group_by="family")
     assert "unidades_por_familia" not in payload
+
+
+def _descriptor_ctx() -> RunContext:
+    model = build_model(two_tower_families(3), "descritivos.json")
+    return RunContext(run_id="r1", session_id="s1", dependencies={"cad": model})
+
+
+def test_get_entity_details_links_descriptor_group():
+    payload = call(get_entity_details, _descriptor_ctx(), entity_id="p1")
+    assert payload["descritivos"] == ["02"]
+    assert payload["descritivo"]["altura"] == 45
+    assert payload["grupo"] == ["p1"]
+    assert "grupo" in payload["observacao"]
+
+
+def test_get_project_indicators_links_descriptors():
+    payload = call(get_project_indicators, _descriptor_ctx(), tipos=["DescritivoTorre"])
+    assert payload["vinculo_descritivos"] == {"01": ["p0"], "02": ["p1"]}
+    assert "TOTAL" in payload["observacao"]
 
 
 def test_get_entity_details_of_part(ctx: RunContext):
@@ -416,6 +468,130 @@ def test_check_zoning_on_sample(ctx: RunContext):
     assert payload["atende_todas"] is None
 
 
+def _setbacks_ctx(offset_y0: float, entre_blocos: float) -> RunContext:
+    project = build_sample_project()
+    project["site"]["elements"].append(
+        {
+            "cad": {
+                "layer": "AQG_OFFSET",
+                "type": "CadPolygon",
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": rect(5, offset_y0, 95, 75),
+                },
+            }
+        }
+    )
+    project["site"]["inputs"].append({"type": "RecuoFrontal", "value": 5})
+    project["solution"]["outputs"].append(
+        {"type": "AfastamentoProjetado", "entre_blocos": entre_blocos, "lateral": 3}
+    )
+    model = build_model(project, "recuos.json")
+    return RunContext(run_id="r1", session_id="s1", dependencies={"cad": model})
+
+
+def test_check_setbacks_all_pass():
+    # Torres em y >= 10, a 10 m uma da outra; offset a partir de y = 5.
+    payload = call(check_setbacks, _setbacks_ctx(5, 8))
+    rows = payload["recuos"]["torres"]
+    assert [r["torre"] for r in rows] == ["p0", "p1"]
+    assert all(r["atende"] for r in rows)
+    assert rows[0]["distancia_ate_linha_de_recuo"] == 5
+    assert payload["recuos"]["recuos_declarados"] == {"RecuoFrontal": 5}
+    assert payload["afastamento"]["pares"][0]["distancia"] == pytest.approx(
+        10, abs=1e-9
+    )
+    assert payload["afastamento"]["total_pares"] == 1
+    assert payload["afastamento"]["pares"][0]["folga"] == pytest.approx(2, abs=1e-9)
+    assert payload["torres_que_nao_atendem"] == []
+    assert payload["pares_que_nao_atendem"] == []
+
+
+def test_check_setbacks_reports_failures():
+    payload = call(check_setbacks, _setbacks_ctx(12, 12))
+    assert payload["torres_que_nao_atendem"] == ["p0", "p1"]
+    assert payload["pares_que_nao_atendem"] == [["p0", "p1"]]
+
+
+def test_check_setbacks_without_data_is_unavailable(ctx: RunContext):
+    payload = call(check_setbacks, ctx)
+    assert "layer AQG_OFFSET" in payload["recuos"]["indisponivel"]
+    assert payload["afastamento"] == {
+        "indisponivel": ["AfastamentoProjetado.entre_blocos"]
+    }
+
+
+def _program_ctx() -> RunContext:
+    project = build_sample_project()
+    project["families"][0]["properties"] = {
+        "type": "Tower",
+        "n_pavimentos_unidades": 2,
+        "pav_tipo": {"tipologias": {"/area/apartamento/2 Quartos/aaaa": 2}},
+    }
+    project["archprog"] = [
+        {"type": "CAMin", "value": 1.5},
+        {"type": "MinPavimentos", "value": 2},
+        {"type": "MaxPavimentos", "value": 2},
+        {"type": "MinUnitsPerFloor", "value": 3},
+        {"type": "ParkingLotPerUnit", "unit_hid": "/area/apartamento", "value": 1.2},
+        {
+            "type": "FamilyProportion",
+            "hid": "/building/apartamento/2 Quartos/aaaa",
+            "value": 70,
+        },
+        {
+            "type": "FamilyProportion",
+            "hid": "/building/apartamento/3 Quartos/bbbb",
+            "value": 30,
+        },
+    ]
+    project["solution"]["outputs"] += [
+        {"type": "NumeroDePavimentos", "value": 3},
+        {"type": "VagasPorUnidade", "value": 1},
+        {
+            "type": "UnidadesPorTipologia",
+            "value": {"/area/apartamento/2 Quartos/aaaa": 8},
+        },
+    ]
+    model = build_model(project, "programa.json")
+    return RunContext(run_id="r1", session_id="s1", dependencies={"cad": model})
+
+
+def test_compare_program():
+    payload = call(compare_program, _program_ctx())
+    rules = {r["regra"]: r for r in payload["regras"]}
+    assert rules["CA minimo"]["diferenca"] == round(1.78 - 1.5, 3)
+    assert "atende" not in rules["CA minimo"]
+    assert rules["Gabarito"] == {"regra": "Gabarito", "nao_pedido": True}
+    assert rules["Pavimentos"]["atende"] is False
+    assert rules["Torres"] == {"regra": "Torres", "nao_pedido": True}
+    assert rules["Unidades por pavimento"]["atende"] is False
+    assert rules["Vagas por unidade"]["diferenca"] == -0.2
+    assert "atende" not in rules["Vagas por unidade"]
+    assert rules["Proporcao de tipologias"]["tipologias"] == [
+        {
+            "tipologia": "2 Quartos/aaaa",
+            "pedido_pct": 70,
+            "projetado_pct": 100,
+            "diferenca_pp": 30,
+        },
+        {
+            "tipologia": "3 Quartos/bbbb",
+            "pedido_pct": 30,
+            "projetado_pct": 0,
+            "diferenca_pp": -30,
+        },
+    ]
+    assert payload["regras_que_nao_atendem"] == ["Pavimentos", "Unidades por pavimento"]
+    assert payload["torres_fora_da_faixa"] == ["p0", "p1"]
+
+
+def test_compare_program_without_archprog(ctx: RunContext):
+    payload = call(compare_program, ctx)
+    assert all(r.get("nao_pedido") for r in payload["regras"])
+    assert payload["regras_que_nao_atendem"] == []
+
+
 def test_check_zoning_reports_failing_index():
     ctx = _zoning_ctx(
         [{"type": "PermeabilidadeProjetada", "value": 19.99}],
@@ -470,6 +646,17 @@ def test_zoom_to_unknown_layer_is_data(ctx: RunContext):
     assert "erro" in payload
 
 
+def test_color_by_counts_groups(ctx: RunContext):
+    payload = call(color_by, ctx, attribute="tipologia")
+    assert payload["grupos"] == 1
+    assert payload["nomes"] == ["2 Quartos"]
+
+
+def test_color_by_none_restores(ctx: RunContext):
+    payload = call(color_by, ctx, attribute="nenhum")
+    assert payload == {"atributo": "nenhum", "resumo": payload["resumo"]}
+
+
 def test_set_layer_visibility_unknown_layer_is_data(ctx: RunContext):
     payload = call(set_layer_visibility, ctx, layers=["NAO_EXISTE"])
     assert "NAO_EXISTE" in json.dumps(payload)
@@ -480,12 +667,12 @@ def test_set_layer_visibility_unknown_layer_is_data(ctx: RunContext):
 # --------------------------------------------------------------------------- #
 
 
-def test_agent_builds_with_thirteen_tools_and_the_document_summary(sample_model):
+def test_agent_builds_with_sixteen_tools_and_the_document_summary(sample_model):
     from src.ai_modules.agents import get_cad_agent
 
     agent = asyncio.run(get_cad_agent(user_id="local", model=sample_model))
 
-    assert len(agent.tools) == 13
+    assert len(agent.tools) == 16
     assert agent.tool_call_limit == 14
 
     instructions = "\n".join(agent.instructions)

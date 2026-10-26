@@ -22,6 +22,7 @@ from src.cad.geometry import (
     PointPrim,
     PolylinePrim,
     Prim,
+    TextPrim,
     Vec2,
     bbox_of_prims,
     normalize_closed,
@@ -55,7 +56,12 @@ _SITE_COLORS = {
     "AQG_FUNDOS": "#9AA5B1",
     "AQG_ACESSO": "#009961",
     "AQG_RUA": "#7C8798",
+    "AQG_COTA": "#E6C35C",
+    "AQG_SETA_DECLIVE": "#7FB8E6",
 }
+
+# Altura do rotulo de cota em metros: legivel no zoom de uma torre.
+ELEVATION_TEXT_HEIGHT = 1.0
 
 # (layer, type, text, color)
 PartSpec = tuple[str, str, str | None, str]
@@ -216,6 +222,11 @@ def build_model(project: dict, filename: str) -> CadModel:
         instances[pid] = instance
         entities.extend(parts)
 
+    for i, annotation in enumerate(solution.get("annotations") or []):
+        entity = _annotation_entity(f"a{i}", annotation, warnings)
+        if entity:
+            entities.append(entity)
+
     by_type = dict(
         sorted(
             Counter(entity.type for entity in entities).items(),
@@ -241,6 +252,9 @@ def build_model(project: dict, filename: str) -> CadModel:
             "processed_info": _or_default(site.get("processed_info"), []),
             "scores": _or_default(solution.get("scores"), {}),
             "inclinacao_media": _avg_inclination(site),
+            "archprog": [
+                item for item in project.get("archprog") or [] if isinstance(item, dict)
+            ],
         },
         bbox=bbox,
         units="metros",
@@ -368,6 +382,56 @@ def _site_entity(
         None,
         warnings,
     )
+
+
+def _annotation_entity(
+    eid: str, annotation: Any, warnings: list[str]
+) -> CadEntity | None:
+    """Marco de cota (ponto + rotulo com o valor) ou seta de declive (linha).
+
+    A classe da seta (`gentle`, `steep`) vai no rotulo; o `value` dela fica
+    fora, porque a unidade nao e conhecida.
+    """
+    if not isinstance(annotation, dict):
+        return None
+    kind = annotation.get("type")
+    hid = str(annotation.get("hid") or "")
+
+    if kind == "Annotation" and hid == "/annotation/elevation_marker":
+        position = annotation.get("position") or {}
+        value = annotation.get("value")
+        if not isinstance(value, int | float) or isinstance(value, bool):
+            warnings.append(f"cota {eid} sem valor numérico — ignorada")
+            return None
+        label = f"{value:.2f}"
+        geometry = {
+            "type": "Point",
+            "coordinates": [position.get("x"), position.get("y")],
+        }
+        spec = ("AQG_COTA", "cota", label, _SITE_COLORS["AQG_COTA"])
+        entity = _entity(eid, geometry, lambda pt: pt, spec, None, None, warnings)
+        if entity:
+            point = entity.prims[0]
+            assert isinstance(point, PointPrim)
+            entity.prims.append(TextPrim(point.p, label, ELEVATION_TEXT_HEIGHT, 0.0))
+            entity.bbox = bbox_of_prims(entity.prims)
+        return entity
+
+    if kind == "SlopeArrow":
+        segments = hid.split("/")
+        slope = segments[3] if len(segments) > 3 else "?"
+        spec = (
+            "AQG_SETA_DECLIVE",
+            "seta_declive",
+            f"declive {slope}",
+            _SITE_COLORS["AQG_SETA_DECLIVE"],
+        )
+        return _entity(
+            eid, annotation.get("line"), lambda pt: pt, spec, None, None, warnings
+        )
+
+    warnings.append(f"anotação {eid} de tipo {kind} não suportada — ignorada")
+    return None
 
 
 def _place_family(
@@ -567,6 +631,36 @@ def tower_units(properties: dict[str, Any]) -> tuple[int, int] | None:
     return per_floor, per_floor * floors
 
 
+def descriptor_groups(model: CadModel) -> dict[str, list[str]]:
+    """Rotulo do `DescritivoTorre` -> instancias do grupo de torres identicas.
+
+    O descritivo nao aponta uma instancia (a ordem dele nao segue a de
+    `placed_objects`), mas as `unidades` dele casam com as de uma familia de
+    torre. Fica fora a linha `TOTAL`, que e a soma, e o descritivo que casa
+    com nenhuma ou com mais de uma familia.
+    """
+    instances: dict[int, list[str]] = {}
+    units_of: dict[int, int] = {}
+    for inst in model.instances.values():
+        units = tower_units(model.families[inst.family_index].properties)
+        if units is None:
+            continue
+        instances.setdefault(inst.family_index, []).append(inst.id)
+        units_of[inst.family_index] = units[1]
+
+    groups: dict[str, list[str]] = {}
+    for item in model.indicators["outputs"]:
+        if not isinstance(item, dict) or item.get("type") != "DescritivoTorre":
+            continue
+        label = str(item.get("label", ""))
+        if label.strip().upper() == "TOTAL":
+            continue
+        matches = [k for k, units in units_of.items() if units == item.get("unidades")]
+        if len(matches) == 1:
+            groups[label] = instances[matches[0]]
+    return groups
+
+
 def describe_model(model: CadModel) -> str:
     """Resumo textual do projeto, em pt-BR, para o system prompt.
 
@@ -600,7 +694,9 @@ def describe_model(model: CadModel) -> str:
         "",
         "Ids: p<i> e uma instancia de familia (torre, vaga, portaria...), "
         "p<i>.<j> e uma parte desenhada dessa instancia e s<i> e um elemento "
-        "do terreno. Elementos posicionados (viario, taludes) tambem usam p<i>.",
+        "do terreno. Elementos posicionados (viario, taludes) tambem usam p<i>. "
+        "a<i> e uma anotacao: marco de cota (tipo cota, valor no rotulo) ou seta "
+        "de declive.",
         "",
         "Layers:",
         *[f"  {name}" for name in model.layer_names],
@@ -663,6 +759,9 @@ def prims_payload(model: CadModel) -> list[dict[str, Any]]:
                 "shapes": shapes,
                 # So poligono com area: curva de nivel fechada nao e preenchida.
                 "filled": entity.area is not None,
+                # Rotulo e familia, para o color_by agrupar sem nova chamada.
+                "label": entity.text,
+                "family": entity.family,
             }
         )
 

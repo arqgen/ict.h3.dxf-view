@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from src.cad.geometry import bbox_contains
-from src.cad.model import load_aqg, tower_units
+from src.cad.model import descriptor_groups, load_aqg, tower_units
 
 FILES = sorted((Path(__file__).parents[1] / "data" / "aqg").rglob("*.json"))
 PARAMS = FILES or [
@@ -40,3 +40,10 @@ def test_corpus_file(path: Path):
     units = [tower_units(model.families[t.family_index].properties) for t in towers]
     assert None not in units
     assert sum(u[1] for u in units) == outputs["TotalDeUnidades"]
+
+    labels = [
+        str(o["label"])
+        for o in model.indicators["outputs"]
+        if o["type"] == "DescritivoTorre" and str(o["label"]).upper() != "TOTAL"
+    ]
+    assert sorted(descriptor_groups(model)) == sorted(labels)

@@ -1,6 +1,6 @@
 # PRD — Novas tools e funcionalidades AQG
 
-> Status: **rascunho para co-criação**. Nenhum cartão foi aprovado e nenhum código foi escrito. Base: [`CAPABILITIES.md`](CAPABILITIES.md) e os 24 AQGs locais de `data/aqg/`.
+> Status: **implementado**, exceto o spike S3. Guia de construção em [`IMPLEMENTATION-tools.md`](IMPLEMENTATION-tools.md). Base: [`CAPABILITIES.md`](CAPABILITIES.md) e os 24 AQGs locais de `data/aqg/`.
 
 ## Objetivo
 
@@ -50,7 +50,7 @@ Toda cobertura citada foi medida por script nos 24 arquivos.
 - **Forma mínima:** `CadInstance` guarda o índice da família em `families` (`build_model` já o conhece ao chamar `_place_family`), e `_instance_info` usa o índice.
 - **Risco:** nenhum para a regra central. A contagem por família continua agrupando pelo label.
 - **Eval:** teste de parser, sem LLM: no arquivo `I/15`, a soma das unidades das torres é igual a `TotalDeUnidades`.
-- **Decisão:** pendente.
+- **Decisão:** aprovado e implementado (26/10/2026).
 
 ## Torres
 
@@ -65,7 +65,7 @@ Toda cobertura citada foi medida por script nos 24 arquivos.
 - **Forma mínima:** dois campos a mais em `get_entity_details` com id de instância de torre.
 - **Aberto:** altura e área construída por torre só saem do `DescritivoTorre`, o que depende de T3.
 - **Eval:** "Quantas unidades tem cada torre?" → soma igual a `TotalDeUnidades`.
-- **Decisão:** pendente.
+- **Decisão:** aprovado e implementado (26/10/2026): `unidades_por_pavimento` e `unidades_da_torre` em `get_entity_details`.
 
 ### T2 — Unidades por família
 
@@ -77,7 +77,7 @@ Toda cobertura citada foi medida por script nos 24 arquivos.
 - **Forma mínima:** campo `unidades` por grupo em `count_entities(group_by="family")`.
 - **Eval:** "Quantas unidades há em cada família de torre?"
 - **Depende de:** F0.
-- **Decisão:** pendente.
+- **Decisão:** aprovado e implementado (26/10/2026): `unidades_por_familia`, `unidades_por_torre` e `total_unidades` em `count_entities(group_by="family")`.
 
 ### T3 — Vínculo descritivo ↔ grupo de torres
 
@@ -90,7 +90,7 @@ Toda cobertura citada foi medida por script nos 24 arquivos.
 - **Aberto:** **muda uma decisão vigente** ("nunca vincule descritivo a instância", em `PRD.md`, `src/cad/CLAUDE.md`, `instructions.md` e no caso `vinculo` do eval). Vale confirmar a regra com o time do exportador, mas o vínculo por grupo não depende dela.
 - **Eval:** "Qual a altura da torre `p<i>`?" → `DescritivoTorre.altura` da família casada. O caso `vinculo` muda de "recusa" para "aponta o grupo".
 - **Depende de:** F0, porque o casamento usa as unidades de T1.
-- **Decisão:** pendente.
+- **Decisão:** aprovado e implementado (26/10/2026): vínculo com o grupo de torres idênticas, revogando "nunca vincule descritivo a instância" (o vínculo com uma instância só continua proibido).
 
 ## Conformidade urbanística
 
@@ -106,7 +106,7 @@ Toda cobertura citada foi medida por script nos 24 arquivos.
   - caso real: no `favoritadas/6abab05295f4…`, a permeabilidade projetada é 19,99 e a exigida 20. A tool devolve folga +0,01 e 99,95% "usado", o que se lê como "atende", e o projeto não atende. Os outros 23 arquivos atendem as 4 regras.
 - **Forma mínima:** tool `check_zoning()` com as regras fixas no código, e `compare_indicators` passa a respeitar a direção.
 - **Eval:** "O projeto atende CA, TO, permeabilidade e gabarito?" → 4 vereditos. O padrão do eval roda só os `otimo_*` de `avaliadas/`, que atendem tudo, então o caso roda também no `6abab05295f4…` com `--files`.
-- **Decisão:** pendente.
+- **Decisão:** aprovado e implementado (26/10/2026): `check_zoning`, veredito estrito.
 
 ### C2 — Distância borda a borda
 
@@ -117,7 +117,7 @@ Toda cobertura citada foi medida por script nos 24 arquivos.
 - **Risco:** o modelo citar distância entre centros como se fosse afastamento. A tool tem de dizer qual distância mediu.
 - **Forma mínima:** novo modo em `measure` (pré-requisito de C3).
 - **Eval:** "Qual a menor distância entre as torres `p<i>` e `p<j>`?"
-- **Decisão:** pendente.
+- **Decisão:** aprovado e implementado (26/10/2026): `measure(metric="edge_distance")`, torre medida pelo pavimento-tipo.
 
 ### C3 — Recuos e afastamento entre torres
 
@@ -136,7 +136,7 @@ Toda cobertura citada foi medida por script nos 24 arquivos.
   - se `AQG_OFFSET` já é a linha de recuo; se for, a verificação vira "a torre cabe no offset";
   - se `entre_blocos`, um valor só por arquivo, é a regra que o gerador aplica a todo par de torres, inclusive entre torres de alturas diferentes.
 - **Eval:** "Alguma torre viola o recuo frontal?"
-- **Decisão:** pendente.
+- **Decisão:** aprovado e implementado (26/10/2026): `check_setbacks`. O `AQG_OFFSET` é a linha de recuo (distância à frente = `RecuoFrontal` e ao perímetro = menor entre lateral e fundos, em todo arquivo com recuo), então o recuo vira "o pavimento-tipo cabe no offset"; `entre_blocos` vale para todo par de torres.
 
 ## Terreno e topografia
 
@@ -153,7 +153,7 @@ Toda cobertura citada foi medida por script nos 24 arquivos.
 - **Risco:** baixo. Quase tudo isso já sai por `get_project_indicators`, mas o `instructions.md` não roteia essas perguntas, e `site.analysis` não é exposto.
 - **Forma mínima:** a inclinação média entra no grupo `terreno` de `get_project_indicators` (sem os índices de face), mais uma rota no `instructions.md`.
 - **Eval:** "Quanto de corte e aterro o projeto prevê?" → `MovimentoDeTerra`.
-- **Decisão:** pendente.
+- **Decisão:** aprovado e implementado (26/10/2026).
 
 ### S2 — Cotas de nível
 
@@ -164,7 +164,7 @@ Toda cobertura citada foi medida por script nos 24 arquivos.
 - **Risco:** confundir a cota do marco com a cota sob a torre (que é S3).
 - **Forma mínima:** indexar os marcos como entidades num layer próprio, com a cota no rótulo e `TextPrim` (que existe e hoje não é usado). Com isso, `query_entities` por região e layer já responde.
 - **Eval:** "Qual a cota marcada mais alta?"
-- **Decisão:** pendente.
+- **Decisão:** aprovado e implementado (26/10/2026): setas só como desenho, com a classe no rótulo e o `value` fora.
 
 ### S3 — Cota do terreno sob a torre (spike)
 
@@ -174,6 +174,13 @@ Toda cobertura citada foi medida por script nos 24 arquivos.
 - **No desenho:** a torre.
 - **Risco:** o índice é 2D, e o mesh não vira `Prim` (é proibido criar uma quarta primitiva). Teria de entrar como estrutura à parte no `CadModel`.
 - **Aberto:** onde o mesh vive no modelo, o custo de memória em arquivos de até 18 MB e a cobertura de cada tipo de mesh.
+- **Resultado do spike (26/10/2026, nos 24 AQGs):**
+  - faces são índices de vértice em base 0;
+  - interpolando no triângulo, os marcos de cota batem com `AQG_TOPOGRAFIA_NOVA` (234 marcos, erro máximo 0,13 m, mediana 0) — ela é o terreno novo, mas não cobre 63 marcos (só envolve parte do terreno);
+  - `AQG_TOPOGRAFIA_ORIGINAL` difere dos marcos (mediana 0,05 m, máximo 0,71 m), coerente com terreno original;
+  - `AQG_TOPOGRAFIA` bate na mediana, mas tem erro de até 21,9 m em algum arquivo: o papel dela ainda não está claro;
+  - custo baixo: no arquivo de 17,7 MB (31,6 mil faces) o JSON e as malhas carregam em 0,22 s com pico de 71 MB, e a varredura linear de uma consulta leva 9 ms no pior caso.
+  - Recomendação: fazer, com as malhas numa estrutura à parte no `CadModel` (por layer: vértices e faces) e uma tool de cota num ponto ou sob uma pegada. Antes, entender o `AQG_TOPOGRAFIA` e o que cobre a área fora do `AQG_TOPOGRAFIA_NOVA`.
 - **Decisão:** pendente.
 
 ## Programa pedido × projetado
@@ -199,7 +206,7 @@ Toda cobertura citada foi medida por script nos 24 arquivos.
 - **Forma mínima:** tool `compare_program()`.
 - **Aberto:** a regra de casamento de tipologias. `NumeroDePavimentos` vem como texto em 1 arquivo.
 - **Eval:** "O número de pavimentos está dentro do pedido?"
-- **Decisão:** pendente.
+- **Decisão:** aprovado e implementado (26/10/2026): `compare_program`. CA mínimo, proporção de tipologias e vagas por unidade são meta (só a diferença); o `CAMin` fica acima do CA projetado em 8 de 24 arquivos.
 
 ## Interação no canvas
 
@@ -209,7 +216,7 @@ Toda cobertura citada foi medida por script nos 24 arquivos.
 - **Proposta:** um botão "perguntar sobre isto" que leva o id selecionado para a mensagem ("o que é isto?" passa a funcionar).
 - **Forma mínima:** prefixar o id na mensagem, sem mudar o contrato da API. Mandar um campo `selected_id` no `ChatRequest` é a alternativa.
 - **Risco:** nenhum para a regra central, porque o modelo continua precisando de tool para qualquer número.
-- **Decisão:** pendente.
+- **Decisão:** aprovado e implementado (26/10/2026).
 
 ### I2 — Preenchimento e cor por atributo
 
@@ -218,13 +225,13 @@ Toda cobertura citada foi medida por script nos 24 arquivos.
   - preencher os polígonos;
   - nova tool de interface `color_by` (tipologia, família ou veredito de C3), aplicada pelo frontend ao ler o `ToolCallStarted`, como as outras quatro.
 - **Forma mínima:** primeiro o preenchimento (só canvas); a tool de interface vem depois. Ela exige atualizar junto `UI_TOOL_NAMES`, `UI_TOOLS` e `applyUiTool`.
-- **Decisão:** pendente.
+- **Decisão:** aprovado e implementado (26/10/2026): preenchimento e `color_by` (tipologia, família, tipo). A cor por veredito de C3 saiu: `highlight_entities` com `torres_que_nao_atendem` já mostra isso.
 
 ### I3 — Cotas e setas desenhadas
 
 - **Proposta:** desenhar os marcos de cota e as setas de declive de S2.
 - **Depende de:** S2.
-- **Decisão:** pendente.
+- **Decisão:** aprovado e implementado (26/10/2026): só as cores dos layers `AQG_COTA` e `AQG_SETA_DECLIVE`; a seta fica como linha, sem ponta, até o sentido ser confirmado.
 
 ## Ajustes pequenos
 
@@ -233,7 +240,7 @@ Toda cobertura citada foi medida por script nos 24 arquivos.
 - **Hoje:** a tool anexa as propriedades de todas as famílias em toda chamada, mesmo com `tipos`. São até ~11,6 mil caracteres por chamada. Na última rodada do eval, as 18 chamadas da tool vieram filtradas e todas levaram esse peso.
 - **Forma mínima:** anexar `familias` só quando `tipos` vier vazio. As propriedades de uma torre continuam em `get_entity_details`.
 - **Risco:** nenhum para a regra central.
-- **Decisão:** pendente.
+- **Decisão:** aprovado e implementado (26/10/2026).
 
 ## Priorização proposta
 

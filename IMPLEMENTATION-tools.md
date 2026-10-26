@@ -18,7 +18,11 @@
 | Escopo deste documento | todos os cartões do PRD |
 | Veredito do C1 | estrito, sem tolerância: 19,99 contra 20 exigidos "não atende" |
 | Unidade de `site.analysis.avg_inclination` (S1) | percentual |
-| Execução | sequencial, na ordem da seção 4 |
+| Execução | sequencial, na ordem da seção 4; entregue em lotes, com o eval por lote |
+| T3 | vínculo por grupo de torres idênticas aceito; o vínculo com uma instância só continua proibido |
+| C3 | `AQG_OFFSET` é a linha de recuo (caminho b); pegada = `pav_tipo` desenhado; `entre_blocos` vale para todo par de torres |
+| P1 | CA mínimo, proporção de tipologias e vagas por unidade são meta; casamento de tipologia pelo trecho depois de `/apartamento/` |
+| S2 | setas de declive só como desenho, com a classe no rótulo e o `value` fora |
 
 ## 1. Contexto comum
 

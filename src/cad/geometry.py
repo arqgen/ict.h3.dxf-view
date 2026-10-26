@@ -206,18 +206,70 @@ def min_distance(a: list[Prim], b: list[Prim]) -> float:
     quando as bordas se tocam ou se cruzam; infinito se um lado nao tem
     geometria.
     """
-    # ponytail: O(n*m) segmentos; indice espacial (grade ou R-tree) se ficar lento.
+    # Pares de primitivas em ordem de distancia entre as caixas: quando essa
+    # distancia passa da melhor ja medida, nenhum par seguinte pode ganhar.
+    # ponytail: O(n*m) no pior caso; indice espacial (R-tree) se ficar lento.
+    boxed_a = [(box, prim) for prim in a if (box := bbox_of_prims([prim]))]
+    boxed_b = [(box, prim) for prim in b if (box := bbox_of_prims([prim]))]
+    pairs = sorted(
+        (
+            (_bbox_gap(box_a, box_b), i, j)
+            for i, (box_a, _) in enumerate(boxed_a)
+            for j, (box_b, _) in enumerate(boxed_b)
+        ),
+    )
+    segments_b = [_segments([prim]) for _, prim in boxed_b]
+
     best = math.inf
-    other = _segments(b)
-    for p, q in _segments(a):
-        for r, s in other:
-            if segments_cross(p, q, r, s):
-                return 0.0
-            best = min(
-                best,
-                distance_point_segment(p, r, s),
-                distance_point_segment(q, r, s),
-                distance_point_segment(r, p, q),
-                distance_point_segment(s, p, q),
-            )
+    for gap, i, j in pairs:
+        if gap >= best:
+            break
+        for p, q in _segments([boxed_a[i][1]]):
+            box_pq = _segment_bbox(p, q)
+            for r, s in segments_b[j]:
+                if _bbox_gap(box_pq, _segment_bbox(r, s)) >= best:
+                    continue
+                if segments_cross(p, q, r, s):
+                    return 0.0
+                best = min(
+                    best,
+                    distance_point_segment(p, r, s),
+                    distance_point_segment(q, r, s),
+                    distance_point_segment(r, p, q),
+                    distance_point_segment(s, p, q),
+                )
     return best
+
+
+def _segment_bbox(p: Vec2, q: Vec2) -> BBox:
+    return (min(p[0], q[0]), min(p[1], q[1]), max(p[0], q[0]), max(p[1], q[1]))
+
+
+def _bbox_gap(a: BBox, b: BBox) -> float:
+    dx = max(b[0] - a[2], a[0] - b[2], 0.0)
+    dy = max(b[1] - a[3], a[1] - b[3], 0.0)
+    return math.hypot(dx, dy)
+
+
+def point_in_polygon(p: Vec2, pts: list[Vec2]) -> bool:
+    """Ray casting. Ponto exatamente na borda tem resposta indefinida."""
+    x, y = p
+    inside = False
+    for (ax, ay), (bx, by) in zip(pts, pts[1:] + pts[:1], strict=True):
+        if (ay > y) != (by > y) and x < ax + (y - ay) * (bx - ax) / (by - ay):
+            inside = not inside
+    return inside
+
+
+def fits_inside(inner: list[Prim], outer: PolylinePrim) -> bool:
+    """`inner` inteiro dentro do poligono `outer`, encostar na borda incluido."""
+    border = _segments([outer])
+    segments = _segments(inner)
+    if any(segments_cross(p, q, r, s) for p, q in segments for r, s in border):
+        return False
+    return all(
+        point_in_polygon(v, outer.pts)
+        or any(distance_point_segment(v, r, s) < 1e-9 for r, s in border)
+        for segment in segments
+        for v in segment
+    )

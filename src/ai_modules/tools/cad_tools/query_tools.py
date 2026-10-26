@@ -12,8 +12,21 @@ from typing import Any, Literal
 from agno.run.base import RunContext
 from agno.tools import tool
 
-from src.cad.geometry import Prim, bbox_contains, bbox_intersects, min_distance
-from src.cad.model import CadEntity, CadModel, _category, tower_units
+from src.cad.geometry import (
+    PolylinePrim,
+    Prim,
+    bbox_contains,
+    bbox_intersects,
+    fits_inside,
+    min_distance,
+)
+from src.cad.model import (
+    CadEntity,
+    CadModel,
+    _category,
+    descriptor_groups,
+    tower_units,
+)
 
 from .helpers import (
     MissingDocument,
@@ -190,15 +203,25 @@ def query_entities(
     max_length: float | None = None,
     closed_only: bool = False,
     sort_by: Literal[
-        "length_desc", "length_asc", "area_desc", "area_asc", "none"
+        "length_desc",
+        "length_asc",
+        "area_desc",
+        "area_asc",
+        "cota_desc",
+        "cota_asc",
+        "none",
     ] = "none",
+    near: str | None = None,
     limit: int = DEFAULT_LIMIT,
     offset: int = 0,
 ) -> str:
     """Busca entidades por filtros combinados e devolve seus ids e medidas.
 
     Esta e a tool para "qual e o maior apartamento", "quais entidades estao
-    nesta regiao", "liste as partes da torre p3", "onde esta a tipologia X".
+    nesta regiao", "liste as partes da torre p3", "onde esta a tipologia X",
+    "qual a maior cota marcada" (`entity_type="cota"`, `sort_by="cota_desc"`)
+    e "qual a cota perto da torre p3" (`entity_type="cota"`, `near="p3"`,
+    `limit=1`). O valor da cota e o `rotulo` do marco, em metros.
     Os ids devolvidos sao exatamente os que `highlight_entities` e `zoom_to`
     aceitam. `instancias` lista TODAS as instancias encontradas, sem paginacao:
     para destacar uma familia inteira, passe essa lista a `highlight_entities`.
@@ -217,7 +240,11 @@ def query_entities(
         min_length: comprimento minimo.
         max_length: comprimento maximo.
         closed_only: apenas entidades fechadas (as unicas que possuem area).
-        sort_by: ordenacao por comprimento ou area.
+        sort_by: ordenacao por comprimento, area ou valor da cota (marcos
+            `cota`).
+        near: id de referencia (entidade ou instancia); ordena pela menor
+            distancia entre as bordas ate ela e devolve `distancia` em cada
+            item. Tem precedencia sobre `sort_by`.
         limit: maximo de entidades devolvidas (teto de 200).
         offset: quantas entidades pular, para paginar.
 
@@ -255,7 +282,15 @@ def query_entities(
         closed_only=closed_only,
     )
 
-    selected = _sort_entities(selected, sort_by)
+    distances: dict[str, float] = {}
+    if near:
+        reference = _edge_prims(model, str(near))
+        if not reference:
+            return fail(f"near '{near}' nao e um id conhecido com geometria")
+        distances = {e.id: min_distance(e.prims, reference) for e in selected}
+        selected = sorted(selected, key=lambda e: distances[e.id])
+    else:
+        selected = _sort_entities(selected, sort_by)
     instances = list(dict.fromkeys(e.instance for e in selected if e.instance))
 
     total = len(selected)
@@ -265,7 +300,11 @@ def query_entities(
 
     return dump(
         {
-            "entidades": [entity_brief(entity) for entity in page],
+            "entidades": [
+                entity_brief(entity)
+                | ({"distancia": rnd(distances[entity.id])} if near else {})
+                for entity in page
+            ],
             "ids": [entity.id for entity in page],
             # Sem paginacao: destacar "todas as torres de uma familia" precisa
             # de todas as instancias, mesmo quando as partes passam do limite.
@@ -287,6 +326,9 @@ def get_entity_details(run_context: RunContext, entity_id: str) -> str:
     Use para detalhar uma torre: passe o id da instancia (`p<i>`) e receba a
     familia, as propriedades dela e os ids das partes. Com o id de uma parte
     (`p<i>.<j>`) ou do terreno (`s<i>`), devolve medidas e atributos.
+    Numa torre, devolve tambem os `descritivos` (01, 02...) do grupo de
+    torres identicas a que ela pertence, os campos do primeiro (`descritivo`:
+    altura, pavimentos, areas) e as instancias do `grupo`.
     USE ESTA TOOL para "quantas unidades tem a torre p<i>": cite
     `unidades_da_torre` (e `unidades_por_pavimento`), calculados das
     propriedades da familia (tipologias x pavimentos com unidades), nao da
@@ -335,6 +377,22 @@ def _instance_info(model: CadModel, instance_id: str) -> dict[str, Any]:
     units = tower_units(family.properties)
     if units:
         info["unidades_por_pavimento"], info["unidades_da_torre"] = units
+
+    groups = descriptor_groups(model)
+    labels = [label for label, ids in groups.items() if inst.id in ids]
+    if labels:
+        info["descritivos"] = labels
+        info["descritivo"] = next(
+            item
+            for item in model.indicators["outputs"]
+            if isinstance(item, dict)
+            and item.get("type") == "DescritivoTorre"
+            and str(item.get("label", "")) == labels[0]
+        )
+        info["grupo"] = groups[labels[0]]
+        info["observacao"] = (
+            "o vinculo e com o grupo de torres identicas, nao com uma instancia"
+        )
     return info
 
 
@@ -350,7 +408,8 @@ def search_text(
     label da familia.
 
     Use para achar onde esta uma tipologia ("2 Quartos") ou as partes de uma
-    familia. O AQG nao tem texto livre: legendas e anotacoes nao existem aqui.
+    familia, ou o valor de um marco de cota. O AQG nao tem texto livre: legendas
+    nao existem aqui. Para cotas, prefira `query_entities(entity_type="cota")`.
 
     Args:
         query: termo procurado.
@@ -582,8 +641,9 @@ def get_project_indicators(
     permeabilidade, gabarito, indices exigidos e dados do terreno (cota de
     referencia `CotaTopografia`, `InclinacaoMedia` em %, `Zoneamento`,
     `Municipio`, movimento de terra em `MovimentoDeTerra`). Esses numeros NAO saem da
-    planta: ela mostra um pavimento so. Os `DescritivoTorre` (01, 02...) nao
-    identificam as torres desenhadas (`p<i>`) — nao associe um ao outro.
+    planta: ela mostra um pavimento so. Cada `DescritivoTorre` (01, 02...)
+    aponta um GRUPO de torres identicas (`vinculo_descritivos`), nunca uma
+    instancia so; a linha `TOTAL` e a soma das torres, nao uma torre.
 
     Args:
         tipos: filtra indicadores, exigidos e dados do terreno pelo campo
@@ -649,10 +709,18 @@ def get_project_indicators(
             for f in model.families
         ]
     payload["observacao"] = (
-        "os DescritivoTorre (01, 02…) nao identificam as torres desenhadas "
-        "(p<i>). Folga, percentual ou se um indice atende: chame check_zoning, "
-        "nao subtraia nem divida estes valores"
+        "Folga, percentual ou se um indice atende: chame check_zoning, nao "
+        "subtraia nem divida estes valores"
     )
+    if any(item.get("type") == "DescritivoTorre" for item in groups["indicadores"]):
+        payload["vinculo_descritivos"] = descriptor_groups(model)
+        payload["observacao"] += (
+            ". Cada DescritivoTorre aponta o grupo de torres identicas em "
+            "vinculo_descritivos, nao uma instancia: dentro do grupo nao ha como "
+            "distinguir qual e a torre 01 ou 02 — destaque o grupo inteiro com "
+            "highlight_entities. O DescritivoTorre TOTAL e a soma das torres, "
+            "nao uma torre"
+        )
 
     count = sum(len(items) for items in groups.values())
     return dump(payload, f"{count} indicadores lidos")
@@ -755,6 +823,311 @@ def check_zoning(run_context: RunContext) -> str:
     return dump(
         {"regras": rules, "nao_atende": failing, "atende_todas": all_ok}, summary
     )
+
+
+SETBACK_TYPES = ("RecuoFrontal", "RecuoLateral", "RecuoFundos")
+
+
+@tool
+def check_setbacks(run_context: RunContext) -> str:
+    """Verifica se as torres respeitam os recuos e o afastamento entre torres.
+
+    USE ESTA TOOL para "as torres respeitam os recuos?", "o afastamento entre
+    as torres atende?" e "qual torre esta fora do recuo?". Verifica so o que o
+    arquivo declara, sem interpretar a regra municipal:
+    - recuo: o pavimento-tipo desenhado de cada torre tem de caber na linha
+      de recuo do projeto (layer `AQG_OFFSET`, que ja desconta os recuos
+      frontal, lateral e de fundos declarados);
+    - afastamento: a menor distancia entre as bordas de cada par de torres
+      contra `AfastamentoProjetado.entre_blocos`.
+    Cite os totais prontos (`torres_que_nao_atendem`, `pares_que_nao_atendem`,
+    `total_pares`, `par_mais_proximo` e a `folga` de cada par); nao conte a
+    lista nem subtraia distancias.
+    Para mostrar, chame `highlight_entities` com `torres_que_nao_atendem`.
+
+    Returns:
+        JSON com `recuos` (por torre: se cabe no offset e a distancia ate a
+        linha) e `afastamento` (por par: distancia e se atende), ou
+        `indisponivel` com o que falta, mais os totais.
+    """
+    try:
+        model = cad_model(run_context)
+    except MissingDocument as exc:
+        return fail(str(exc))
+
+    towers = [
+        inst.id
+        for inst in model.instances.values()
+        if _category(inst.family_type) == "torre"
+    ]
+    footprints = {tower: _edge_prims(model, tower) for tower in towers}
+    failing_towers: list[str] = []
+    failing_pairs: list[list[str]] = []
+
+    offset = [
+        prim
+        for entity in model.entities
+        if entity.layer == "AQG_OFFSET" and entity.closed
+        for prim in entity.prims
+        if isinstance(prim, PolylinePrim)
+    ]
+    declared = {
+        name: value
+        for name in SETBACK_TYPES
+        if (value := _numeric_indicator(model, name)) is not None
+    }
+    setbacks: dict[str, Any]
+    if not offset or not declared:
+        missing = [] if offset else ["layer AQG_OFFSET"]
+        setbacks = {"indisponivel": missing + ([] if declared else list(SETBACK_TYPES))}
+    else:
+        rows = []
+        for tower, prims in footprints.items():
+            fits = fits_inside(prims, offset[0])
+            rows.append(
+                {
+                    "torre": tower,
+                    "atende": fits,
+                    "distancia_ate_linha_de_recuo": rnd(min_distance(prims, offset)),
+                }
+            )
+            if not fits:
+                failing_towers.append(tower)
+        setbacks = {"recuos_declarados": declared, "torres": rows}
+
+    required = _numeric_indicator(model, "AfastamentoProjetado", "entre_blocos")
+    spacing: dict[str, Any]
+    if required is None:
+        spacing = {"indisponivel": ["AfastamentoProjetado.entre_blocos"]}
+    else:
+        pairs = []
+        for i, a in enumerate(towers):
+            for b in towers[i + 1 :]:
+                distance = min_distance(footprints[a], footprints[b])
+                ok = distance >= required
+                pairs.append(
+                    {
+                        "torres": [a, b],
+                        "distancia": rnd(distance),
+                        "folga": rnd(distance - required),
+                        "atende": ok,
+                    }
+                )
+                if not ok:
+                    failing_pairs.append([a, b])
+        spacing = {
+            "exigido": required,
+            "total_pares": len(pairs),
+            "par_mais_proximo": min(pairs, key=lambda p: p["distancia"], default=None),
+            "pares": pairs,
+        }
+
+    summary = (
+        f"{len(failing_towers)} torres fora do recuo, "
+        f"{len(failing_pairs)} pares abaixo do afastamento"
+    )
+    return dump(
+        {
+            "recuos": setbacks,
+            "afastamento": spacing,
+            "torres_que_nao_atendem": failing_towers,
+            "pares_que_nao_atendem": failing_pairs,
+            "referencia": "torre medida pelo pavimento-tipo desenhado",
+        },
+        summary,
+    )
+
+
+# (regra, minimo pedido, maximo pedido, indicador projetado)
+PROGRAM_RANGES = (
+    ("Gabarito", None, "MaxHeight", "GabaritoProjetado"),
+    ("Pavimentos", "MinPavimentos", "MaxPavimentos", "NumeroDePavimentos"),
+    ("Torres", "MinTowersBySite", "MaxTowersBySite", "TotalDeTorres"),
+)
+
+
+@tool
+def compare_program(run_context: RunContext) -> str:
+    """Compara o programa pedido (`archprog`) com o projetado.
+
+    USE ESTA TOOL para "o projeto cumpre o programa pedido?", "o numero de
+    pavimentos/torres esta dentro do pedido?", "as torres respeitam as
+    unidades por pavimento pedidas?" e "a proporcao de tipologias/vagas por
+    unidade bate com o pedido?". Uma linha por regra; regra que o arquivo nao
+    pede volta como `nao_pedido`, nunca como falha.
+    - Gabarito, pavimentos, torres e unidades por pavimento tem veredito
+      (`atende`).
+    - CA minimo, vagas por unidade e proporcao de tipologias sao META: so
+      pedido, projetado e diferenca, sem veredito. Nao diga que "nao atende".
+    Cite os totais prontos (`regras_que_nao_atendem`, `torres_fora_da_faixa`)
+    e as diferencas devolvidas; nao recalcule.
+
+    Returns:
+        JSON com `regras` e os totais.
+    """
+    try:
+        model = cad_model(run_context)
+    except MissingDocument as exc:
+        return fail(str(exc))
+
+    asked = _program_values(model)
+    rules: list[dict[str, Any]] = []
+    for rule, low_name, high_name, projected_name in PROGRAM_RANGES:
+        low, high = asked.get(low_name or ""), asked.get(high_name or "")
+        rules.append(
+            _range_rule(
+                rule,
+                low,
+                high,
+                projected_name,
+                _numeric_indicator(model, projected_name),
+            )
+        )
+
+    outside: list[str] = []
+    low, high = asked.get("MinUnitsPerFloor"), asked.get("MaxUnitsPerFloor")
+    if low is None and high is None:
+        rules.append({"regra": "Unidades por pavimento", "nao_pedido": True})
+    else:
+        towers = []
+        for inst in model.instances.values():
+            units = tower_units(model.families[inst.family_index].properties)
+            if units is None:
+                continue
+            ok = (low is None or units[0] >= low) and (high is None or units[0] <= high)
+            towers.append({"torre": inst.id, "unidades_por_pavimento": units[0]})
+            if not ok:
+                outside.append(inst.id)
+        rules.append(
+            {
+                "regra": "Unidades por pavimento",
+                "minimo": low,
+                "maximo": high,
+                "torres": towers,
+                "atende": not outside if towers else None,
+            }
+        )
+
+    for rule, asked_name, projected_name in (
+        ("CA minimo", "CAMin", "CAProjetado"),
+        ("Vagas por unidade", "ParkingLotPerUnit", "VagasPorUnidade"),
+    ):
+        rules.append(
+            _goal_rule(
+                rule,
+                asked.get(asked_name),
+                projected_name,
+                _numeric_indicator(model, projected_name),
+            )
+        )
+
+    rules.append(_typology_rule(model))
+
+    failing = [r["regra"] for r in rules if r.get("atende") is False]
+    summary = f"nao atende: {', '.join(failing)}" if failing else "nenhuma regra falha"
+    return dump(
+        {
+            "regras": rules,
+            "regras_que_nao_atendem": failing,
+            "torres_fora_da_faixa": outside,
+        },
+        summary,
+    )
+
+
+def _program_values(model: CadModel) -> dict[str, float]:
+    """Valor numerico de cada regra do `archprog` (a primeira de cada tipo)."""
+    values: dict[str, float] = {}
+    for item in model.indicators["archprog"]:
+        value = item.get("value")
+        if isinstance(value, int | float) and not isinstance(value, bool):
+            values.setdefault(str(item.get("type")), float(value))
+    return values
+
+
+def _goal_rule(
+    rule: str, asked: float | None, projected_name: str, projected: float | None
+) -> dict[str, Any]:
+    """Meta do programa: pedido, projetado e diferenca, sem veredito."""
+    if asked is None:
+        return {"regra": rule, "nao_pedido": True}
+    if projected is None:
+        return {"regra": rule, "indisponivel": [projected_name]}
+    return {
+        "regra": rule,
+        "meta": True,
+        "pedido": asked,
+        "projetado": projected,
+        "diferenca": rnd(projected - asked),
+    }
+
+
+def _range_rule(
+    rule: str,
+    low: float | None,
+    high: float | None,
+    projected_name: str,
+    projected: float | None,
+) -> dict[str, Any]:
+    if low is None and high is None:
+        return {"regra": rule, "nao_pedido": True}
+    if projected is None:
+        return {"regra": rule, "indisponivel": [projected_name]}
+    return {
+        "regra": rule,
+        "projetado": {"tipo": projected_name, "valor": projected},
+        "minimo": low,
+        "maximo": high,
+        "atende": (low is None or projected >= low)
+        and (high is None or projected <= high),
+    }
+
+
+def _typology_rule(model: CadModel) -> dict[str, Any]:
+    """Proporcao de tipologias, casada pelo trecho depois de `/apartamento/`."""
+    asked = {
+        str(item.get("hid", "")).split("/apartamento/")[-1]: float(item["value"])
+        for item in model.indicators["archprog"]
+        if item.get("type") == "FamilyProportion"
+        and isinstance(item.get("value"), int | float)
+    }
+    if not asked:
+        return {"regra": "Proporcao de tipologias", "nao_pedido": True}
+
+    built = next(
+        (
+            item.get("value")
+            for item in model.indicators["outputs"]
+            if isinstance(item, dict) and item.get("type") == "UnidadesPorTipologia"
+        ),
+        None,
+    )
+    if not isinstance(built, dict) or not built:
+        return {
+            "regra": "Proporcao de tipologias",
+            "indisponivel": ["UnidadesPorTipologia"],
+        }
+
+    projected = {
+        str(key).split("/apartamento/")[-1]: value
+        for key, value in built.items()
+        if isinstance(value, int | float)
+    }
+    total = sum(projected.values())
+    rows = []
+    for typology, percent in asked.items():
+        built_percent = rnd(projected.get(typology, 0) / total * 100) if total else None
+        rows.append(
+            {
+                "tipologia": typology,
+                "pedido_pct": percent,
+                "projetado_pct": built_percent,
+                "diferenca_pp": rnd(built_percent - percent)
+                if built_percent is not None
+                else None,
+            }
+        )
+    return {"regra": "Proporcao de tipologias", "meta": True, "tipologias": rows}
 
 
 def _compare(
@@ -878,6 +1251,11 @@ def _filter_entities(
 def _sort_entities(entities: list[CadEntity], sort_by: str) -> list[CadEntity]:
     if sort_by == "none":
         return entities
+    if sort_by.startswith("cota"):
+        markers = [e for e in entities if e.type == "cota" and e.text]
+        others = [e for e in entities if e.type != "cota" or not e.text]
+        markers.sort(key=lambda e: float(e.text or 0), reverse=sort_by == "cota_desc")
+        return markers + others
 
     metric = "length" if sort_by.startswith("length") else "area"
     descending = sort_by.endswith("_desc")
@@ -902,4 +1280,6 @@ QUERY_TOOLS = [
     get_project_indicators,
     compare_indicators,
     check_zoning,
+    check_setbacks,
+    compare_program,
 ]

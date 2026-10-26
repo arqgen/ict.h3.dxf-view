@@ -78,7 +78,7 @@ A raiz pode conter arquivos `.md` com regras pontuais (ex: `commit-rules.md`). E
 
 Monorepo de um visualizador de projetos AQG (o JSON de *Project* exportado pela Arqgen) com assistente de IA. O usuário abre um projeto, vê o desenho renderizado, e conversa sobre ele — o assistente responde **e aponta de volta para o desenho** (destaca entidades, reenquadra, isola layer).
 
-**A regra que define a arquitetura:** a IA nunca vê o arquivo. Ela vê um resumo textual e o que 13 tools devolvem ao consultar o índice geométrico. Toda quantidade, medida ou coordenada numa resposta veio de uma tool call — é controle de alucinação, não economia de token, e é o requisito de produto mais importante do projeto. Qualquer mudança que permita ao modelo afirmar um número sem passar por uma tool está errada, por mais conveniente que pareça.
+**A regra que define a arquitetura:** a IA nunca vê o arquivo. Ela vê um resumo textual e o que 16 tools devolvem ao consultar o índice geométrico. Toda quantidade, medida ou coordenada numa resposta veio de uma tool call — é controle de alucinação, não economia de token, e é o requisito de produto mais importante do projeto. Qualquer mudança que permita ao modelo afirmar um número sem passar por uma tool está errada, por mais conveniente que pareça.
 
 Como o agente roda em Python, o índice roda em Python: não existe parse de AQG no browser.
 
@@ -88,7 +88,7 @@ FastAPI + agno (agente e loop de tools) + parser AQG próprio em `src/cad/` no b
 
 **Camadas:** `src/cad/` (motor de informação) · `src/api/` (HTTP) · `src/ai_modules/` (IA) · `web/src/viewer/` (render)
 
-As 4 tools de interface não têm canal próprio: no servidor apenas validam, e o frontend aplica o efeito visual ao ver o evento `ToolCallStarted` no stream SSE. Se você mudar o formato do stream, quebra o destaque.
+As 5 tools de interface não têm canal próprio: no servidor apenas validam, e o frontend aplica o efeito visual ao ver o evento `ToolCallStarted` no stream SSE. Se você mudar o formato do stream, quebra o destaque.
 
 ## Mapa de Arquivos Críticos
 
@@ -103,7 +103,7 @@ As 4 tools de interface não têm canal próprio: no servidor apenas validam, e 
 - `src/ai_modules/llm_settings.py` — instanciação do modelo LLM (`get_model()`)
 - `src/ai_modules/runner.py` — execução do chat (`run_chat()`)
 - `src/ai_modules/agents/base.py` — defaults comuns a todo `Agent`; `agents/cad_agent/` — a fábrica + `instructions.md`
-- `src/ai_modules/tools/cad_tools/` — as 13 tools (9 de consulta, 4 de interface)
+- `src/ai_modules/tools/cad_tools/` — as 16 tools (11 de consulta, 5 de interface)
 - `web/src/App.tsx` — dono de todo o estado do frontend e do seam `ToolUI`
 - `web/src/api/client.ts` — parser SSE e despacho das tools de interface
 - `web/src/viewer/CadCanvas.tsx` — render canvas 2D e hit-test

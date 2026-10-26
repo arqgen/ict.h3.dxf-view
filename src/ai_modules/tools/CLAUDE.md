@@ -8,7 +8,7 @@ Toda tool que **não** for específica de um único agent — ou seja, que pode 
 
 | Arquivo / pasta        | Exporta        | Papel                                                                 |
 | ---------------------- | -------------- | --------------------------------------------------------------------- |
-| `cad_tools/`           | `CAD_TOOLS`    | As 13 tools do projeto — 9 de consulta e 4 de interface. Ver abaixo.  |
+| `cad_tools/`           | `CAD_TOOLS`    | As 16 tools do projeto — 11 de consulta e 5 de interface. Ver abaixo.  |
 | `test_tool_call.py`    | `test_tool_call` | Tool de função simples, para testar tool calling                    |
 | `fetch_pdf.py`         | `fetch_pdf`    | Baixa um PDF de uma URL e o devolve como `ToolResult(files=[File(...)])` |
 | `user_control_flow.py` | `user_control_flow` | `UserControlFlowTools` — pausa a run para pedir input livre/tipado |
@@ -20,7 +20,7 @@ Toda tool que **não** for específica de um único agent — ou seja, que pode 
 
 ## As Tools de CAD
 
-`cad_tools/` tem três arquivos: `helpers.py` (acesso ao índice, serialização, utilitários), `query_tools.py` (as 9 de consulta, incluindo `get_project_indicators`, `compare_indicators` e `check_zoning`) e `ui_tools.py` (as 4 de interface).
+`cad_tools/` tem três arquivos: `helpers.py` (acesso ao índice, serialização, utilitários), `query_tools.py` (as 11 de consulta, incluindo `get_project_indicators`, `compare_indicators`, `check_zoning`, `check_setbacks` e `compare_program`) e `ui_tools.py` (as 5 de interface).
 
 ### Acesso ao índice
 
@@ -66,9 +66,11 @@ Uma instância (`p<i>`: torre, vaga, portaria) não é entidade — as entidades
 
 As docstrings são o que o modelo lê para decidir quando chamar a tool, e elas são deliberadamente imperativas: `"AÇÃO DE INTERFACE: ..."`, `"PREFIRA ESTA TOOL para qualquer pergunta do tipo 'quantos'"`, `"Use SEMPRE que citar entidades específicas"`. Isso muda a taxa de ativação de forma mensurável. Ao editar uma docstring, não a torne meramente descritiva.
 
-### As 4 tools de interface
+### As 5 tools de interface
 
-`highlight_entities`, `clear_highlight`, `zoom_to`, `set_layer_visibility`.
+`highlight_entities`, `clear_highlight`, `zoom_to`, `set_layer_visibility`, `color_by`.
+
+`color_by` agrupa no frontend: `prims_payload` leva `label` e `family` de cada entidade, e a regra de grupo existe duas vezes, em `color_by` (`ui_tools.py`, para contar os grupos) e em `groupKey` (`CadCanvas.tsx`, para pintar). Mudou uma, mude a outra.
 
 No servidor elas **apenas validam e devolvem o que seria aplicado** — não existe estado de UI no backend. O efeito visual acontece porque o frontend observa o evento `ToolCallStarted` no stream SSE e lê `tool.tool_args` (`web/src/api/client.ts`).
 

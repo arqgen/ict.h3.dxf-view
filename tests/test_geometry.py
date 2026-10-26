@@ -7,8 +7,10 @@ from src.cad.geometry import (
     bbox_intersects,
     bbox_of_prims,
     distance_point_segment,
+    fits_inside,
     min_distance,
     normalize_closed,
+    point_in_polygon,
     polygon_area,
     polyline_length,
 )
@@ -119,3 +121,16 @@ def test_min_distance_inside_measures_to_outer_edge():
 
 def test_min_distance_without_geometry_is_infinite():
     assert min_distance([], [_rect(0, 0, 1, 1)]) == math.inf
+
+
+def test_point_in_polygon():
+    assert point_in_polygon((5.0, 5.0), RECT)
+    assert not point_in_polygon((25.0, 5.0), RECT)
+
+
+def test_fits_inside():
+    outer = _rect(0, 0, 100, 80)
+    assert fits_inside([_rect(10, 10, 20, 20)], outer)
+    assert fits_inside([_rect(0, 10, 20, 20)], outer)  # encosta na borda
+    assert not fits_inside([_rect(90, 10, 110, 20)], outer)  # cruza
+    assert not fits_inside([_rect(200, 10, 210, 20)], outer)  # fora

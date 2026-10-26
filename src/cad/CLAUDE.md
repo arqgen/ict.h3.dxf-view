@@ -21,13 +21,13 @@ Toda geometria colapsa em três primitivas:
 Prim = PolylinePrim(pts, closed) | PointPrim(p) | TextPrim(p, text, height, rotation)
 ```
 
-Por causa disso, bbox, comprimento, área, hit-test e geometria de destaque derivam de um lugar só. **Ao suportar um tipo de geometria novo, mapeie-o para uma dessas três primitivas — não crie uma quarta.** Cada anel ou linha GeoJSON vira um `PolylinePrim`; `Point` vira `PointPrim`. O AQG não tem texto, então `TextPrim` hoje não é produzido.
+Por causa disso, bbox, comprimento, área, hit-test e geometria de destaque derivam de um lugar só. **Ao suportar um tipo de geometria novo, mapeie-o para uma dessas três primitivas — não crie uma quarta.** Cada anel ou linha GeoJSON vira um `PolylinePrim`; `Point` vira `PointPrim`. O AQG não tem texto livre: `TextPrim` só é produzido no rótulo do marco de cota (valor com 2 casas, altura `ELEVATION_TEXT_HEIGHT`).
 
 `PolylinePrim.pts` de uma primitiva fechada **não repete o primeiro ponto no fim**: o segmento de fechamento é implícito. Os anéis GeoJSON repetem e `normalize_closed()` remove — mantê-lo contaria o fechamento duas vezes no comprimento e distorceria a área.
 
 ## Regras do AQG
 
-- **Ids opacos por posição:** `s<i>` para `site.elements[i]`; `p<i>` para `placed_objects[i]` (instância, se `PlacedFamily`; entidade, se `PlacedElement`/`PlacedAuxiliaryArea`); `p<i>.<j>` para a parte `volume[j]` da instância. `i` e `j` são contados **antes** de qualquer exclusão, então uma parte excluída deixa buraco na numeração. O id é opaco de propósito: um id legível como `torre-03` faria o modelo confundir a torre desenhada com a torre 03 dos indicadores.
+- **Ids opacos por posição:** `s<i>` para `site.elements[i]`; `p<i>` para `placed_objects[i]` (instância, se `PlacedFamily`; entidade, se `PlacedElement`/`PlacedAuxiliaryArea`); `p<i>.<j>` para a parte `volume[j]` da instância; `a<i>` para `solution.annotations[i]` (marco de cota: layer `AQG_COTA`, type `cota`, `PointPrim` + `TextPrim`; seta de declive: layer `AQG_SETA_DECLIVE`, type `seta_declive`, classe `gentle`/`steep` no rótulo e `value` fora por não ter unidade conhecida). `i` e `j` são contados **antes** de qualquer exclusão, então uma parte excluída deixa buraco na numeração. O id é opaco de propósito: um id legível como `torre-03` faria o modelo confundir a torre desenhada com a torre 03 dos indicadores.
 - **Instância não é entidade.** `p<i>` de uma `PlacedFamily` vive em `model.instances`, não em `by_id`; as partes é que são entidades. As tools e o frontend expandem `p<i>` nas partes.
 - **Casamento de família nos dois sentidos:** a família é a primeira de `families[]` em que `hid` e `class_path` são prefixo (por segmento) um do outro. Em 6 arquivos, 1.427 vagas têm `hid` = `/equipment/vaga/simples/front_access` e a família é `.../front_access/P/0` — a regra num sentido só as perderia. Instância sem família vira aviso e fica fora do índice.
 - **Rotação anti-horária, verificada:** `x' = x + px·cos θ − py·sin θ`, `y' = y + px·sin θ + py·cos θ`. Com ela, todo `/core` do acervo cai dentro do `AQG_PERIMETRO`; com a horária, não. `site.elements` e `PlacedElement` já vêm em coordenadas do terreno.
@@ -41,7 +41,7 @@ Por causa disso, bbox, comprimento, área, hit-test e geometria de destaque deri
 Verificadas nos 24 AQGs locais; todas falham em silêncio.
 
 1. **Nem `hid` nem `(hid, index)` são únicos** num arquivo — só a posição em `placed_objects` identifica.
-2. **A ordem dos `DescritivoTorre` não segue `placed_objects`** (difere em 6 arquivos, sem ordenação que explique). Nunca vincule descritivo a instância.
+2. **A ordem dos `DescritivoTorre` não segue `placed_objects`** (difere em 6 arquivos, sem ordenação que explique). Nunca vincule descritivo a uma instância só: `descriptor_groups()` vincula cada descritivo ao **grupo** de instâncias da família de torre com as mesmas unidades (`tower_units`), e deixa de fora a linha `TOTAL` e o descritivo ambíguo.
 3. **Os apartamentos desenhados são por pavimento**, não o total de unidades.
 4. **Layers `talude` e `topografia` vêm em minúsculas e sem `AQG_`.**
 5. **Furos existem:** 12 taludes (em `MultiPolygon`) e 1 `AQG_RUA`. `_area_of` ingênuo somaria os anéis.

@@ -1,6 +1,6 @@
 # PRD — Migração de DXF para AQG
 
-> Status: **revisado contra os 24 AQGs locais e o `viewer.html`, aguardando aprovação**. Nenhum código foi escrito. Branch: `feat/aqg-support`.
+> Status: **implementado** na branch `feat/aqg-support`. O que o assistente faz hoje está em [`CAPABILITIES.md`](CAPABILITIES.md), e as próximas tools estão em [`PRD-tools.md`](PRD-tools.md).
 
 ## Objetivo
 
@@ -163,7 +163,7 @@ Base: 24 arquivos, 15 em `avaliadas/` e 9 em `favoritadas/`.
 - **Id opaco por posição** (`p<i>`, `p<i>.<j>`, `s<i>`), e as tools de interface aceitam o id da instância.
 - **Referência = `viewer.html`, mais curvas de nível, taludes, muros de arrimo e crista.**
 - **Furos:** área = externo − internos.
-- **`DescritivoTorre` não é vinculado a instância** até a regra ser conhecida.
+- **`DescritivoTorre` não é vinculado a instância** até a regra ser conhecida. *Revisado em 26/10/2026 (cartão T3 de [`PRD-tools.md`](PRD-tools.md)):* o descritivo passa a ser vinculado ao grupo de torres idênticas, casado pelas unidades da família (24 de 24 arquivos); o vínculo com uma instância só continua proibido.
 - **Indicadores expostos:** `solution.outputs`, `site.inputs`, `site.processed_info` e `solution.scores`.
 - **Markdown no chat:** `react-markdown` + `remark-gfm`, sem HTML cru, em vez de estender o parser próprio.
 - **Contas só em tool:** o agente não soma, não calcula percentual nem diferença. `compare_indicators(projetado, limite)` recebe nomes de indicador e devolve percentual usado e folga; `count_entities(group_by="family")` devolve o total por tipo de família. Motivo: o primeiro eval mostrou o modelo derivando "61% do CA" e somas de contagens sem procedência.
