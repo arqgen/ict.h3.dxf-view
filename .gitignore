@@ -245,3 +245,4 @@ data/dxf/*.dxf
 # AQGs de teste e viewer de referência — pesados demais para o Git (ver data/aqg/README.md)
 data/aqg/**/*.json
 data/aqg/viewer.html
+evals/results/

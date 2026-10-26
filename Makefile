@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: install lint format test dev dev-web dev-all build-web phoenix-up phoenix-down phoenix-logs clean
+.PHONY: install lint format test eval dev dev-web dev-all build-web phoenix-up phoenix-down phoenix-logs clean
 
 PORT ?= 8787
 HOST ?= 0.0.0.0
@@ -13,14 +13,17 @@ install:
 	npm --prefix web install
 
 lint:
-	uv run ruff check src tests
+	uv run ruff check src tests evals
 
 format:
-	uv run ruff format src tests
-	uv run ruff check --fix src tests
+	uv run ruff format src tests evals
+	uv run ruff check --fix src tests evals
 
 test:
 	uv run pytest
+
+eval:
+	uv run python -m evals.agent_eval
 
 dev:
 	PORT=$(PORT) HOST=$(HOST) uv run python -m src.main
