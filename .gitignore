@@ -246,3 +246,5 @@ data/dxf/*.dxf
 data/aqg/**/*.json
 data/aqg/viewer.html
 evals/results/
+# Saídas dos notebooks de experiments/: derivam dos AQGs, que não são versionados
+experiments/results/
