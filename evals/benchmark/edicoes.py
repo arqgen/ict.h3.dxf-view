@@ -5,7 +5,7 @@ cru, e passa a edição pela cascata de `gravacao.aplicar`. Arquivo em que a des
 não aponta um elemento só (empate abaixo de `TIE`) fica fora da tarefa.
 
     cd <viabiliza-terrenos.backend>/packages/py && ../../venv/bin/python \\
-        <repo>/evals/benchmark/edicoes.py [d1 d3 d6 e3] [arquivos]
+        <repo>/evals/benchmark/edicoes.py [d1 d3 d6 e1 e3] [arquivos]
 
 Sem tarefas, roda todas; sem arquivos, todos os admitidos.
 """
@@ -20,6 +20,7 @@ from typing import Any
 from buildings.family.construction import build_families
 from buildings.family.variations.empena_cega import calc_empena_cega
 from buildings.family.variations.height import (
+    _calc_expected_parking_spots,
     _gen_family_variation,
     _gen_tower_height_variation,
     gen_floor_heights_spec,
@@ -388,8 +389,45 @@ def e3(arquivo: str, raw: dict, model: CadModel) -> dict:
     return {**row, **entry}
 
 
+def recalcular_vagas(family: Any, archprog: Any) -> Any:
+    """`vagas_necessarias` de cada pavimento da torre com o programa novo (fato 4)."""
+    if not str(family.class_path).startswith(TOWER):
+        return family
+    p = family.properties
+    pavs = {
+        nome: getattr(p, nome).set(
+            vagas_necessarias=_calc_expected_parking_spots(
+                getattr(p, nome).tipologias, archprog
+            )
+        )
+        for nome in ("pav_tipo", "terreo")
+    }
+    return family.set(properties=p.set(**pavs))
+
+
+def e1(arquivo: str, raw: dict, model: CadModel) -> dict:
+    row = {"tarefa": "E1", "arquivo": arquivo}
+    if "parking_lot" not in json.dumps(raw["solution"]["strategy"]):
+        return {**row, "fora": "sem estacionamento"}
+    args = {"chave": "ParkingLotPerUnit", "valor": 1.5}
+    archprog = [
+        {**a, "value": 1.5} if a["type"] == "ParkingLotPerUnit" else a
+        for a in raw["archprog"]
+    ]
+    novo = Project.create({**raw, "archprog": archprog}).archprog
+
+    def edit(project: Project) -> Project:
+        families = pvector(recalcular_vagas(f, novo) for f in project.families)
+        return project.set(archprog=novo, families=families)
+
+    return {
+        **row,
+        **aplicar(arquivo, Project.create(raw), "alterar_programa", args, edit),
+    }
+
+
 def main() -> None:
-    tarefas = {"d1": d1, "d3": d3, "d6": d6, "e3": e3}
+    tarefas = {"d1": d1, "d3": d3, "d6": d6, "e1": e1, "e3": e3}
     names = [a for a in sys.argv[1:] if a in tarefas]
     tasks = [tarefas[n] for n in names] or list(tarefas.values())
     only = set(sys.argv[1:]) - set(names)
@@ -402,7 +440,13 @@ def main() -> None:
         for task in tasks:
             row = task(arquivo, raw, model)
             keep = ("tarefa", "torre", "fora", "veredito", "violacoes", "erro")
-            extra = ("unidades_perdidas", "reposicionadas", "removidas", "segundos")
+            extra = (
+                "unidades_perdidas",
+                "vagas",
+                "reposicionadas",
+                "removidas",
+                "segundos",
+            )
             shown = {k: row[k] for k in (*keep, *extra) if row.get(k) is not None}
             print(shown, arquivo)
 

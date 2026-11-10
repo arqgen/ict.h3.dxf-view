@@ -1,4 +1,31 @@
 {
+ "00361ab156e70d89": {
+  "aqg": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/00361ab156e70d89.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 1.86,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "03ba8ff127b417fc": {
   "aqg": "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/03ba8ff127b417fc.json",
   "args": {
@@ -24,7 +51,7 @@
    "p270",
    "p271"
   ],
-  "segundos": 3.32,
+  "segundos": 3.53,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -67,7 +94,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 1.78,
+  "segundos": 1.54,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -154,7 +181,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 4.52,
+  "segundos": 4.69,
   "tool": "remover_torre",
   "veredito": "valido",
   "versoes": {
@@ -183,7 +210,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 1.2,
+  "segundos": 1.16,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -212,7 +239,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 1.07,
+  "segundos": 1.08,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -270,7 +297,7 @@
    "p2"
   ],
   "reposicionadas": [],
-  "segundos": 0.53,
+  "segundos": 0.47,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -332,7 +359,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 8.21,
+  "segundos": 8.54,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -344,6 +371,36 @@
    "teseu": "0.5.2"
   },
   "violacoes": []
+ },
+ "1e8b51f9984b42cc": {
+  "aqg": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/1e8b51f9984b42cc.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "solucoes-18x/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "alterar_programa",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "PermeabilidadeExigida",
+    "torres": [
+     "p156",
+     "p157"
+    ]
+   }
+  ]
  },
  "230a101a0499cf7f": {
   "aqg": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json",
@@ -409,7 +466,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 7.47,
+  "segundos": 7.93,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -472,7 +529,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 1.46,
+  "segundos": 1.33,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -534,7 +591,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 1.03,
+  "segundos": 0.93,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -593,7 +650,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 1.86,
+  "segundos": 1.66,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -627,7 +684,7 @@
   "reposicionadas": [
    "p381"
   ],
-  "segundos": 9.5,
+  "segundos": 8.67,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -655,7 +712,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 1.91,
+  "segundos": 1.77,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -684,7 +741,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 1.08,
+  "segundos": 0.99,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -736,7 +793,7 @@
    "p942"
   ],
   "reposicionadas": [],
-  "segundos": 3.31,
+  "segundos": 3.32,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -785,7 +842,7 @@
    "p357"
   ],
   "reposicionadas": [],
-  "segundos": 1.41,
+  "segundos": 1.21,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -832,6 +889,147 @@
    }
   ]
  },
+ "412a51a30a29cf41": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace84f467fab4d8049d1394/412a51a30a29cf41.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/otimo_6ace84f467fab4d8049d1394.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "alterar_programa",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "PermeabilidadeExigida",
+    "torres": [
+     "p1",
+     "p2",
+     "p3"
+    ]
+   }
+  ]
+ },
+ "4484f07b218692c6": {
+  "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/4484f07b218692c6.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "alterar_programa",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "PermeabilidadeExigida",
+    "torres": [
+     "p932",
+     "p933",
+     "p934",
+     "p935",
+     "p936",
+     "p937",
+     "p938",
+     "p939",
+     "p940"
+    ]
+   }
+  ]
+ },
+ "4864e346076e0d17": {
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
+  "erro": "/parking_lot/optimal_selection/default: trying to unwrap an Err: Solver failed or solution unreliable: infeasible",
+  "tool": "alterar_programa",
+  "veredito": "erro",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "48b61ccf903738b7": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/48b61ccf903738b7.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 1.26,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "4b476868734fc663": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/4b476868734fc663.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 1.41,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "4c8af4e12ff3b7fd": {
   "aqg": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/4c8af4e12ff3b7fd.json",
   "args": {
@@ -846,7 +1044,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 1.71,
+  "segundos": 1.41,
   "tool": "definir_pavimentos",
   "veredito": "valido",
   "versoes": {
@@ -874,7 +1072,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 1.63,
+  "segundos": 1.57,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -900,7 +1098,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 2.25,
+  "segundos": 2.24,
   "tool": "definir_pavimentos",
   "veredito": "valido",
   "versoes": {
@@ -1022,6 +1220,67 @@
    "teseu": "0.5.2"
   }
  },
+ "56cdf101108af456": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/56cdf101108af456.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/bom_6ace7b93445b3a60fcb6162b.json",
+  "etapas": [
+   "validar",
+   "estacionamento"
+  ],
+  "tool": "alterar_programa",
+  "vagas": {
+   "encontradas": 85,
+   "necessarias": 120
+  },
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "ParkingNetworkInsufficientRatio",
+    "torres": [
+     "p1"
+    ]
+   }
+  ]
+ },
+ "577b38580f185228": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/577b38580f185228.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/ruim_6ace4ea8ecd8aeaf968b312c.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 0.66,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "597fbdb18d4b276f": {
   "aqg": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/597fbdb18d4b276f.json",
   "args": {},
@@ -1036,6 +1295,43 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "59c8355c47590a44": {
+  "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/59c8355c47590a44.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "alterar_programa",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "PermeabilidadeExigida",
+    "torres": [
+     "p934",
+     "p935",
+     "p936",
+     "p937",
+     "p938",
+     "p939",
+     "p940",
+     "p941",
+     "p942"
+    ]
+   }
+  ]
  },
  "5a2988f2264d7ddc": {
   "aqg": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/5a2988f2264d7ddc.json",
@@ -1078,7 +1374,7 @@
    "entrance",
    "indicadores"
   ],
-  "segundos": 0.21,
+  "segundos": 0.18,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -1131,7 +1427,7 @@
    "p940"
   ],
   "reposicionadas": [],
-  "segundos": 2.82,
+  "segundos": 2.97,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -1203,6 +1499,35 @@
   },
   "violacoes": []
  },
+ "6b8ec129a4a7de02": {
+  "aqg": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/6b8ec129a4a7de02.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "alterar_programa",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "PermeabilidadeExigida",
+    "torres": [
+     "p221"
+    ]
+   }
+  ]
+ },
  "6f750cd83da54c1d": {
   "aqg": "data/benchmark/gravacoes/bom_6ace3c8be748be1a355e6769/6f750cd83da54c1d.json",
   "args": {},
@@ -1217,6 +1542,37 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "6ffaff4fe10f63e9": {
+  "aqg": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/6ffaff4fe10f63e9.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "solucoes-18x/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "alterar_programa",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "PermeabilidadeExigida",
+    "torres": [
+     "p707",
+     "p708",
+     "p709"
+    ]
+   }
+  ]
  },
  "709c82f2b1242ef4": {
   "aqg": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/709c82f2b1242ef4.json",
@@ -1234,7 +1590,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 2.02,
+  "segundos": 1.83,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -1290,6 +1646,25 @@
   },
   "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
   "erro": "could not compute families from archprog: tetris could not find solution",
+  "tool": "alterar_programa",
+  "veredito": "erro",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "77e4d89e9f37428f": {
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
+  "erro": "/parking_lot/optimal_selection/default: trying to unwrap an Err: Solver failed or solution unreliable: infeasible",
   "tool": "alterar_programa",
   "veredito": "erro",
   "versoes": {
@@ -1377,7 +1752,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 5.08,
+  "segundos": 5.21,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -1416,7 +1791,7 @@
    "p485",
    "p487"
   ],
-  "segundos": 6.45,
+  "segundos": 6.6,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -1446,7 +1821,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 1.01,
+  "segundos": 0.99,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -1494,7 +1869,7 @@
   "reposicionadas": [
    "p1"
   ],
-  "segundos": 0.55,
+  "segundos": 0.51,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -1552,7 +1927,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 0.93,
+  "segundos": 0.81,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -1610,7 +1985,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 0.44,
+  "segundos": 0.39,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -1639,7 +2014,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 0.99,
+  "segundos": 0.88,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -1730,7 +2105,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 4.31,
+  "segundos": 3.99,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -1757,7 +2132,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 4.03,
+  "segundos": 4.05,
   "tool": "remover_torre",
   "veredito": "valido",
   "versoes": {
@@ -1784,6 +2159,45 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "a26df3263e88937f": {
+  "aqg": "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/a26df3263e88937f.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "solucoes-18x/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5.json",
+  "etapas": [
+   "validar",
+   "estacionamento"
+  ],
+  "tool": "alterar_programa",
+  "vagas": {
+   "encontradas": 563,
+   "necessarias": 756
+  },
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "ParkingNetworkInsufficientRatio",
+    "torres": [
+     "p507",
+     "p508",
+     "p509",
+     "p510",
+     "p511",
+     "p512"
+    ]
+   }
+  ]
  },
  "a3d5bdc2910b9e01": {
   "aqg": "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/a3d5bdc2910b9e01.json",
@@ -1834,6 +2248,40 @@
    }
   ]
  },
+ "aad1aeae55557800": {
+  "aqg": "data/benchmark/gravacoes/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f/aad1aeae55557800.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "solucoes-18x/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "alterar_programa",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "PermeabilidadeExigida",
+    "torres": [
+     "p516",
+     "p517",
+     "p518",
+     "p519",
+     "p520",
+     "p521"
+    ]
+   }
+  ]
+ },
  "aaf73e4583674808": {
   "aqg": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json",
   "args": {},
@@ -1848,6 +2296,33 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "aaf83bb3cfd40881": {
+  "aqg": "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/aaf83bb3cfd40881.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "solucoes-18x/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 2.44,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "ab34a73368fe8a72": {
   "aqg": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/ab34a73368fe8a72.json",
@@ -1873,7 +2348,33 @@
    "p10"
   ],
   "reposicionadas": [],
-  "segundos": 4.16,
+  "segundos": 3.68,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "ad9e2a937ec2f681": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/ad9e2a937ec2f681.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/ruim_6ace7f0d246ca4a63fa193fd.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "indicadores"
+  ],
+  "segundos": 0.12,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -1962,7 +2463,35 @@
    "p200",
    "p203"
   ],
-  "segundos": 18.24,
+  "segundos": 16.68,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "b439b9bf93fc1127": {
+  "aqg": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/b439b9bf93fc1127.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "solucoes-18x/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "leisure",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 21.41,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -2051,7 +2580,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 1.68,
+  "segundos": 1.43,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -2142,7 +2671,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 0.47,
+  "segundos": 0.42,
   "tool": "definir_pavimentos",
   "veredito": "valido",
   "versoes": {
@@ -2185,6 +2714,44 @@
     "regra": "MaxPavimentos",
     "torres": [
      "p511"
+    ]
+   }
+  ]
+ },
+ "c250bc7f9cd098dc": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace64da8d16ae86ca3419e5/c250bc7f9cd098dc.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/otimo_6ace64da8d16ae86ca3419e5.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "alterar_programa",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "PermeabilidadeExigida",
+    "torres": [
+     "p376",
+     "p377",
+     "p378",
+     "p379",
+     "p380",
+     "p381",
+     "p382",
+     "p383",
+     "p384",
+     "p385"
     ]
    }
   ]
@@ -2238,6 +2805,36 @@
    "teseu": "0.5.2"
   }
  },
+ "c765a11dd96eb22c": {
+  "aqg": "data/benchmark/gravacoes/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d/c765a11dd96eb22c.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "solucoes-18x/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "alterar_programa",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "PermeabilidadeExigida",
+    "torres": [
+     "p153",
+     "p154"
+    ]
+   }
+  ]
+ },
  "c819cb44848603aa": {
   "aqg": "data/benchmark/gravacoes/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f/c819cb44848603aa.json",
   "args": {
@@ -2260,7 +2857,7 @@
    "p519"
   ],
   "reposicionadas": [],
-  "segundos": 2.21,
+  "segundos": 2.28,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -2357,6 +2954,37 @@
    }
   ]
  },
+ "ce9acdc9b6dcb671": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/ce9acdc9b6dcb671.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "alterar_programa",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "PermeabilidadeExigida",
+    "torres": [
+     "p355",
+     "p356",
+     "p357"
+    ]
+   }
+  ]
+ },
  "cfc3521c59860425": {
   "aqg": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/cfc3521c59860425.json",
   "args": {
@@ -2425,6 +3053,40 @@
    }
   ]
  },
+ "d0de07c33486bdad": {
+  "aqg": "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/d0de07c33486bdad.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "solucoes-18x/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "alterar_programa",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "PermeabilidadeExigida",
+    "torres": [
+     "p266",
+     "p267",
+     "p268",
+     "p269",
+     "p270",
+     "p271"
+    ]
+   }
+  ]
+ },
  "d273cb62a79d4d3b": {
   "aqg": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/d273cb62a79d4d3b.json",
   "args": {
@@ -2440,7 +3102,7 @@
    "entrance",
    "indicadores"
   ],
-  "segundos": 0.16,
+  "segundos": 0.12,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -2478,7 +3140,7 @@
    "p510",
    "p511"
   ],
-  "segundos": 4.74,
+  "segundos": 4.8,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -2610,7 +3272,7 @@
    "p2",
    "p4"
   ],
-  "segundos": 2.95,
+  "segundos": 2.51,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -2689,6 +3351,7 @@
   ]
  },
  "e14a8f0c0d09a54e": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace84f467fab4d8049d1394/e14a8f0c0d09a54e.json",
   "args": {
    "mix": {
     "/building/apartamento/1q/27_97": 40,
@@ -2696,13 +3359,21 @@
    }
   },
   "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/otimo_6ace84f467fab4d8049d1394.json",
-  "erro": "/parking_lot/optimal_selection/default: could not compute parking lot: didn't reach expected parking lots amount (expected 120, found 75.0): found 0.5 ratio",
+  "etapas": [
+   "validar",
+   "reposicionar",
+   "estacionamento"
+  ],
   "removidas": [],
   "reposicionadas": [
    "p3"
   ],
   "tool": "alterar_programa",
-  "veredito": "erro",
+  "vagas": {
+   "encontradas": 75,
+   "necessarias": 120
+  },
+  "veredito": "invalido",
   "versoes": {
    "buildings": "19.3.0",
    "ibitira": "5.2.0+adaptador",
@@ -2711,7 +3382,16 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   },
-  "violacoes": []
+  "violacoes": [
+   {
+    "regra": "ParkingNetworkInsufficientRatio",
+    "torres": [
+     "p1",
+     "p2",
+     "p3"
+    ]
+   }
+  ]
  },
  "e83526a91ee68aed": {
   "aqg": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/e83526a91ee68aed.json",
@@ -2728,7 +3408,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 2.05,
+  "segundos": 1.8,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -2847,6 +3527,33 @@
    "teseu": "0.5.2"
   }
  },
+ "f15fe7627e172bbe": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/f15fe7627e172bbe.json",
+  "args": {
+   "chave": "ParkingLotPerUnit",
+   "valor": 1.5
+  },
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 14.6,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "f1e1bf266a50c980": {
   "aqg": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/f1e1bf266a50c980.json",
   "args": {},
@@ -2883,7 +3590,7 @@
    "p1",
    "p2"
   ],
-  "segundos": 1.19,
+  "segundos": 1.07,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
@@ -2951,7 +3658,7 @@
    "p3"
   ],
   "reposicionadas": [],
-  "segundos": 2.53,
+  "segundos": 2.49,
   "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {

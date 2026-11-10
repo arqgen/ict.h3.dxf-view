@@ -19,6 +19,7 @@ Sem argumentos, confere a cascata sem edição (o estado inicial dos casos) em t
 
 import hashlib
 import json
+import math
 import os
 import re
 import subprocess
@@ -41,11 +42,13 @@ import lib.problem.earth_movement as earth_movement  # noqa: E402
 from buildings.annotations import compute_annotations
 from buildings.metrics.compute import compute_outputs
 from buildings.protocol.client_specs import ClientSpecs, StepId
+from buildings.protocol.inputs import CAMaximoExigido
 from buildings.protocol.project import Project
 from errata.result import Err, Ok, Result
 from lib.config.client_specs import temp_get_client_specs
 from lib.problem.pipeline import _gen_tower_config, _solve_step
 from lib.problem.towers import _gen_problem
+from lib.problem.towers.constraint import gen_tx_available_area_to_towers
 from maga.ibitira.protocol import FeasibilitySolution
 from pyrsistent import pvector
 
@@ -56,6 +59,7 @@ INDICE = Path(__file__).with_name("gravacoes.json")
 SPECS = temp_get_client_specs("default").unwrap()
 TIMEOUT_MS = 260_000
 FORMULATION = "inconsistency in the formulated problem"
+BROAD = "agregado ou circulação"
 TOWER = "/building/torre"
 PORTARIA = "/building/portaria"
 # D8: o conjunto que reproduziu o acervo.
@@ -155,7 +159,7 @@ def run_teodora(problem: dict) -> tuple[str, str]:
         rule = re.search(r"\[([A-Za-z]+)", proc.stderr.split(FORMULATION, 1)[1])
         return "invalid", rule.group(1) if rule else "desconhecida"
     if "broad" in proc.stderr.lower():
-        return "invalid", "agregado ou circulação"
+        return "invalid", BROAD
     return "unavailable", proc.stderr[:150]
 
 
@@ -168,6 +172,40 @@ def tower_ids(project: Project) -> list[tuple[str, str, dict]]:
     ]
 
 
+def agregados_estourados(
+    project: Project, problem: dict, families: list[str]
+) -> list[str]:
+    """Nome de cada `MaximumSum` que as torres estouram.
+
+    O teodora só diz "broken broad constraint". Os tetos com nome são os mesmos que o
+    gerador usa (`_gen_towers_exceeding_caps`): permeabilidade e CA; os demais saem
+    como `MaximumSum`.
+    """
+    caps = []
+    for name, cap in (
+        ("PermeabilidadeExigida", gen_tx_available_area_to_towers(project)),
+        ("CAMaximoExigido", project.site.inputs.get_input(CAMaximoExigido)),
+    ):
+        if cap.is_ok():
+            value = cap.unwrap()
+            caps.append((name, getattr(value, "value", value)))
+    names = []
+    for constraint in problem.get("constraints") or []:
+        total_sum = constraint.get("MaximumSum")
+        if not total_sum:
+            continue
+        total = sum(w * families.count(f) for f, w in total_sum["objects"])
+        if total <= total_sum["amount"]:
+            continue
+        names.append(
+            next(
+                (n for n, v in caps if math.isclose(v, total_sum["amount"])),
+                "MaximumSum",
+            )
+        )
+    return names
+
+
 def validar(project: Project) -> list[dict]:
     """Todas as violações das torres: cada uma sozinha, cada par e o conjunto."""
     problem = teodora_problem(project)
@@ -175,7 +213,13 @@ def validar(project: Project) -> list[dict]:
     violacoes: list[dict] = []
 
     def check(subset: list[tuple[str, str, dict]]) -> tuple[str, str]:
-        return run_teodora(check_problem(problem, [(f, p) for _, f, p in subset]))
+        status, rule = run_teodora(
+            check_problem(problem, [(f, p) for _, f, p in subset])
+        )
+        if rule == BROAD:
+            named = agregados_estourados(project, problem, [f for _, f, _ in subset])
+            rule = ", ".join(named) or rule
+        return status, rule
 
     alone_ok = []
     for tower in towers:
@@ -396,6 +440,29 @@ def aplicar(
         }
         return gravar(arquivo, tool, args, edited, resposta)
     res = cascata(original, edited, specs)
+    vagas = re.search(r"expected (\d+), found ([\d.]+)", str(res))
+    if res.is_err() and vagas:
+        # O teseu recusa quando acha menos de 80% da demanda: é veredito, não falha.
+        resposta = {
+            "veredito": "invalido",
+            "violacoes": [
+                {
+                    "regra": "ParkingNetworkInsufficientRatio",
+                    "torres": [t for t, _, _ in tower_ids(edited)],
+                }
+            ],
+            "etapas": [
+                "validar",
+                *(["reposicionar"] if extra else []),
+                "estacionamento",
+            ],
+            "vagas": {
+                "necessarias": int(vagas.group(1)),
+                "encontradas": int(float(vagas.group(2))),
+            },
+            **extra,
+        }
+        return gravar(arquivo, tool, args, edited, resposta)
     if res.is_err():
         resposta = {
             "veredito": "erro",

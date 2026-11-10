@@ -189,6 +189,10 @@ Verificados nos spikes e na admissão (09/11/2026):
 - **Tarefa:** E1 ("aumente para 1,5 vaga por unidade e refaça só o estacionamento").
 - **Passos:** `ParkingLotPerUnit` × 1,5 no archprog; `vagas_necessarias` recalculado por `_calc_expected_parking_spots` em cada pavimento das famílias de torre; validar (agregado de vagas); cascata a partir do estacionamento.
 - **Aceite:** demanda nova = demanda do arquivo × 1,5 (arredondada como o `buildings` arredonda); resposta esperada com vagas atendidas e déficit, que pode ser negativo em relação às vagas do arquivo (spike: 2 de 11 perderam vagas).
+- **Resultado (10/11/2026): concluída, com um desvio do passo.** A pergunta diz "aumente **para** 1,5" e a tool é `alterar_programa(chave, valor)`, então a gravação **define** `ParkingLotPerUnit = 1,5`, em vez de multiplicar por 1,5 como no spike. Os arquivos têm de 0,25 a 1,08, e por isso a demanda sobe de ×1,4 a ×6. Aceite conferido nessa leitura: em todas as gravações, demanda = `ceil(unidades × 1,5)`, como `calc_parking_spots_amount`.
+  - E1 em 23 arquivos (6 sem etapa de estacionamento ficam fora): 8 válidas, 13 `invalido` e 2 erros do teseu (`infeasible`). Nas válidas, as vagas projetadas sobem e o déficit vai de 0 a 92. Das inválidas, 11 estouram a permeabilidade já no `validar` (o peso de cada torre inclui a área impermeável das vagas) e 2 caem no estacionamento: o teseu acha menos de 80% da demanda (85 de 120, 563 de 756).
+  - **Recusa do teseu vira veredito:** quando a cascata cai em "didn't reach expected parking lots amount", `aplicar` grava `invalido` com `ParkingNetworkInsufficientRatio` e `vagas: {necessarias, encontradas}`, e não `erro`. Com isso, a E3 de `6ace7adc/otimo` passou de `erro` para `invalido`.
+  - **Agregados com nome no `validar`:** o teodora só diz "broken broad constraint". `agregados_estourados` refaz as somas dos `MaximumSum` e nomeia o teto pelos mesmos que o gerador usa (`PermeabilidadeExigida` por `gen_tx_available_area_to_towers`, `CAMaximoExigido`); os outros saem como `MaximumSum`. As outras 110 entradas do índice não mudaram, e duas passadas dão os mesmos 126 AQGs.
 
 ### G4 — Talude
 
