@@ -230,6 +230,12 @@ Verificados nos spikes e na admissão (09/11/2026):
 - **Arquivos:** `evals/benchmark/tools/` com três módulos: `calculo.py` (as 5 da D4, sobre o parser deste repo), `edicao.py` (cada tool de edição resolve a chave canônica e devolve o gravado ou "fora do roteiro") e `linha_de_base.py` (as 16 tools atuais, sem o `RunContext` do agno).
 - **Contrato:** funções Python puras com descrição em JSON Schema, para a RECOD plugar no framework de agente que quiser.
 - **Aceite:** nenhum import do VT, `buildings` ou `maga` (teste que falha se aparecer); toda chamada canônica dos casos devolve a gravação; chamada não gravada devolve "fora do roteiro".
+- **Resultado (10/11/2026): concluída.** `evals/benchmark/tools/` com os três módulos e um registro (`GRUPOS`, nome → função, e `esquemas(grupos)`, o JSON Schema de cada tool, gerado pelo mesmo `Function.from_callable` do agno que monta as tools do agente).
+  - **Estado:** toda tool, exceto `calcular`, recebe `estado`, o caminho do AQG atual, como primeiro argumento. Quem passa é o harness da RECOD, e o schema que vai ao modelo não o inclui (o papel do `RunContext` no agente deste repo).
+  - **Edição:** a tool acha, no índice, de onde o estado veio (a base ou uma gravação, que vira o `apos`) e a gravação com os mesmos argumentos, comparados depois de normalizar (`5` = `5.0`, `"1:1,5"` = `"1:1.5"`, maiúsculas, ordem do mix). Devolve `{"resposta", "estado"}`: a resposta vai ao modelo (veredito, violações, etapas e, quando há, vagas, reposicionadas, removidas ou erro); o estado é o AQG seguinte. Sem gravação: `{"erro": "fora do roteiro"}` e estado `None`. `trocar_familia`, `resolver_estacionamento`, `recalcular_indicadores` e `validar` existem, mas nenhuma tarefa da fatia as grava.
+  - **Cálculo:** 4 tools, pelo ajuste da D2 no PRD. `relacao_espacial` mede como o gabarito (torre pelo pavimento-tipo, borda a borda) e confere com a B9 e a B11 de `checks.json` nos 37 arquivos; `calcular` só aceita aritmética (`ast`, sem nomes nem chamadas).
+  - **Linha de base:** as 16 tools com a mesma função, descrição e schema do agente; o documento vem de um `RunContext` montado com o AQG do estado.
+  - **Aceite** em `tests/test_benchmark_tools.py`: importar as tools não carrega `buildings`, `maga`, `errata`, `persistente` nem `lib`; todas as entradas do índice, chamadas pela tool a partir do estado de origem, devolvem a gravação e o veredito; formas equivalentes caem na mesma gravação; o que não foi gravado devolve "fora do roteiro".
 
 ### T1 — Casos de edição e controles
 

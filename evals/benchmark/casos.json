@@ -4448,7 +4448,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "sem etapa de estacionamento"
  },
  {
@@ -4457,7 +4457,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "sem etapa de estacionamento"
  },
  {
@@ -4466,7 +4466,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "sem etapa de estacionamento"
  },
  {
@@ -4475,7 +4475,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "sem etapa de estacionamento"
  },
  {
@@ -4484,7 +4484,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "sem etapa de estacionamento"
  },
  {
@@ -4493,7 +4493,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "sem etapa de estacionamento"
  },
  {
@@ -4505,7 +4505,7 @@
    "p255": 37.65,
    "p256": 37.65
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 13.47 m da rede; p255: acesso a 0.0 m da rede; p256: acesso a 0.0 m da rede"
  },
  {
@@ -4518,7 +4518,7 @@
    "p356": 59.63,
    "p357": 0.0
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 16.48 m da rede; p355: acesso a 0.0 m da rede; p356: acesso a 0.0 m da rede; p357: acesso a 0.0 m da rede"
  },
  {
@@ -4529,7 +4529,7 @@
   "resposta_esperada": {
    "p120": 82.8
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 15.86 m da rede; p120: acesso a 0.0 m da rede"
  },
  {
@@ -4543,7 +4543,7 @@
    "p151": 53.69,
    "p152": 53.69
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 6.08 m da rede; p149: acesso a 26.5 m da rede; p150: acesso a 0.0 m da rede; p151: acesso a 0.0 m da rede; p152: acesso a 36.55 m da rede"
  },
  {
@@ -4552,7 +4552,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "sem portaria desenhada"
  },
  {
@@ -4563,7 +4563,7 @@
   "resposta_esperada": {
    "p35": 92.61
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 10.7 m da rede; p35: acesso a 127.97 m da rede"
  },
  {
@@ -4574,7 +4574,7 @@
   "resposta_esperada": {
    "p1": 2.9
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 7.63 m da rede; p1: acesso a 0.0 m da rede"
  },
  {
@@ -4587,7 +4587,7 @@
    "p2": 0.0,
    "p3": "inalcançável"
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 9.99 m da rede; p1: acesso a 0.0 m da rede; p2: acesso a 0.1 m da rede; p3: o acesso de p3 fica num trecho da rede sem ligação com o acesso de p0"
  },
  {
@@ -4598,7 +4598,7 @@
   "resposta_esperada": {
    "p1": 32.3
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 5.27 m da rede; p1: acesso a 0.0 m da rede"
  },
  {
@@ -4607,7 +4607,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "não admitido: teodora: sem passo Tower na strategy"
  },
  {
@@ -4616,7 +4616,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "não admitido: teodora: sem passo Tower na strategy"
  },
  {
@@ -4625,7 +4625,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "não admitido: teodora: sem passo Tower na strategy"
  },
  {
@@ -4634,7 +4634,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "não admitido: teodora: sem passo Tower na strategy"
  },
  {
@@ -4643,7 +4643,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "não admitido: vagas diferentes: 363 no arquivo, 336 refeitas, 0 iguais"
  },
  {
@@ -4652,7 +4652,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "não admitido: estacionamento fora da cadeia gravável (/parking_lot/quarters/default)"
  },
  {
@@ -4661,7 +4661,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "não admitido: diferem: ['corte', 'aterro', 'muro_altura', 'muro_comprimento', 'cota das torres']"
  },
  {
@@ -4670,7 +4670,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "não admitido: diferem: ['corte', 'aterro', 'muro_altura', 'muro_comprimento', 'cota das torres']"
  },
  {
@@ -4681,7 +4681,7 @@
   "resposta_esperada": {
    "p221": 2.47
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 5.26 m da rede; p221: acesso a 0.0 m da rede"
  },
  {
@@ -4703,7 +4703,7 @@
    "p204": 95.92,
    "p205": 135.28
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 7.66 m da rede; p194: acesso a 0.0 m da rede; p195: acesso a 0.0 m da rede; p196: acesso a 0.0 m da rede; p197: acesso a 0.0 m da rede; p198: acesso a 0.0 m da rede; p199: acesso a 0.0 m da rede; p200: acesso a 0.0 m da rede; p201: acesso a 0.0 m da rede; p202: acesso a 0.0 m da rede; p203: acesso a 0.0 m da rede; p204: acesso a 0.0 m da rede; p205: acesso a 0.0 m da rede"
  },
  {
@@ -4718,7 +4718,7 @@
    "p325": 93.48,
    "p326": 26.3
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 15.54 m da rede; p322: acesso a 0.0 m da rede; p323: acesso a 0.0 m da rede; p324: acesso a 0.0 m da rede; p325: acesso a 0.0 m da rede; p326: acesso a 0.0 m da rede"
  },
  {
@@ -4733,7 +4733,7 @@
    "p351": 105.7,
    "p352": 38.51
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 15.94 m da rede; p348: acesso a 0.0 m da rede; p349: acesso a 0.0 m da rede; p350: acesso a 0.0 m da rede; p351: acesso a 0.0 m da rede; p352: acesso a 0.0 m da rede"
  },
  {
@@ -4742,7 +4742,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "sem portaria desenhada"
  },
  {
@@ -4762,7 +4762,7 @@
    "p179": 53.82,
    "p180": 11.62
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 6.18 m da rede; p171: acesso a 0.0 m da rede; p172: acesso a 0.0 m da rede; p173: acesso a 0.0 m da rede; p174: acesso a 0.0 m da rede; p175: acesso a 0.0 m da rede; p176: acesso a 0.0 m da rede; p177: acesso a 27.3 m da rede; p178: acesso a 0.0 m da rede; p179: acesso a 0.0 m da rede; p180: acesso a 0.0 m da rede"
  },
  {
@@ -4779,7 +4779,7 @@
    "p489": 170.07,
    "p490": 66.2
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 4.77 m da rede; p484: acesso a 1.5 m da rede; p485: acesso a 0.0 m da rede; p486: acesso a 0.0 m da rede; p487: acesso a 0.8 m da rede; p488: acesso a 2.0 m da rede; p489: acesso a 0.0 m da rede; p490: acesso a 7.97 m da rede"
  },
  {
@@ -4788,7 +4788,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "sem portaria desenhada"
  },
  {
@@ -4804,7 +4804,7 @@
    "p270": 21.15,
    "p271": 51.24
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 5.69 m da rede; p266: acesso a 0.0 m da rede; p267: acesso a 0.0 m da rede; p268: acesso a 0.0 m da rede; p269: acesso a 0.0 m da rede; p270: acesso a 0.0 m da rede; p271: acesso a 0.0 m da rede"
  },
  {
@@ -4813,7 +4813,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "sem portaria desenhada"
  },
  {
@@ -4822,7 +4822,7 @@
   "pergunta": "Qual a distância de carro da portaria a cada torre?",
   "status": "fora",
   "resposta_esperada": null,
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "sem portaria desenhada"
  },
  {
@@ -4838,7 +4838,7 @@
    "p511": 37.93,
    "p512": 107.55
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 4.77 m da rede; p507: acesso a 11.0 m da rede; p508: acesso a 0.47 m da rede; p509: acesso a 0.0 m da rede; p510: acesso a 0.0 m da rede; p511: acesso a 0.0 m da rede; p512: acesso a 0.0 m da rede"
  },
  {
@@ -4857,7 +4857,7 @@
    "p939": 86.8,
    "p940": 120.91
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 14.1 m da rede; p932: acesso a 0.0 m da rede; p933: acesso a 0.0 m da rede; p934: acesso a 0.0 m da rede; p935: acesso a 0.0 m da rede; p936: acesso a 0.0 m da rede; p937: acesso a 0.0 m da rede; p938: acesso a 0.0 m da rede; p939: acesso a 0.0 m da rede; p940: acesso a 0.0 m da rede"
  },
  {
@@ -4876,7 +4876,7 @@
    "p941": 53.15,
    "p942": 87.26
   },
-  "fonte": "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)",
+  "fonte": "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)",
   "observacao": "acesso da portaria p0 a 14.01 m da rede; p934: acesso a 0.0 m da rede; p935: acesso a 0.0 m da rede; p936: acesso a 0.0 m da rede; p937: acesso a 0.0 m da rede; p938: acesso a 0.0 m da rede; p939: acesso a 0.0 m da rede; p940: acesso a 0.0 m da rede; p941: acesso a 0.0 m da rede; p942: acesso a 0.0 m da rede"
  },
  {

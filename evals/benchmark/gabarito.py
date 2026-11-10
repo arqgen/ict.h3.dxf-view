@@ -506,7 +506,7 @@ def run_file(path: str) -> tuple[list[dict], dict]:
 
     # B5
     adm = ADMISSAO.get(arq)
-    fonte = "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)"
+    fonte = "caminho(estado, portaria, torre) na rede do teseu (data/benchmark/redes)"
     if adm is None or not adm["admitido"]:
         motivo = f"não admitido: {adm['motivo']}" if adm else "fora da admissão"
         casos.append(caso("B5", arq, None, fonte, motivo, "fora"))

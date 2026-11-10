@@ -336,7 +336,8 @@ Todas fechadas com o time do viabiliza-terrenos em 09/11/2026.
    - Leitura: L1–L8, A1, B2, B8, B9, B11 (gabarito pronto) e B5 (falta gravar a rede viária regerada pelo teseu).
    - Edição gravada, nos arquivos admitidos: D1, D3, D6, E1, E3, E7.
    - Histórico: G4 e G5 (do nosso lado, só o estado inicial e o esperado).
-   - Tools: as 5 de cálculo, `validar`, `mover_torre`, `remover_torre`, `definir_pavimentos`, `alterar_programa`, `trocar_familia`, `resolver_estacionamento`, `resolver_terraplenagem` (com talude) e `recalcular_indicadores`.
+   - Tools: as de cálculo, `validar`, `mover_torre`, `remover_torre`, `definir_pavimentos`, `alterar_programa`, `trocar_familia`, `resolver_estacionamento`, `resolver_terraplenagem` (com talude) e `recalcular_indicadores`.
+     - Ajuste de 10/11/2026: das de cálculo, entram `calcular`, `caminho`, `medir` (comprimento, área e distância) e `relacao_espacial` (mais próximo e dentro de um raio), as que as tarefas desta fatia usam. `cota_terreno`, o volume entre malhas da `medir` e os tipos "dentro" e "sobrepõe" da `relacao_espacial` entram com B3, B4, B6 e C2: exigem ler a malha do terreno, que o parser hoje ignora.
    - Para depois: as exploratórias (B1, D10, E8, F1–F3, F6), as que dependem de cota na malha ou de georreferência (A2, B3, B4, B6, B10, C2) e as demais.
 3. **D3 — Regra de edição.** Regra geral e tabela "mudança → etapa" na seção Operações de edição; troca de família pela regra de família equivalente.
 4. **D4 — Cálculo no benchmark: tools nos dois lados** (`calcular`, `medir`, `relacao_espacial`, `cota_terreno`, `caminho`). São código de geometria sem motor e podem ser entregues à RECOD; a rede viária do `caminho` vai como dado pré-calculado pelo teseu. Separa erro de leitura da estrutura de erro de conta.
