@@ -14,6 +14,34 @@
    "teseu": "0.5.2"
   }
  },
+ "051531f02b5b3532": {
+  "aqg": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/051531f02b5b3532.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p221"
+  },
+  "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 1.54,
+  "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "0a32aad47fdf66ec": {
   "aqg": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/0a32aad47fdf66ec.json",
   "args": {},
@@ -28,6 +56,36 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "0aa470fdb8340341": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace404e4a7a894b01852f19/0aa470fdb8340341.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p1"
+  },
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/bom_6ace404e4a7a894b01852f19.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "mover_torre",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "InsideGeometry",
+    "torres": [
+     "p1"
+    ]
+   }
+  ]
  },
  "0bffb80da2064f10": {
   "aqg": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/0bffb80da2064f10.json",
@@ -44,6 +102,90 @@
    "teseu": "0.5.2"
   }
  },
+ "0c3e3d5767141a89": {
+  "aqg": "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/0c3e3d5767141a89.json",
+  "args": {
+   "torre": "p508"
+  },
+  "arquivo": "solucoes-18x/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "leisure",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 4.96,
+  "tool": "remover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "0d31cc70394673a7": {
+  "aqg": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/0d31cc70394673a7.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p157"
+  },
+  "arquivo": "solucoes-18x/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "leisure",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 1.31,
+  "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "1aa6790ed4a281c3": {
+  "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/1aa6790ed4a281c3.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p937"
+  },
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 9.8,
+  "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "230a101a0499cf7f": {
   "aqg": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json",
   "args": {},
@@ -58,6 +200,149 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "24f896cb8cb2f03a": {
+  "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/24f896cb8cb2f03a.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p940"
+  },
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 8.07,
+  "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "31100608f54a03b6": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/31100608f54a03b6.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p255"
+  },
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 0.97,
+  "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "34146cf2edb8c7f9": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace4079bf22db620be742d4/34146cf2edb8c7f9.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p2"
+  },
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/otimo_6ace4079bf22db620be742d4.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "mover_torre",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "NoOverlapping",
+    "torres": [
+     "p1",
+     "p2"
+    ]
+   }
+  ]
+ },
+ "349c2ed562f73006": {
+  "aqg": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/349c2ed562f73006.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p350"
+  },
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 2.04,
+  "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "374ba667ce110d63": {
+  "aqg": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/374ba667ce110d63.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p326"
+  },
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 2.04,
+  "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "387953e1ea3cc2d2": {
   "aqg": "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/387953e1ea3cc2d2.json",
@@ -88,6 +373,64 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "4f1238bbc2b12336": {
+  "aqg": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/4f1238bbc2b12336.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p180"
+  },
+  "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 2.06,
+  "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "51ac22e699bb9cf3": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace3c8be748be1a355e6769/51ac22e699bb9cf3.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p1"
+  },
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/bom_6ace3c8be748be1a355e6769.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "mover_torre",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "DistanceFromLinesGreaterThanThreshold",
+    "torres": [
+     "p1"
+    ]
+   }
+  ]
  },
  "52345171ba44d68a": {
   "aqg": "data/benchmark/gravacoes/bom_6ace404e4a7a894b01852f19/52345171ba44d68a.json",
@@ -149,6 +492,60 @@
    "teseu": "0.5.2"
   }
  },
+ "5a2988f2264d7ddc": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/5a2988f2264d7ddc.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p1"
+  },
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/ruim_6ace7f0d246ca4a63fa193fd.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "indicadores"
+  ],
+  "segundos": 0.1,
+  "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "5c8fbdaf40372aff": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/5c8fbdaf40372aff.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p1"
+  },
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/bom_6ace7b93445b3a60fcb6162b.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "indicadores"
+  ],
+  "segundos": 0.19,
+  "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "66be0f5838e8bb2e": {
   "aqg": "data/benchmark/gravacoes/ruim_6ace3c16d8664cf36a13dbb9/66be0f5838e8bb2e.json",
   "args": {},
@@ -179,6 +576,34 @@
    "teseu": "0.5.2"
   }
  },
+ "78e3e4bfb3b19450": {
+  "aqg": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/78e3e4bfb3b19450.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p709"
+  },
+  "arquivo": "solucoes-18x/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 5.55,
+  "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "845db7aad27daf70": {
   "aqg": "data/benchmark/gravacoes/otimo_6ace4079bf22db620be742d4/845db7aad27daf70.json",
   "args": {},
@@ -193,6 +618,64 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "8c715f063b365dbd": {
+  "aqg": "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/8c715f063b365dbd.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p195"
+  },
+  "arquivo": "solucoes-18x/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "mover_torre",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "DistanceFromLinesGreaterThanThreshold",
+    "torres": [
+     "p195"
+    ]
+   }
+  ]
+ },
+ "8de4ca6168b8957c": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/8de4ca6168b8957c.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p35"
+  },
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 0.85,
+  "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "9075664ab16aad9d": {
   "aqg": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/9075664ab16aad9d.json",
@@ -223,6 +706,90 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "9788ef0210081412": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/9788ef0210081412.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p120"
+  },
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/ruim_6ace4ea8ecd8aeaf968b312c.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "mover_torre",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "DistanceFromLinesGreaterThanThreshold",
+    "torres": [
+     "p120"
+    ]
+   }
+  ]
+ },
+ "996e6ae89881cd3a": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/996e6ae89881cd3a.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p9"
+  },
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/otimo_6ace4108cfe0941cdf9a9189.json",
+  "etapas": [
+   "validar",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 5.01,
+  "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "9d2080bbfd09c5d7": {
+  "aqg": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/9d2080bbfd09c5d7.json",
+  "args": {
+   "torre": "p490"
+  },
+  "arquivo": "solucoes-18x/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "leisure",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 4.72,
+  "tool": "remover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "9e780ba833bdbabd": {
   "aqg": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/9e780ba833bdbabd.json",
@@ -284,6 +851,34 @@
    "teseu": "0.5.2"
   }
  },
+ "b90c4bca6dda0b90": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/b90c4bca6dda0b90.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p357"
+  },
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 1.54,
+  "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "b9d8a76034f5b7d8": {
   "aqg": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/b9d8a76034f5b7d8.json",
   "args": {},
@@ -298,6 +893,26 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "ba453d2bc68ba562": {
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p153"
+  },
+  "arquivo": "solucoes-18x/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d.json",
+  "erro": "/parking_lot/optimal_selection/default: trying to unwrap an Err: Solver failed or solution unreliable: infeasible",
+  "tool": "mover_torre",
+  "veredito": "erro",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "bad43a657eb46f4c": {
   "aqg": "data/benchmark/gravacoes/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f/bad43a657eb46f4c.json",
@@ -359,6 +974,164 @@
    "teseu": "0.5.2"
   }
  },
+ "c9adc47b1f40e4ee": {
+  "aqg": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/c9adc47b1f40e4ee.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p489"
+  },
+  "arquivo": "solucoes-18x/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "mover_torre",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "NoOverlapping",
+    "torres": [
+     "p485",
+     "p489"
+    ]
+   },
+   {
+    "regra": "NoOverlapping",
+    "torres": [
+     "p488",
+     "p489"
+    ]
+   }
+  ]
+ },
+ "cd44dffe4da1ea60": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace64da8d16ae86ca3419e5/cd44dffe4da1ea60.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p376"
+  },
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/otimo_6ace64da8d16ae86ca3419e5.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "mover_torre",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "NoOverlapping",
+    "torres": [
+     "p376",
+     "p377"
+    ]
+   }
+  ]
+ },
+ "dd747c138ac722f8": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace40534a7a894b01852f1d/dd747c138ac722f8.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p1"
+  },
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/ruim_6ace40534a7a894b01852f1d.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "mover_torre",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "InsideGeometry",
+    "torres": [
+     "p1"
+    ]
+   }
+  ]
+ },
+ "e04bc18165886e8d": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace3c16d8664cf36a13dbb9/e04bc18165886e8d.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p1"
+  },
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/ruim_6ace3c16d8664cf36a13dbb9.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "mover_torre",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "NoOverlapping",
+    "torres": [
+     "p1",
+     "p2"
+    ]
+   }
+  ]
+ },
+ "e83526a91ee68aed": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/e83526a91ee68aed.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p149"
+  },
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 1.97,
+  "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "eb6ed72593681f3b": {
   "aqg": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/eb6ed72593681f3b.json",
   "args": {},
@@ -374,6 +1147,37 @@
    "teseu": "0.5.2"
   }
  },
+ "eba7b484b01bb2f8": {
+  "aqg": "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/eba7b484b01bb2f8.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p271"
+  },
+  "arquivo": "solucoes-18x/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "mover_torre",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "NoOverlapping",
+    "torres": [
+     "p270",
+     "p271"
+    ]
+   }
+  ]
+ },
  "ebfaa766763a5982": {
   "aqg": "data/benchmark/gravacoes/ruim_6ace40534a7a894b01852f1d/ebfaa766763a5982.json",
   "args": {},
@@ -388,6 +1192,36 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "ec3dd6600d37f8d1": {
+  "aqg": "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/ec3dd6600d37f8d1.json",
+  "args": {
+   "distancia": 5.0,
+   "sentido": "fundos",
+   "torre": "p507"
+  },
+  "arquivo": "solucoes-18x/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5.json",
+  "etapas": [
+   "validar"
+  ],
+  "tool": "mover_torre",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "DistanceFromLinesGreaterThanThreshold",
+    "torres": [
+     "p507"
+    ]
+   }
+  ]
  },
  "eca4b7de8eb4ac73": {
   "aqg": "data/benchmark/gravacoes/otimo_6ace84f467fab4d8049d1394/eca4b7de8eb4ac73.json",

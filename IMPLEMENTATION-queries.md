@@ -168,6 +168,10 @@ Verificados nos spikes e na admissão (09/11/2026):
 - **Tarefas:** D1 ("mova a torre mais próxima da frente 5 m em direção aos fundos") e D3 ("remova a torre mais próxima da APP e diga quantas unidades perdi").
 - **Passos:** resolver a referência por descrição sobre o AQG cru (parser deste repo); aplicar a edição; cascata; gravar. A D3 só existe nos arquivos com APP.
 - **Aceite:** gravação por arquivo admitido em que a descrição aponta um elemento só; a resposta esperada da D3 é a diferença de `TotalDeUnidades` entre o arquivo e o gravado.
+- **Resultado (10/11/2026): concluída.** `evals/benchmark/edicoes.py` resolve a referência com o parser deste repo (torre pelo pavimento-tipo desenhado, como `relacao_espacial`) e passa a edição por `gravacao.aplicar`.
+  - D1 em 27 dos 29: 15 válidas (cascata completa), 11 inválidas (`NoOverlapping`, `DistanceFromLinesGreaterThanThreshold`, `InsideGeometry`) e 1 erro do teseu (estacionamento inviável, gravado como `erro`). Duas ficam fora por empate abaixo de 1 cm na distância à frente. Em todas, a torre se afasta da frente 5 m (4,93 m e 4,96 m onde outra aresta passa a ser a mais próxima).
+  - D3 nos 2 arquivos com `AQG_APP`: 60 e 72 unidades perdidas.
+  - Dois ajustes no núcleo: a cascata devolve como `Err` a exceção que o teseu levanta por dentro (`unwrap` de `infeasible`); e `gravacao.py` se re-executa com `PYTHONHASHSEED=0`, porque a ordem de `families` saía de sets e mudava entre processos. A conferência da G0 rodava as duas vezes no mesmo processo e não pegava. As bases foram regravadas com a semente fixa.
 
 ### G2 — Pavimentos e mix
 
