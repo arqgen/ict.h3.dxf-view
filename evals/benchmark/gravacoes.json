@@ -1,0 +1,437 @@
+{
+ "0429d3d9cb7e91b6": {
+  "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0429d3d9cb7e91b6.json",
+  "args": {},
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "0a32aad47fdf66ec": {
+  "aqg": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/0a32aad47fdf66ec.json",
+  "args": {},
+  "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "0bffb80da2064f10": {
+  "aqg": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/0bffb80da2064f10.json",
+  "args": {},
+  "arquivo": "solucoes-18x/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "230a101a0499cf7f": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json",
+  "args": {},
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "387953e1ea3cc2d2": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/387953e1ea3cc2d2.json",
+  "args": {},
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/bom_6ace7b93445b3a60fcb6162b.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "38c80c06534b057b": {
+  "aqg": "data/benchmark/gravacoes/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d/38c80c06534b057b.json",
+  "args": {},
+  "arquivo": "solucoes-18x/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "52345171ba44d68a": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace404e4a7a894b01852f19/52345171ba44d68a.json",
+  "args": {},
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/bom_6ace404e4a7a894b01852f19.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "5289450f2e7e9199": {
+  "aqg": "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/5289450f2e7e9199.json",
+  "args": {},
+  "arquivo": "solucoes-18x/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "567950f0b1139752": {
+  "aqg": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json",
+  "args": {},
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "597fbdb18d4b276f": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/597fbdb18d4b276f.json",
+  "args": {},
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/ruim_6ace7f0d246ca4a63fa193fd.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "66be0f5838e8bb2e": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace3c16d8664cf36a13dbb9/66be0f5838e8bb2e.json",
+  "args": {},
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/ruim_6ace3c16d8664cf36a13dbb9.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "6f750cd83da54c1d": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace3c8be748be1a355e6769/6f750cd83da54c1d.json",
+  "args": {},
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/bom_6ace3c8be748be1a355e6769.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "845db7aad27daf70": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace4079bf22db620be742d4/845db7aad27daf70.json",
+  "args": {},
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/otimo_6ace4079bf22db620be742d4.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "9075664ab16aad9d": {
+  "aqg": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/9075664ab16aad9d.json",
+  "args": {},
+  "arquivo": "solucoes-18x/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "909ac631b01beec6": {
+  "aqg": "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/909ac631b01beec6.json",
+  "args": {},
+  "arquivo": "solucoes-18x/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "9e780ba833bdbabd": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/9e780ba833bdbabd.json",
+  "args": {},
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "a3d5bdc2910b9e01": {
+  "aqg": "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/a3d5bdc2910b9e01.json",
+  "args": {},
+  "arquivo": "solucoes-18x/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "aaf73e4583674808": {
+  "aqg": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json",
+  "args": {},
+  "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "b054a70b6de133c9": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace64da8d16ae86ca3419e5/b054a70b6de133c9.json",
+  "args": {},
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/otimo_6ace64da8d16ae86ca3419e5.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "b9d8a76034f5b7d8": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/b9d8a76034f5b7d8.json",
+  "args": {},
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "bad43a657eb46f4c": {
+  "aqg": "data/benchmark/gravacoes/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f/bad43a657eb46f4c.json",
+  "args": {},
+  "arquivo": "solucoes-18x/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "bf31942fc2cd024d": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/bf31942fc2cd024d.json",
+  "args": {},
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/ruim_6ace4ea8ecd8aeaf968b312c.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "c5913d1686413871": {
+  "aqg": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c5913d1686413871.json",
+  "args": {},
+  "arquivo": "solucoes-18x/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "c861ad7797dc2b3a": {
+  "aqg": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json",
+  "args": {},
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "eb6ed72593681f3b": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/eb6ed72593681f3b.json",
+  "args": {},
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "ebfaa766763a5982": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace40534a7a894b01852f1d/ebfaa766763a5982.json",
+  "args": {},
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/ruim_6ace40534a7a894b01852f1d.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "eca4b7de8eb4ac73": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace84f467fab4d8049d1394/eca4b7de8eb4ac73.json",
+  "args": {},
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/otimo_6ace84f467fab4d8049d1394.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "f1e1bf266a50c980": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/f1e1bf266a50c980.json",
+  "args": {},
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/otimo_6ace4108cfe0941cdf9a9189.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ },
+ "ffcaf8869b41a8bf": {
+  "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/ffcaf8869b41a8bf.json",
+  "args": {},
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
+  "tool": "base",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  }
+ }
+}

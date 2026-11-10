@@ -73,6 +73,8 @@ A raiz pode conter arquivos `.md` com regras pontuais (ex: `commit-rules.md`). E
 - [`CAPABILITIES.md`](CAPABILITIES.md) — o que o assistente faz e o que ainda não faz; base para o próximo refinamento
 - [`PRD-tools.md`](PRD-tools.md) — catálogo de tools candidatas, um cartão por ideia, decididos um a um
 - [`IMPLEMENTATION-tools.md`](IMPLEMENTATION-tools.md) — contratos, ordem e tasks dos cartões do `PRD-tools.md`
+- [`PRD-queries.md`](PRD-queries.md) — catálogo de queries de leitura e edição sobre o AQG e as tools caixa-preta (motores, edição, rodadas, versões)
+- [`IMPLEMENTATION-queries.md`](IMPLEMENTATION-queries.md) — contratos, ordem e tasks da primeira fatia do `PRD-queries.md` (gravação, tools entregues, casos)
 
 ## O Que Este Projeto É
 

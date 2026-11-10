@@ -1,0 +1,505 @@
+[
+ {
+  "arquivo": "6aa1c1fa5f7ffad5748a9e37_6aa1c48ce8e1d2a",
+  "versao": "17.1.0",
+  "terraplenagem": "/earthmoving/ibitira/default",
+  "estacionamento": null,
+  "arquivo_mov": {
+   "corte": 190.38,
+   "aterro": 228.54,
+   "balanco": -30.54,
+   "muro_altura": 0.51,
+   "muro_comprimento": 4.28
+  },
+  "arquivo_z": [
+   740.71,
+   742.31,
+   744.1
+  ],
+  "terraplenagem_s": 1.05,
+  "novo_mov": {
+   "corte": 172.2,
+   "aterro": 205.26,
+   "balanco": -26.18,
+   "muro_altura": 0.38,
+   "muro_comprimento": 11.57
+  },
+  "novo_z": [
+   740.49,
+   742.31,
+   744.32
+  ],
+  "etapa": "ok"
+ },
+ {
+  "arquivo": "6aaaa498cf7264229c24d353_6aaaa6467c85d63",
+  "versao": "17.1.0",
+  "terraplenagem": "/earthmoving/trama/default",
+  "estacionamento": null,
+  "arquivo_mov": {
+   "corte": 559.2,
+   "aterro": 588.97,
+   "balanco": -7.4,
+   "muro_altura": 1.54,
+   "muro_comprimento": 48.72
+  },
+  "arquivo_z": [
+   794.1,
+   788.8
+  ],
+  "terraplenagem_s": 0.39,
+  "novo_mov": {
+   "corte": 475.96,
+   "aterro": 675.22,
+   "balanco": -180.22,
+   "muro_altura": 1.01,
+   "muro_comprimento": 55.78
+  },
+  "novo_z": [
+   794.1,
+   789.0
+  ],
+  "etapa": "ok"
+ },
+ {
+  "arquivo": "6abab05295f499e81abeca64_6abd57caa4c6bcd",
+  "versao": "17.7.0",
+  "terraplenagem": "/earthmoving/trama/default",
+  "estacionamento": "/parking_lot/optimal_selection/default",
+  "arquivo_mov": {
+   "corte": 870.96,
+   "aterro": 1014.01,
+   "balanco": -108.21,
+   "muro_altura": 0,
+   "muro_comprimento": 0
+  },
+  "arquivo_z": [
+   307.35
+  ],
+  "estacionamento_s": 0.56,
+  "terraplenagem_s": 0.77,
+  "novo_mov": {
+   "corte": 870.96,
+   "aterro": 1014.01,
+   "balanco": -108.21,
+   "muro_altura": 0.0,
+   "muro_comprimento": 0.0
+  },
+  "novo_z": [
+   307.35
+  ],
+  "etapa": "ok"
+ },
+ {
+  "arquivo": "bom_6ace404e4a7a894b01852f19.json",
+  "versao": "18.0.0",
+  "terraplenagem": "/earthmoving/ibitira/default",
+  "estacionamento": null,
+  "arquivo_mov": {
+   "corte": 1232.15,
+   "aterro": 1276.88,
+   "balanco": 4.56,
+   "muro_altura": 1.08,
+   "muro_comprimento": 64.92
+  },
+  "arquivo_z": [
+   1575.45,
+   1577.33,
+   1584.02,
+   1587.29
+  ],
+  "terraplenagem_s": 0.96,
+  "novo_mov": {
+   "corte": 1232.15,
+   "aterro": 1276.88,
+   "balanco": 4.56,
+   "muro_altura": 1.08,
+   "muro_comprimento": 64.92
+  },
+  "novo_z": [
+   1575.45,
+   1577.33,
+   1584.02,
+   1587.29
+  ],
+  "etapa": "ok"
+ },
+ {
+  "arquivo": "otimo_6ace4108cfe0941cdf9a9189.json",
+  "versao": "18.0.0",
+  "terraplenagem": "/earthmoving/ibitira/default",
+  "estacionamento": null,
+  "arquivo_mov": {
+   "corte": 8914.39,
+   "aterro": 8862.29,
+   "balanco": 408.68,
+   "muro_altura": 1.19,
+   "muro_comprimento": 705.18
+  },
+  "arquivo_z": [
+   1576.46,
+   1586.01,
+   1576.55,
+   1585.41,
+   1576.69,
+   1585.1,
+   1577.38,
+   1584.0,
+   1579.71,
+   1583.03,
+   1579.09,
+   1584.96
+  ],
+  "terraplenagem_s": 2.69,
+  "novo_mov": {
+   "corte": 8914.39,
+   "aterro": 8862.29,
+   "balanco": 408.68,
+   "muro_altura": 1.19,
+   "muro_comprimento": 705.18
+  },
+  "novo_z": [
+   1576.46,
+   1586.01,
+   1576.55,
+   1585.41,
+   1576.69,
+   1585.1,
+   1577.38,
+   1584.0,
+   1579.71,
+   1583.03,
+   1579.09,
+   1584.96
+  ],
+  "etapa": "ok"
+ },
+ {
+  "arquivo": "ruim_6ace40534a7a894b01852f1d.json",
+  "versao": "18.0.0",
+  "terraplenagem": "/earthmoving/trama/default",
+  "estacionamento": null,
+  "arquivo_mov": {
+   "corte": 234.61,
+   "aterro": 171.43,
+   "balanco": 72.57,
+   "muro_altura": 0,
+   "muro_comprimento": 0
+  },
+  "arquivo_z": [
+   1575.07,
+   1576.5,
+   1577.54
+  ],
+  "terraplenagem_s": 0.51,
+  "novo_mov": {
+   "corte": 234.61,
+   "aterro": 171.43,
+   "balanco": 72.57,
+   "muro_altura": 0.0,
+   "muro_comprimento": 0.0
+  },
+  "novo_z": [
+   1575.07,
+   1576.5,
+   1577.54
+  ],
+  "etapa": "ok"
+ },
+ {
+  "arquivo": "bom_6ace3c8be748be1a355e6769.json",
+  "versao": "18.0.0",
+  "terraplenagem": "/earthmoving/trama/default",
+  "estacionamento": null,
+  "arquivo_mov": {
+   "corte": 117.62,
+   "aterro": 151.79,
+   "balanco": -29.46,
+   "muro_altura": 0,
+   "muro_comprimento": 0
+  },
+  "arquivo_z": [
+   720.64,
+   719.81,
+   719.97
+  ],
+  "terraplenagem_s": 0.35,
+  "novo_mov": {
+   "corte": 117.62,
+   "aterro": 151.79,
+   "balanco": -29.46,
+   "muro_altura": 0.0,
+   "muro_comprimento": 0.0
+  },
+  "novo_z": [
+   720.64,
+   719.81,
+   719.97
+  ],
+  "etapa": "ok"
+ },
+ {
+  "arquivo": "otimo_6ace4079bf22db620be742d4.json",
+  "versao": "18.0.0",
+  "terraplenagem": "/earthmoving/ibitira/default",
+  "estacionamento": null,
+  "arquivo_mov": {
+   "corte": 131.26,
+   "aterro": 152.96,
+   "balanco": -16.44,
+   "muro_altura": 0,
+   "muro_comprimento": 0
+  },
+  "arquivo_z": [
+   719.9,
+   720.14
+  ],
+  "terraplenagem_s": 0.26,
+  "novo_mov": {
+   "corte": 131.26,
+   "aterro": 152.96,
+   "balanco": -16.44,
+   "muro_altura": 0.0,
+   "muro_comprimento": 0.0
+  },
+  "novo_z": [
+   719.9,
+   720.14
+  ],
+  "etapa": "ok"
+ },
+ {
+  "arquivo": "ruim_6ace3c16d8664cf36a13dbb9.json",
+  "versao": "18.0.0",
+  "terraplenagem": "/earthmoving/trama/default",
+  "estacionamento": null,
+  "arquivo_mov": {
+   "corte": 236.86,
+   "aterro": 257.6,
+   "balanco": -11.27,
+   "muro_altura": 0,
+   "muro_comprimento": 0
+  },
+  "arquivo_z": [
+   720.32,
+   720.42
+  ],
+  "terraplenagem_s": 0.18,
+  "novo_mov": {
+   "corte": 236.86,
+   "aterro": 257.6,
+   "balanco": -11.27,
+   "muro_altura": 0.0,
+   "muro_comprimento": 0.0
+  },
+  "novo_z": [
+   720.32,
+   720.42
+  ],
+  "etapa": "ok"
+ },
+ {
+  "arquivo": "bom_6ace4f3f9aee62f656aae2cc.json",
+  "versao": "18.0.0",
+  "terraplenagem": "/earthmoving/trama/default",
+  "estacionamento": "/parking_lot/optimal_selection/default",
+  "arquivo_mov": {
+   "corte": 1069.53,
+   "aterro": 396.39,
+   "balanco": 715.93,
+   "muro_altura": 0,
+   "muro_comprimento": 0
+  },
+  "arquivo_z": [
+   30.46,
+   30.95
+  ],
+  "estacionamento_s": 0.39,
+  "terraplenagem_s": 0.36,
+  "novo_mov": {
+   "corte": 1069.53,
+   "aterro": 396.39,
+   "balanco": 715.93,
+   "muro_altura": 0.0,
+   "muro_comprimento": 0.0
+  },
+  "novo_z": [
+   30.46,
+   30.95
+  ],
+  "etapa": "ok"
+ },
+ {
+  "arquivo": "otimo_6ace52a0bc31d7e3e85c9509.json",
+  "versao": "18.0.0",
+  "terraplenagem": "/earthmoving/trama/default",
+  "estacionamento": "/parking_lot/optimal_selection/default",
+  "arquivo_mov": {
+   "corte": 819.92,
+   "aterro": 1439.67,
+   "balanco": -586.96,
+   "muro_altura": 0,
+   "muro_comprimento": 0
+  },
+  "arquivo_z": [
+   30.83,
+   31.45,
+   30.24
+  ],
+  "estacionamento_s": 0.56,
+  "terraplenagem_s": 0.63,
+  "novo_mov": {
+   "corte": 819.92,
+   "aterro": 1439.67,
+   "balanco": -586.96,
+   "muro_altura": 0.0,
+   "muro_comprimento": 0.0
+  },
+  "novo_z": [
+   30.83,
+   31.45,
+   30.24
+  ],
+  "etapa": "ok"
+ },
+ {
+  "arquivo": "ruim_6ace4ea8ecd8aeaf968b312c.json",
+  "versao": "18.0.0",
+  "terraplenagem": "/earthmoving/trama/default",
+  "estacionamento": "/parking_lot/optimal_selection/default",
+  "arquivo_mov": {
+   "corte": 83.61,
+   "aterro": 973.69,
+   "balanco": -886.74,
+   "muro_altura": 0,
+   "muro_comprimento": 0
+  },
+  "arquivo_z": [
+   30.68
+  ],
+  "estacionamento_s": 0.22,
+  "terraplenagem_s": 0.22,
+  "novo_mov": {
+   "corte": 83.61,
+   "aterro": 973.69,
+   "balanco": -886.74,
+   "muro_altura": 0.0,
+   "muro_comprimento": 0.0
+  },
+  "novo_z": [
+   30.68
+  ],
+  "etapa": "ok"
+ },
+ {
+  "arquivo": "bom_6ace64863afd82bf6be93e16.json",
+  "versao": "18.0.0",
+  "terraplenagem": "/earthmoving/ibitira/default",
+  "estacionamento": "/parking_lot/optimal_selection/default",
+  "arquivo_mov": {
+   "corte": 3502.5,
+   "aterro": 3253.73,
+   "balanco": 388.87,
+   "muro_altura": 1.82,
+   "muro_comprimento": 320.87
+  },
+  "arquivo_z": [
+   855.03,
+   852.38,
+   846.27,
+   833.2
+  ],
+  "estacionamento_s": 0.61,
+  "terraplenagem_s": 0.9,
+  "novo_mov": {
+   "corte": 3502.5,
+   "aterro": 3253.73,
+   "balanco": 388.87,
+   "muro_altura": 1.82,
+   "muro_comprimento": 320.87
+  },
+  "novo_z": [
+   855.03,
+   852.38,
+   846.27,
+   833.2
+  ],
+  "etapa": "ok"
+ },
+ {
+  "arquivo": "otimo_6ace64da8d16ae86ca3419e5.json",
+  "versao": "18.0.0",
+  "terraplenagem": "/earthmoving/ibitira/default",
+  "estacionamento": "/parking_lot/optimal_selection/default",
+  "arquivo_mov": {
+   "corte": 15031.24,
+   "aterro": 60217.1,
+   "balanco": -44584.61,
+   "muro_altura": 4,
+   "muro_comprimento": 784.06
+  },
+  "arquivo_z": [
+   857.25,
+   846.7,
+   856.99,
+   847.37,
+   855.74,
+   848.67,
+   852.89,
+   842.81,
+   850.84,
+   841.3
+  ],
+  "estacionamento_s": 2.19,
+  "terraplenagem_s": 1.87,
+  "novo_mov": {
+   "corte": 15031.24,
+   "aterro": 60217.1,
+   "balanco": -44584.61,
+   "muro_altura": 4.0,
+   "muro_comprimento": 784.06
+  },
+  "novo_z": [
+   857.25,
+   846.7,
+   856.99,
+   847.37,
+   855.74,
+   848.67,
+   852.89,
+   842.81,
+   850.84,
+   841.3
+  ],
+  "etapa": "ok"
+ },
+ {
+  "arquivo": "ruim_6ace648d563a33090fea89d6.json",
+  "versao": "18.0.0",
+  "terraplenagem": "/earthmoving/ibitira/default",
+  "estacionamento": "/parking_lot/optimal_selection/default",
+  "arquivo_mov": {
+   "corte": 162.26,
+   "aterro": 5332.8,
+   "balanco": -5164.05,
+   "muro_altura": 0.1,
+   "muro_comprimento": 10.85
+  },
+  "arquivo_z": [
+   857.56
+  ],
+  "estacionamento_s": 0.4,
+  "terraplenagem_s": 0.28,
+  "novo_mov": {
+   "corte": 162.26,
+   "aterro": 5332.8,
+   "balanco": -5164.05,
+   "muro_altura": 0.1,
+   "muro_comprimento": 10.85
+  },
+  "novo_z": [
+   857.56
+  ],
+  "etapa": "ok"
+ }
+]

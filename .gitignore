@@ -245,4 +245,6 @@ data/dxf/*.dxf
 # AQGs de teste e viewer de referência — pesados demais para o Git (ver data/aqg/README.md)
 data/aqg/**/*.json
 data/aqg/viewer.html
+# AQGs gravados e redes do benchmark — pesados; o índice fica em evals/benchmark/gravacoes.json
+data/benchmark/
 evals/results/

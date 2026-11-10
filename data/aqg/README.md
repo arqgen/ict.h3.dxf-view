@@ -32,8 +32,9 @@ JSON de um *Project* exportado pela Arqgen: um terreno (`site`) e uma solução 
 |--|--|--|
 | `favoritadas/` | `<site_id>_<solution_id>.json` | 9 soluções marcadas como favoritas |
 | `avaliadas/<site_id>/` | `<ruim\|bom\|otimo>_<solution_id>.json` | 5 terrenos, cada um com três soluções classificadas por qualidade |
+| `solucoes-18x/` | `<site_id>_<solution_id>.json` + `manifesto.csv` | 13 soluções favoritas de produção (exportador 18.0 e 18.1), escolhidas por variedade para o benchmark de edição (`PRD-queries.md`, D7); o manifesto traz o motivo da escolha e o catálogo de famílias de cada uma |
 
-Versões do exportador presentes: 7.0.2 a 18.0.0 (maioria 18.0.0).
+Versões do exportador presentes: 7.0.2 a 18.1.0 (maioria 18.0.0).
 
 ## `viewer.html`
 

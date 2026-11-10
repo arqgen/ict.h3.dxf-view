@@ -1,0 +1,362 @@
+[
+ {
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/bom_6ace404e4a7a894b01852f19.json",
+  "versao": "18.0.0",
+  "catalogo": "cury-vba",
+  "teodora": "ok",
+  "teseu": "sem estacionamento",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/otimo_6ace4108cfe0941cdf9a9189.json",
+  "versao": "18.0.0",
+  "catalogo": "cury-vba",
+  "teodora": "ok",
+  "teseu": "sem estacionamento",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/ruim_6ace40534a7a894b01852f1d.json",
+  "versao": "18.0.0",
+  "catalogo": "cury-vba",
+  "teodora": "ok",
+  "teseu": "sem estacionamento",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/bom_6ace3c8be748be1a355e6769.json",
+  "versao": "18.0.0",
+  "catalogo": "emccamp-vba",
+  "teodora": "ok",
+  "teseu": "sem estacionamento",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/otimo_6ace4079bf22db620be742d4.json",
+  "versao": "18.0.0",
+  "catalogo": "emccamp-vba",
+  "teodora": "ok",
+  "teseu": "sem estacionamento",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/ruim_6ace3c16d8664cf36a13dbb9.json",
+  "versao": "18.0.0",
+  "catalogo": "emccamp-vba",
+  "teodora": "ok",
+  "teseu": "sem estacionamento",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
+  "versao": "18.0.0",
+  "catalogo": "rottas-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
+  "versao": "18.0.0",
+  "catalogo": "rottas-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/ruim_6ace4ea8ecd8aeaf968b312c.json",
+  "versao": "18.0.0",
+  "catalogo": "rottas-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
+  "versao": "18.0.0",
+  "catalogo": "emccamp-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/otimo_6ace64da8d16ae86ca3419e5.json",
+  "versao": "18.0.0",
+  "catalogo": "emccamp-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
+  "versao": "18.0.0",
+  "catalogo": "emccamp-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/bom_6ace7b93445b3a60fcb6162b.json",
+  "versao": "18.0.0",
+  "catalogo": "sc7-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "sem terraplenagem",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/otimo_6ace84f467fab4d8049d1394.json",
+  "versao": "18.0.0",
+  "catalogo": "sc7-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "sem terraplenagem",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/ruim_6ace7f0d246ca4a63fa193fd.json",
+  "versao": "18.0.0",
+  "catalogo": "sc7-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "sem terraplenagem",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "favoritadas/6842c89845e64a9f238fba3c_6842c996181cf815481d1967.json",
+  "versao": "7.0.2",
+  "catalogo": null,
+  "teodora": "sem passo Tower na strategy",
+  "admitido": false,
+  "motivo": "teodora: sem passo Tower na strategy"
+ },
+ {
+  "arquivo": "favoritadas/694081cf9e15b2d9f935ad16_697c9bb91c2e52422d15e48f.json",
+  "versao": "12.6.0",
+  "catalogo": "comercial-vba",
+  "teodora": "sem passo Tower na strategy",
+  "admitido": false,
+  "motivo": "teodora: sem passo Tower na strategy"
+ },
+ {
+  "arquivo": "favoritadas/696517ed8049fdc9f3b0f6ad_69651a149a57a850baccee44.json",
+  "versao": "12.4.1",
+  "catalogo": "comercial-vba",
+  "teodora": "sem passo Tower na strategy",
+  "admitido": false,
+  "motivo": "teodora: sem passo Tower na strategy"
+ },
+ {
+  "arquivo": "favoritadas/69b1a6d4d985c5ddbecac196_69b1aab76d16be251b892e7b.json",
+  "versao": "12.7.0",
+  "catalogo": null,
+  "teodora": "sem passo Tower na strategy",
+  "admitido": false,
+  "motivo": "teodora: sem passo Tower na strategy"
+ },
+ {
+  "arquivo": "favoritadas/6a4c017db840fc776e4443b0_6a4c0b25ded0ef35ff62c408.json",
+  "versao": "16.4.0",
+  "catalogo": null,
+  "teodora": "ok",
+  "teseu": "vagas diferentes: 363 no arquivo, 336 refeitas, 0 iguais",
+  "admitido": false,
+  "motivo": "vagas diferentes: 363 no arquivo, 336 refeitas, 0 iguais"
+ },
+ {
+  "arquivo": "favoritadas/6a75cb2ec909fd8f7cd3e8d8_6a75e11668d34b45e508271f.json",
+  "versao": "16.8.0",
+  "catalogo": null,
+  "teodora": "ok",
+  "teseu": "estacionamento fora da cadeia gravável (/parking_lot/quarters/default)",
+  "admitido": false,
+  "motivo": "estacionamento fora da cadeia gravável (/parking_lot/quarters/default)"
+ },
+ {
+  "arquivo": "favoritadas/6aa1c1fa5f7ffad5748a9e37_6aa1c48ce8e1d2a9eeb19d5e.json",
+  "versao": "17.1.0",
+  "catalogo": null,
+  "teodora": "ok",
+  "teseu": "sem estacionamento",
+  "ibitira": "diferem: ['corte', 'aterro', 'muro_altura', 'muro_comprimento', 'cota das torres']",
+  "admitido": false,
+  "motivo": "diferem: ['corte', 'aterro', 'muro_altura', 'muro_comprimento', 'cota das torres']"
+ },
+ {
+  "arquivo": "favoritadas/6aaaa498cf7264229c24d353_6aaaa6467c85d637d8f6555a.json",
+  "versao": "17.1.0",
+  "catalogo": null,
+  "teodora": "ok",
+  "teseu": "sem estacionamento",
+  "ibitira": "diferem: ['corte', 'aterro', 'muro_altura', 'muro_comprimento', 'cota das torres']",
+  "admitido": false,
+  "motivo": "diferem: ['corte', 'aterro', 'muro_altura', 'muro_comprimento', 'cota das torres']"
+ },
+ {
+  "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
+  "versao": "17.7.0",
+  "catalogo": "comercial-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "solucoes-18x/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f.json",
+  "versao": "18.0.0",
+  "catalogo": "rottas-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
+  "versao": "18.0.0",
+  "catalogo": "rottas-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
+  "versao": "18.1.0",
+  "catalogo": "rottas-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "solucoes-18x/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f.json",
+  "versao": "18.0.0",
+  "catalogo": "comercial-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
+  "versao": "18.0.0",
+  "catalogo": "rottas-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "solucoes-18x/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e.json",
+  "versao": "18.0.0",
+  "catalogo": "comercial-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "solucoes-18x/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d.json",
+  "versao": "18.0.0",
+  "catalogo": "comercial-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "solucoes-18x/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003.json",
+  "versao": "18.0.0",
+  "catalogo": "comercial-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "solucoes-18x/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b.json",
+  "versao": "18.0.0",
+  "catalogo": "comercial-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "solucoes-18x/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d.json",
+  "versao": "18.0.0",
+  "catalogo": "cury-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "solucoes-18x/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5.json",
+  "versao": "18.0.0",
+  "catalogo": "comercial-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
+  "versao": "18.1.0",
+  "catalogo": "comercial-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ },
+ {
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
+  "versao": "18.1.0",
+  "catalogo": "comercial-vba",
+  "teodora": "ok",
+  "teseu": "ok",
+  "ibitira": "ok",
+  "admitido": true,
+  "motivo": ""
+ }
+]

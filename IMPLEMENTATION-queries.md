@@ -1,0 +1,221 @@
+# IMPLEMENTATION — Benchmark de queries sobre o AQG (primeira fatia)
+
+> Guia de construção da primeira fatia do [`PRD-queries.md`](PRD-queries.md) (D2). O PRD define **o quê** e registra as decisões D1–D10; este documento define **como**: ordem, contratos, arquivos e critério de aceite de cada task.
+
+## 0. Como usar este documento
+
+### 0.1 Execução
+
+- **Sequencial, uma task por vez**, na ordem da seção 4. A gravação de cada tarefa depende do núcleo (G0).
+- **Branch:** `feat/aqg-benchmark`. Regras em [`commit-rules.md`](commit-rules.md): ao fim de cada task, rode as validações (1.3) e **pergunte sobre o commit**.
+- **Dois ambientes**, que nunca se misturam:
+
+  | Ambiente | Roda | Como |
+  | --- | --- | --- |
+  | Gravação (lado Arqgen) | Motores, `buildings` e `lib` do VT | venv do viabiliza-terrenos, com cwd em `packages/py` (como `evals/benchmark/admissao.py`) |
+  | Entrega (lado RECOD) | Tools de cálculo, tools de edição gravada, linha de base, casos | venv deste repo (`uv run`) |
+
+  Nenhum import do VT, do `buildings` ou da `maga` entra no código de entrega: é o que garante a D1 (binários e código de motor ficam na Arqgen).
+
+### 0.2 Decisões já tomadas
+
+| Decisão | Valor |
+| --- | --- |
+| Motores (D1) | Função gravada: a Arqgen grava o AQG resultante de cada chamada canônica; a tool entregue só devolve o gravado |
+| Fonte da verdade (D5) | AQG cru; a RECOD fornece conversão AQG → estrutura e o mapa de ids |
+| Edição (D3) | Etapa afetada e seguintes refeitas; anteriores só revalidadas. Mexer em torre refaz estacionamento, terraplenagem e indicadores (o viário é refeito pelo teseu; preservar a rede, como o Eros, fica para depois) |
+| Troca de família (D3) | Regra de família equivalente do PRD |
+| Famílias e specs (D6) | Catálogos de `data/families/`; specs padrão |
+| Arquivos (D7) | Edição só nos admitidos por `admissao.py` (hoje 29) |
+| Versões (D8) | teodora 17.1.0, teseu 0.5.2, ibitira 5.2.0 + adaptador, buildings 19.3.0; registradas em cada gravação |
+| `validar` (D9) | Por partes: torre a torre, par a par e o conjunto |
+| Linha de base (D10) | As 16 tools deste repo, só nas tarefas de leitura |
+
+### 0.3 Portões
+
+| Portão | Pergunta | Default proposto | Trava |
+| --- | --- | --- | --- |
+| P1 | B5: de onde a onde vai a "distância de carro"? | Do nó da rede mais próximo do acesso da portaria ao nó mais próximo do `/road_access` de cada torre, pelo menor caminho | G5 |
+| P2 | "Em direção aos fundos" (D1) | **Resolvido (09/11/2026):** perpendicular à linha de frente mais próxima da torre, para dentro do terreno, em todos os arquivos (com ou sem `AQG_FUNDOS`) | G1 |
+| P3 | Como a RECOD recebe as tools, os casos e as gravações | Pacote das tools e casos por acesso de leitura ao repo; gravações (centenas de MB) por um bucket ou um zip | E0 |
+
+## 1. Contexto comum
+
+### 1.1 Onde cada peça mora
+
+| Peça | Caminho | Versionado |
+| --- | --- | --- |
+| Núcleo de gravação (cascata, validar, índice) | `evals/benchmark/gravacao.py` | Sim |
+| AQGs gravados | `data/benchmark/gravacoes/<arquivo>/<chave>.json` | Não (pesado; padrão do `data/aqg/`) |
+| Índice das gravações | `evals/benchmark/gravacoes.json` (chave → resultado, versões, tempos) | Sim |
+| Rede viária regerada (B5) | `data/benchmark/redes/<arquivo>.json` | Não |
+| Tools entregues | `evals/benchmark/tools/` | Sim |
+| Casos | `evals/benchmark/casos.json` (leitura) e `evals/benchmark/casos_edicao.json` | Sim |
+
+### 1.2 Regras
+
+- **Ids das tools** são os do parser deste repo (`p<i>`, `s<i>`, `p<i>.<j>`): estáveis por posição no AQG. O mapa de ids da RECOD aponta para eles.
+- **Tool não levanta exceção por dado inválido** (regra do repo): devolve o erro como dado. Uma chamada sem gravação devolve `{"erro": "fora do roteiro"}`.
+- **Chaves em pt-BR** nos resultados (`veredito`, `violacoes`, `etapas`), como as tools atuais.
+- **Determinismo:** toda gravação registra as versões da D8 e o arquivo de origem; regravar com as mesmas versões tem de dar o mesmo AQG.
+
+### 1.3 Validações
+
+- `make lint` e `make test` (o teste de corpus roda nos 37 AQGs).
+- Gravação: a cascata sem edição (G0) tem de reproduzir o arquivo, como na admissão.
+- `evals/benchmark/gabarito.py` e `admissao.py` rodados de novo quando a task mexer no que eles leem.
+
+## 2. Contratos
+
+### 2.1 Chave de gravação
+
+```python
+# chave canônica: o mesmo pedido, escrito de formas equivalentes, cai na mesma chave
+Chave = tuple[str, str, tuple[tuple[str, object], ...]]  # (arquivo, tool, args ordenados)
+```
+
+Os argumentos são os semânticos, não coordenadas: `mover_torre(torre="p12", distancia=5.0, sentido="fundos")`. A tool resolve a geometria (P2); o modelo nunca calcula vetor.
+
+### 2.2 Resposta de uma tool de edição
+
+```json
+{
+  "veredito": "valido",
+  "violacoes": [],
+  "etapas": ["validar", "estacionamento", "terraplenagem", "indicadores"],
+  "aqg": "data/benchmark/gravacoes/<arquivo>/<chave>.json"
+}
+```
+
+`violacoes` traz `{"regra", "torres"}` por violação (D9). Com veredito `invalido`, a cascata para e `aqg` é o estado depois da edição, sem as etapas seguintes; o modelo julga e decide.
+
+### 2.3 Cascata
+
+Uma função só, usada por todas as gravações:
+
+```
+aplicar(project, edicao) ->
+    edição sobre o Project
+    → validar (por partes)                        ; inválido: para
+    → reposicionar torres inválidas               ; só em troca de família (D3)
+    → estacionamento: solve_parking_lot (teseu)   ; se a etapa afetada vem antes
+    → terraplenagem: compute_earthmoving (ibitira 5.2.0 + adaptador)
+    → indicadores: outputs zerados, earthmoving reaplicado, compute_outputs, compute_annotations
+```
+
+`compute_outputs` **acrescenta** em `solution.outputs`: o recálculo zera os outputs antes, ou os indicadores saem duplicados.
+
+### 2.4 `validar` por partes (D9)
+
+1. Monta o problema do teodora como `admissao.check_teodora` (pré-Tower, specs padrão).
+2. Cada torre sozinha: violação de terreno (recuo, perímetro, encosta, distância às linhas) → `{"regra", "torres": [p]}`.
+3. Cada par: violação entre torres (afastamento) → `{"regra", "torres": [p, q]}`.
+4. O conjunto: agregados (CA, TO, permeabilidade, vagas necessárias) → `{"regra", "torres": todas}`.
+
+O nome da regra sai da mensagem do binário (`parse_formulation_error` do Eros é a referência).
+
+### 2.5 Família equivalente (D3)
+
+Entrada: torre original, programa novo, formato pedido (opcional). Conjunto candidato = `build_families(specs padrão, catálogo do terreno, 10)` com o programa novo. Ordem: formato pedido → formato original → pavimentos mais próximos → unidades por pavimento mais próximas → menor pegada. Sem candidata no formato: `{"erro": "troca impossível com este programa"}`.
+
+### 2.6 Rede viária (B5)
+
+`data/benchmark/redes/<arquivo>.json`: as ruas da solução do teseu regerada (`line`, `width`, `node_id`, `parent_node_id`), já conferida contra as vagas do arquivo pela admissão. A tool `caminho(origem, destino)` faz menor caminho nesse grafo (pontos de origem e destino pela regra do P1).
+
+## 3. Fatos dos dados
+
+Verificados nos spikes e na admissão (09/11/2026):
+
+1. O problema do teodora sai de `_gen_problem` com `solution.placed_objects` vazio (estado pré-Tower); as torres do arquivo validam e o controle de 500 m não.
+2. O teseu não usa sorteio e para por iteração nos admitidos: refaz as mesmas vagas, nas mesmas posições.
+3. O ibitira 5.2.0 só aceita o `road_graph` como um par (largura, linhas); o adaptador está em `admissao.py`.
+4. `vagas_necessarias` de cada pavimento sai de `_calc_expected_parking_spots(tipologias, archprog)` em `buildings/family/variations/height.py`.
+5. Variações de altura de uma torre (pavimentos) saem de `_gen_height_variation` no mesmo módulo: a candidata natural para `definir_pavimentos`, a confirmar em G2.
+6. `build_families` monta as torres com qualquer catálogo de `data/families/` (0,5–5,7 s); a família original só reaparece no conjunto em 2 de 6 terrenos.
+7. As famílias de torre têm a parte `/road_access`, que o parser deste repo não desenha mas lê do arquivo.
+8. 4 arquivos de `solucoes-18x/` não têm portaria: B5 e B11 ficam fora neles.
+9. Rodar de novo a etapa de portaria não a reproduz; as demais etapas depois das torres (estacionamento, lazer, terraplenagem, indicadores, anotações) se reproduzem chamando `_solve_step` do pipeline.
+10. `compute_annotations` e `remove_unused_families` devolvem o Project direto (não `Result`); `compute_outputs` devolve `Result`.
+
+## 4. Ordem
+
+| # | Task | Depende de | Entrega |
+| --- | --- | --- | --- |
+| 1 | G0 — Núcleo de gravação | — | Cascata, `validar` por partes, índice |
+| 2 | G1 — Mover e remover torre (D1, D3) | G0, P2 | Gravações e casos |
+| 3 | G2 — Pavimentos e mix (D6, E3) | G0 | Variação de altura, família equivalente, gravações |
+| 4 | G3 — Vagas por unidade (E1) | G0 | Recálculo de `vagas_necessarias`, gravações |
+| 5 | G4 — Talude (E7) | G0 | Gravações |
+| 6 | G5 — Rede viária (B5) | P1 | Redes, `caminho`, gabarito da B5 |
+| 7 | G6 — Histórico (G4, G5) | G1 | Sequências gravadas e respostas esperadas |
+| 8 | T0 — Tools entregues | G0–G6 | `evals/benchmark/tools/` |
+| 9 | T1 — Casos de edição e controles | T0 | `casos_edicao.json`, cliente-gabarito e cliente-vândalo |
+| 10 | E0 — Entrega à RECOD | T1, P3 | Pacote e instruções |
+
+## 5. Tasks
+
+### G0 — Núcleo de gravação
+
+- **Arquivos:** `evals/benchmark/gravacao.py` (cascata, `validar`, chave, índice); o que `admissao.py` já tem (adaptador do ibitira, problema do teodora) passa para lá, e `admissao.py` importa dele.
+- **Passos:** cascata da 2.3; `validar` da 2.4; gravação em `data/benchmark/gravacoes/`; índice com versões da D8 e tempo de cada etapa.
+- **Aceite:** a cascata sem edição, nos 29 admitidos, devolve um AQG com as mesmas vagas, o mesmo corte, aterro, muro e cota do arquivo, e os mesmos indicadores; `validar` nos arquivos originais devolve zero violações, e no controle de 500 m devolve a violação de terreno da torre deslocada.
+- **Resultado (09/11/2026): concluída.** As 29 bases reproduzem todos os elementos do arquivo (torres, vagas, portaria, lazer e terraplenagem), são determinísticas (duas execuções, mesmo JSON) e `validar` devolve zero violações nelas. Nos controles, `validar` acusa `InsideGeometry` na torre deslocada 500 m e `NoOverlapping` no par sobreposto; 12 torres levam 0,7 s. Duas decisões de implementação:
+  - a portaria não se reproduz ao rodar a etapa de novo (muda de lugar num arquivo; falha onde a família foi podada), então é preservada do arquivo, como no Eros;
+  - o estado inicial das tarefas de edição é a **base**: o AQG normalizado pela cascata sem edição, gravado no índice com a tool `base`. Ela difere do arquivo só em indicadores que o `buildings` atual calcula diferente do exportador original (`AreaPrivativaTotalComputavel` e `AreaPrivativaTotalNaoComputavel` em 16 arquivos, `DescritivoTipologia` ausente em 17), no UUID do viário (fixado) e nos scores (mantidos do arquivo). Assim, a diferença entre a base e uma gravação mostra só a edição.
+
+### G1 — Mover e remover torre
+
+- **Tarefas:** D1 ("mova a torre mais próxima da frente 5 m em direção aos fundos") e D3 ("remova a torre mais próxima da APP e diga quantas unidades perdi").
+- **Passos:** resolver a referência por descrição sobre o AQG cru (parser deste repo); aplicar a edição; cascata; gravar. A D3 só existe nos arquivos com APP.
+- **Aceite:** gravação por arquivo admitido em que a descrição aponta um elemento só; a resposta esperada da D3 é a diferença de `TotalDeUnidades` entre o arquivo e o gravado.
+
+### G2 — Pavimentos e mix
+
+- **Tarefas:** D6 ("suba a torre mais próxima da portaria para 20 pavimentos") e E3 ("mude o mix para 60% 2Q / 40% 1Q mantendo a implantação").
+- **Passos:** D6 pela variação de altura (fato 5; se não servir, pela família equivalente com 20 pavimentos); E3 com o catálogo comercial e a família equivalente para cada torre; reposicionar só as inválidas (teodora com as demais fixas); cascata.
+- **Aceite:** famílias novas dentro do gabarito (`MaxHeight`) ou veredito `invalido` com a regra; nenhuma torre muda de lugar sem estar inválida.
+
+### G3 — Vagas por unidade
+
+- **Tarefa:** E1 ("aumente para 1,5 vaga por unidade e refaça só o estacionamento").
+- **Passos:** `ParkingLotPerUnit` × 1,5 no archprog; `vagas_necessarias` recalculado por `_calc_expected_parking_spots` em cada pavimento das famílias de torre; validar (agregado de vagas); cascata a partir do estacionamento.
+- **Aceite:** demanda nova = demanda do arquivo × 1,5 (arredondada como o `buildings` arredonda); resposta esperada com vagas atendidas e déficit, que pode ser negativo em relação às vagas do arquivo (spike: 2 de 11 perderam vagas).
+
+### G4 — Talude
+
+- **Tarefa:** E7, com os parâmetros canônicos do PRD (aterro 1:2, corte 1:1,5, muro sem limite).
+- **Passos:** `SlopeSpec` sobreposto só nesta chamada; só terraplenagem e indicadores rodam.
+- **Aceite:** torres e vagas idênticas ao arquivo; muro zero; corte, aterro e malhas novos gravados.
+
+### G5 — Rede viária
+
+- **Tarefa:** B5 ("qual a distância de carro da portaria a cada torre?").
+- **Passos:** gravar a rede da 2.6 nos admitidos; tool `caminho`; gabarito da B5 em `casos.json`.
+- **Aceite:** em todo arquivo admitido com portaria, toda torre alcançável ou marcada como inalcançável com o motivo.
+
+### G6 — Histórico
+
+- **Tarefas:** G4 ("o que mudou entre a solução mãe e a filha?") e G5 ("desfaça as duas últimas mudanças").
+- **Passos:** G4 usa a gravação da D1 como filha; a resposta esperada é a diferença calculada por script (torre movida e vetor, vagas que mudaram, deltas de corte, aterro e indicadores). G5 grava a sequência D1 → D3; a resposta esperada é o arquivo original.
+- **Aceite:** resposta esperada gerada sem LLM e conferida contra as duas gravações.
+
+### T0 — Tools entregues
+
+- **Arquivos:** `evals/benchmark/tools/` com três módulos: `calculo.py` (as 5 da D4, sobre o parser deste repo), `edicao.py` (cada tool de edição resolve a chave canônica e devolve o gravado ou "fora do roteiro") e `linha_de_base.py` (as 16 tools atuais, sem o `RunContext` do agno).
+- **Contrato:** funções Python puras com descrição em JSON Schema, para a RECOD plugar no framework de agente que quiser.
+- **Aceite:** nenhum import do VT, `buildings` ou `maga` (teste que falha se aparecer); toda chamada canônica dos casos devolve a gravação; chamada não gravada devolve "fora do roteiro".
+
+### T1 — Casos de edição e controles
+
+- **Arquivo:** `evals/benchmark/casos_edicao.json`: tarefa, arquivo, pergunta com a referência por descrição, chamada canônica esperada, gravação esperada e resposta esperada.
+- **Controles do instrumento:** um cliente-gabarito (chama exatamente as chamadas canônicas) tem de acertar 100%; um cliente-vândalo (acerta e faz uma edição a mais) tem de ser acusado de dano colateral em 100%. Sem os dois, nenhum número do benchmark vale.
+
+### E0 — Entrega à RECOD
+
+- Depende do P3. Pacote das tools e dos casos, gravações, e um README curto: como plugar as tools, o que a estrutura deles precisa fornecer (conversão AQG → estrutura, mapa de ids) e como medir (métricas do PRD).
+
+## 6. Avaliação final
+
+- Os dois controles da T1 passam.
+- A linha de base (D10) responde as tarefas de leitura com as 16 tools e o gabarito confere.
+- Uma rodada curta com um modelo real no AQG cru, para medir tokens de referência antes de a RECOD trazer a estrutura dela.
