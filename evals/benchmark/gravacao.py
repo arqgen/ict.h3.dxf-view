@@ -199,6 +199,70 @@ def validar(project: Project) -> list[dict]:
     return violacoes
 
 
+def reposicionar(
+    project: Project, violacoes: list[dict]
+) -> tuple[Project, list[str], list[str]]:
+    """Reposiciona só as torres inválidas, com as demais fixas (D3, troca de família).
+
+    Fica fixa, na ordem do arquivo, a torre válida sozinha e compatível com as já
+    fixadas; as outras viram moldes livres do teodora (receita do Eros). Torre que o
+    teodora não recoloca sai do projeto. Devolve (projeto, reposicionadas, removidas).
+    """
+    towers = tower_ids(project)
+    alone = {v["torres"][0] for v in violacoes if len(v["torres"]) == 1}
+    pairs = {frozenset(v["torres"]) for v in violacoes if len(v["torres"]) == 2}
+    kept: list[tuple[str, str, dict]] = []
+    moves: list[tuple[str, str, dict]] = []
+    for t in towers:
+        clash = any(frozenset((t[0], k[0])) in pairs for k in kept)
+        (moves if t[0] in alone or clash else kept).append(t)
+    # Famílias sem uso (as trocadas) viram moldes livres e o teodora as escolheria.
+    problem = teodora_problem(project.remove_unused_families())
+    by_id = {obj["id"]: obj for obj in problem["objects"]}
+    fixed = check_problem(problem, [(f, pos) for _, f, pos in kept])
+    fixed["objects"] += [by_id[f] for f in dict.fromkeys(f for _, f, _ in moves)]
+    for key in ("position_chooser", "score_criteria"):
+        fixed[key] = problem.get(key)
+    # A família de cada torre já está escolhida: a proporção da strategy do arquivo
+    # (`KeepProportion`) citaria as famílias trocadas. A meta de CA também pode já
+    # estar atendida pelas fixas; a meta passa a ser recolocar cada torre (as cópias
+    # fixas têm o id do molde e também contam).
+    fixed["next_object"] = {"type": "SmallestCardinality"}
+    families = [f for _, f, _ in towers if f in {m[1] for m in moves}]
+    fixed["goals"] = [
+        {"MinimumSum": {"amount": float(len(families)), "objects": [[f, 1.0]]}}
+        for f in dict.fromkeys(families)
+    ]
+    fixed["grid_generators"] = problem["grid_generators"]
+    proc = subprocess.run(
+        ["./teodora", "positioning", "--seed", "0"],
+        input=json.dumps(fixed),
+        capture_output=True,
+        text=True,
+        timeout=TIMEOUT_MS // 1000,
+    )
+    found = json.loads(proc.stdout)["positions"] if proc.returncode == 0 else {}
+    placed = project.solution.placed_objects
+    moved, removed = [], []
+    for torre, family, _ in moves:
+        i = int(torre[1:])
+        if not found.get(family):
+            removed.append(torre)
+            continue
+        pos = found[family].pop(0)
+        placed = placed.set(
+            i,
+            placed[i].transform(
+                ["position"],
+                lambda p, pos=pos: p.set(x=pos["x"], y=pos["y"], angle=pos["angle"]),
+            ),
+        )
+        moved.append(torre)
+    gone = {int(t[1:]) for t in removed}
+    placed = pvector(po for i, po in enumerate(placed) if i not in gone)
+    return project.transform(["solution", "placed_objects"], placed), moved, removed
+
+
 # --- cascata ---------------------------------------------------------------------
 
 
@@ -289,7 +353,11 @@ def gravar(
     if project is not None:
         out = GRAVACOES / Path(arquivo).stem / f"{key}.json"
         out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(json.dumps(project.serialize(), ensure_ascii=False))
+        data = project.serialize()
+        # A ordem das famílias sai do hash, que inclui geometrias (hash por
+        # identidade); as instâncias citam a família pelo hid, a ordem não importa.
+        data["families"].sort(key=lambda f: f["class_path"])
+        out.write_text(json.dumps(data, ensure_ascii=False))
         entry["aqg"] = str(out.relative_to(ROOT))
     indice = json.loads(INDICE.read_text()) if INDICE.exists() else {}
     indice[key] = entry
@@ -304,27 +372,45 @@ def aplicar(
     args: dict[str, Any],
     edicao: Callable[[Project], Project],
     specs: ClientSpecs = SPECS,
+    repor: bool = False,
 ) -> dict:
-    """Edição → validar → cascata → gravação (contrato 2.2 do IMPLEMENTATION)."""
+    """Edição → validar → [reposicionar] → cascata → gravação (contratos 2.2 e 2.3).
+
+    `repor` só na troca de família: as torres inválidas são reposicionadas e o
+    conjunto é validado de novo.
+    """
     start = time.perf_counter()
     edited = edicao(original)
     violacoes = validar(edited)
+    extra: dict[str, Any] = {}
+    if violacoes and repor:
+        edited, moved, removed = reposicionar(edited, violacoes)
+        extra = {"reposicionadas": moved, "removidas": removed}
+        violacoes = validar(edited)
     if violacoes:
         resposta = {
             "veredito": "invalido",
             "violacoes": violacoes,
-            "etapas": ["validar"],
+            "etapas": ["validar", *(["reposicionar"] if extra else [])],
+            **extra,
         }
         return gravar(arquivo, tool, args, edited, resposta)
     res = cascata(original, edited, specs)
     if res.is_err():
-        resposta = {"veredito": "erro", "violacoes": [], "erro": str(res)[:300]}
+        resposta = {
+            "veredito": "erro",
+            "violacoes": [],
+            "erro": str(res)[:300],
+            **extra,
+        }
         return gravar(arquivo, tool, args, None, resposta)
-    etapas = ["validar", *(str(s.step.value) for s in edited.solution.strategy[1:])]
+    etapas = ["validar", *(["reposicionar"] if extra else [])]
+    etapas += [str(s.step.value) for s in edited.solution.strategy[1:]]
     resposta = {
         "veredito": "valido",
         "violacoes": [],
         "etapas": [*etapas, "indicadores"],
+        **extra,
         "segundos": round(time.perf_counter() - start, 2),
     }
     return gravar(arquivo, tool, args, res.unwrap(), resposta)

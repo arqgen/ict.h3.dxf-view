@@ -5,18 +5,35 @@ cru, e passa a edição pela cascata de `gravacao.aplicar`. Arquivo em que a des
 não aponta um elemento só (empate abaixo de `TIE`) fica fora da tarefa.
 
     cd <viabiliza-terrenos.backend>/packages/py && ../../venv/bin/python \\
-        <repo>/evals/benchmark/edicoes.py
+        <repo>/evals/benchmark/edicoes.py [d1 d3 d6 e3] [arquivos]
+
+Sem tarefas, roda todas; sem arquivos, todos os admitidos.
 """
 
 import json
 import math
 import sys
+import uuid
 from pathlib import Path
 from typing import Any
 
-from buildings.protocol.project import Project
-from gravacao import AQG, ROOT, aplicar
+from buildings.family.construction import build_families
+from buildings.family.variations.empena_cega import calc_empena_cega
+from buildings.family.variations.height import (
+    _gen_family_variation,
+    _gen_tower_height_variation,
+    gen_floor_heights_spec,
+    gen_max_floors_with_units,
+    gen_min_floors_with_units,
+)
+from buildings.protocol.archprog import MaxHeight
+from buildings.protocol.family import Families
+from buildings.protocol.id import VolumeId
+from buildings.protocol.project import Project, build_project
+from gravacao import AQG, ROOT, SPECS, TOWER, aplicar, gravar, tower_ids
+from persistente.hid import Hid
 from pyrsistent import pvector
+from shapely.geometry import shape
 
 sys.path.insert(0, str(ROOT))
 from src.cad.geometry import (  # noqa: E402
@@ -29,6 +46,17 @@ from src.cad.geometry import (  # noqa: E402
 from src.cad.model import CadModel, _category, load_aqg  # noqa: E402
 
 TIE = 0.01
+FAMILIES = ROOT / "data" / "families"
+# E3: as variantes simples (sem varanda, sem suíte) do catálogo comercial.
+MIX_E3 = {"/building/apartamento/2q/40_71": 60, "/building/apartamento/1q/27_97": 40}
+PROGRAMA = ("FamilyProportion", "StaticFamilyProportion", "FamilySelection")
+FORMATOS = {"I", "L", "U", "H"}
+# arquivo admitido -> catálogo de origem
+ADMITIDOS = {
+    r["arquivo"]: r["catalogo"]
+    for r in json.loads(Path(__file__).with_name("admissao.json").read_text())
+    if r["admitido"]
+}
 Vec2 = tuple[float, float]
 
 
@@ -112,6 +140,107 @@ def remover(torre: str):
     return edit
 
 
+def tipo_irmao(project: Project, family: Any, total: int) -> Any:
+    """A família `Tower` com `total` pavimentos: altura, afastamento e quantidades
+    refeitos como `_compute_tower_property`; a planta do pavimento-tipo não muda."""
+    p = family.properties
+    cobertura = 1 if p.altura_cobertura > 0 else 0
+    pav_tipo = p.pav_tipo.set(n=total - cobertura - 1)
+    n_unidades = pav_tipo.n + (p.terreo.n if p.terreo_com_unidades else 0)
+    props = p.set(
+        total_pavimentos=total, pav_tipo=pav_tipo, n_pavimentos_unidades=n_unidades
+    )
+    variation = _gen_tower_height_variation(
+        props, SPECS.config, project.site.inputs
+    ).unwrap()
+    base = family.set(
+        volume=pvector(
+            g for g in family.volume if g.class_path not in VolumeId.afastamento()
+        ),
+        drawing_elements=pvector(
+            d for d in family.drawing_elements if d.label != "afastamento"
+        ),
+        class_path=Hid(str(family.class_path).rsplit("/", 1)[0]),
+    )
+    empena = calc_empena_cega(project.archprog, SPECS)
+    sibling = _gen_family_variation(variation, family=base, empena_cega=empena)
+    return sibling.unwrap().set(properties=props.set(afastamento=variation.afastamento))
+
+
+def faixa_pavimentos(project: Project, family: Any) -> tuple[int, int]:
+    """(mínimo, máximo) de pavimentos com unidades que o programa permite."""
+    p = family.properties
+    archprog = project.archprog
+    heights = gen_floor_heights_spec(SPECS.config, archprog).unwrap()
+    max_height = archprog.get_item(MaxHeight)
+    maximo = gen_max_floors_with_units(
+        archprog,
+        project.site.inputs,
+        max_height.value if max_height else float("inf"),
+        heights,
+        None,
+        units_per_floor=sum(p.pav_tipo.tipologias.values()),
+        unidades_terreo=sum(p.terreo.tipologias.values())
+        if p.terreo_com_unidades
+        else 0,
+    )
+    return gen_min_floors_with_units(archprog, heights), maximo
+
+
+def trocar_familia(torre: str, family: Any):
+    i = int(torre[1:])
+
+    def edit(project: Project) -> Project:
+        po = project.solution.placed_objects[i]
+        uid = str(po.hid).rsplit("/", 1)[1]
+        if all(f.class_path != family.class_path for f in project.families):
+            project = project.set(families=project.families.append(family))
+        hid = f"{family.class_path}/{uid}"
+        return project.transform(["solution", "placed_objects", i, "hid"], hid)
+
+    return edit
+
+
+def formato(class_path: str, origem: dict[str, str]) -> str | None:
+    """I, L, U ou H: do caminho, nas torres do tetris; do catálogo, nas estáticas."""
+    segs = class_path.split("/")
+    if segs[3] in FORMATOS:
+        return segs[3]
+    return origem.get("/".join(["", "building", "pav_tipo", *segs[3:-1]]))
+
+
+def pegada(family: Any) -> float:
+    return sum(
+        shape(g.geometry).area
+        for g in family.volume
+        if str(g.class_path).startswith("/core")
+    )
+
+
+def equivalente(
+    original: Any, candidatas: list[Any], origem: dict[str, str]
+) -> Any | None:
+    """Regra de família equivalente (2.5), sem formato pedido."""
+    alvo = formato(str(original.class_path), origem)
+    if alvo is not None:
+        candidatas = [c for c in candidatas if formato(str(c.class_path), {}) == alvo]
+    p = original.properties
+
+    def por_andar(f: Any) -> int:
+        return sum(f.properties.pav_tipo.tipologias.values())
+
+    return min(
+        candidatas,
+        key=lambda c: (
+            abs(c.properties.total_pavimentos - p.total_pavimentos),
+            abs(por_andar(c) - por_andar(original)),
+            pegada(c),
+            str(c.class_path),
+        ),
+        default=None,
+    )
+
+
 def total_unidades(raw: dict) -> Any:
     unidades = "TotalDeUnidades"
     return next(
@@ -150,23 +279,130 @@ def d3(arquivo: str, raw: dict, model: CadModel) -> dict:
     return row
 
 
-def main() -> None:
-    admitted = [
-        r["arquivo"]
-        for r in json.loads(Path(__file__).with_name("admissao.json").read_text())
-        if r["admitido"]
+def d6(arquivo: str, raw: dict, model: CadModel) -> dict:
+    portaria = [
+        prim
+        for inst in model.instances.values()
+        if _category(inst.family_type) == "portaria"
+        for eid in inst.entity_ids
+        for prim in model.by_id[eid].prims
     ]
-    only = set(sys.argv[1:])
-    for arquivo in admitted:
+    if not portaria:
+        return {"tarefa": "D6", "arquivo": arquivo, "fora": "sem portaria"}
+    torre, motivo = nearest_tower(model, portaria)
+    if torre is None:
+        return {"tarefa": "D6", "arquivo": arquivo, "fora": motivo}
+    total = 20
+    args = {"torre": torre, "total": total}
+    original = Project.create(raw)
+    po = original.solution.placed_objects[int(torre[1:])]
+    family = next(f for f in original.families if f.class_path == po.hid.nonunique())
+    edit = trocar_familia(torre, tipo_irmao(original, family, total))
+    row = {"tarefa": "D6", "arquivo": arquivo, "torre": torre}
+    minimo, maximo = faixa_pavimentos(original, family)
+    n_unidades = total - (1 if family.properties.altura_cobertura > 0 else 0)
+    n_unidades -= 0 if family.properties.terreo_com_unidades else 1
+    if not minimo <= n_unidades <= maximo:
+        regra = "MaxPavimentos" if n_unidades > maximo else "MinPavimentos"
+        resposta = {
+            "veredito": "invalido",
+            "violacoes": [{"regra": regra, "torres": [torre]}],
+            "etapas": ["validar"],
+            "pavimentos_com_unidades": {
+                "pedido": n_unidades,
+                "minimo": minimo,
+                "maximo": maximo,
+            },
+        }
+        return {
+            **row,
+            **gravar(arquivo, "definir_pavimentos", args, edit(original), resposta),
+        }
+    return {**row, **aplicar(arquivo, original, "definir_pavimentos", args, edit)}
+
+
+def e3(arquivo: str, raw: dict, model: CadModel) -> dict:
+    args = {"mix": MIX_E3}
+    row = {"tarefa": "E3", "arquivo": arquivo}
+    archprog = [a for a in raw["archprog"] if a["type"] not in PROGRAMA]
+    archprog += [
+        {"type": "FamilyProportion", "hid": hid, "value": v}
+        for hid, v in MIX_E3.items()
+    ]
+    novo = Project.create({**raw, "archprog": archprog})
+    comercial = Families.create(
+        json.loads((FAMILIES / "comercial-vba.json").read_text())
+    )
+    built = build_families(
+        build_project(
+            client_id="vba",
+            site=novo.site,
+            user="benchmark",
+            archprog=novo.archprog,
+            seed=0,
+        ).unwrap(),
+        SPECS,
+        comercial,
+    )
+    if built.is_err():
+        resposta = {"veredito": "erro", "violacoes": [], "erro": str(built)[:300]}
+        return {**row, **gravar(arquivo, "alterar_programa", args, None, resposta)}
+    # O tetris dá `_id` aleatório e as datas da execução: fixados para regravar
+    # dar o mesmo AQG.
+    candidatas = [
+        f.set(
+            _id=str(uuid.uuid5(uuid.NAMESPACE_URL, str(f.class_path))),
+            created_at="",
+            updated_at="",
+        )
+        for f in built.unwrap().families
+        if str(f.class_path).startswith(TOWER)
+    ]
+    origem = {
+        f["class_path"]: f["properties"].get("formato")
+        for f in json.loads((FAMILIES / f"{ADMITIDOS[arquivo]}.json").read_text())
+        if "/pav_tipo/" in f["class_path"]
+    }
+    original = Project.create(raw)
+    families = {str(f.class_path): f for f in original.families}
+    trocas: dict[str, Any] = {}
+    for torre, family_hid, _ in tower_ids(original):
+        nova = equivalente(families[family_hid], candidatas, origem)
+        if nova is None:
+            resposta = {
+                "veredito": "erro",
+                "violacoes": [],
+                "erro": "troca impossível com este programa",
+            }
+            return {**row, **gravar(arquivo, "alterar_programa", args, None, resposta)}
+        trocas[torre] = nova
+    row["trocas"] = {t: str(f.class_path) for t, f in trocas.items()}
+
+    def edit(project: Project) -> Project:
+        project = project.set(archprog=novo.archprog)
+        for torre, family in trocas.items():
+            project = trocar_familia(torre, family)(project)
+        return project
+
+    entry = aplicar(arquivo, original, "alterar_programa", args, edit, repor=True)
+    return {**row, **entry}
+
+
+def main() -> None:
+    tarefas = {"d1": d1, "d3": d3, "d6": d6, "e3": e3}
+    names = [a for a in sys.argv[1:] if a in tarefas]
+    tasks = [tarefas[n] for n in names] or list(tarefas.values())
+    only = set(sys.argv[1:]) - set(names)
+    for arquivo in ADMITIDOS:
         if only and arquivo not in only:
             continue
         data = (AQG / arquivo).read_bytes()
         raw = json.loads(data)
         model = load_aqg(data, arquivo)
-        for task in (d1, d3):
+        for task in tasks:
             row = task(arquivo, raw, model)
             keep = ("tarefa", "torre", "fora", "veredito", "violacoes", "erro")
-            extra = ("unidades_perdidas", "segundos")
+            extra = ("unidades_perdidas", "reposicionadas", "removidas", "segundos")
             shown = {k: row[k] for k in (*keep, *extra) if row.get(k) is not None}
             print(shown, arquivo)
 

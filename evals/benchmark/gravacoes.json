@@ -1,4 +1,42 @@
 {
+ "03ba8ff127b417fc": {
+  "aqg": "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/03ba8ff127b417fc.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "solucoes-18x/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003.json",
+  "etapas": [
+   "validar",
+   "reposicionar",
+   "parking_lot",
+   "entrance",
+   "leisure",
+   "earthmoving",
+   "indicadores"
+  ],
+  "removidas": [],
+  "reposicionadas": [
+   "p267",
+   "p268",
+   "p270",
+   "p271"
+  ],
+  "segundos": 3.32,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "0429d3d9cb7e91b6": {
   "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0429d3d9cb7e91b6.json",
   "args": {},
@@ -29,7 +67,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 1.54,
+  "segundos": 1.78,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -116,7 +154,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 4.96,
+  "segundos": 4.52,
   "tool": "remover_torre",
   "veredito": "valido",
   "versoes": {
@@ -145,7 +183,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 1.31,
+  "segundos": 1.2,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -157,6 +195,127 @@
    "teseu": "0.5.2"
   },
   "violacoes": []
+ },
+ "13e415b55033edc4": {
+  "aqg": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/13e415b55033edc4.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "solucoes-18x/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 1.07,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "14eec74e3533de6a": {
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/ruim_6ace4ea8ecd8aeaf968b312c.json",
+  "erro": "/parking_lot/optimal_selection/default: could not compute parking lot: not able to determine parking lots amount: got 0 amount",
+  "removidas": [
+   "p120"
+  ],
+  "reposicionadas": [],
+  "tool": "alterar_programa",
+  "veredito": "erro",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "170644efa6e65060": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace4079bf22db620be742d4/170644efa6e65060.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/otimo_6ace4079bf22db620be742d4.json",
+  "etapas": [
+   "validar",
+   "reposicionar",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "removidas": [
+   "p2"
+  ],
+  "reposicionadas": [],
+  "segundos": 0.53,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "19097e163252a5b8": {
+  "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/19097e163252a5b8.json",
+  "args": {
+   "torre": "p940",
+   "total": 20
+  },
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 15,
+   "minimo": 1,
+   "pedido": 19
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p940"
+    ]
+   }
+  ]
  },
  "1aa6790ed4a281c3": {
   "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/1aa6790ed4a281c3.json",
@@ -173,7 +332,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 9.8,
+  "segundos": 8.21,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -201,6 +360,40 @@
    "teseu": "0.5.2"
   }
  },
+ "24b3f4a8e368d5b3": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/24b3f4a8e368d5b3.json",
+  "args": {
+   "torre": "p150",
+   "total": 20
+  },
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 10,
+   "minimo": 10,
+   "pedido": 20
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p150"
+    ]
+   }
+  ]
+ },
  "24f896cb8cb2f03a": {
   "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/24f896cb8cb2f03a.json",
   "args": {
@@ -216,7 +409,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 8.07,
+  "segundos": 7.47,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -228,6 +421,103 @@
    "teseu": "0.5.2"
   },
   "violacoes": []
+ },
+ "2a0ac2fbcb589bec": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/2a0ac2fbcb589bec.json",
+  "args": {
+   "torre": "p255",
+   "total": 20
+  },
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 15,
+   "minimo": 14,
+   "pedido": 20
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p255"
+    ]
+   }
+  ]
+ },
+ "2bad3e506408fa98": {
+  "aqg": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/2bad3e506408fa98.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 1.46,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "2fad9869ac788e54": {
+  "aqg": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/2fad9869ac788e54.json",
+  "args": {
+   "torre": "p352",
+   "total": 20
+  },
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 8,
+   "minimo": 8,
+   "pedido": 20
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p352"
+    ]
+   }
+  ]
  },
  "31100608f54a03b6": {
   "aqg": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/31100608f54a03b6.json",
@@ -244,7 +534,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 0.97,
+  "segundos": 1.03,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -303,8 +593,42 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 2.04,
+  "segundos": 1.86,
   "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "3694b2b4102f38ff": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace64da8d16ae86ca3419e5/3694b2b4102f38ff.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/otimo_6ace64da8d16ae86ca3419e5.json",
+  "etapas": [
+   "validar",
+   "reposicionar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "removidas": [],
+  "reposicionadas": [
+   "p381"
+  ],
+  "segundos": 9.5,
+  "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
    "buildings": "19.3.0",
@@ -331,8 +655,37 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 2.04,
+  "segundos": 1.91,
   "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "381ba58d92462665": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/381ba58d92462665.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 1.08,
+  "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
    "buildings": "19.3.0",
@@ -359,6 +712,43 @@
    "teseu": "0.5.2"
   }
  },
+ "38b0c44ef3c4f7e6": {
+  "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/38b0c44ef3c4f7e6.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
+  "etapas": [
+   "validar",
+   "reposicionar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "removidas": [
+   "p935",
+   "p938",
+   "p939",
+   "p942"
+  ],
+  "reposicionadas": [],
+  "segundos": 3.31,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "38c80c06534b057b": {
   "aqg": "data/benchmark/gravacoes/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d/38c80c06534b057b.json",
   "args": {},
@@ -373,6 +763,101 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "39e99f7386aa4eab": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/39e99f7386aa4eab.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
+  "etapas": [
+   "validar",
+   "reposicionar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "removidas": [
+   "p357"
+  ],
+  "reposicionadas": [],
+  "segundos": 1.41,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "3c3b789749db2822": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace3c16d8664cf36a13dbb9/3c3b789749db2822.json",
+  "args": {
+   "torre": "p1",
+   "total": 20
+  },
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/ruim_6ace3c16d8664cf36a13dbb9.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 8,
+   "minimo": 8,
+   "pedido": 20
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p1"
+    ]
+   }
+  ]
+ },
+ "4c8af4e12ff3b7fd": {
+  "aqg": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/4c8af4e12ff3b7fd.json",
+  "args": {
+   "torre": "p221",
+   "total": 20
+  },
+  "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 1.71,
+  "tool": "definir_pavimentos",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "4f1238bbc2b12336": {
   "aqg": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/4f1238bbc2b12336.json",
@@ -389,8 +874,34 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 2.06,
+  "segundos": 1.63,
   "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "50518fd0713fbbaf": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace404e4a7a894b01852f19/50518fd0713fbbaf.json",
+  "args": {
+   "torre": "p2",
+   "total": 20
+  },
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/bom_6ace404e4a7a894b01852f19.json",
+  "etapas": [
+   "validar",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 2.25,
+  "tool": "definir_pavimentos",
   "veredito": "valido",
   "versoes": {
    "buildings": "19.3.0",
@@ -461,6 +972,40 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "54299b59d1e45f55": {
+  "aqg": "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/54299b59d1e45f55.json",
+  "args": {
+   "torre": "p201",
+   "total": 20
+  },
+  "arquivo": "solucoes-18x/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 4,
+   "minimo": 4,
+   "pedido": 20
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p201"
+    ]
+   }
+  ]
  },
  "567950f0b1139752": {
   "aqg": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json",
@@ -533,7 +1078,7 @@
    "entrance",
    "indicadores"
   ],
-  "segundos": 0.19,
+  "segundos": 0.21,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -561,6 +1106,103 @@
    "teseu": "0.5.2"
   }
  },
+ "6795954d6f50d211": {
+  "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/6795954d6f50d211.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
+  "etapas": [
+   "validar",
+   "reposicionar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "removidas": [
+   "p933",
+   "p936",
+   "p937",
+   "p939",
+   "p940"
+  ],
+  "reposicionadas": [],
+  "segundos": 2.82,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "68c086b1f2d128d1": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/68c086b1f2d128d1.json",
+  "args": {
+   "torre": "p9",
+   "total": 20
+  },
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/otimo_6ace4108cfe0941cdf9a9189.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 18,
+   "minimo": 1,
+   "pedido": 19
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p9"
+    ]
+   }
+  ]
+ },
+ "6a29617d149de9e7": {
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "solucoes-18x/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d.json",
+  "erro": "/parking_lot/optimal_selection/default: trying to unwrap an Err: Solver failed or solution unreliable: infeasible",
+  "removidas": [],
+  "reposicionadas": [
+   "p154"
+  ],
+  "tool": "alterar_programa",
+  "veredito": "erro",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "6f750cd83da54c1d": {
   "aqg": "data/benchmark/gravacoes/bom_6ace3c8be748be1a355e6769/6f750cd83da54c1d.json",
   "args": {},
@@ -575,6 +1217,150 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "709c82f2b1242ef4": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/709c82f2b1242ef4.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 2.02,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "73f5d3032e9d94f4": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/73f5d3032e9d94f4.json",
+  "args": {
+   "torre": "p120",
+   "total": 20
+  },
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/ruim_6ace4ea8ecd8aeaf968b312c.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 15,
+   "minimo": 14,
+   "pedido": 20
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p120"
+    ]
+   }
+  ]
+ },
+ "77587a4af7e6bc34": {
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
+  "erro": "could not compute families from archprog: tetris could not find solution",
+  "tool": "alterar_programa",
+  "veredito": "erro",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "78b5635efb4d9922": {
+  "aqg": "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/78b5635efb4d9922.json",
+  "args": {
+   "torre": "p269",
+   "total": 20
+  },
+  "arquivo": "solucoes-18x/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 13,
+   "minimo": 1,
+   "pedido": 19
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p269"
+    ]
+   }
+  ]
+ },
+ "78cc165afbb1b094": {
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
+  "erro": "/parking_lot/optimal_selection/default: trying to unwrap an Err: Solver failed or solution unreliable: infeasible",
+  "removidas": [
+   "p351",
+   "p352"
+  ],
+  "reposicionadas": [],
+  "tool": "alterar_programa",
+  "veredito": "erro",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "78e3e4bfb3b19450": {
   "aqg": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/78e3e4bfb3b19450.json",
@@ -591,8 +1377,77 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 5.55,
+  "segundos": 5.08,
   "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "7ac15fd10f137df5": {
+  "aqg": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/7ac15fd10f137df5.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "solucoes-18x/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e.json",
+  "etapas": [
+   "validar",
+   "reposicionar",
+   "parking_lot",
+   "entrance",
+   "leisure",
+   "earthmoving",
+   "indicadores"
+  ],
+  "removidas": [
+   "p488",
+   "p490"
+  ],
+  "reposicionadas": [
+   "p485",
+   "p487"
+  ],
+  "segundos": 6.45,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "7bcf40fd6657d193": {
+  "aqg": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/7bcf40fd6657d193.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "solucoes-18x/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "leisure",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 1.01,
+  "tool": "alterar_programa",
   "veredito": "valido",
   "versoes": {
    "buildings": "19.3.0",
@@ -618,6 +1473,39 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "8987d1ea72704953": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/8987d1ea72704953.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/bom_6ace7b93445b3a60fcb6162b.json",
+  "etapas": [
+   "validar",
+   "reposicionar",
+   "parking_lot",
+   "entrance",
+   "indicadores"
+  ],
+  "removidas": [],
+  "reposicionadas": [
+   "p1"
+  ],
+  "segundos": 0.55,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "8c715f063b365dbd": {
   "aqg": "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/8c715f063b365dbd.json",
@@ -664,7 +1552,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 0.85,
+  "segundos": 0.93,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -707,6 +1595,63 @@
    "teseu": "0.5.2"
   }
  },
+ "94e780142a772872": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace40534a7a894b01852f1d/94e780142a772872.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/ruim_6ace40534a7a894b01852f1d.json",
+  "etapas": [
+   "validar",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 0.44,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "97453c627cd41dba": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/97453c627cd41dba.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 0.99,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "9788ef0210081412": {
   "aqg": "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/9788ef0210081412.json",
   "args": {
@@ -737,6 +1682,40 @@
    }
   ]
  },
+ "99631bd133eef97b": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace84f467fab4d8049d1394/99631bd133eef97b.json",
+  "args": {
+   "torre": "p2",
+   "total": 20
+  },
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/otimo_6ace84f467fab4d8049d1394.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 5,
+   "minimo": 5,
+   "pedido": 20
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p2"
+    ]
+   }
+  ]
+ },
  "996e6ae89881cd3a": {
   "aqg": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/996e6ae89881cd3a.json",
   "args": {
@@ -751,7 +1730,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 5.01,
+  "segundos": 4.31,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -778,7 +1757,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 4.72,
+  "segundos": 4.03,
   "tool": "remover_torre",
   "veredito": "valido",
   "versoes": {
@@ -821,6 +1800,40 @@
    "teseu": "0.5.2"
   }
  },
+ "a82a51494d8800f5": {
+  "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/a82a51494d8800f5.json",
+  "args": {
+   "torre": "p937",
+   "total": 20
+  },
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 15,
+   "minimo": 1,
+   "pedido": 19
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p937"
+    ]
+   }
+  ]
+ },
  "aaf73e4583674808": {
   "aqg": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json",
   "args": {},
@@ -835,6 +1848,43 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "ab34a73368fe8a72": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/ab34a73368fe8a72.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/otimo_6ace4108cfe0941cdf9a9189.json",
+  "etapas": [
+   "validar",
+   "reposicionar",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "removidas": [
+   "p1",
+   "p2",
+   "p5",
+   "p6",
+   "p10"
+  ],
+  "reposicionadas": [],
+  "segundos": 4.16,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "b054a70b6de133c9": {
   "aqg": "data/benchmark/gravacoes/otimo_6ace64da8d16ae86ca3419e5/b054a70b6de133c9.json",
@@ -851,6 +1901,141 @@
    "teseu": "0.5.2"
   }
  },
+ "b1dfbf01518686a1": {
+  "aqg": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/b1dfbf01518686a1.json",
+  "args": {
+   "torre": "p180",
+   "total": 20
+  },
+  "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 4,
+   "minimo": 4,
+   "pedido": 20
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p180"
+    ]
+   }
+  ]
+ },
+ "b21c575e4087d8c1": {
+  "aqg": "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/b21c575e4087d8c1.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "solucoes-18x/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f.json",
+  "etapas": [
+   "validar",
+   "reposicionar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "removidas": [
+   "p204"
+  ],
+  "reposicionadas": [
+   "p195",
+   "p196",
+   "p198",
+   "p200",
+   "p203"
+  ],
+  "segundos": 18.24,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "b5b56f982232dddd": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace3c8be748be1a355e6769/b5b56f982232dddd.json",
+  "args": {
+   "torre": "p1",
+   "total": 20
+  },
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/bom_6ace3c8be748be1a355e6769.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 10,
+   "minimo": 8,
+   "pedido": 20
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p1"
+    ]
+   }
+  ]
+ },
+ "b8fafc7eaebe9d1d": {
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
+  "erro": "/parking_lot/optimal_selection/default: trying to unwrap an Err: Solver failed or solution unreliable: infeasible",
+  "removidas": [
+   "p324",
+   "p325",
+   "p326"
+  ],
+  "reposicionadas": [],
+  "tool": "alterar_programa",
+  "veredito": "erro",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "b90c4bca6dda0b90": {
   "aqg": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/b90c4bca6dda0b90.json",
   "args": {
@@ -866,7 +2051,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 1.54,
+  "segundos": 1.68,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -944,6 +2129,100 @@
    "teseu": "0.5.2"
   }
  },
+ "bf4b6d97625dbd2c": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace4079bf22db620be742d4/bf4b6d97625dbd2c.json",
+  "args": {
+   "torre": "p1",
+   "total": 20
+  },
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/otimo_6ace4079bf22db620be742d4.json",
+  "etapas": [
+   "validar",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "segundos": 0.47,
+  "tool": "definir_pavimentos",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "c04090d01d8b2462": {
+  "aqg": "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/c04090d01d8b2462.json",
+  "args": {
+   "torre": "p511",
+   "total": 20
+  },
+  "arquivo": "solucoes-18x/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 6,
+   "minimo": 4,
+   "pedido": 20
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p511"
+    ]
+   }
+  ]
+ },
+ "c3ee59836db3c935": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace40534a7a894b01852f1d/c3ee59836db3c935.json",
+  "args": {
+   "torre": "p3",
+   "total": 20
+  },
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/ruim_6ace40534a7a894b01852f1d.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 2,
+   "minimo": 1,
+   "pedido": 19
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p3"
+    ]
+   }
+  ]
+ },
  "c5913d1686413871": {
   "aqg": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c5913d1686413871.json",
   "args": {},
@@ -958,6 +2237,41 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "c819cb44848603aa": {
+  "aqg": "data/benchmark/gravacoes/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f/c819cb44848603aa.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "solucoes-18x/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f.json",
+  "etapas": [
+   "validar",
+   "reposicionar",
+   "parking_lot",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "removidas": [
+   "p518",
+   "p519"
+  ],
+  "reposicionadas": [],
+  "segundos": 2.21,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "c861ad7797dc2b3a": {
   "aqg": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json",
@@ -1043,6 +2357,208 @@
    }
   ]
  },
+ "cfc3521c59860425": {
+  "aqg": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/cfc3521c59860425.json",
+  "args": {
+   "torre": "p490",
+   "total": 20
+  },
+  "arquivo": "solucoes-18x/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 5,
+   "minimo": 1,
+   "pedido": 19
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p490"
+    ]
+   }
+  ]
+ },
+ "d00f50cf5ed6a9a1": {
+  "aqg": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/d00f50cf5ed6a9a1.json",
+  "args": {
+   "torre": "p326",
+   "total": 20
+  },
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 8,
+   "minimo": 8,
+   "pedido": 20
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p326"
+    ]
+   }
+  ]
+ },
+ "d273cb62a79d4d3b": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/d273cb62a79d4d3b.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/ruim_6ace7f0d246ca4a63fa193fd.json",
+  "etapas": [
+   "validar",
+   "parking_lot",
+   "entrance",
+   "indicadores"
+  ],
+  "segundos": 0.16,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "d30fe26ed7f2a652": {
+  "aqg": "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/d30fe26ed7f2a652.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "solucoes-18x/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5.json",
+  "etapas": [
+   "validar",
+   "reposicionar",
+   "parking_lot",
+   "entrance",
+   "leisure",
+   "earthmoving",
+   "indicadores"
+  ],
+  "removidas": [
+   "p512"
+  ],
+  "reposicionadas": [
+   "p510",
+   "p511"
+  ],
+  "segundos": 4.74,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "d5093254b6684c96": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/d5093254b6684c96.json",
+  "args": {
+   "torre": "p1",
+   "total": 20
+  },
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/ruim_6ace7f0d246ca4a63fa193fd.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 4,
+   "minimo": 4,
+   "pedido": 20
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p1"
+    ]
+   }
+  ]
+ },
+ "d65e76f5d23f4ce1": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/d65e76f5d23f4ce1.json",
+  "args": {
+   "torre": "p35",
+   "total": 20
+  },
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 10,
+   "minimo": 10,
+   "pedido": 20
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p35"
+    ]
+   }
+  ]
+ },
  "dd747c138ac722f8": {
   "aqg": "data/benchmark/gravacoes/ruim_6ace40534a7a894b01852f1d/dd747c138ac722f8.json",
   "args": {
@@ -1067,6 +2583,74 @@
   "violacoes": [
    {
     "regra": "InsideGeometry",
+    "torres": [
+     "p1"
+    ]
+   }
+  ]
+ },
+ "de0e5ad3ea37c3fd": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace404e4a7a894b01852f19/de0e5ad3ea37c3fd.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/bom_6ace404e4a7a894b01852f19.json",
+  "etapas": [
+   "validar",
+   "reposicionar",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "removidas": [],
+  "reposicionadas": [
+   "p2",
+   "p4"
+  ],
+  "segundos": 2.95,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "dfc8e93038963375": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/dfc8e93038963375.json",
+  "args": {
+   "torre": "p1",
+   "total": 20
+  },
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/bom_6ace7b93445b3a60fcb6162b.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 4,
+   "minimo": 4,
+   "pedido": 20
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
     "torres": [
      "p1"
     ]
@@ -1104,6 +2688,31 @@
    }
   ]
  },
+ "e14a8f0c0d09a54e": {
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/otimo_6ace84f467fab4d8049d1394.json",
+  "erro": "/parking_lot/optimal_selection/default: could not compute parking lot: didn't reach expected parking lots amount (expected 120, found 75.0): found 0.5 ratio",
+  "removidas": [],
+  "reposicionadas": [
+   "p3"
+  ],
+  "tool": "alterar_programa",
+  "veredito": "erro",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "e83526a91ee68aed": {
   "aqg": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/e83526a91ee68aed.json",
   "args": {
@@ -1119,7 +2728,7 @@
    "earthmoving",
    "indicadores"
   ],
-  "segundos": 1.97,
+  "segundos": 2.05,
   "tool": "mover_torre",
   "veredito": "valido",
   "versoes": {
@@ -1252,6 +2861,108 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "f743c49bf581ccd1": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace3c16d8664cf36a13dbb9/f743c49bf581ccd1.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/ruim_6ace3c16d8664cf36a13dbb9.json",
+  "etapas": [
+   "validar",
+   "reposicionar",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "removidas": [],
+  "reposicionadas": [
+   "p1",
+   "p2"
+  ],
+  "segundos": 1.19,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "f78c55e28343853e": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/f78c55e28343853e.json",
+  "args": {
+   "torre": "p355",
+   "total": 20
+  },
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
+  "etapas": [
+   "validar"
+  ],
+  "pavimentos_com_unidades": {
+   "maximo": 15,
+   "minimo": 14,
+   "pedido": 20
+  },
+  "tool": "definir_pavimentos",
+  "veredito": "invalido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": [
+   {
+    "regra": "MaxPavimentos",
+    "torres": [
+     "p355"
+    ]
+   }
+  ]
+ },
+ "f97b41ee6c389fcf": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace3c8be748be1a355e6769/f97b41ee6c389fcf.json",
+  "args": {
+   "mix": {
+    "/building/apartamento/1q/27_97": 40,
+    "/building/apartamento/2q/40_71": 60
+   }
+  },
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/bom_6ace3c8be748be1a355e6769.json",
+  "etapas": [
+   "validar",
+   "reposicionar",
+   "entrance",
+   "earthmoving",
+   "indicadores"
+  ],
+  "removidas": [
+   "p1",
+   "p3"
+  ],
+  "reposicionadas": [],
+  "segundos": 2.53,
+  "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "ffcaf8869b41a8bf": {
   "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/ffcaf8869b41a8bf.json",
