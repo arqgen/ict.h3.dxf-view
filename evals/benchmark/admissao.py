@@ -11,10 +11,10 @@ arquivo, a partir só das torres:
 Também informa o catálogo de `data/families/` que cobre o programa; sem catálogo, o
 arquivo entra, mas sem as tarefas de troca de família.
 
-Roda com o venv do viabiliza-terrenos, com cwd em `packages/py` (onde estão `lib`
-e os binários), com as versões fixadas na D8 do PRD-queries.md:
+Roda com o venv do viabiliza-terrenos, com cwd em `data/benchmark/bin` (os binários
+nas versões fixadas na D8 do PRD-queries.md; ver `gravacao.py`):
 
-    cd <viabiliza-terrenos.backend>/packages/py && ../../venv/bin/python \\
+    cd <repo>/data/benchmark/bin && <viabiliza-terrenos.backend>/venv/bin/python \\
         <repo>/evals/benchmark/admissao.py [arquivos ou pastas]
 
 Sem argumentos, testa todo `data/aqg/`. Escreve `admissao.json` ao lado deste

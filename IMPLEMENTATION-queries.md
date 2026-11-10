@@ -12,7 +12,7 @@
 
   | Ambiente | Roda | Como |
   | --- | --- | --- |
-  | Gravação (lado Arqgen) | Motores, `buildings` e `lib` do VT | venv do viabiliza-terrenos, com cwd em `packages/py` (como `evals/benchmark/admissao.py`) |
+  | Gravação (lado Arqgen) | Motores, `buildings` e `lib` do VT | venv do viabiliza-terrenos, com cwd em `data/benchmark/bin`, onde ficam os binários da D8 (não versionados; baixar com `AWS_PROFILE=arqgen` e `maga.core.install.install_binary(<nome>, <tag>)` nessa pasta) |
   | Entrega (lado RECOD) | Tools de cálculo, tools de edição gravada, linha de base, casos | venv deste repo (`uv run`) |
 
   Nenhum import do VT, do `buildings` ou da `maga` entra no código de entrega: é o que garante a D1 (binários e código de motor ficam na Arqgen).
@@ -218,6 +218,12 @@ Verificados nos spikes e na admissão (09/11/2026):
 - **Tarefas:** G4 ("o que mudou entre a solução mãe e a filha?") e G5 ("desfaça as duas últimas mudanças").
 - **Passos:** G4 usa a gravação da D1 como filha; a resposta esperada é a diferença calculada por script (torre movida e vetor, vagas que mudaram, deltas de corte, aterro e indicadores). G5 grava a sequência D1 → D3; a resposta esperada é o arquivo original.
 - **Aceite:** resposta esperada gerada sem LLM e conferida contra as duas gravações.
+- **Resultado (10/11/2026): concluída.** `evals/benchmark/historico.py` (lado do repo, sem motor) escreve os casos em `casos_edicao.json`.
+  - **Edições a partir da base:** o estado inicial que a RECOD lê é a base (G0), mas as edições eram resolvidas sobre o arquivo cru, e a cascata reordena os `placed_objects`. Em 3 arquivos (`6ace7b93`, `6ace7f0d`, `6ace84f4`) a torre tinha outro id na base, e a chamada certa cairia em "fora do roteiro". `edicoes.py` passou a ler a base, e todas as edições foram regravadas: vereditos e violações iguais, só os ids mudam nesses 3. As válidas saem com os mesmos AQGs, exceto uma E3 com torres reposicionadas (`6ace3c16/ruim`, mesmas torres, determinística); as inválidas, que gravam o estado sem cascata, mudam porque partem da base.
+  - **G4** (mãe = base, filha = D1) nos 15 arquivos com D1 válida: torre movida com ids e vetor, vagas (mantidas, removidas, novas), corte, aterro e muro, e indicadores alterados. Conferido: a única torre movida é a da D1, a 5 m.
+  - **G5 = D1 → E7**, não D1 → D3: a D3 só existe nos 2 arquivos com APP, e neles a D1 é inválida. A E7 parte do estado gravado da D1 (`edicoes.py g5`), com `apos` (a chave da D1) nos argumentos para não colidir com a E7 sobre a base; a resposta esperada é a base.
+  - **G5** em 13 arquivos (das 15 D1 válidas, 2 sem terraplenagem): todas as E7 válidas, sem mexer nas torres da D1; duas passadas dão os mesmos AQGs.
+  - **Binários da D8 fora do checkout do VT:** às 15:30 de 10/11/2026 o checkout do VT passou para teodora 17.3.3, teseu 0.6.0 e ibitira 6.0.0, e a E7 parou de rodar. Todas as gravações anteriores são de antes da troca. Os binários da D8 agora ficam em `data/benchmark/bin` (seção 0.1), e o `lib` continua vindo do checkout pelo `lib.pth` do venv. Um worktree do VT não isolaria nada, porque o `lib.pth` aponta para o checkout. Nesse ambiente, D1, E1, E3 e E7 de um arquivo reproduzem as gravações byte a byte.
 
 ### T0 — Tools entregues
 

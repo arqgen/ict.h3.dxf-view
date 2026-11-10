@@ -1,11 +1,12 @@
 """Gravações das tarefas de edição (lado Arqgen; IMPLEMENTATION-queries.md, G1+).
 
-Cada tarefa resolve a referência por descrição com o parser deste repo, sobre o AQG
-cru, e passa a edição pela cascata de `gravacao.aplicar`. Arquivo em que a descrição
+Cada tarefa resolve a referência por descrição com o parser deste repo, sobre a
+base (o estado inicial que a RECOD lê, com os ids dela), e passa a edição pela
+cascata de `gravacao.aplicar`. Arquivo em que a descrição
 não aponta um elemento só (empate abaixo de `TIE`) fica fora da tarefa.
 
-    cd <viabiliza-terrenos.backend>/packages/py && ../../venv/bin/python \\
-        <repo>/evals/benchmark/edicoes.py [d1 d3 d6 e1 e3 e7] [arquivos]
+    cd <repo>/data/benchmark/bin && <viabiliza-terrenos.backend>/venv/bin/python \\
+        <repo>/evals/benchmark/edicoes.py [d1 d3 d6 e1 e3 e7 g5] [arquivos]
 
 Sem tarefas, roda todas; sem arquivos, todos os admitidos.
 """
@@ -33,7 +34,16 @@ from buildings.protocol.client_specs import SlopeSpec, StepId
 from buildings.protocol.family import Families
 from buildings.protocol.id import VolumeId
 from buildings.protocol.project import Project, build_project
-from gravacao import AQG, ROOT, SPECS, TOWER, aplicar, cascata, gravar, tower_ids
+from gravacao import (
+    INDICE,
+    ROOT,
+    SPECS,
+    TOWER,
+    aplicar,
+    cascata,
+    gravar,
+    tower_ids,
+)
 from persistente.hid import Hid
 from pyrsistent import pvector
 from shapely.geometry import shape
@@ -282,6 +292,24 @@ def d3(arquivo: str, raw: dict, model: CadModel) -> dict:
     return row
 
 
+def g5(arquivo: str, raw: dict, model: CadModel) -> dict:
+    """Sequência D1 → E7: a E7 aplicada sobre o estado gravado da D1."""
+    row = {"tarefa": "G5", "arquivo": arquivo}
+    indice = json.loads(INDICE.read_text())
+    key = next(
+        (
+            k
+            for k, v in indice.items()
+            if v["arquivo"] == arquivo and v["tool"] == "mover_torre"
+        ),
+        None,
+    )
+    if key is None or indice[key]["veredito"] != "valido":
+        return {**row, "fora": "D1 sem gravação válida"}
+    data = (ROOT / indice[key]["aqg"]).read_bytes()
+    return {**e7(arquivo, json.loads(data), load_aqg(data, arquivo), apos=key), **row}
+
+
 def d6(arquivo: str, raw: dict, model: CadModel) -> dict:
     portaria = [
         prim
@@ -428,13 +456,16 @@ def e1(arquivo: str, raw: dict, model: CadModel) -> dict:
     }
 
 
-def e7(arquivo: str, raw: dict, model: CadModel) -> dict:
+def e7(arquivo: str, raw: dict, model: CadModel, apos: str | None = None) -> dict:
+    """`apos`: chave da gravação de onde a E7 parte, quando não é a base (G5)."""
     row = {"tarefa": "E7", "arquivo": arquivo}
     if "earthmoving" not in json.dumps(raw["solution"]["strategy"]):
         return {**row, "fora": "sem terraplenagem"}
     # Parâmetros canônicos do PRD: aterro 1:2, corte 1:1,5, talude sem limite de
     # altura (sem muro).
     args = {"aterro": "1:2", "corte": "1:1,5", "muro": "sem limite"}
+    if apos:
+        args["apos"] = apos
     slope = SlopeSpec(
         cut_degree=math.degrees(math.atan(1 / 1.5)),
         fill_degree=math.degrees(math.atan(1 / 2)),
@@ -474,14 +505,19 @@ def e7(arquivo: str, raw: dict, model: CadModel) -> dict:
 
 
 def main() -> None:
-    tarefas = {"d1": d1, "d3": d3, "d6": d6, "e1": e1, "e3": e3, "e7": e7}
+    tarefas = {"d1": d1, "d3": d3, "d6": d6, "e1": e1, "e3": e3, "e7": e7, "g5": g5}
     names = [a for a in sys.argv[1:] if a in tarefas]
     tasks = [tarefas[n] for n in names] or list(tarefas.values())
     only = set(sys.argv[1:]) - set(names)
+    bases = {
+        v["arquivo"]: v["aqg"]
+        for v in json.loads(INDICE.read_text()).values()
+        if v["tool"] == "base"
+    }
     for arquivo in ADMITIDOS:
         if only and arquivo not in only:
             continue
-        data = (AQG / arquivo).read_bytes()
+        data = (ROOT / bases[arquivo]).read_bytes()
         raw = json.loads(data)
         model = load_aqg(data, arquivo)
         for task in tasks:

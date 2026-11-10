@@ -1,0 +1,1716 @@
+[
+ {
+  "tarefa": "G4",
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/otimo_6ace4108cfe0941cdf9a9189.json",
+  "pergunta": "O que mudou entre a solução mãe e a filha?",
+  "mae": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/f1e1bf266a50c980.json",
+  "filha": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/996e6ae89881cd3a.json",
+  "edicao": {
+   "tool": "mover_torre",
+   "args": {
+    "distancia": 5.0,
+    "sentido": "fundos",
+    "torre": "p9"
+   }
+  },
+  "chamada_esperada": {
+   "tool": "diff_versoes",
+   "args": [
+    "mae",
+    "filha"
+   ]
+  },
+  "resposta_esperada": {
+   "torres_movidas": [
+    {
+     "mae": "p9",
+     "filha": "p9",
+     "vetor": [
+      1.848,
+      -4.646
+     ],
+     "distancia": 5.0,
+     "giro": 0.0
+    }
+   ],
+   "vagas": {
+    "mae": 0,
+    "filha": 0,
+    "mantidas": 0,
+    "removidas": 0,
+    "novas": 0
+   },
+   "terraplenagem": {
+    "corte": {
+     "mae": 8914.39,
+     "filha": 8963.94
+    },
+    "aterro": {
+     "mae": 8862.29,
+     "filha": 8851.82
+    }
+   },
+   "indicadores": {},
+   "outros_indicadores_alterados": [
+    "DetalhamentoMovimentoDeTerra",
+    "MovimentoDeTerra"
+   ],
+   "indicadores_so_na_mae": [],
+   "indicadores_so_na_filha": []
+  }
+ },
+ {
+  "tarefa": "G5",
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/otimo_6ace4108cfe0941cdf9a9189.json",
+  "pergunta": "Desfaça as duas últimas mudanças.",
+  "sequencia": [
+   "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/f1e1bf266a50c980.json",
+   "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/996e6ae89881cd3a.json",
+   "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/a8eae448bd9e09b4.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p9"
+    }
+   },
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "apos": "996e6ae89881cd3a",
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "chamada_esperada": {
+   "tool": "desfazer",
+   "args": [
+    2
+   ]
+  },
+  "resposta_esperada": {
+   "estado": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/f1e1bf266a50c980.json"
+  }
+ },
+ {
+  "tarefa": "G4",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
+  "pergunta": "O que mudou entre a solução mãe e a filha?",
+  "mae": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/b9d8a76034f5b7d8.json",
+  "filha": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/31100608f54a03b6.json",
+  "edicao": {
+   "tool": "mover_torre",
+   "args": {
+    "distancia": 5.0,
+    "sentido": "fundos",
+    "torre": "p255"
+   }
+  },
+  "chamada_esperada": {
+   "tool": "diff_versoes",
+   "args": [
+    "mae",
+    "filha"
+   ]
+  },
+  "resposta_esperada": {
+   "torres_movidas": [
+    {
+     "mae": "p255",
+     "filha": "p255",
+     "vetor": [
+      -3.545,
+      -3.526
+     ],
+     "distancia": 5.0,
+     "giro": 0.0
+    }
+   ],
+   "vagas": {
+    "mae": 253,
+    "filha": 253,
+    "mantidas": 0,
+    "removidas": 253,
+    "novas": 253
+   },
+   "terraplenagem": {
+    "corte": {
+     "mae": 1069.53,
+     "filha": 1015.83
+    },
+    "aterro": {
+     "mae": 396.39,
+     "filha": 303.28
+    }
+   },
+   "indicadores": {
+    "AreaPermeavelProjetada": {
+     "mae": 6799.29,
+     "filha": 6565.96
+    },
+    "EstacionamentoPorVaga": {
+     "mae": 21.24,
+     "filha": 22.16
+    },
+    "PermeabilidadeProjetada": {
+     "mae": 51.58,
+     "filha": 49.81
+    },
+    "PermeabilidadeUtilProjetada": {
+     "mae": 51.57,
+     "filha": 49.8
+    }
+   },
+   "outros_indicadores_alterados": [
+    "AreaPermeavelLivre",
+    "DetalhamentoMovimentoDeTerra",
+    "EstacionamentoProjetado",
+    "ImpermeavelDescoberto",
+    "MovimentoDeTerra",
+    "ViarioProjetado"
+   ],
+   "indicadores_so_na_mae": [],
+   "indicadores_so_na_filha": []
+  }
+ },
+ {
+  "tarefa": "G5",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
+  "pergunta": "Desfaça as duas últimas mudanças.",
+  "sequencia": [
+   "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/b9d8a76034f5b7d8.json",
+   "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/31100608f54a03b6.json",
+   "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/5e6ceee782b1f424.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p255"
+    }
+   },
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "apos": "31100608f54a03b6",
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "chamada_esperada": {
+   "tool": "desfazer",
+   "args": [
+    2
+   ]
+  },
+  "resposta_esperada": {
+   "estado": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/b9d8a76034f5b7d8.json"
+  }
+ },
+ {
+  "tarefa": "G4",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
+  "pergunta": "O que mudou entre a solução mãe e a filha?",
+  "mae": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/9e780ba833bdbabd.json",
+  "filha": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/b90c4bca6dda0b90.json",
+  "edicao": {
+   "tool": "mover_torre",
+   "args": {
+    "distancia": 5.0,
+    "sentido": "fundos",
+    "torre": "p357"
+   }
+  },
+  "chamada_esperada": {
+   "tool": "diff_versoes",
+   "args": [
+    "mae",
+    "filha"
+   ]
+  },
+  "resposta_esperada": {
+   "torres_movidas": [
+    {
+     "mae": "p357",
+     "filha": "p357",
+     "vetor": [
+      -3.545,
+      -3.526
+     ],
+     "distancia": 5.0,
+     "giro": 0.0
+    }
+   ],
+   "vagas": {
+    "mae": 353,
+    "filha": 353,
+    "mantidas": 124,
+    "removidas": 229,
+    "novas": 229
+   },
+   "terraplenagem": {
+    "corte": {
+     "mae": 819.92,
+     "filha": 793.02
+    },
+    "aterro": {
+     "mae": 1439.67,
+     "filha": 1435.85
+    }
+   },
+   "indicadores": {
+    "AreaPermeavelProjetada": {
+     "mae": 4091.7,
+     "filha": 4145.74
+    },
+    "EstacionamentoPorVaga": {
+     "mae": 21.48,
+     "filha": 21.33
+    },
+    "PermeabilidadeProjetada": {
+     "mae": 31.04,
+     "filha": 31.45
+    },
+    "PermeabilidadeUtilProjetada": {
+     "mae": 31.03,
+     "filha": 31.44
+    }
+   },
+   "outros_indicadores_alterados": [
+    "AreaPermeavelLivre",
+    "DetalhamentoMovimentoDeTerra",
+    "EstacionamentoProjetado",
+    "ImpermeavelDescoberto",
+    "MovimentoDeTerra",
+    "ViarioProjetado"
+   ],
+   "indicadores_so_na_mae": [],
+   "indicadores_so_na_filha": []
+  }
+ },
+ {
+  "tarefa": "G5",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
+  "pergunta": "Desfaça as duas últimas mudanças.",
+  "sequencia": [
+   "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/9e780ba833bdbabd.json",
+   "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/b90c4bca6dda0b90.json",
+   "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/7c25969d8958e292.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p357"
+    }
+   },
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "apos": "b90c4bca6dda0b90",
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "chamada_esperada": {
+   "tool": "desfazer",
+   "args": [
+    2
+   ]
+  },
+  "resposta_esperada": {
+   "estado": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/9e780ba833bdbabd.json"
+  }
+ },
+ {
+  "tarefa": "G4",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
+  "pergunta": "O que mudou entre a solução mãe e a filha?",
+  "mae": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/eb6ed72593681f3b.json",
+  "filha": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/e83526a91ee68aed.json",
+  "edicao": {
+   "tool": "mover_torre",
+   "args": {
+    "distancia": 5.0,
+    "sentido": "fundos",
+    "torre": "p149"
+   }
+  },
+  "chamada_esperada": {
+   "tool": "diff_versoes",
+   "args": [
+    "mae",
+    "filha"
+   ]
+  },
+  "resposta_esperada": {
+   "torres_movidas": [
+    {
+     "mae": "p149",
+     "filha": "p149",
+     "vetor": [
+      -4.59,
+      1.983
+     ],
+     "distancia": 5.0,
+     "giro": 0.0
+    }
+   ],
+   "vagas": {
+    "mae": 147,
+    "filha": 147,
+    "mantidas": 147,
+    "removidas": 0,
+    "novas": 0
+   },
+   "terraplenagem": {
+    "corte": {
+     "mae": 3502.5,
+     "filha": 3488.17
+    },
+    "aterro": {
+     "mae": 3253.73,
+     "filha": 3266.42
+    },
+    "muro_comprimento": {
+     "mae": 320.87,
+     "filha": 319.43
+    },
+    "muro_altura": {
+     "mae": 1.82,
+     "filha": 1.8
+    }
+   },
+   "indicadores": {},
+   "outros_indicadores_alterados": [
+    "DetalhamentoMovimentoDeTerra",
+    "MovimentoDeTerra"
+   ],
+   "indicadores_so_na_mae": [],
+   "indicadores_so_na_filha": []
+  }
+ },
+ {
+  "tarefa": "G5",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
+  "pergunta": "Desfaça as duas últimas mudanças.",
+  "sequencia": [
+   "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/eb6ed72593681f3b.json",
+   "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/e83526a91ee68aed.json",
+   "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/ac1e73c162a0be25.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p149"
+    }
+   },
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "apos": "e83526a91ee68aed",
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "chamada_esperada": {
+   "tool": "desfazer",
+   "args": [
+    2
+   ]
+  },
+  "resposta_esperada": {
+   "estado": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/eb6ed72593681f3b.json"
+  }
+ },
+ {
+  "tarefa": "G4",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
+  "pergunta": "O que mudou entre a solução mãe e a filha?",
+  "mae": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json",
+  "filha": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/8de4ca6168b8957c.json",
+  "edicao": {
+   "tool": "mover_torre",
+   "args": {
+    "distancia": 5.0,
+    "sentido": "fundos",
+    "torre": "p35"
+   }
+  },
+  "chamada_esperada": {
+   "tool": "diff_versoes",
+   "args": [
+    "mae",
+    "filha"
+   ]
+  },
+  "resposta_esperada": {
+   "torres_movidas": [
+    {
+     "mae": "p35",
+     "filha": "p35",
+     "vetor": [
+      -4.59,
+      1.983
+     ],
+     "distancia": 5.0,
+     "giro": 0.0
+    }
+   ],
+   "vagas": {
+    "mae": 33,
+    "filha": 33,
+    "mantidas": 33,
+    "removidas": 0,
+    "novas": 0
+   },
+   "terraplenagem": {
+    "corte": {
+     "mae": 162.26,
+     "filha": 221.62
+    },
+    "aterro": {
+     "mae": 5332.8,
+     "filha": 5412.15
+    },
+    "muro_comprimento": {
+     "mae": 10.85,
+     "filha": 22.18
+    },
+    "muro_altura": {
+     "mae": 0.1,
+     "filha": 0.43
+    }
+   },
+   "indicadores": {},
+   "outros_indicadores_alterados": [
+    "DetalhamentoMovimentoDeTerra",
+    "MovimentoDeTerra"
+   ],
+   "indicadores_so_na_mae": [],
+   "indicadores_so_na_filha": []
+  }
+ },
+ {
+  "tarefa": "G5",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
+  "pergunta": "Desfaça as duas últimas mudanças.",
+  "sequencia": [
+   "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json",
+   "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/8de4ca6168b8957c.json",
+   "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/cb152a56c167485b.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p35"
+    }
+   },
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "apos": "8de4ca6168b8957c",
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "chamada_esperada": {
+   "tool": "desfazer",
+   "args": [
+    2
+   ]
+  },
+  "resposta_esperada": {
+   "estado": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json"
+  }
+ },
+ {
+  "tarefa": "G4",
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/bom_6ace7b93445b3a60fcb6162b.json",
+  "pergunta": "O que mudou entre a solução mãe e a filha?",
+  "mae": "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/387953e1ea3cc2d2.json",
+  "filha": "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/827e49b1b58d5e80.json",
+  "edicao": {
+   "tool": "mover_torre",
+   "args": {
+    "distancia": 5.0,
+    "sentido": "fundos",
+    "torre": "p0"
+   }
+  },
+  "chamada_esperada": {
+   "tool": "diff_versoes",
+   "args": [
+    "mae",
+    "filha"
+   ]
+  },
+  "resposta_esperada": {
+   "torres_movidas": [
+    {
+     "mae": "p0",
+     "filha": "p0",
+     "vetor": [
+      4.933,
+      -0.818
+     ],
+     "distancia": 5.0,
+     "giro": 0.0
+    }
+   ],
+   "vagas": {
+    "mae": 80,
+    "filha": 66,
+    "mantidas": 45,
+    "removidas": 35,
+    "novas": 21
+   },
+   "terraplenagem": {},
+   "indicadores": {
+    "AreaPermeavelProjetada": {
+     "mae": 3837.58,
+     "filha": 3996.42
+    },
+    "EstacionamentoPorVaga": {
+     "mae": 20.19,
+     "filha": 22.06
+    },
+    "NumeroDeVagasProjetado": {
+     "mae": 80,
+     "filha": 66
+    },
+    "PermeabilidadeProjetada": {
+     "mae": 52.91,
+     "filha": 55.1
+    },
+    "PermeabilidadeUtilProjetada": {
+     "mae": 52.9,
+     "filha": 55.09
+    },
+    "SortKey": {
+     "mae": 160.0,
+     "filha": 146.0
+    },
+    "VagasPorUnidade": {
+     "mae": 1.0,
+     "filha": 0.82
+    }
+   },
+   "outros_indicadores_alterados": [
+    "AreaPermeavelLivre",
+    "EstacionamentoProjetado",
+    "ImpermeavelDescoberto",
+    "VagasProjetadas",
+    "ViarioProjetado"
+   ],
+   "indicadores_so_na_mae": [],
+   "indicadores_so_na_filha": []
+  }
+ },
+ {
+  "tarefa": "G4",
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/ruim_6ace7f0d246ca4a63fa193fd.json",
+  "pergunta": "O que mudou entre a solução mãe e a filha?",
+  "mae": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/597fbdb18d4b276f.json",
+  "filha": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/2ca3acf57454cac0.json",
+  "edicao": {
+   "tool": "mover_torre",
+   "args": {
+    "distancia": 5.0,
+    "sentido": "fundos",
+    "torre": "p0"
+   }
+  },
+  "chamada_esperada": {
+   "tool": "diff_versoes",
+   "args": [
+    "mae",
+    "filha"
+   ]
+  },
+  "resposta_esperada": {
+   "torres_movidas": [
+    {
+     "mae": "p0",
+     "filha": "p0",
+     "vetor": [
+      -5.0,
+      0.055
+     ],
+     "distancia": 5.0,
+     "giro": 0.0
+    }
+   ],
+   "vagas": {
+    "mae": 20,
+    "filha": 20,
+    "mantidas": 0,
+    "removidas": 20,
+    "novas": 20
+   },
+   "terraplenagem": {},
+   "indicadores": {},
+   "outros_indicadores_alterados": [
+    "AreaPermeavelLivre",
+    "EstacionamentoProjetado",
+    "ImpermeavelDescoberto",
+    "ViarioProjetado"
+   ],
+   "indicadores_so_na_mae": [],
+   "indicadores_so_na_filha": []
+  }
+ },
+ {
+  "tarefa": "G4",
+  "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
+  "pergunta": "O que mudou entre a solução mãe e a filha?",
+  "mae": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/0a32aad47fdf66ec.json",
+  "filha": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/051531f02b5b3532.json",
+  "edicao": {
+   "tool": "mover_torre",
+   "args": {
+    "distancia": 5.0,
+    "sentido": "fundos",
+    "torre": "p221"
+   }
+  },
+  "chamada_esperada": {
+   "tool": "diff_versoes",
+   "args": [
+    "mae",
+    "filha"
+   ]
+  },
+  "resposta_esperada": {
+   "torres_movidas": [
+    {
+     "mae": "p221",
+     "filha": "p218",
+     "vetor": [
+      4.265,
+      -2.609
+     ],
+     "distancia": 5.0,
+     "giro": 0.0
+    }
+   ],
+   "vagas": {
+    "mae": 219,
+    "filha": 216,
+    "mantidas": 0,
+    "removidas": 219,
+    "novas": 216
+   },
+   "terraplenagem": {
+    "corte": {
+     "mae": 870.96,
+     "filha": 825.37
+    },
+    "aterro": {
+     "mae": 1014.01,
+     "filha": 1142.05
+    }
+   },
+   "indicadores": {
+    "AreaPermeavelProjetada": {
+     "mae": 1212.96,
+     "filha": 1279.1
+    },
+    "EstacionamentoPorVaga": {
+     "mae": 20.58,
+     "filha": 20.56
+    },
+    "NumeroDeVagasProjetado": {
+     "mae": 219,
+     "filha": 216
+    },
+    "PermeabilidadeProjetada": {
+     "mae": 19.99,
+     "filha": 21.08
+    },
+    "PermeabilidadeUtilProjetada": {
+     "mae": 19.98,
+     "filha": 21.07
+    },
+    "SortKey": {
+     "mae": 459.0,
+     "filha": 456.0
+    },
+    "VagasPorUnidade": {
+     "mae": 0.91,
+     "filha": 0.9
+    }
+   },
+   "outros_indicadores_alterados": [
+    "AreaPermeavelLivre",
+    "DetalhamentoMovimentoDeTerra",
+    "EstacionamentoProjetado",
+    "ImpermeavelDescoberto",
+    "MovimentoDeTerra",
+    "VagasProjetadas",
+    "ViarioProjetado"
+   ],
+   "indicadores_so_na_mae": [],
+   "indicadores_so_na_filha": []
+  }
+ },
+ {
+  "tarefa": "G5",
+  "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
+  "pergunta": "Desfaça as duas últimas mudanças.",
+  "sequencia": [
+   "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/0a32aad47fdf66ec.json",
+   "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/051531f02b5b3532.json",
+   "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/41f01c036e637978.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p221"
+    }
+   },
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "apos": "051531f02b5b3532",
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "chamada_esperada": {
+   "tool": "desfazer",
+   "args": [
+    2
+   ]
+  },
+  "resposta_esperada": {
+   "estado": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/0a32aad47fdf66ec.json"
+  }
+ },
+ {
+  "tarefa": "G4",
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
+  "pergunta": "O que mudou entre a solução mãe e a filha?",
+  "mae": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json",
+  "filha": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/374ba667ce110d63.json",
+  "edicao": {
+   "tool": "mover_torre",
+   "args": {
+    "distancia": 5.0,
+    "sentido": "fundos",
+    "torre": "p326"
+   }
+  },
+  "chamada_esperada": {
+   "tool": "diff_versoes",
+   "args": [
+    "mae",
+    "filha"
+   ]
+  },
+  "resposta_esperada": {
+   "torres_movidas": [
+    {
+     "mae": "p326",
+     "filha": "p326",
+     "vetor": [
+      -4.086,
+      -2.881
+     ],
+     "distancia": 5.0,
+     "giro": 0.0
+    }
+   ],
+   "vagas": {
+    "mae": 320,
+    "filha": 320,
+    "mantidas": 320,
+    "removidas": 0,
+    "novas": 0
+   },
+   "terraplenagem": {
+    "corte": {
+     "mae": 6282.81,
+     "filha": 6213.92
+    },
+    "aterro": {
+     "mae": 13062.96,
+     "filha": 13039.21
+    },
+    "muro_comprimento": {
+     "mae": 167.03,
+     "filha": 158.02
+    },
+    "muro_altura": {
+     "mae": 1.36,
+     "filha": 1.23
+    }
+   },
+   "indicadores": {},
+   "outros_indicadores_alterados": [
+    "DetalhamentoMovimentoDeTerra",
+    "MovimentoDeTerra"
+   ],
+   "indicadores_so_na_mae": [],
+   "indicadores_so_na_filha": []
+  }
+ },
+ {
+  "tarefa": "G5",
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
+  "pergunta": "Desfaça as duas últimas mudanças.",
+  "sequencia": [
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json",
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/374ba667ce110d63.json",
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/a34dd18586c55bd7.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p326"
+    }
+   },
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "apos": "374ba667ce110d63",
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "chamada_esperada": {
+   "tool": "desfazer",
+   "args": [
+    2
+   ]
+  },
+  "resposta_esperada": {
+   "estado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json"
+  }
+ },
+ {
+  "tarefa": "G4",
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
+  "pergunta": "O que mudou entre a solução mãe e a filha?",
+  "mae": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json",
+  "filha": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/349c2ed562f73006.json",
+  "edicao": {
+   "tool": "mover_torre",
+   "args": {
+    "distancia": 5.0,
+    "sentido": "fundos",
+    "torre": "p350"
+   }
+  },
+  "chamada_esperada": {
+   "tool": "diff_versoes",
+   "args": [
+    "mae",
+    "filha"
+   ]
+  },
+  "resposta_esperada": {
+   "torres_movidas": [
+    {
+     "mae": "p350",
+     "filha": "p350",
+     "vetor": [
+      -4.908,
+      0.952
+     ],
+     "distancia": 5.0,
+     "giro": 0.0
+    }
+   ],
+   "vagas": {
+    "mae": 346,
+    "filha": 346,
+    "mantidas": 189,
+    "removidas": 157,
+    "novas": 157
+   },
+   "terraplenagem": {
+    "corte": {
+     "mae": 6374.61,
+     "filha": 6606.22
+    },
+    "aterro": {
+     "mae": 15055.95,
+     "filha": 12976.05
+    },
+    "muro_comprimento": {
+     "mae": 161.86,
+     "filha": 151.23
+    },
+    "muro_altura": {
+     "mae": 1.63,
+     "filha": 1.51
+    }
+   },
+   "indicadores": {
+    "AreaPermeavelProjetada": {
+     "mae": 8955.37,
+     "filha": 8947.64
+    },
+    "EstacionamentoPorVaga": {
+     "mae": 22.72,
+     "filha": 22.74
+    },
+    "PermeabilidadeProjetada": {
+     "mae": 46.36,
+     "filha": 46.32
+    },
+    "PermeabilidadeUtilProjetada": {
+     "mae": 46.35,
+     "filha": 46.31
+    }
+   },
+   "outros_indicadores_alterados": [
+    "AreaPermeavelLivre",
+    "DetalhamentoMovimentoDeTerra",
+    "EstacionamentoProjetado",
+    "ImpermeavelDescoberto",
+    "MovimentoDeTerra",
+    "ViarioProjetado"
+   ],
+   "indicadores_so_na_mae": [],
+   "indicadores_so_na_filha": []
+  }
+ },
+ {
+  "tarefa": "G5",
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
+  "pergunta": "Desfaça as duas últimas mudanças.",
+  "sequencia": [
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json",
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/349c2ed562f73006.json",
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/f7f46dc4e6aa8e2f.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p350"
+    }
+   },
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "apos": "349c2ed562f73006",
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "chamada_esperada": {
+   "tool": "desfazer",
+   "args": [
+    2
+   ]
+  },
+  "resposta_esperada": {
+   "estado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json"
+  }
+ },
+ {
+  "tarefa": "G4",
+  "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
+  "pergunta": "O que mudou entre a solução mãe e a filha?",
+  "mae": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json",
+  "filha": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/4f1238bbc2b12336.json",
+  "edicao": {
+   "tool": "mover_torre",
+   "args": {
+    "distancia": 5.0,
+    "sentido": "fundos",
+    "torre": "p180"
+   }
+  },
+  "chamada_esperada": {
+   "tool": "diff_versoes",
+   "args": [
+    "mae",
+    "filha"
+   ]
+  },
+  "resposta_esperada": {
+   "torres_movidas": [
+    {
+     "mae": "p180",
+     "filha": "p180",
+     "vetor": [
+      -4.801,
+      1.397
+     ],
+     "distancia": 5.0,
+     "giro": 0.0
+    }
+   ],
+   "vagas": {
+    "mae": 169,
+    "filha": 169,
+    "mantidas": 137,
+    "removidas": 32,
+    "novas": 32
+   },
+   "terraplenagem": {
+    "corte": {
+     "mae": 795.57,
+     "filha": 1043.51
+    },
+    "aterro": {
+     "mae": 879.89,
+     "filha": 604.91
+    }
+   },
+   "indicadores": {
+    "AreaPermeavelProjetada": {
+     "mae": 10130.27,
+     "filha": 9968.77
+    },
+    "EstacionamentoPorVaga": {
+     "mae": 22.74,
+     "filha": 23.69
+    },
+    "PermeabilidadeProjetada": {
+     "mae": 63.98,
+     "filha": 62.96
+    },
+    "PermeabilidadeUtilProjetada": {
+     "mae": 63.97,
+     "filha": 62.95
+    }
+   },
+   "outros_indicadores_alterados": [
+    "AreaPermeavelLivre",
+    "DetalhamentoMovimentoDeTerra",
+    "EstacionamentoProjetado",
+    "ImpermeavelDescoberto",
+    "MovimentoDeTerra",
+    "ViarioProjetado"
+   ],
+   "indicadores_so_na_mae": [],
+   "indicadores_so_na_filha": []
+  }
+ },
+ {
+  "tarefa": "G5",
+  "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
+  "pergunta": "Desfaça as duas últimas mudanças.",
+  "sequencia": [
+   "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json",
+   "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/4f1238bbc2b12336.json",
+   "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/5e7711415e282284.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p180"
+    }
+   },
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "apos": "4f1238bbc2b12336",
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "chamada_esperada": {
+   "tool": "desfazer",
+   "args": [
+    2
+   ]
+  },
+  "resposta_esperada": {
+   "estado": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json"
+  }
+ },
+ {
+  "tarefa": "G4",
+  "arquivo": "solucoes-18x/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b.json",
+  "pergunta": "O que mudou entre a solução mãe e a filha?",
+  "mae": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c5913d1686413871.json",
+  "filha": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/0d31cc70394673a7.json",
+  "edicao": {
+   "tool": "mover_torre",
+   "args": {
+    "distancia": 5.0,
+    "sentido": "fundos",
+    "torre": "p157"
+   }
+  },
+  "chamada_esperada": {
+   "tool": "diff_versoes",
+   "args": [
+    "mae",
+    "filha"
+   ]
+  },
+  "resposta_esperada": {
+   "torres_movidas": [
+    {
+     "mae": "p157",
+     "filha": "p155",
+     "vetor": [
+      -4.992,
+      -0.282
+     ],
+     "distancia": 5.0,
+     "giro": 0.0
+    }
+   ],
+   "vagas": {
+    "mae": 154,
+    "filha": 152,
+    "mantidas": 119,
+    "removidas": 35,
+    "novas": 33
+   },
+   "terraplenagem": {
+    "corte": {
+     "mae": 1629.7,
+     "filha": 1646.51
+    },
+    "aterro": {
+     "mae": 1306.17,
+     "filha": 1294.63
+    },
+    "muro_comprimento": {
+     "mae": 0.0,
+     "filha": 14.43
+    },
+    "muro_altura": {
+     "mae": 0.0,
+     "filha": 0.11
+    }
+   },
+   "indicadores": {
+    "AreaPermeavelProjetada": {
+     "mae": 2272.0,
+     "filha": 2340.46
+    },
+    "EstacionamentoPorVaga": {
+     "mae": 20.02,
+     "filha": 19.83
+    },
+    "NumeroDeVagasProjetado": {
+     "mae": 154,
+     "filha": 152
+    },
+    "PermeabilidadeProjetada": {
+     "mae": 33.85,
+     "filha": 34.87
+    },
+    "PermeabilidadeUtilProjetada": {
+     "mae": 33.84,
+     "filha": 34.86
+    },
+    "SortKey": {
+     "mae": 324.0,
+     "filha": 322.0
+    },
+    "VagasPorUnidade": {
+     "mae": 0.9,
+     "filha": 0.89
+    }
+   },
+   "outros_indicadores_alterados": [
+    "AreaPermeavelLivre",
+    "DetalhamentoMovimentoDeTerra",
+    "EstacionamentoProjetado",
+    "ImpermeavelDescoberto",
+    "MovimentoDeTerra",
+    "VagasProjetadas",
+    "ViarioProjetado"
+   ],
+   "indicadores_so_na_mae": [],
+   "indicadores_so_na_filha": []
+  }
+ },
+ {
+  "tarefa": "G5",
+  "arquivo": "solucoes-18x/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b.json",
+  "pergunta": "Desfaça as duas últimas mudanças.",
+  "sequencia": [
+   "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c5913d1686413871.json",
+   "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/0d31cc70394673a7.json",
+   "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c8cd62cc3db8505b.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p157"
+    }
+   },
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "apos": "0d31cc70394673a7",
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "chamada_esperada": {
+   "tool": "desfazer",
+   "args": [
+    2
+   ]
+  },
+  "resposta_esperada": {
+   "estado": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c5913d1686413871.json"
+  }
+ },
+ {
+  "tarefa": "G4",
+  "arquivo": "solucoes-18x/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d.json",
+  "pergunta": "O que mudou entre a solução mãe e a filha?",
+  "mae": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/0bffb80da2064f10.json",
+  "filha": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/78e3e4bfb3b19450.json",
+  "edicao": {
+   "tool": "mover_torre",
+   "args": {
+    "distancia": 5.0,
+    "sentido": "fundos",
+    "torre": "p709"
+   }
+  },
+  "chamada_esperada": {
+   "tool": "diff_versoes",
+   "args": [
+    "mae",
+    "filha"
+   ]
+  },
+  "resposta_esperada": {
+   "torres_movidas": [
+    {
+     "mae": "p709",
+     "filha": "p705",
+     "vetor": [
+      -2.777,
+      4.158
+     ],
+     "distancia": 5.0,
+     "giro": 0.0
+    }
+   ],
+   "vagas": {
+    "mae": 706,
+    "filha": 702,
+    "mantidas": 0,
+    "removidas": 706,
+    "novas": 702
+   },
+   "terraplenagem": {
+    "corte": {
+     "mae": 905.18,
+     "filha": 1057.71
+    },
+    "aterro": {
+     "mae": 1336.23,
+     "filha": 969.89
+    }
+   },
+   "indicadores": {
+    "AreaPermeavelProjetada": {
+     "mae": 7238.42,
+     "filha": 7283.24
+    },
+    "EstacionamentoPorVaga": {
+     "mae": 18.47,
+     "filha": 18.51
+    },
+    "NumeroDeVagasProjetado": {
+     "mae": 706,
+     "filha": 702
+    },
+    "PermeabilidadeProjetada": {
+     "mae": 30.69,
+     "filha": 30.88
+    },
+    "PermeabilidadeUtilProjetada": {
+     "mae": 30.68,
+     "filha": 30.87
+    },
+    "SortKey": {
+     "mae": 1576.0,
+     "filha": 1572.0
+    },
+    "VagasPorUnidade": {
+     "mae": 0.81,
+     "filha": 0.8
+    }
+   },
+   "outros_indicadores_alterados": [
+    "AreaPermeavelLivre",
+    "DetalhamentoMovimentoDeTerra",
+    "EstacionamentoProjetado",
+    "ImpermeavelDescoberto",
+    "MovimentoDeTerra",
+    "VagasProjetadas",
+    "ViarioProjetado"
+   ],
+   "indicadores_so_na_mae": [],
+   "indicadores_so_na_filha": []
+  }
+ },
+ {
+  "tarefa": "G5",
+  "arquivo": "solucoes-18x/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d.json",
+  "pergunta": "Desfaça as duas últimas mudanças.",
+  "sequencia": [
+   "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/0bffb80da2064f10.json",
+   "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/78e3e4bfb3b19450.json",
+   "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/9d177571d55a673f.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p709"
+    }
+   },
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "apos": "78e3e4bfb3b19450",
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "chamada_esperada": {
+   "tool": "desfazer",
+   "args": [
+    2
+   ]
+  },
+  "resposta_esperada": {
+   "estado": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/0bffb80da2064f10.json"
+  }
+ },
+ {
+  "tarefa": "G4",
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
+  "pergunta": "O que mudou entre a solução mãe e a filha?",
+  "mae": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/ffcaf8869b41a8bf.json",
+  "filha": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/1aa6790ed4a281c3.json",
+  "edicao": {
+   "tool": "mover_torre",
+   "args": {
+    "distancia": 5.0,
+    "sentido": "fundos",
+    "torre": "p937"
+   }
+  },
+  "chamada_esperada": {
+   "tool": "diff_versoes",
+   "args": [
+    "mae",
+    "filha"
+   ]
+  },
+  "resposta_esperada": {
+   "torres_movidas": [
+    {
+     "mae": "p937",
+     "filha": "p917",
+     "vetor": [
+      -1.901,
+      4.624
+     ],
+     "distancia": 5.0,
+     "giro": 0.0
+    }
+   ],
+   "vagas": {
+    "mae": 930,
+    "filha": 910,
+    "mantidas": 895,
+    "removidas": 35,
+    "novas": 15
+   },
+   "terraplenagem": {
+    "corte": {
+     "mae": 5364.38,
+     "filha": 5501.96
+    },
+    "aterro": {
+     "mae": 2661.27,
+     "filha": 2509.67
+    },
+    "muro_comprimento": {
+     "mae": 25.65,
+     "filha": 25.31
+    },
+    "muro_altura": {
+     "mae": 0.25,
+     "filha": 0.19
+    }
+   },
+   "indicadores": {
+    "AreaPermeavelProjetada": {
+     "mae": 6910.06,
+     "filha": 7192.91
+    },
+    "EstacionamentoPorVaga": {
+     "mae": 20.96,
+     "filha": 21.11
+    },
+    "NumeroDeVagasProjetado": {
+     "mae": 930,
+     "filha": 910
+    },
+    "PermeabilidadeProjetada": {
+     "mae": 22.72,
+     "filha": 23.65
+    },
+    "PermeabilidadeUtilProjetada": {
+     "mae": 22.71,
+     "filha": 23.64
+    },
+    "SortKey": {
+     "mae": 2010.0,
+     "filha": 1990.0
+    },
+    "VagasPorUnidade": {
+     "mae": 0.86,
+     "filha": 0.84
+    }
+   },
+   "outros_indicadores_alterados": [
+    "AreaPermeavelLivre",
+    "DescritivoVaga",
+    "DetalhamentoMovimentoDeTerra",
+    "EstacionamentoProjetado",
+    "ImpermeavelDescoberto",
+    "MovimentoDeTerra",
+    "VagasProjetadas",
+    "ViarioProjetado"
+   ],
+   "indicadores_so_na_mae": [],
+   "indicadores_so_na_filha": []
+  }
+ },
+ {
+  "tarefa": "G5",
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
+  "pergunta": "Desfaça as duas últimas mudanças.",
+  "sequencia": [
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/ffcaf8869b41a8bf.json",
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/1aa6790ed4a281c3.json",
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/40cac081f0b9dcdb.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p937"
+    }
+   },
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "apos": "1aa6790ed4a281c3",
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "chamada_esperada": {
+   "tool": "desfazer",
+   "args": [
+    2
+   ]
+  },
+  "resposta_esperada": {
+   "estado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/ffcaf8869b41a8bf.json"
+  }
+ },
+ {
+  "tarefa": "G4",
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
+  "pergunta": "O que mudou entre a solução mãe e a filha?",
+  "mae": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0429d3d9cb7e91b6.json",
+  "filha": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/24f896cb8cb2f03a.json",
+  "edicao": {
+   "tool": "mover_torre",
+   "args": {
+    "distancia": 5.0,
+    "sentido": "fundos",
+    "torre": "p940"
+   }
+  },
+  "chamada_esperada": {
+   "tool": "diff_versoes",
+   "args": [
+    "mae",
+    "filha"
+   ]
+  },
+  "resposta_esperada": {
+   "torres_movidas": [
+    {
+     "mae": "p940",
+     "filha": "p896",
+     "vetor": [
+      -1.901,
+      4.624
+     ],
+     "distancia": 5.0,
+     "giro": 0.0
+    }
+   ],
+   "vagas": {
+    "mae": 932,
+    "filha": 888,
+    "mantidas": 695,
+    "removidas": 237,
+    "novas": 193
+   },
+   "terraplenagem": {
+    "corte": {
+     "mae": 6569.61,
+     "filha": 6549.47
+    },
+    "aterro": {
+     "mae": 3012.71,
+     "filha": 2725.25
+    }
+   },
+   "indicadores": {
+    "AreaPermeavelProjetada": {
+     "mae": 7253.74,
+     "filha": 7667.37
+    },
+    "EstacionamentoPorVaga": {
+     "mae": 20.55,
+     "filha": 21.1
+    },
+    "NumeroDeVagasProjetado": {
+     "mae": 932,
+     "filha": 888
+    },
+    "PermeabilidadeProjetada": {
+     "mae": 23.85,
+     "filha": 25.21
+    },
+    "PermeabilidadeUtilProjetada": {
+     "mae": 23.84,
+     "filha": 25.2
+    },
+    "SortKey": {
+     "mae": 2012.0,
+     "filha": 1968.0
+    },
+    "VagasPorUnidade": {
+     "mae": 0.86,
+     "filha": 0.82
+    }
+   },
+   "outros_indicadores_alterados": [
+    "AreaPermeavelLivre",
+    "DescritivoVaga",
+    "DetalhamentoMovimentoDeTerra",
+    "EstacionamentoProjetado",
+    "ImpermeavelDescoberto",
+    "MovimentoDeTerra",
+    "VagasProjetadas",
+    "ViarioProjetado"
+   ],
+   "indicadores_so_na_mae": [],
+   "indicadores_so_na_filha": []
+  }
+ },
+ {
+  "tarefa": "G5",
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
+  "pergunta": "Desfaça as duas últimas mudanças.",
+  "sequencia": [
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0429d3d9cb7e91b6.json",
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/24f896cb8cb2f03a.json",
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/3ee708311f5c27bc.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p940"
+    }
+   },
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "apos": "24f896cb8cb2f03a",
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "chamada_esperada": {
+   "tool": "desfazer",
+   "args": [
+    2
+   ]
+  },
+  "resposta_esperada": {
+   "estado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0429d3d9cb7e91b6.json"
+  }
+ }
+]

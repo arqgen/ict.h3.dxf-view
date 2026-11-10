@@ -4,7 +4,7 @@ O AQG não guarda a rede: ela sai da cascata sem edição. Junto vão os `/road_
 já posicionados da portaria e das torres, pelo id do parser (`p<i>`), para a tool
 `caminho` rodar do lado da RECOD sem o `buildings`.
 
-    cd <viabiliza-terrenos.backend>/packages/py && ../../venv/bin/python \\
+    cd <repo>/data/benchmark/bin && <viabiliza-terrenos.backend>/venv/bin/python \\
         <repo>/evals/benchmark/redes.py [arquivos]
 """
 

@@ -1,16 +1,16 @@
 """Núcleo de gravação do benchmark (lado Arqgen; IMPLEMENTATION-queries.md, G0).
 
 Tudo o que roda motor mora aqui: a cascata de uma edição, o `validar` por partes
-(D9) e o registro das gravações. Roda com o venv do viabiliza-terrenos, com cwd em
-`packages/py` (onde estão `lib` e os binários), nas versões da D8. Nada deste módulo
-é entregue à RECOD (D1).
+(D9) e o registro das gravações. Roda com o venv do viabiliza-terrenos (de onde vem
+o `lib`), com cwd em `data/benchmark/bin`, onde ficam os binários nas versões da D8:
+o checkout do VT acompanha as de produção. Nada deste módulo é entregue à RECOD (D1).
 
 A cascata sempre refaz, a partir das torres, todas as etapas seguintes da strategy
 do arquivo. As etapas que a edição não afeta saem idênticas, porque os motores são
 determinísticos nos arquivos admitidos; a única exceção é a portaria, que não se
 reproduz e por isso é preservada do arquivo, como no Eros.
 
-    cd <viabiliza-terrenos.backend>/packages/py && ../../venv/bin/python \\
+    cd <repo>/data/benchmark/bin && <viabiliza-terrenos.backend>/venv/bin/python \\
         <repo>/evals/benchmark/gravacao.py [arquivos ou pastas]
 
 Sem argumentos, confere a cascata sem edição (o estado inicial dos casos) em todo
