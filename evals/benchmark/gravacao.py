@@ -351,7 +351,6 @@ def cascata(
     project = res.unwrap()
     project = compute_annotations(project)
     project = project.remove_unused_families()
-    project = project.transform(["solution", "road_network"], lambda _: None)
     project = project.transform(
         ["solution", "scores"], lambda _: original.solution.scores
     )
@@ -402,7 +401,10 @@ def gravar(
     if project is not None:
         out = GRAVACOES / Path(arquivo).stem / f"{key}.json"
         out.parent.mkdir(parents=True, exist_ok=True)
-        data = project.serialize()
+        # A rede do teseu fica fora do AQG, como nos arquivos; a B5 a grava à parte.
+        data = project.transform(
+            ["solution", "road_network"], lambda _: None
+        ).serialize()
         # A ordem das famílias sai do hash, que inclui geometrias (hash por
         # identidade); as instâncias citam a família pelo hid, a ordem não importa.
         data["families"].sort(key=lambda f: f["class_path"])

@@ -963,6 +963,15 @@
    "est=via+vag": true,
    "vagas_desenhadas": 219
   },
+  "B5": {
+   "p221": {
+    "origem": "p0",
+    "destino": "p221",
+    "distancia": 2.47,
+    "afastamento_origem": 5.26,
+    "afastamento_destino": 0.0
+   }
+  },
   "B9": {
    "p221": 2.999
   },
@@ -1697,6 +1706,22 @@
    "est=via+vag": true,
    "vagas_desenhadas": 253
   },
+  "B5": {
+   "p255": {
+    "origem": "p0",
+    "destino": "p255",
+    "distancia": 37.65,
+    "afastamento_origem": 13.47,
+    "afastamento_destino": 0.0
+   },
+   "p256": {
+    "origem": "p0",
+    "destino": "p256",
+    "distancia": 37.65,
+    "afastamento_origem": 13.47,
+    "afastamento_destino": 0.0
+   }
+  },
   "B9": {
    "p255": 5.998,
    "p256": 6.0
@@ -1808,6 +1833,29 @@
    "est=via+vag": true,
    "vagas_desenhadas": 353
   },
+  "B5": {
+   "p355": {
+    "origem": "p0",
+    "destino": "p355",
+    "distancia": 0.0,
+    "afastamento_origem": 16.48,
+    "afastamento_destino": 0.0
+   },
+   "p356": {
+    "origem": "p0",
+    "destino": "p356",
+    "distancia": 59.63,
+    "afastamento_origem": 16.48,
+    "afastamento_destino": 0.0
+   },
+   "p357": {
+    "origem": "p0",
+    "destino": "p357",
+    "distancia": 0.0,
+    "afastamento_origem": 16.48,
+    "afastamento_destino": 0.0
+   }
+  },
   "B9": {
    "p355": 6.0,
    "p356": 5.965,
@@ -1915,6 +1963,15 @@
    },
    "est=via+vag": true,
    "vagas_desenhadas": 118
+  },
+  "B5": {
+   "p120": {
+    "origem": "p0",
+    "destino": "p120",
+    "distancia": 82.8,
+    "afastamento_origem": 15.86,
+    "afastamento_destino": 0.0
+   }
   },
   "B9": {
    "p120": 6.0
@@ -2031,6 +2088,36 @@
    },
    "est=via+vag": true,
    "vagas_desenhadas": 147
+  },
+  "B5": {
+   "p149": {
+    "origem": "p0",
+    "destino": "p149",
+    "distancia": 0.0,
+    "afastamento_origem": 6.08,
+    "afastamento_destino": 26.5
+   },
+   "p150": {
+    "origem": "p0",
+    "destino": "p150",
+    "distancia": 53.69,
+    "afastamento_origem": 6.08,
+    "afastamento_destino": 0.0
+   },
+   "p151": {
+    "origem": "p0",
+    "destino": "p151",
+    "distancia": 53.69,
+    "afastamento_origem": 6.08,
+    "afastamento_destino": 0.0
+   },
+   "p152": {
+    "origem": "p0",
+    "destino": "p152",
+    "distancia": 53.69,
+    "afastamento_origem": 6.08,
+    "afastamento_destino": 36.55
+   }
   },
   "B9": {
    "p149": 37.667,
@@ -2270,6 +2357,15 @@
    "est=via+vag": true,
    "vagas_desenhadas": 33
   },
+  "B5": {
+   "p35": {
+    "origem": "p0",
+    "destino": "p35",
+    "distancia": 92.61,
+    "afastamento_origem": 10.7,
+    "afastamento_destino": 127.97
+   }
+  },
   "B9": {
    "p35": 139.512
   },
@@ -2377,6 +2473,15 @@
    },
    "est=via+vag": true,
    "vagas_desenhadas": 80
+  },
+  "B5": {
+   "p1": {
+    "origem": "p0",
+    "destino": "p1",
+    "distancia": 2.9,
+    "afastamento_origem": 7.63,
+    "afastamento_destino": 0.0
+   }
   },
   "B9": {
    "p1": 0.0
@@ -2493,6 +2598,26 @@
    },
    "est=via+vag": true,
    "vagas_desenhadas": 100
+  },
+  "B5": {
+   "p1": {
+    "origem": "p0",
+    "destino": "p1",
+    "distancia": 9.09,
+    "afastamento_origem": 9.99,
+    "afastamento_destino": 0.0
+   },
+   "p2": {
+    "origem": "p0",
+    "destino": "p2",
+    "distancia": 0.0,
+    "afastamento_origem": 9.99,
+    "afastamento_destino": 0.1
+   },
+   "p3": {
+    "erro": "inalcançável",
+    "motivo": "o acesso de p3 fica num trecho da rede sem ligação com o acesso de p0"
+   }
   },
   "B9": {
    "p1": 0.0,
@@ -2612,6 +2737,15 @@
    "est=via+vag": true,
    "vagas_desenhadas": 20
   },
+  "B5": {
+   "p1": {
+    "origem": "p0",
+    "destino": "p1",
+    "distancia": 32.3,
+    "afastamento_origem": 5.27,
+    "afastamento_destino": 0.0
+   }
+  },
   "B9": {
    "p1": 0.0
   },
@@ -2717,6 +2851,92 @@
    },
    "est=via+vag": true,
    "vagas_desenhadas": 192
+  },
+  "B5": {
+   "p194": {
+    "origem": "p0",
+    "destino": "p194",
+    "distancia": 22.29,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p195": {
+    "origem": "p0",
+    "destino": "p195",
+    "distancia": 22.29,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p196": {
+    "origem": "p0",
+    "destino": "p196",
+    "distancia": 46.42,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p197": {
+    "origem": "p0",
+    "destino": "p197",
+    "distancia": 72.44,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p198": {
+    "origem": "p0",
+    "destino": "p198",
+    "distancia": 96.46,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p199": {
+    "origem": "p0",
+    "destino": "p199",
+    "distancia": 121.48,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p200": {
+    "origem": "p0",
+    "destino": "p200",
+    "distancia": 145.49,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p201": {
+    "origem": "p0",
+    "destino": "p201",
+    "distancia": 12.85,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p202": {
+    "origem": "p0",
+    "destino": "p202",
+    "distancia": 70.92,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p203": {
+    "origem": "p0",
+    "destino": "p203",
+    "distancia": 46.91,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p204": {
+    "origem": "p0",
+    "destino": "p204",
+    "distancia": 95.92,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p205": {
+    "origem": "p0",
+    "destino": "p205",
+    "distancia": 135.28,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   }
   },
   "B9": {
    "p194": 13.923,
@@ -2843,6 +3063,43 @@
    "est=via+vag": true,
    "vagas_desenhadas": 320
   },
+  "B5": {
+   "p322": {
+    "origem": "p0",
+    "destino": "p322",
+    "distancia": 160.67,
+    "afastamento_origem": 15.54,
+    "afastamento_destino": 0.0
+   },
+   "p323": {
+    "origem": "p0",
+    "destino": "p323",
+    "distancia": 93.48,
+    "afastamento_origem": 15.54,
+    "afastamento_destino": 0.0
+   },
+   "p324": {
+    "origem": "p0",
+    "destino": "p324",
+    "distancia": 160.67,
+    "afastamento_origem": 15.54,
+    "afastamento_destino": 0.0
+   },
+   "p325": {
+    "origem": "p0",
+    "destino": "p325",
+    "distancia": 93.48,
+    "afastamento_origem": 15.54,
+    "afastamento_destino": 0.0
+   },
+   "p326": {
+    "origem": "p0",
+    "destino": "p326",
+    "distancia": 26.3,
+    "afastamento_origem": 15.54,
+    "afastamento_destino": 0.0
+   }
+  },
   "B9": {
    "p322": 5.998,
    "p323": 5.998,
@@ -2960,6 +3217,43 @@
    },
    "est=via+vag": true,
    "vagas_desenhadas": 346
+  },
+  "B5": {
+   "p348": {
+    "origem": "p0",
+    "destino": "p348",
+    "distancia": 172.89,
+    "afastamento_origem": 15.94,
+    "afastamento_destino": 0.0
+   },
+   "p349": {
+    "origem": "p0",
+    "destino": "p349",
+    "distancia": 105.7,
+    "afastamento_origem": 15.94,
+    "afastamento_destino": 0.0
+   },
+   "p350": {
+    "origem": "p0",
+    "destino": "p350",
+    "distancia": 38.51,
+    "afastamento_origem": 15.94,
+    "afastamento_destino": 0.0
+   },
+   "p351": {
+    "origem": "p0",
+    "destino": "p351",
+    "distancia": 105.7,
+    "afastamento_origem": 15.94,
+    "afastamento_destino": 0.0
+   },
+   "p352": {
+    "origem": "p0",
+    "destino": "p352",
+    "distancia": 38.51,
+    "afastamento_origem": 15.94,
+    "afastamento_destino": 0.0
+   }
   },
   "B9": {
    "p348": 5.998,
@@ -3182,6 +3476,78 @@
    "est=via+vag": true,
    "vagas_desenhadas": 169
   },
+  "B5": {
+   "p171": {
+    "origem": "p0",
+    "destino": "p171",
+    "distancia": 165.52,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   },
+   "p172": {
+    "origem": "p0",
+    "destino": "p172",
+    "distancia": 138.22,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   },
+   "p173": {
+    "origem": "p0",
+    "destino": "p173",
+    "distancia": 138.22,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   },
+   "p174": {
+    "origem": "p0",
+    "destino": "p174",
+    "distancia": 165.52,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   },
+   "p175": {
+    "origem": "p0",
+    "destino": "p175",
+    "distancia": 96.02,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   },
+   "p176": {
+    "origem": "p0",
+    "destino": "p176",
+    "distancia": 96.02,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   },
+   "p177": {
+    "origem": "p0",
+    "destino": "p177",
+    "distancia": 53.82,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 27.3
+   },
+   "p178": {
+    "origem": "p0",
+    "destino": "p178",
+    "distancia": 53.82,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   },
+   "p179": {
+    "origem": "p0",
+    "destino": "p179",
+    "distancia": 53.82,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   },
+   "p180": {
+    "origem": "p0",
+    "destino": "p180",
+    "distancia": 11.62,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   }
+  },
   "B9": {
    "p171": 6.0,
    "p172": 6.0,
@@ -3306,6 +3672,57 @@
    },
    "est=via+vag": true,
    "vagas_desenhadas": 480
+  },
+  "B5": {
+   "p484": {
+    "origem": "p0",
+    "destino": "p484",
+    "distancia": 184.45,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 1.5
+   },
+   "p485": {
+    "origem": "p0",
+    "destino": "p485",
+    "distancia": 184.45,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.0
+   },
+   "p486": {
+    "origem": "p0",
+    "destino": "p486",
+    "distancia": 227.13,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.0
+   },
+   "p487": {
+    "origem": "p0",
+    "destino": "p487",
+    "distancia": 127.38,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.8
+   },
+   "p488": {
+    "origem": "p0",
+    "destino": "p488",
+    "distancia": 234.14,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 2.0
+   },
+   "p489": {
+    "origem": "p0",
+    "destino": "p489",
+    "distancia": 170.07,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.0
+   },
+   "p490": {
+    "origem": "p0",
+    "destino": "p490",
+    "distancia": 66.2,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 7.97
+   }
   },
   "B9": {
    "p484": 13.44,
@@ -3528,6 +3945,50 @@
    },
    "est=via+vag": true,
    "vagas_desenhadas": 262
+  },
+  "B5": {
+   "p266": {
+    "origem": "p0",
+    "destino": "p266",
+    "distancia": 81.8,
+    "afastamento_origem": 5.69,
+    "afastamento_destino": 0.0
+   },
+   "p267": {
+    "origem": "p0",
+    "destino": "p267",
+    "distancia": 134.72,
+    "afastamento_origem": 5.69,
+    "afastamento_destino": 0.0
+   },
+   "p268": {
+    "origem": "p0",
+    "destino": "p268",
+    "distancia": 110.64,
+    "afastamento_origem": 5.69,
+    "afastamento_destino": 0.0
+   },
+   "p269": {
+    "origem": "p0",
+    "destino": "p269",
+    "distancia": 6.1,
+    "afastamento_origem": 5.69,
+    "afastamento_destino": 0.0
+   },
+   "p270": {
+    "origem": "p0",
+    "destino": "p270",
+    "distancia": 21.15,
+    "afastamento_origem": 5.69,
+    "afastamento_destino": 0.0
+   },
+   "p271": {
+    "origem": "p0",
+    "destino": "p271",
+    "distancia": 51.24,
+    "afastamento_origem": 5.69,
+    "afastamento_destino": 0.0
+   }
   },
   "B9": {
    "p266": 4.5,
@@ -3856,6 +4317,50 @@
    "est=via+vag": true,
    "vagas_desenhadas": 504
   },
+  "B5": {
+   "p507": {
+    "origem": "p0",
+    "destino": "p507",
+    "distancia": 68.24,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 11.0
+   },
+   "p508": {
+    "origem": "p0",
+    "destino": "p508",
+    "distancia": 105.73,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.47
+   },
+   "p509": {
+    "origem": "p0",
+    "destino": "p509",
+    "distancia": 98.05,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.0
+   },
+   "p510": {
+    "origem": "p0",
+    "destino": "p510",
+    "distancia": 61.22,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.0
+   },
+   "p511": {
+    "origem": "p0",
+    "destino": "p511",
+    "distancia": 37.93,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.0
+   },
+   "p512": {
+    "origem": "p0",
+    "destino": "p512",
+    "distancia": 107.55,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.0
+   }
+  },
   "B9": {
    "p507": 25.929,
    "p508": 6.174,
@@ -3974,6 +4479,71 @@
    },
    "est=via+vag": true,
    "vagas_desenhadas": 930
+  },
+  "B5": {
+   "p932": {
+    "origem": "p0",
+    "destino": "p932",
+    "distancia": 120.81,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   },
+   "p933": {
+    "origem": "p0",
+    "destino": "p933",
+    "distancia": 86.76,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   },
+   "p934": {
+    "origem": "p0",
+    "destino": "p934",
+    "distancia": 86.76,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   },
+   "p935": {
+    "origem": "p0",
+    "destino": "p935",
+    "distancia": 8.49,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   },
+   "p936": {
+    "origem": "p0",
+    "destino": "p936",
+    "distancia": 52.69,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   },
+   "p937": {
+    "origem": "p0",
+    "destino": "p937",
+    "distancia": 8.49,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   },
+   "p938": {
+    "origem": "p0",
+    "destino": "p938",
+    "distancia": 52.69,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   },
+   "p939": {
+    "origem": "p0",
+    "destino": "p939",
+    "distancia": 86.8,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   },
+   "p940": {
+    "origem": "p0",
+    "destino": "p940",
+    "distancia": 120.91,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   }
   },
   "B9": {
    "p932": 2.998,
@@ -4096,6 +4666,71 @@
    },
    "est=via+vag": true,
    "vagas_desenhadas": 932
+  },
+  "B5": {
+   "p934": {
+    "origem": "p0",
+    "destino": "p934",
+    "distancia": 155.36,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   },
+   "p935": {
+    "origem": "p0",
+    "destino": "p935",
+    "distancia": 121.31,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   },
+   "p936": {
+    "origem": "p0",
+    "destino": "p936",
+    "distancia": 87.25,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   },
+   "p937": {
+    "origem": "p0",
+    "destino": "p937",
+    "distancia": 87.25,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   },
+   "p938": {
+    "origem": "p0",
+    "destino": "p938",
+    "distancia": 8.02,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   },
+   "p939": {
+    "origem": "p0",
+    "destino": "p939",
+    "distancia": 53.15,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   },
+   "p940": {
+    "origem": "p0",
+    "destino": "p940",
+    "distancia": 8.02,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   },
+   "p941": {
+    "origem": "p0",
+    "destino": "p941",
+    "distancia": 53.15,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   },
+   "p942": {
+    "origem": "p0",
+    "destino": "p942",
+    "distancia": 87.26,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   }
   },
   "B9": {
    "p934": 2.998,

@@ -35,7 +35,7 @@
 
 | Portão | Pergunta | Default proposto | Trava |
 | --- | --- | --- | --- |
-| P1 | B5: de onde a onde vai a "distância de carro"? | Do nó da rede mais próximo do acesso da portaria ao nó mais próximo do `/road_access` de cada torre, pelo menor caminho | G5 |
+| P1 | B5: de onde a onde vai a "distância de carro"? | **Resolvido (10/11/2026):** menor caminho na rede, do ponto das ruas mais próximo do `/road_access` da portaria ao ponto mais próximo do `/road_access` de cada torre (projeção na aresta, não no nó). Pontos empatados a menos de 1 cm: fica o de menor caminho | G5 |
 | P2 | "Em direção aos fundos" (D1) | **Resolvido (09/11/2026):** perpendicular à linha de frente mais próxima da torre, para dentro do terreno, em todos os arquivos (com ou sem `AQG_FUNDOS`) | G1 |
 | P3 | Como a RECOD recebe as tools, os casos e as gravações | Pacote das tools e casos por acesso de leitura ao repo; gravações (centenas de MB) por um bucket ou um zip | E0 |
 
@@ -120,7 +120,7 @@ Entrada: torre original, programa novo, formato pedido (opcional). Conjunto cand
 
 ### 2.6 Rede viária (B5)
 
-`data/benchmark/redes/<arquivo>.json`: as ruas da solução do teseu regerada (`line`, `width`, `node_id`, `parent_node_id`), já conferida contra as vagas do arquivo pela admissão. A tool `caminho(origem, destino)` faz menor caminho nesse grafo (pontos de origem e destino pela regra do P1).
+`data/benchmark/redes/<arquivo>.json`: `ruas`, os eixos que o teseu refaz (`ParkingLot.axis`, segmentos 3D de dois pontos, que se encontram nas pontas), e `acessos`, o `/road_access` posicionado de cada portaria e torre pelo id do parser (`p<i>` → linhas 2D). A tool `caminho(arquivo, origem, destino)` faz menor caminho nesse grafo, com origem e destino pela regra do P1, e devolve a distância e o afastamento de cada acesso à rede.
 
 ## 3. Fatos dos dados
 
@@ -208,6 +208,10 @@ Verificados nos spikes e na admissão (09/11/2026):
 - **Tarefa:** B5 ("qual a distância de carro da portaria a cada torre?").
 - **Passos:** gravar a rede da 2.6 nos admitidos; tool `caminho`; gabarito da B5 em `casos.json`.
 - **Aceite:** em todo arquivo admitido com portaria, toda torre alcançável ou marcada como inalcançável com o motivo.
+- **Resultado (10/11/2026): concluída.** `evals/benchmark/redes.py` grava a rede em 23 dos 29 admitidos (6 sem etapa de estacionamento). A tool `caminho` está em `evals/benchmark/tools/calculo.py`, primeira das tools de cálculo da T0, em stdlib (Dijkstra) sobre a geometria deste repo, com teste em `tests/test_benchmark_caminho.py`. A B5 entrou no `gabarito.py`: 18 casos `ok` e 19 `fora` (6 sem estacionamento, 5 sem portaria, 8 não admitidos); os outros casos de `casos.json` não mudaram. Em `6ace84f4/otimo` uma torre fica inalcançável (rede em pedaços desconexos). As redes são determinísticas (duas passadas, mesmos arquivos).
+  - **P1 pela aresta:** com o nó mais próximo, portaria e torres caíam no mesmo nó (7 torres a 0 m, distâncias repetidas), porque a rede tem poucos nós. O acesso passou a ser projetado na aresta, e os pontos escolhidos viram nós.
+  - **0 m legítimo em 4 torres:** a rede entra no terreno por uma ponta de rua junto à portaria, e o acesso da torre passa nesse mesmo ponto (ou os dois projetam na mesma ponta de um trecho sem saída). O resto do trajeto está nos afastamentos, que vão na observação do caso: o acesso da portaria fica de 4,9 m a 19,5 m da rede.
+  - **Núcleo:** a `cascata` não anula mais `road_network`; quem anula é o `gravar`, e os AQGs gravados não mudam (conferido nas 26 gravações da E7).
 
 ### G6 — Histórico
 

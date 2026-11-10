@@ -13,6 +13,7 @@ from decimal import ROUND_FLOOR, Decimal
 from pathlib import Path
 from typing import Any
 
+from evals.benchmark.tools.calculo import REDES, caminho
 from src.ai_modules.tools.cad_tools.query_tools import _edge_prims
 from src.cad.geometry import Prim, min_distance
 from src.cad.model import CadModel, _category, load_aqg, tower_units
@@ -26,6 +27,7 @@ FILES = (
 )
 TIE = 0.01
 RAIO_VAGA = 50.0
+ADMISSAO = {r["arquivo"]: r for r in json.loads((OUT / "admissao.json").read_text())}
 
 PERGUNTAS = {
     "L1": "Quantas torres tem a solução?",
@@ -40,6 +42,7 @@ PERGUNTAS = {
     "A1": "Quantas unidades este terreno comporta pelo CA, mantido o mix desta "
     "solução?",
     "B2": "Quanto do terreno vai para o carro?",
+    "B5": "Qual a distância de carro da portaria a cada torre?",
     "B8": "Que estratégia gerou esta solução?",
     "B9": "Alguma torre fica sem vaga num raio de 50 m?",
     "B11": "Quantas unidades eu perderia se a torre mais próxima da portaria "
@@ -500,6 +503,38 @@ def run_file(path: str) -> tuple[list[dict], dict]:
                 "ok" if soma_ok else "pendente",
             )
         )
+
+    # B5
+    adm = ADMISSAO.get(arq)
+    fonte = "caminho(arquivo, portaria, torre) na rede do teseu (data/benchmark/redes)"
+    if adm is None or not adm["admitido"]:
+        motivo = f"não admitido: {adm['motivo']}" if adm else "fora da admissão"
+        casos.append(caso("B5", arq, None, fonte, motivo, "fora"))
+    elif not (REDES / f"{Path(arq).stem}.json").exists():
+        casos.append(
+            caso("B5", arq, None, fonte, "sem etapa de estacionamento", "fora")
+        )
+    elif len(portarias) != 1:
+        obs = "sem portaria desenhada" if not portarias else f"portarias {portarias}"
+        casos.append(caso("B5", arq, None, fonte, obs, "fora"))
+    else:
+        rotas = {t: caminho(arq, portarias[0], t) for t in towers}
+        chk["B5"] = rotas
+        resposta = {t: r.get("distancia", r.get("erro")) for t, r in rotas.items()}
+        obs = "; ".join(
+            f"{t}: " + (r["motivo"] if "motivo" in r else r.get("erro", ""))
+            if "distancia" not in r
+            else f"{t}: acesso a {r['afastamento_destino']} m da rede"
+            for t, r in rotas.items()
+        )
+        d_port = next(
+            (r["afastamento_origem"] for r in rotas.values() if "distancia" in r), None
+        )
+        if d_port is not None:
+            obs = f"acesso da portaria {portarias[0]} a {d_port} m da rede; {obs}"
+        erros = [r for r in rotas.values() if "distancia" not in r]
+        bad = [r for r in erros if r.get("erro") != "inalcançável"]
+        casos.append(caso("B5", arq, resposta, fonte, obs, "pendente" if bad else "ok"))
 
     # B8
     strategy = raw["solution"].get("strategy")
