@@ -64,6 +64,31 @@
   },
   "violacoes": []
  },
+ "040a73310d9d66a3": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/040a73310d9d66a3.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 5.75,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "0429d3d9cb7e91b6": {
   "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0429d3d9cb7e91b6.json",
   "args": {},
@@ -96,6 +121,31 @@
   ],
   "segundos": 1.54,
   "tool": "mover_torre",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "08abc7b93f60a051": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/08abc7b93f60a051.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/ruim_6ace4ea8ecd8aeaf968b312c.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 1.16,
+  "tool": "resolver_terraplenagem",
   "veredito": "valido",
   "versoes": {
    "buildings": "19.3.0",
@@ -151,6 +201,31 @@
     ]
    }
   ]
+ },
+ "0b91a10050c8b73c": {
+  "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0b91a10050c8b73c.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 11.47,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "0bffb80da2064f10": {
   "aqg": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/0bffb80da2064f10.json",
@@ -267,6 +342,31 @@
   "reposicionadas": [],
   "tool": "alterar_programa",
   "veredito": "erro",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "167b7b80d8b42c4b": {
+  "aqg": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/167b7b80d8b42c4b.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 6.01,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
   "versoes": {
    "buildings": "19.3.0",
    "ibitira": "5.2.0+adaptador",
@@ -402,6 +502,31 @@
    }
   ]
  },
+ "1f7d24af8851aea1": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace4079bf22db620be742d4/1f7d24af8851aea1.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/otimo_6ace4079bf22db620be742d4.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 1.91,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "230a101a0499cf7f": {
   "aqg": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json",
   "args": {},
@@ -512,6 +637,31 @@
     ]
    }
   ]
+ },
+ "2b4a7e3d3c27beb3": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace40534a7a894b01852f1d/2b4a7e3d3c27beb3.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/ruim_6ace40534a7a894b01852f1d.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 2.21,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "2bad3e506408fa98": {
   "aqg": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/2bad3e506408fa98.json",
@@ -821,6 +971,56 @@
    "teseu": "0.5.2"
   }
  },
+ "38e5131dc867ab45": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace404e4a7a894b01852f19/38e5131dc867ab45.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/bom_6ace404e4a7a894b01852f19.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 5.06,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "394a6639f55e200a": {
+  "aqg": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/394a6639f55e200a.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "solucoes-18x/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 5.92,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "39e99f7386aa4eab": {
   "aqg": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/39e99f7386aa4eab.json",
   "args": {
@@ -1046,6 +1246,31 @@
   ],
   "segundos": 1.41,
   "tool": "definir_pavimentos",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "4e86048c446be667": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace64da8d16ae86ca3419e5/4e86048c446be667.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/otimo_6ace64da8d16ae86ca3419e5.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 15.62,
+  "tool": "resolver_terraplenagem",
   "veredito": "valido",
   "versoes": {
    "buildings": "19.3.0",
@@ -1387,6 +1612,31 @@
   },
   "violacoes": []
  },
+ "60b7e67ff591b61f": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace3c16d8664cf36a13dbb9/60b7e67ff591b61f.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/ruim_6ace3c16d8664cf36a13dbb9.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 1.82,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "66be0f5838e8bb2e": {
   "aqg": "data/benchmark/gravacoes/ruim_6ace3c16d8664cf36a13dbb9/66be0f5838e8bb2e.json",
   "args": {},
@@ -1603,6 +1853,31 @@
   },
   "violacoes": []
  },
+ "73a4a2f6c36b444e": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/73a4a2f6c36b444e.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/otimo_6ace4108cfe0941cdf9a9189.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 11.94,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "73f5d3032e9d94f4": {
   "aqg": "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/73f5d3032e9d94f4.json",
   "args": {
@@ -1636,6 +1911,31 @@
     ]
    }
   ]
+ },
+ "76692c8893187ef7": {
+  "aqg": "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/76692c8893187ef7.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "solucoes-18x/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 4.31,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "77587a4af7e6bc34": {
   "args": {
@@ -1765,6 +2065,31 @@
   },
   "violacoes": []
  },
+ "7933275dd528682e": {
+  "aqg": "data/benchmark/gravacoes/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f/7933275dd528682e.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "solucoes-18x/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 6.29,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "7ac15fd10f137df5": {
   "aqg": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/7ac15fd10f137df5.json",
   "args": {
@@ -1793,6 +2118,56 @@
   ],
   "segundos": 6.6,
   "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "7acd2359b453be2b": {
+  "aqg": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/7acd2359b453be2b.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 1.63,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "7b6c517291be138b": {
+  "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/7b6c517291be138b.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 13.06,
+  "tool": "resolver_terraplenagem",
   "veredito": "valido",
   "versoes": {
    "buildings": "19.3.0",
@@ -1848,6 +2223,31 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "856f4583770580f4": {
+  "aqg": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/856f4583770580f4.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 2.21,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "8987d1ea72704953": {
   "aqg": "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/8987d1ea72704953.json",
@@ -1969,6 +2369,56 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "910d02ad0177815e": {
+  "aqg": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/910d02ad0177815e.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 4.72,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "93cd4399ddc75422": {
+  "aqg": "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/93cd4399ddc75422.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "solucoes-18x/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 8.69,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "94e780142a772872": {
   "aqg": "data/benchmark/gravacoes/ruim_6ace40534a7a894b01852f1d/94e780142a772872.json",
@@ -2118,6 +2568,31 @@
   },
   "violacoes": []
  },
+ "9ac7b7d39a5c3944": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace3c8be748be1a355e6769/9ac7b7d39a5c3944.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/bom_6ace3c8be748be1a355e6769.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 2.78,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
  "9d2080bbfd09c5d7": {
   "aqg": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/9d2080bbfd09c5d7.json",
   "args": {
@@ -2159,6 +2634,31 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "a132fdd1133cac7b": {
+  "aqg": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/a132fdd1133cac7b.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 4.48,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "a26df3263e88937f": {
   "aqg": "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/a26df3263e88937f.json",
@@ -2213,6 +2713,31 @@
    "teodora": "17.1.0",
    "teseu": "0.5.2"
   }
+ },
+ "a4172c4138ac6cd4": {
+  "aqg": "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/a4172c4138ac6cd4.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "solucoes-18x/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 3.97,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "a82a51494d8800f5": {
   "aqg": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/a82a51494d8800f5.json",
@@ -2281,6 +2806,31 @@
     ]
    }
   ]
+ },
+ "aaee2d7e10edf5d7": {
+  "aqg": "data/benchmark/gravacoes/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d/aaee2d7e10edf5d7.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "solucoes-18x/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 1.64,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "aaf73e4583674808": {
   "aqg": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json",
@@ -2376,6 +2926,31 @@
   ],
   "segundos": 0.12,
   "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "afc4b0c326c294ae": {
+  "aqg": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/afc4b0c326c294ae.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 2.19,
+  "tool": "resolver_terraplenagem",
   "veredito": "valido",
   "versoes": {
    "buildings": "19.3.0",
@@ -2717,6 +3292,31 @@
     ]
    }
   ]
+ },
+ "c0a2bf9e82db6ccd": {
+  "aqg": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c0a2bf9e82db6ccd.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "solucoes-18x/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 2.11,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
  },
  "c250bc7f9cd098dc": {
   "aqg": "data/benchmark/gravacoes/otimo_6ace64da8d16ae86ca3419e5/c250bc7f9cd098dc.json",
@@ -3274,6 +3874,56 @@
   ],
   "segundos": 2.51,
   "tool": "alterar_programa",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "de3a5b7c83112813": {
+  "aqg": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/de3a5b7c83112813.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 5.78,
+  "tool": "resolver_terraplenagem",
+  "veredito": "valido",
+  "versoes": {
+   "buildings": "19.3.0",
+   "ibitira": "5.2.0+adaptador",
+   "minotauro": "2.0.0",
+   "specs": "default",
+   "teodora": "17.1.0",
+   "teseu": "0.5.2"
+  },
+  "violacoes": []
+ },
+ "df26e4586abf65b7": {
+  "aqg": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/df26e4586abf65b7.json",
+  "args": {
+   "aterro": "1:2",
+   "corte": "1:1,5",
+   "muro": "sem limite"
+  },
+  "arquivo": "solucoes-18x/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e.json",
+  "etapas": [
+   "terraplenagem",
+   "indicadores"
+  ],
+  "segundos": 12.14,
+  "tool": "resolver_terraplenagem",
   "veredito": "valido",
   "versoes": {
    "buildings": "19.3.0",

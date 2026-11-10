@@ -311,12 +311,16 @@ def reposicionar(
 
 
 def cascata(
-    original: Project, edited: Project, specs: ClientSpecs = SPECS
+    original: Project,
+    edited: Project,
+    specs: ClientSpecs = SPECS,
+    por_etapa: dict[StepId, ClientSpecs] | None = None,
 ) -> Result[Project]:
     """Refaz, a partir das torres de `edited`, todas as etapas seguintes da strategy.
 
     A portaria vem de `original` (não se reproduz); os scores também, porque o
-    gerador não os recalcula numa edição.
+    gerador não os recalcula numa edição. `por_etapa` troca as specs de uma etapa só
+    (E7: o talude novo não pode mexer no viário, que também lê o `SlopeSpec`).
     """
     portaria = placed_with_prefix(original, PORTARIA)
     project = only_towers(edited)
@@ -332,7 +336,8 @@ def cascata(
             )
             continue
         try:
-            res = _solve_step(project, step, specs, timeout=TIMEOUT_MS)
+            step_specs = (por_etapa or {}).get(step.step, specs)
+            res = _solve_step(project, step, step_specs, timeout=TIMEOUT_MS)
         except TypeError as exc:
             # O motor faz `unwrap` de um Err por dentro (ex.: teseu "infeasible").
             res = Err(str(exc))

@@ -199,6 +199,9 @@ Verificados nos spikes e na admissão (09/11/2026):
 - **Tarefa:** E7, com os parâmetros canônicos do PRD (aterro 1:2, corte 1:1,5, muro sem limite).
 - **Passos:** `SlopeSpec` sobreposto só nesta chamada; só terraplenagem e indicadores rodam.
 - **Aceite:** torres e vagas idênticas ao arquivo; muro zero; corte, aterro e malhas novos gravados.
+- **Resultado (10/11/2026): concluída.** `resolver_terraplenagem` em `edicoes.py`, nos 26 arquivos com terraplenagem (3 sem ela ficam fora): 26 válidas, de 1,2 s a 15,6 s. Contra a base, torres, portaria e vagas são idênticas, nenhuma gravação tem muro e as malhas do talude são novas; corte e aterro mudam em 25 (em `6ace4f3f/bom` o talude muda de forma sem mudar os volumes de platô). Duas passadas dão os mesmos 26 AQGs.
+  - **Specs só na terraplenagem:** a `cascata` ganhou `por_etapa`, porque o viário também lê o `SlopeSpec` e não pode mudar.
+  - **"Muro sem limite" = `slope_max_distance` de 1000 m:** com 1e6 a ibitira não termina (timeout de 600 s), e com 100 m ainda sobra um muro de 3,95 m em `6ac7a6d2`.
 
 ### G5 — Rede viária
 

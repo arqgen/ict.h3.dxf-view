@@ -5,7 +5,7 @@ cru, e passa a edição pela cascata de `gravacao.aplicar`. Arquivo em que a des
 não aponta um elemento só (empate abaixo de `TIE`) fica fora da tarefa.
 
     cd <viabiliza-terrenos.backend>/packages/py && ../../venv/bin/python \\
-        <repo>/evals/benchmark/edicoes.py [d1 d3 d6 e1 e3] [arquivos]
+        <repo>/evals/benchmark/edicoes.py [d1 d3 d6 e1 e3 e7] [arquivos]
 
 Sem tarefas, roda todas; sem arquivos, todos os admitidos.
 """
@@ -13,6 +13,7 @@ Sem tarefas, roda todas; sem arquivos, todos os admitidos.
 import json
 import math
 import sys
+import time
 import uuid
 from pathlib import Path
 from typing import Any
@@ -28,10 +29,11 @@ from buildings.family.variations.height import (
     gen_min_floors_with_units,
 )
 from buildings.protocol.archprog import MaxHeight
+from buildings.protocol.client_specs import SlopeSpec, StepId
 from buildings.protocol.family import Families
 from buildings.protocol.id import VolumeId
 from buildings.protocol.project import Project, build_project
-from gravacao import AQG, ROOT, SPECS, TOWER, aplicar, gravar, tower_ids
+from gravacao import AQG, ROOT, SPECS, TOWER, aplicar, cascata, gravar, tower_ids
 from persistente.hid import Hid
 from pyrsistent import pvector
 from shapely.geometry import shape
@@ -426,8 +428,53 @@ def e1(arquivo: str, raw: dict, model: CadModel) -> dict:
     }
 
 
+def e7(arquivo: str, raw: dict, model: CadModel) -> dict:
+    row = {"tarefa": "E7", "arquivo": arquivo}
+    if "earthmoving" not in json.dumps(raw["solution"]["strategy"]):
+        return {**row, "fora": "sem terraplenagem"}
+    # Parâmetros canônicos do PRD: aterro 1:2, corte 1:1,5, talude sem limite de
+    # altura (sem muro).
+    args = {"aterro": "1:2", "corte": "1:1,5", "muro": "sem limite"}
+    slope = SlopeSpec(
+        cut_degree=math.degrees(math.atan(1 / 1.5)),
+        fill_degree=math.degrees(math.atan(1 / 2)),
+        retaining_wall_thickness=SPECS.config.get_config_spec(SlopeSpec)
+        .unwrap()
+        .retaining_wall_thickness,
+        # 1000 m vale como "sem limite" (o aceite confere muro zero): com 100 m ainda
+        # sobra muro num arquivo, e com 1e6 a ibitira não termina.
+        slope_max_distance=1000.0,
+        precision_distance=SPECS.config.get_config_spec(SlopeSpec)
+        .unwrap()
+        .precision_distance,
+    )
+    specs = SPECS.transform(
+        ["config"],
+        lambda config: config.__class__(
+            slope if isinstance(c, SlopeSpec) else c for c in config
+        ),
+    )
+    start = time.perf_counter()
+    original = Project.create(raw)
+    res = cascata(original, original, por_etapa={StepId.Earthmoving: specs})
+    if res.is_err():
+        resposta = {"veredito": "erro", "violacoes": [], "erro": str(res)[:300]}
+        return {
+            **row,
+            **gravar(arquivo, "resolver_terraplenagem", args, None, resposta),
+        }
+    resposta = {
+        "veredito": "valido",
+        "violacoes": [],
+        "etapas": ["terraplenagem", "indicadores"],
+        "segundos": round(time.perf_counter() - start, 2),
+    }
+    entry = gravar(arquivo, "resolver_terraplenagem", args, res.unwrap(), resposta)
+    return {**row, **entry}
+
+
 def main() -> None:
-    tarefas = {"d1": d1, "d3": d3, "d6": d6, "e1": e1, "e3": e3}
+    tarefas = {"d1": d1, "d3": d3, "d6": d6, "e1": e1, "e3": e3, "e7": e7}
     names = [a for a in sys.argv[1:] if a in tarefas]
     tasks = [tarefas[n] for n in names] or list(tarefas.values())
     only = set(sys.argv[1:]) - set(names)
