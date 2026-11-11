@@ -43,4 +43,6 @@ Por tarefa: tokens de entrada (a estrutura mais o que as tools devolvem), tokens
 
 `controles.avaliar(caso, chamadas, resposta)` calcula as duas. A resposta é comparada por igualdade exata dos dados; a resposta de um modelo real, que vem em texto, precisa antes ser extraída para esse formato.
 
+**AQG cru como referência:** os AQGs dos casos vão de 0,09 MB a 21 MB (mediana 4,8 MB). A maioria não cabe inteira no contexto de um modelo; o braço do AQG cru só roda inteiro nos arquivos menores.
+
 **Controles:** um cliente que faz exatamente as chamadas esperadas tem de acertar 100% sem dano; um que acerta e faz uma edição a mais tem de ser acusado de dano em 100%. Rode os dois (passo 3 da instalação) antes de publicar qualquer número.

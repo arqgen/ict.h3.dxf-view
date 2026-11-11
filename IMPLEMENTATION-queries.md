@@ -261,3 +261,4 @@ Verificados nos spikes e na admissão (09/11/2026):
   - **Sem cobertura:** B5 (nenhuma tool expõe a rede viária; `measure` só mede em linha reta) e B8 (nenhuma tool expõe `solution.strategy`), 51 casos. Nelas, a linha de base não tem como acertar.
   - **Limite:** o roteiro mede se as tools bastam, não se um modelo acerta. Ele sabe, por exemplo, que um elemento do terreno tem id `s<i>` e que `near` dá a vaga mais próxima. Teste em `tests/test_benchmark_linha_de_base.py`, com 3 arquivos em que as 12 tarefas se aplicam.
 - Uma rodada curta com um modelo real no AQG cru, para medir tokens de referência antes de a RECOD trazer a estrutura dela.
+  - **Fora desta fatia (11/11/2026):** a comparação entre o AQG cru e cada estrutura é da RECOD (PRD, contexto), e o braço do AQG cru é a referência dela. Fica o aviso no README da entrega: os AQGs vão de 0,09 MB a 21 MB (mediana 4,8 MB), e a maioria não cabe inteira no contexto de um modelo.
