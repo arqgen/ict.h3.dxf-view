@@ -10,6 +10,8 @@ Tarefas de leitura e de edição sobre projetos AQG, com as tools que respondem 
 
 ## Casos
 
+Para ler: [`QUERIES.md`](QUERIES.md) traz cada query, como a resposta é conferida e o resultado esperado em cada AQG, gerado a partir dos dois arquivos abaixo.
+
 | Arquivo | Tarefas | Estado inicial |
 | --- | --- | --- |
 | `casos.json` | Leitura (L, A, B): pergunta e `resposta_esperada`; `status: fora` quando a tarefa não se aplica ao arquivo | `data/aqg/<arquivo>` |
