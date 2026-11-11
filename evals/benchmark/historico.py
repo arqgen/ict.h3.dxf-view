@@ -1,9 +1,7 @@
 """Respostas esperadas das tarefas de histórico G4 e G5, sem LLM e sem motor.
 
-Lê as gravações do índice (a base é a mãe, o estado inicial que a RECOD lê) e
-escreve os casos em `casos_edicao.json`:
-
-    uv run python evals/benchmark/historico.py
+Lê as gravações do índice (a base é a mãe, o estado inicial que a RECOD lê).
+Quem escreve os casos é `casos_edicao.py`.
 """
 
 import json
@@ -12,9 +10,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
-OUT = Path(__file__).parent
-ROOT = OUT.parents[1]
-INDICE = OUT / "gravacoes.json"
+ROOT = Path(__file__).parents[2]
 TORRE = "/building/torre"
 VAGA = "/equipment/vaga"
 TERRA = ("corte", "aterro", "muro_comprimento", "muro_altura")
@@ -114,8 +110,7 @@ def caso(tarefa: str, arquivo: str, **campos: Any) -> dict:
     }
 
 
-def main() -> None:
-    indice = json.loads(INDICE.read_text())
+def casos_historico(indice: dict[str, dict]) -> list[dict]:
     por_tool: dict[tuple[str, str], list[tuple[str, dict]]] = {}
     for k, v in indice.items():
         por_tool.setdefault((v["arquivo"], v["tool"]), []).append((k, v))
@@ -140,10 +135,12 @@ def main() -> None:
             caso(
                 "G4",
                 arquivo,
-                mae=base["aqg"],
-                filha=d1["aqg"],
-                edicao={"tool": "mover_torre", "args": d1["args"]},
-                chamada_esperada={"tool": "diff_versoes", "args": ["mae", "filha"]},
+                historico=[base["aqg"], d1["aqg"]],
+                edicoes=[{"tool": "mover_torre", "args": d1["args"]}],
+                chamadas_esperadas=[
+                    {"tool": "diff_versoes", "args": {"mae": 0, "filha": 1}}
+                ],
+                estado_esperado=d1["aqg"],
                 resposta_esperada=resposta,
             )
         )
@@ -162,21 +159,14 @@ def main() -> None:
             caso(
                 "G5",
                 arquivo,
-                sequencia=[base["aqg"], d1["aqg"], e7["aqg"]],
+                historico=[base["aqg"], d1["aqg"], e7["aqg"]],
                 edicoes=[
                     {"tool": "mover_torre", "args": d1["args"]},
                     {"tool": "resolver_terraplenagem", "args": e7["args"]},
                 ],
-                chamada_esperada={"tool": "desfazer", "args": [2]},
-                resposta_esperada={"estado": base["aqg"]},
+                chamadas_esperadas=[{"tool": "desfazer", "args": {"n": 2}}],
+                estado_esperado=base["aqg"],
+                resposta_esperada=None,
             )
         )
-
-    (OUT / "casos_edicao.json").write_text(
-        json.dumps(casos, ensure_ascii=False, indent=1)
-    )
-    print(Counter(c["tarefa"] for c in casos))
-
-
-if __name__ == "__main__":
-    main()
+    return casos

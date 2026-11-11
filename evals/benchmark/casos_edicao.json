@@ -1,25 +1,4439 @@
 [
  {
+  "tarefa": "D1",
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/bom_6ace404e4a7a894b01852f19.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace404e4a7a894b01852f19/52345171ba44d68a.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p1"
+    }
+   }
+  ],
+  "gravacao": "0aa470fdb8340341",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace404e4a7a894b01852f19/0aa470fdb8340341.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "InsideGeometry",
+     "torres": [
+      "p1"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/otimo_6ace4108cfe0941cdf9a9189.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/f1e1bf266a50c980.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p9"
+    }
+   }
+  ],
+  "gravacao": "996e6ae89881cd3a",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/996e6ae89881cd3a.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/ruim_6ace40534a7a894b01852f1d.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace40534a7a894b01852f1d/ebfaa766763a5982.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p1"
+    }
+   }
+  ],
+  "gravacao": "dd747c138ac722f8",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace40534a7a894b01852f1d/dd747c138ac722f8.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "InsideGeometry",
+     "torres": [
+      "p1"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/bom_6ace3c8be748be1a355e6769.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace3c8be748be1a355e6769/6f750cd83da54c1d.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p1"
+    }
+   }
+  ],
+  "gravacao": "51ac22e699bb9cf3",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace3c8be748be1a355e6769/51ac22e699bb9cf3.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "DistanceFromLinesGreaterThanThreshold",
+     "torres": [
+      "p1"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/otimo_6ace4079bf22db620be742d4.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace4079bf22db620be742d4/845db7aad27daf70.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p2"
+    }
+   }
+  ],
+  "gravacao": "34146cf2edb8c7f9",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace4079bf22db620be742d4/34146cf2edb8c7f9.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "NoOverlapping",
+     "torres": [
+      "p1",
+      "p2"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/ruim_6ace3c16d8664cf36a13dbb9.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace3c16d8664cf36a13dbb9/66be0f5838e8bb2e.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p1"
+    }
+   }
+  ],
+  "gravacao": "e04bc18165886e8d",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace3c16d8664cf36a13dbb9/e04bc18165886e8d.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "NoOverlapping",
+     "torres": [
+      "p1",
+      "p2"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/b9d8a76034f5b7d8.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p255"
+    }
+   }
+  ],
+  "gravacao": "31100608f54a03b6",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/31100608f54a03b6.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/9e780ba833bdbabd.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p357"
+    }
+   }
+  ],
+  "gravacao": "b90c4bca6dda0b90",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/b90c4bca6dda0b90.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/ruim_6ace4ea8ecd8aeaf968b312c.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/bf31942fc2cd024d.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p120"
+    }
+   }
+  ],
+  "gravacao": "9788ef0210081412",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/9788ef0210081412.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "DistanceFromLinesGreaterThanThreshold",
+     "torres": [
+      "p120"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/eb6ed72593681f3b.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p149"
+    }
+   }
+  ],
+  "gravacao": "e83526a91ee68aed",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/e83526a91ee68aed.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/otimo_6ace64da8d16ae86ca3419e5.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace64da8d16ae86ca3419e5/b054a70b6de133c9.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p376"
+    }
+   }
+  ],
+  "gravacao": "cd44dffe4da1ea60",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace64da8d16ae86ca3419e5/cd44dffe4da1ea60.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "NoOverlapping",
+     "torres": [
+      "p376",
+      "p377"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p35"
+    }
+   }
+  ],
+  "gravacao": "8de4ca6168b8957c",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/8de4ca6168b8957c.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/bom_6ace7b93445b3a60fcb6162b.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/387953e1ea3cc2d2.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p0"
+    }
+   }
+  ],
+  "gravacao": "827e49b1b58d5e80",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/827e49b1b58d5e80.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/ruim_6ace7f0d246ca4a63fa193fd.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/597fbdb18d4b276f.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p0"
+    }
+   }
+  ],
+  "gravacao": "2ca3acf57454cac0",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/2ca3acf57454cac0.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/0a32aad47fdf66ec.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p221"
+    }
+   }
+  ],
+  "gravacao": "051531f02b5b3532",
+  "estado_esperado": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/051531f02b5b3532.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "solucoes-18x/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/a3d5bdc2910b9e01.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p195"
+    }
+   }
+  ],
+  "gravacao": "8c715f063b365dbd",
+  "estado_esperado": "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/8c715f063b365dbd.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "DistanceFromLinesGreaterThanThreshold",
+     "torres": [
+      "p195"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p326"
+    }
+   }
+  ],
+  "gravacao": "374ba667ce110d63",
+  "estado_esperado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/374ba667ce110d63.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p350"
+    }
+   }
+  ],
+  "gravacao": "349c2ed562f73006",
+  "estado_esperado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/349c2ed562f73006.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p180"
+    }
+   }
+  ],
+  "gravacao": "4f1238bbc2b12336",
+  "estado_esperado": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/4f1238bbc2b12336.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "solucoes-18x/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/9075664ab16aad9d.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p489"
+    }
+   }
+  ],
+  "gravacao": "c9adc47b1f40e4ee",
+  "estado_esperado": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/c9adc47b1f40e4ee.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "NoOverlapping",
+     "torres": [
+      "p485",
+      "p489"
+     ]
+    },
+    {
+     "regra": "NoOverlapping",
+     "torres": [
+      "p488",
+      "p489"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "solucoes-18x/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d/38c80c06534b057b.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p153"
+    }
+   }
+  ],
+  "gravacao": "ba453d2bc68ba562",
+  "estado_esperado": "data/benchmark/gravacoes/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d/38c80c06534b057b.json",
+  "resposta_esperada": {
+   "erro": "/parking_lot/optimal_selection/default: trying to unwrap an Err: Solver failed or solution unreliable: infeasible",
+   "veredito": "erro",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "solucoes-18x/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/5289450f2e7e9199.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p271"
+    }
+   }
+  ],
+  "gravacao": "eba7b484b01bb2f8",
+  "estado_esperado": "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/eba7b484b01bb2f8.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "NoOverlapping",
+     "torres": [
+      "p270",
+      "p271"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "solucoes-18x/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c5913d1686413871.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p157"
+    }
+   }
+  ],
+  "gravacao": "0d31cc70394673a7",
+  "estado_esperado": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/0d31cc70394673a7.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "leisure",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "solucoes-18x/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/0bffb80da2064f10.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p709"
+    }
+   }
+  ],
+  "gravacao": "78e3e4bfb3b19450",
+  "estado_esperado": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/78e3e4bfb3b19450.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "solucoes-18x/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/909ac631b01beec6.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p507"
+    }
+   }
+  ],
+  "gravacao": "ec3dd6600d37f8d1",
+  "estado_esperado": "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/ec3dd6600d37f8d1.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "DistanceFromLinesGreaterThanThreshold",
+     "torres": [
+      "p507"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/ffcaf8869b41a8bf.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p937"
+    }
+   }
+  ],
+  "gravacao": "1aa6790ed4a281c3",
+  "estado_esperado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/1aa6790ed4a281c3.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D1",
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
+  "pergunta": "Mova a torre mais próxima da frente 5 m em direção aos fundos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0429d3d9cb7e91b6.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p940"
+    }
+   }
+  ],
+  "gravacao": "24f896cb8cb2f03a",
+  "estado_esperado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/24f896cb8cb2f03a.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D3",
+  "arquivo": "solucoes-18x/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e.json",
+  "pergunta": "Remova a torre mais próxima da APP e diga quantas unidades perdi.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/9075664ab16aad9d.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "remover_torre",
+    "args": {
+     "torre": "p490"
+    }
+   }
+  ],
+  "gravacao": "9d2080bbfd09c5d7",
+  "estado_esperado": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/9d2080bbfd09c5d7.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "leisure",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": [],
+   "unidades_perdidas": 60
+  }
+ },
+ {
+  "tarefa": "D3",
+  "arquivo": "solucoes-18x/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5.json",
+  "pergunta": "Remova a torre mais próxima da APP e diga quantas unidades perdi.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/909ac631b01beec6.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "remover_torre",
+    "args": {
+     "torre": "p508"
+    }
+   }
+  ],
+  "gravacao": "0c3e3d5767141a89",
+  "estado_esperado": "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/0c3e3d5767141a89.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "leisure",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": [],
+   "unidades_perdidas": 72
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/bom_6ace404e4a7a894b01852f19.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace404e4a7a894b01852f19/52345171ba44d68a.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p2",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "50518fd0713fbbaf",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace404e4a7a894b01852f19/50518fd0713fbbaf.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/otimo_6ace4108cfe0941cdf9a9189.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/f1e1bf266a50c980.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p9",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "68c086b1f2d128d1",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/68c086b1f2d128d1.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 18,
+    "minimo": 1,
+    "pedido": 19
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p9"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/ruim_6ace40534a7a894b01852f1d.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace40534a7a894b01852f1d/ebfaa766763a5982.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p3",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "c3ee59836db3c935",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace40534a7a894b01852f1d/c3ee59836db3c935.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 2,
+    "minimo": 1,
+    "pedido": 19
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p3"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/bom_6ace3c8be748be1a355e6769.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace3c8be748be1a355e6769/6f750cd83da54c1d.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p1",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "b5b56f982232dddd",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace3c8be748be1a355e6769/b5b56f982232dddd.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 10,
+    "minimo": 8,
+    "pedido": 20
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p1"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/otimo_6ace4079bf22db620be742d4.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace4079bf22db620be742d4/845db7aad27daf70.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p1",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "bf4b6d97625dbd2c",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace4079bf22db620be742d4/bf4b6d97625dbd2c.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/ruim_6ace3c16d8664cf36a13dbb9.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace3c16d8664cf36a13dbb9/66be0f5838e8bb2e.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p1",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "3c3b789749db2822",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace3c16d8664cf36a13dbb9/3c3b789749db2822.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 8,
+    "minimo": 8,
+    "pedido": 20
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p1"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/b9d8a76034f5b7d8.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p255",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "2a0ac2fbcb589bec",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/2a0ac2fbcb589bec.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 15,
+    "minimo": 14,
+    "pedido": 20
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p255"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/9e780ba833bdbabd.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p355",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "f78c55e28343853e",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/f78c55e28343853e.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 15,
+    "minimo": 14,
+    "pedido": 20
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p355"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/ruim_6ace4ea8ecd8aeaf968b312c.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/bf31942fc2cd024d.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p120",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "73f5d3032e9d94f4",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/73f5d3032e9d94f4.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 15,
+    "minimo": 14,
+    "pedido": 20
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p120"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/eb6ed72593681f3b.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p150",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "24b3f4a8e368d5b3",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/24b3f4a8e368d5b3.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 10,
+    "minimo": 10,
+    "pedido": 20
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p150"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p35",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "d65e76f5d23f4ce1",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/d65e76f5d23f4ce1.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 10,
+    "minimo": 10,
+    "pedido": 20
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p35"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/bom_6ace7b93445b3a60fcb6162b.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/387953e1ea3cc2d2.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p0",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "a4d1bfbe15533388",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/a4d1bfbe15533388.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 4,
+    "minimo": 4,
+    "pedido": 20
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p0"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/otimo_6ace84f467fab4d8049d1394.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace84f467fab4d8049d1394/eca4b7de8eb4ac73.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p1",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "65a9514537fb17ea",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace84f467fab4d8049d1394/65a9514537fb17ea.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 5,
+    "minimo": 5,
+    "pedido": 20
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p1"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/ruim_6ace7f0d246ca4a63fa193fd.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/597fbdb18d4b276f.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p0",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "32c8b115ea93caca",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/32c8b115ea93caca.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 4,
+    "minimo": 4,
+    "pedido": 20
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p0"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/0a32aad47fdf66ec.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p221",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "4c8af4e12ff3b7fd",
+  "estado_esperado": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/4c8af4e12ff3b7fd.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "solucoes-18x/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/a3d5bdc2910b9e01.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p201",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "54299b59d1e45f55",
+  "estado_esperado": "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/54299b59d1e45f55.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 4,
+    "minimo": 4,
+    "pedido": 20
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p201"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p326",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "d00f50cf5ed6a9a1",
+  "estado_esperado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/d00f50cf5ed6a9a1.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 8,
+    "minimo": 8,
+    "pedido": 20
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p326"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p352",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "2fad9869ac788e54",
+  "estado_esperado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/2fad9869ac788e54.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 8,
+    "minimo": 8,
+    "pedido": 20
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p352"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p180",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "b1dfbf01518686a1",
+  "estado_esperado": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/b1dfbf01518686a1.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 4,
+    "minimo": 4,
+    "pedido": 20
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p180"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "solucoes-18x/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/9075664ab16aad9d.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p490",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "cfc3521c59860425",
+  "estado_esperado": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/cfc3521c59860425.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 5,
+    "minimo": 1,
+    "pedido": 19
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p490"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "solucoes-18x/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/5289450f2e7e9199.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p269",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "78b5635efb4d9922",
+  "estado_esperado": "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/78b5635efb4d9922.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 13,
+    "minimo": 1,
+    "pedido": 19
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p269"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "solucoes-18x/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/909ac631b01beec6.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p511",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "c04090d01d8b2462",
+  "estado_esperado": "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/c04090d01d8b2462.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 6,
+    "minimo": 4,
+    "pedido": 20
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p511"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/ffcaf8869b41a8bf.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p937",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "a82a51494d8800f5",
+  "estado_esperado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/a82a51494d8800f5.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 15,
+    "minimo": 1,
+    "pedido": 19
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p937"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "D6",
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
+  "pergunta": "Suba a torre mais próxima da portaria para 20 pavimentos.",
+  "historico": [
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0429d3d9cb7e91b6.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "definir_pavimentos",
+    "args": {
+     "torre": "p940",
+     "total": 20
+    }
+   }
+  ],
+  "gravacao": "19097e163252a5b8",
+  "estado_esperado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/19097e163252a5b8.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "pavimentos_com_unidades": {
+    "maximo": 15,
+    "minimo": 1,
+    "pedido": 19
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "MaxPavimentos",
+     "torres": [
+      "p940"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/b9d8a76034f5b7d8.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "4b476868734fc663",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/4b476868734fc663.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": [],
+   "vagas": {
+    "necessarias": 360,
+    "projetadas": 356,
+    "deficit": 4,
+    "na_base": 253
+   }
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/9e780ba833bdbabd.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "ce9acdc9b6dcb671",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/ce9acdc9b6dcb671.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "PermeabilidadeExigida",
+     "torres": [
+      "p355",
+      "p356",
+      "p357"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/ruim_6ace4ea8ecd8aeaf968b312c.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/bf31942fc2cd024d.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "577b38580f185228",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/577b38580f185228.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": [],
+   "vagas": {
+    "necessarias": 168,
+    "projetadas": 168,
+    "deficit": 0,
+    "na_base": 118
+   }
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/eb6ed72593681f3b.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "f15fe7627e172bbe",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/f15fe7627e172bbe.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": [],
+   "vagas": {
+    "necessarias": 900,
+    "projetadas": 808,
+    "deficit": 92,
+    "na_base": 147
+   }
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/otimo_6ace64da8d16ae86ca3419e5.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace64da8d16ae86ca3419e5/b054a70b6de133c9.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "c250bc7f9cd098dc",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace64da8d16ae86ca3419e5/c250bc7f9cd098dc.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "PermeabilidadeExigida",
+     "torres": [
+      "p376",
+      "p377",
+      "p378",
+      "p379",
+      "p380",
+      "p381",
+      "p382",
+      "p383",
+      "p384",
+      "p385"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "48b61ccf903738b7",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/48b61ccf903738b7.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": [],
+   "vagas": {
+    "necessarias": 195,
+    "projetadas": 195,
+    "deficit": 0,
+    "na_base": 33
+   }
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/bom_6ace7b93445b3a60fcb6162b.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/387953e1ea3cc2d2.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "56cdf101108af456",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/56cdf101108af456.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "estacionamento"
+   ],
+   "vagas": {
+    "encontradas": 85,
+    "necessarias": 120
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "ParkingNetworkInsufficientRatio",
+     "torres": [
+      "p0"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/otimo_6ace84f467fab4d8049d1394.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace84f467fab4d8049d1394/eca4b7de8eb4ac73.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "412a51a30a29cf41",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace84f467fab4d8049d1394/412a51a30a29cf41.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "PermeabilidadeExigida",
+     "torres": [
+      "p0",
+      "p1",
+      "p2"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/ruim_6ace7f0d246ca4a63fa193fd.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/597fbdb18d4b276f.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "ad9e2a937ec2f681",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/ad9e2a937ec2f681.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": [],
+   "vagas": {
+    "necessarias": 30,
+    "projetadas": 30,
+    "deficit": 0,
+    "na_base": 20
+   }
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/0a32aad47fdf66ec.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "6b8ec129a4a7de02",
+  "estado_esperado": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/6b8ec129a4a7de02.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "PermeabilidadeExigida",
+     "torres": [
+      "p221"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "solucoes-18x/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/a3d5bdc2910b9e01.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "aaf83bb3cfd40881",
+  "estado_esperado": "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/aaf83bb3cfd40881.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": [],
+   "vagas": {
+    "necessarias": 288,
+    "projetadas": 233,
+    "deficit": 55,
+    "na_base": 192
+   }
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "77e4d89e9f37428f",
+  "estado_esperado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json",
+  "resposta_esperada": {
+   "erro": "/parking_lot/optimal_selection/default: trying to unwrap an Err: Solver failed or solution unreliable: infeasible",
+   "veredito": "erro",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "4864e346076e0d17",
+  "estado_esperado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json",
+  "resposta_esperada": {
+   "erro": "/parking_lot/optimal_selection/default: trying to unwrap an Err: Solver failed or solution unreliable: infeasible",
+   "veredito": "erro",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "solucoes-18x/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f/bad43a657eb46f4c.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "aad1aeae55557800",
+  "estado_esperado": "data/benchmark/gravacoes/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f/aad1aeae55557800.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "PermeabilidadeExigida",
+     "torres": [
+      "p516",
+      "p517",
+      "p518",
+      "p519",
+      "p520",
+      "p521"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "00361ab156e70d89",
+  "estado_esperado": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/00361ab156e70d89.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": [],
+   "vagas": {
+    "necessarias": 240,
+    "projetadas": 240,
+    "deficit": 0,
+    "na_base": 169
+   }
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "solucoes-18x/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/9075664ab16aad9d.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "b439b9bf93fc1127",
+  "estado_esperado": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/b439b9bf93fc1127.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "leisure",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": [],
+   "vagas": {
+    "necessarias": 720,
+    "projetadas": 640,
+    "deficit": 80,
+    "na_base": 480
+   }
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "solucoes-18x/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d/38c80c06534b057b.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "c765a11dd96eb22c",
+  "estado_esperado": "data/benchmark/gravacoes/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d/c765a11dd96eb22c.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "PermeabilidadeExigida",
+     "torres": [
+      "p153",
+      "p154"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "solucoes-18x/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/5289450f2e7e9199.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "d0de07c33486bdad",
+  "estado_esperado": "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/d0de07c33486bdad.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "PermeabilidadeExigida",
+     "torres": [
+      "p266",
+      "p267",
+      "p268",
+      "p269",
+      "p270",
+      "p271"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "solucoes-18x/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c5913d1686413871.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "1e8b51f9984b42cc",
+  "estado_esperado": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/1e8b51f9984b42cc.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "PermeabilidadeExigida",
+     "torres": [
+      "p156",
+      "p157"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "solucoes-18x/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/0bffb80da2064f10.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "6ffaff4fe10f63e9",
+  "estado_esperado": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/6ffaff4fe10f63e9.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "PermeabilidadeExigida",
+     "torres": [
+      "p707",
+      "p708",
+      "p709"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "solucoes-18x/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/909ac631b01beec6.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "a26df3263e88937f",
+  "estado_esperado": "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/a26df3263e88937f.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "estacionamento"
+   ],
+   "vagas": {
+    "encontradas": 563,
+    "necessarias": 756
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "ParkingNetworkInsufficientRatio",
+     "torres": [
+      "p507",
+      "p508",
+      "p509",
+      "p510",
+      "p511",
+      "p512"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/ffcaf8869b41a8bf.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "4484f07b218692c6",
+  "estado_esperado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/4484f07b218692c6.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "PermeabilidadeExigida",
+     "torres": [
+      "p932",
+      "p933",
+      "p934",
+      "p935",
+      "p936",
+      "p937",
+      "p938",
+      "p939",
+      "p940"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "E1",
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
+  "pergunta": "Aumente para 1,5 vaga por unidade e refaça só o estacionamento.",
+  "historico": [
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0429d3d9cb7e91b6.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "chave": "ParkingLotPerUnit",
+     "valor": 1.5
+    }
+   }
+  ],
+  "gravacao": "59c8355c47590a44",
+  "estado_esperado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/59c8355c47590a44.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar"
+   ],
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "PermeabilidadeExigida",
+     "torres": [
+      "p934",
+      "p935",
+      "p936",
+      "p937",
+      "p938",
+      "p939",
+      "p940",
+      "p941",
+      "p942"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/bom_6ace404e4a7a894b01852f19.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace404e4a7a894b01852f19/52345171ba44d68a.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "de0e5ad3ea37c3fd",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace404e4a7a894b01852f19/de0e5ad3ea37c3fd.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "reposicionar",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "removidas": [],
+   "reposicionadas": [
+    "p2",
+    "p4"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/otimo_6ace4108cfe0941cdf9a9189.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/f1e1bf266a50c980.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "ab34a73368fe8a72",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/ab34a73368fe8a72.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "reposicionar",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "removidas": [
+    "p1",
+    "p2",
+    "p5",
+    "p6",
+    "p10"
+   ],
+   "reposicionadas": [],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/ruim_6ace40534a7a894b01852f1d.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace40534a7a894b01852f1d/ebfaa766763a5982.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "94e780142a772872",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace40534a7a894b01852f1d/94e780142a772872.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/bom_6ace3c8be748be1a355e6769.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace3c8be748be1a355e6769/6f750cd83da54c1d.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "f97b41ee6c389fcf",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace3c8be748be1a355e6769/f97b41ee6c389fcf.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "reposicionar",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "removidas": [
+    "p1",
+    "p3"
+   ],
+   "reposicionadas": [],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/otimo_6ace4079bf22db620be742d4.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace4079bf22db620be742d4/845db7aad27daf70.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "170644efa6e65060",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace4079bf22db620be742d4/170644efa6e65060.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "reposicionar",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "removidas": [
+    "p2"
+   ],
+   "reposicionadas": [],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/ruim_6ace3c16d8664cf36a13dbb9.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace3c16d8664cf36a13dbb9/66be0f5838e8bb2e.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "f743c49bf581ccd1",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace3c16d8664cf36a13dbb9/f743c49bf581ccd1.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "reposicionar",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "removidas": [],
+   "reposicionadas": [
+    "p1",
+    "p2"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/b9d8a76034f5b7d8.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "381ba58d92462665",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/381ba58d92462665.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/9e780ba833bdbabd.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "39e99f7386aa4eab",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/39e99f7386aa4eab.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "reposicionar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "removidas": [
+    "p357"
+   ],
+   "reposicionadas": [],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/ruim_6ace4ea8ecd8aeaf968b312c.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/bf31942fc2cd024d.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "14eec74e3533de6a",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/bf31942fc2cd024d.json",
+  "resposta_esperada": {
+   "erro": "/parking_lot/optimal_selection/default: could not compute parking lot: not able to determine parking lots amount: got 0 amount",
+   "removidas": [
+    "p120"
+   ],
+   "reposicionadas": [],
+   "veredito": "erro",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/eb6ed72593681f3b.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "709c82f2b1242ef4",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/709c82f2b1242ef4.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/otimo_6ace64da8d16ae86ca3419e5.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace64da8d16ae86ca3419e5/b054a70b6de133c9.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "3694b2b4102f38ff",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace64da8d16ae86ca3419e5/3694b2b4102f38ff.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "reposicionar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "removidas": [],
+   "reposicionadas": [
+    "p381"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "97453c627cd41dba",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/97453c627cd41dba.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/bom_6ace7b93445b3a60fcb6162b.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/387953e1ea3cc2d2.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "8987d1ea72704953",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/8987d1ea72704953.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "reposicionar",
+    "parking_lot",
+    "entrance",
+    "indicadores"
+   ],
+   "removidas": [],
+   "reposicionadas": [
+    "p0"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/otimo_6ace84f467fab4d8049d1394.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace84f467fab4d8049d1394/eca4b7de8eb4ac73.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "e14a8f0c0d09a54e",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace84f467fab4d8049d1394/e14a8f0c0d09a54e.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "reposicionar",
+    "estacionamento"
+   ],
+   "removidas": [],
+   "reposicionadas": [
+    "p2"
+   ],
+   "vagas": {
+    "encontradas": 75,
+    "necessarias": 120
+   },
+   "veredito": "invalido",
+   "violacoes": [
+    {
+     "regra": "ParkingNetworkInsufficientRatio",
+     "torres": [
+      "p0",
+      "p1",
+      "p2"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/ruim_6ace7f0d246ca4a63fa193fd.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/597fbdb18d4b276f.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "d273cb62a79d4d3b",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/d273cb62a79d4d3b.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/0a32aad47fdf66ec.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "2bad3e506408fa98",
+  "estado_esperado": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/2bad3e506408fa98.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "solucoes-18x/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/a3d5bdc2910b9e01.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "b21c575e4087d8c1",
+  "estado_esperado": "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/b21c575e4087d8c1.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "reposicionar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "removidas": [
+    "p204"
+   ],
+   "reposicionadas": [
+    "p195",
+    "p196",
+    "p198",
+    "p200",
+    "p203"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "b8fafc7eaebe9d1d",
+  "estado_esperado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json",
+  "resposta_esperada": {
+   "erro": "/parking_lot/optimal_selection/default: trying to unwrap an Err: Solver failed or solution unreliable: infeasible",
+   "removidas": [
+    "p324",
+    "p325",
+    "p326"
+   ],
+   "reposicionadas": [],
+   "veredito": "erro",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "78cc165afbb1b094",
+  "estado_esperado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json",
+  "resposta_esperada": {
+   "erro": "/parking_lot/optimal_selection/default: trying to unwrap an Err: Solver failed or solution unreliable: infeasible",
+   "removidas": [
+    "p351",
+    "p352"
+   ],
+   "reposicionadas": [],
+   "veredito": "erro",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "solucoes-18x/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f/bad43a657eb46f4c.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "c819cb44848603aa",
+  "estado_esperado": "data/benchmark/gravacoes/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f/c819cb44848603aa.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "reposicionar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "removidas": [
+    "p518",
+    "p519"
+   ],
+   "reposicionadas": [],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "77587a4af7e6bc34",
+  "estado_esperado": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json",
+  "resposta_esperada": {
+   "erro": "could not compute families from archprog: tetris could not find solution",
+   "veredito": "erro",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "solucoes-18x/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/9075664ab16aad9d.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "7ac15fd10f137df5",
+  "estado_esperado": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/7ac15fd10f137df5.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "reposicionar",
+    "parking_lot",
+    "entrance",
+    "leisure",
+    "earthmoving",
+    "indicadores"
+   ],
+   "removidas": [
+    "p488",
+    "p490"
+   ],
+   "reposicionadas": [
+    "p485",
+    "p487"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "solucoes-18x/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d/38c80c06534b057b.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "6a29617d149de9e7",
+  "estado_esperado": "data/benchmark/gravacoes/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d/38c80c06534b057b.json",
+  "resposta_esperada": {
+   "erro": "/parking_lot/optimal_selection/default: trying to unwrap an Err: Solver failed or solution unreliable: infeasible",
+   "removidas": [],
+   "reposicionadas": [
+    "p154"
+   ],
+   "veredito": "erro",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "solucoes-18x/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/5289450f2e7e9199.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "03ba8ff127b417fc",
+  "estado_esperado": "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/03ba8ff127b417fc.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "reposicionar",
+    "parking_lot",
+    "entrance",
+    "leisure",
+    "earthmoving",
+    "indicadores"
+   ],
+   "removidas": [],
+   "reposicionadas": [
+    "p267",
+    "p268",
+    "p270",
+    "p271"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "solucoes-18x/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c5913d1686413871.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "7bcf40fd6657d193",
+  "estado_esperado": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/7bcf40fd6657d193.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "leisure",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "solucoes-18x/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/0bffb80da2064f10.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "13e415b55033edc4",
+  "estado_esperado": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/13e415b55033edc4.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "solucoes-18x/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/909ac631b01beec6.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "d30fe26ed7f2a652",
+  "estado_esperado": "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/d30fe26ed7f2a652.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "reposicionar",
+    "parking_lot",
+    "entrance",
+    "leisure",
+    "earthmoving",
+    "indicadores"
+   ],
+   "removidas": [
+    "p512"
+   ],
+   "reposicionadas": [
+    "p510",
+    "p511"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/ffcaf8869b41a8bf.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "6795954d6f50d211",
+  "estado_esperado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/6795954d6f50d211.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "reposicionar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "removidas": [
+    "p933",
+    "p936",
+    "p937",
+    "p939",
+    "p940"
+   ],
+   "reposicionadas": [],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E3",
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
+  "pergunta": "Mude o mix para 60% 2Q / 40% 1Q mantendo a implantação.",
+  "historico": [
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0429d3d9cb7e91b6.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "alterar_programa",
+    "args": {
+     "mix": {
+      "/building/apartamento/1q/27_97": 40,
+      "/building/apartamento/2q/40_71": 60
+     }
+    }
+   }
+  ],
+  "gravacao": "38b0c44ef3c4f7e6",
+  "estado_esperado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/38b0c44ef3c4f7e6.json",
+  "resposta_esperada": {
+   "etapas": [
+    "validar",
+    "reposicionar",
+    "parking_lot",
+    "entrance",
+    "earthmoving",
+    "indicadores"
+   ],
+   "removidas": [
+    "p935",
+    "p938",
+    "p939",
+    "p942"
+   ],
+   "reposicionadas": [],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/bom_6ace404e4a7a894b01852f19.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace404e4a7a894b01852f19/52345171ba44d68a.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "38e5131dc867ab45",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace404e4a7a894b01852f19/38e5131dc867ab45.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/otimo_6ace4108cfe0941cdf9a9189.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/f1e1bf266a50c980.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "73a4a2f6c36b444e",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/73a4a2f6c36b444e.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/ruim_6ace40534a7a894b01852f1d.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace40534a7a894b01852f1d/ebfaa766763a5982.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "2b4a7e3d3c27beb3",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace40534a7a894b01852f1d/2b4a7e3d3c27beb3.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/bom_6ace3c8be748be1a355e6769.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace3c8be748be1a355e6769/6f750cd83da54c1d.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "9ac7b7d39a5c3944",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace3c8be748be1a355e6769/9ac7b7d39a5c3944.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/otimo_6ace4079bf22db620be742d4.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace4079bf22db620be742d4/845db7aad27daf70.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "1f7d24af8851aea1",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace4079bf22db620be742d4/1f7d24af8851aea1.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/ruim_6ace3c16d8664cf36a13dbb9.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace3c16d8664cf36a13dbb9/66be0f5838e8bb2e.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "60b7e67ff591b61f",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace3c16d8664cf36a13dbb9/60b7e67ff591b61f.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/b9d8a76034f5b7d8.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "afc4b0c326c294ae",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/afc4b0c326c294ae.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/9e780ba833bdbabd.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "a132fdd1133cac7b",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/a132fdd1133cac7b.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/ruim_6ace4ea8ecd8aeaf968b312c.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/bf31942fc2cd024d.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "08abc7b93f60a051",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace4ea8ecd8aeaf968b312c/08abc7b93f60a051.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/eb6ed72593681f3b.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "040a73310d9d66a3",
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/040a73310d9d66a3.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/otimo_6ace64da8d16ae86ca3419e5.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace64da8d16ae86ca3419e5/b054a70b6de133c9.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "4e86048c446be667",
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace64da8d16ae86ca3419e5/4e86048c446be667.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "7acd2359b453be2b",
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/7acd2359b453be2b.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/0a32aad47fdf66ec.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "856f4583770580f4",
+  "estado_esperado": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/856f4583770580f4.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "solucoes-18x/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/a3d5bdc2910b9e01.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "a4172c4138ac6cd4",
+  "estado_esperado": "data/benchmark/gravacoes/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f/a4172c4138ac6cd4.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "de3a5b7c83112813",
+  "estado_esperado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/de3a5b7c83112813.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "167b7b80d8b42c4b",
+  "estado_esperado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/167b7b80d8b42c4b.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "solucoes-18x/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f/bad43a657eb46f4c.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "7933275dd528682e",
+  "estado_esperado": "data/benchmark/gravacoes/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f/7933275dd528682e.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "910d02ad0177815e",
+  "estado_esperado": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/910d02ad0177815e.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "solucoes-18x/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/9075664ab16aad9d.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "df26e4586abf65b7",
+  "estado_esperado": "data/benchmark/gravacoes/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e/df26e4586abf65b7.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "solucoes-18x/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d/38c80c06534b057b.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "aaee2d7e10edf5d7",
+  "estado_esperado": "data/benchmark/gravacoes/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d/aaee2d7e10edf5d7.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "solucoes-18x/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/5289450f2e7e9199.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "76692c8893187ef7",
+  "estado_esperado": "data/benchmark/gravacoes/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003/76692c8893187ef7.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "solucoes-18x/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c5913d1686413871.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "c0a2bf9e82db6ccd",
+  "estado_esperado": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c0a2bf9e82db6ccd.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "solucoes-18x/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/0bffb80da2064f10.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "394a6639f55e200a",
+  "estado_esperado": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/394a6639f55e200a.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "solucoes-18x/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/909ac631b01beec6.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "93cd4399ddc75422",
+  "estado_esperado": "data/benchmark/gravacoes/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5/93cd4399ddc75422.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/ffcaf8869b41a8bf.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "7b6c517291be138b",
+  "estado_esperado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/7b6c517291be138b.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
+  "tarefa": "E7",
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
+  "pergunta": "Refaça só a terraplenagem com talude mais suave e sem muro.",
+  "historico": [
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0429d3d9cb7e91b6.json"
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "resolver_terraplenagem",
+    "args": {
+     "aterro": "1:2",
+     "corte": "1:1,5",
+     "muro": "sem limite"
+    }
+   }
+  ],
+  "gravacao": "0b91a10050c8b73c",
+  "estado_esperado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0b91a10050c8b73c.json",
+  "resposta_esperada": {
+   "etapas": [
+    "terraplenagem",
+    "indicadores"
+   ],
+   "veredito": "valido",
+   "violacoes": []
+  }
+ },
+ {
   "tarefa": "G4",
   "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/otimo_6ace4108cfe0941cdf9a9189.json",
   "pergunta": "O que mudou entre a solução mãe e a filha?",
-  "mae": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/f1e1bf266a50c980.json",
-  "filha": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/996e6ae89881cd3a.json",
-  "edicao": {
-   "tool": "mover_torre",
-   "args": {
-    "distancia": 5.0,
-    "sentido": "fundos",
-    "torre": "p9"
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/f1e1bf266a50c980.json",
+   "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/996e6ae89881cd3a.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p9"
+    }
    }
-  },
-  "chamada_esperada": {
-   "tool": "diff_versoes",
-   "args": [
-    "mae",
-    "filha"
-   ]
-  },
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "diff_versoes",
+    "args": {
+     "mae": 0,
+     "filha": 1
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/996e6ae89881cd3a.json",
   "resposta_esperada": {
    "torres_movidas": [
     {
@@ -63,7 +4477,7 @@
   "tarefa": "G5",
   "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/otimo_6ace4108cfe0941cdf9a9189.json",
   "pergunta": "Desfaça as duas últimas mudanças.",
-  "sequencia": [
+  "historico": [
    "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/f1e1bf266a50c980.json",
    "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/996e6ae89881cd3a.json",
    "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/a8eae448bd9e09b4.json"
@@ -87,37 +4501,45 @@
     }
    }
   ],
-  "chamada_esperada": {
-   "tool": "desfazer",
-   "args": [
-    2
-   ]
-  },
-  "resposta_esperada": {
-   "estado": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/f1e1bf266a50c980.json"
-  }
+  "chamadas_esperadas": [
+   {
+    "tool": "desfazer",
+    "args": {
+     "n": 2
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace4108cfe0941cdf9a9189/f1e1bf266a50c980.json",
+  "resposta_esperada": null
  },
  {
   "tarefa": "G4",
   "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
   "pergunta": "O que mudou entre a solução mãe e a filha?",
-  "mae": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/b9d8a76034f5b7d8.json",
-  "filha": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/31100608f54a03b6.json",
-  "edicao": {
-   "tool": "mover_torre",
-   "args": {
-    "distancia": 5.0,
-    "sentido": "fundos",
-    "torre": "p255"
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/b9d8a76034f5b7d8.json",
+   "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/31100608f54a03b6.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p255"
+    }
    }
-  },
-  "chamada_esperada": {
-   "tool": "diff_versoes",
-   "args": [
-    "mae",
-    "filha"
-   ]
-  },
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "diff_versoes",
+    "args": {
+     "mae": 0,
+     "filha": 1
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/31100608f54a03b6.json",
   "resposta_esperada": {
    "torres_movidas": [
     {
@@ -182,7 +4604,7 @@
   "tarefa": "G5",
   "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
   "pergunta": "Desfaça as duas últimas mudanças.",
-  "sequencia": [
+  "historico": [
    "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/b9d8a76034f5b7d8.json",
    "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/31100608f54a03b6.json",
    "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/5e6ceee782b1f424.json"
@@ -206,37 +4628,45 @@
     }
    }
   ],
-  "chamada_esperada": {
-   "tool": "desfazer",
-   "args": [
-    2
-   ]
-  },
-  "resposta_esperada": {
-   "estado": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/b9d8a76034f5b7d8.json"
-  }
+  "chamadas_esperadas": [
+   {
+    "tool": "desfazer",
+    "args": {
+     "n": 2
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace4f3f9aee62f656aae2cc/b9d8a76034f5b7d8.json",
+  "resposta_esperada": null
  },
  {
   "tarefa": "G4",
   "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
   "pergunta": "O que mudou entre a solução mãe e a filha?",
-  "mae": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/9e780ba833bdbabd.json",
-  "filha": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/b90c4bca6dda0b90.json",
-  "edicao": {
-   "tool": "mover_torre",
-   "args": {
-    "distancia": 5.0,
-    "sentido": "fundos",
-    "torre": "p357"
+  "historico": [
+   "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/9e780ba833bdbabd.json",
+   "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/b90c4bca6dda0b90.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p357"
+    }
    }
-  },
-  "chamada_esperada": {
-   "tool": "diff_versoes",
-   "args": [
-    "mae",
-    "filha"
-   ]
-  },
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "diff_versoes",
+    "args": {
+     "mae": 0,
+     "filha": 1
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/b90c4bca6dda0b90.json",
   "resposta_esperada": {
    "torres_movidas": [
     {
@@ -301,7 +4731,7 @@
   "tarefa": "G5",
   "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
   "pergunta": "Desfaça as duas últimas mudanças.",
-  "sequencia": [
+  "historico": [
    "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/9e780ba833bdbabd.json",
    "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/b90c4bca6dda0b90.json",
    "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/7c25969d8958e292.json"
@@ -325,37 +4755,45 @@
     }
    }
   ],
-  "chamada_esperada": {
-   "tool": "desfazer",
-   "args": [
-    2
-   ]
-  },
-  "resposta_esperada": {
-   "estado": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/9e780ba833bdbabd.json"
-  }
+  "chamadas_esperadas": [
+   {
+    "tool": "desfazer",
+    "args": {
+     "n": 2
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/otimo_6ace52a0bc31d7e3e85c9509/9e780ba833bdbabd.json",
+  "resposta_esperada": null
  },
  {
   "tarefa": "G4",
   "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
   "pergunta": "O que mudou entre a solução mãe e a filha?",
-  "mae": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/eb6ed72593681f3b.json",
-  "filha": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/e83526a91ee68aed.json",
-  "edicao": {
-   "tool": "mover_torre",
-   "args": {
-    "distancia": 5.0,
-    "sentido": "fundos",
-    "torre": "p149"
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/eb6ed72593681f3b.json",
+   "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/e83526a91ee68aed.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p149"
+    }
    }
-  },
-  "chamada_esperada": {
-   "tool": "diff_versoes",
-   "args": [
-    "mae",
-    "filha"
-   ]
-  },
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "diff_versoes",
+    "args": {
+     "mae": 0,
+     "filha": 1
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/e83526a91ee68aed.json",
   "resposta_esperada": {
    "torres_movidas": [
     {
@@ -407,7 +4845,7 @@
   "tarefa": "G5",
   "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
   "pergunta": "Desfaça as duas últimas mudanças.",
-  "sequencia": [
+  "historico": [
    "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/eb6ed72593681f3b.json",
    "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/e83526a91ee68aed.json",
    "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/ac1e73c162a0be25.json"
@@ -431,37 +4869,45 @@
     }
    }
   ],
-  "chamada_esperada": {
-   "tool": "desfazer",
-   "args": [
-    2
-   ]
-  },
-  "resposta_esperada": {
-   "estado": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/eb6ed72593681f3b.json"
-  }
+  "chamadas_esperadas": [
+   {
+    "tool": "desfazer",
+    "args": {
+     "n": 2
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace64863afd82bf6be93e16/eb6ed72593681f3b.json",
+  "resposta_esperada": null
  },
  {
   "tarefa": "G4",
   "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
   "pergunta": "O que mudou entre a solução mãe e a filha?",
-  "mae": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json",
-  "filha": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/8de4ca6168b8957c.json",
-  "edicao": {
-   "tool": "mover_torre",
-   "args": {
-    "distancia": 5.0,
-    "sentido": "fundos",
-    "torre": "p35"
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json",
+   "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/8de4ca6168b8957c.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p35"
+    }
    }
-  },
-  "chamada_esperada": {
-   "tool": "diff_versoes",
-   "args": [
-    "mae",
-    "filha"
-   ]
-  },
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "diff_versoes",
+    "args": {
+     "mae": 0,
+     "filha": 1
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/8de4ca6168b8957c.json",
   "resposta_esperada": {
    "torres_movidas": [
     {
@@ -513,7 +4959,7 @@
   "tarefa": "G5",
   "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
   "pergunta": "Desfaça as duas últimas mudanças.",
-  "sequencia": [
+  "historico": [
    "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json",
    "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/8de4ca6168b8957c.json",
    "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/cb152a56c167485b.json"
@@ -537,37 +4983,45 @@
     }
    }
   ],
-  "chamada_esperada": {
-   "tool": "desfazer",
-   "args": [
-    2
-   ]
-  },
-  "resposta_esperada": {
-   "estado": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json"
-  }
+  "chamadas_esperadas": [
+   {
+    "tool": "desfazer",
+    "args": {
+     "n": 2
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace648d563a33090fea89d6/230a101a0499cf7f.json",
+  "resposta_esperada": null
  },
  {
   "tarefa": "G4",
   "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/bom_6ace7b93445b3a60fcb6162b.json",
   "pergunta": "O que mudou entre a solução mãe e a filha?",
-  "mae": "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/387953e1ea3cc2d2.json",
-  "filha": "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/827e49b1b58d5e80.json",
-  "edicao": {
-   "tool": "mover_torre",
-   "args": {
-    "distancia": 5.0,
-    "sentido": "fundos",
-    "torre": "p0"
+  "historico": [
+   "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/387953e1ea3cc2d2.json",
+   "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/827e49b1b58d5e80.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p0"
+    }
    }
-  },
-  "chamada_esperada": {
-   "tool": "diff_versoes",
-   "args": [
-    "mae",
-    "filha"
-   ]
-  },
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "diff_versoes",
+    "args": {
+     "mae": 0,
+     "filha": 1
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/bom_6ace7b93445b3a60fcb6162b/827e49b1b58d5e80.json",
   "resposta_esperada": {
    "torres_movidas": [
     {
@@ -634,23 +5088,30 @@
   "tarefa": "G4",
   "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/ruim_6ace7f0d246ca4a63fa193fd.json",
   "pergunta": "O que mudou entre a solução mãe e a filha?",
-  "mae": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/597fbdb18d4b276f.json",
-  "filha": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/2ca3acf57454cac0.json",
-  "edicao": {
-   "tool": "mover_torre",
-   "args": {
-    "distancia": 5.0,
-    "sentido": "fundos",
-    "torre": "p0"
+  "historico": [
+   "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/597fbdb18d4b276f.json",
+   "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/2ca3acf57454cac0.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p0"
+    }
    }
-  },
-  "chamada_esperada": {
-   "tool": "diff_versoes",
-   "args": [
-    "mae",
-    "filha"
-   ]
-  },
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "diff_versoes",
+    "args": {
+     "mae": 0,
+     "filha": 1
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/ruim_6ace7f0d246ca4a63fa193fd/2ca3acf57454cac0.json",
   "resposta_esperada": {
    "torres_movidas": [
     {
@@ -687,23 +5148,30 @@
   "tarefa": "G4",
   "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
   "pergunta": "O que mudou entre a solução mãe e a filha?",
-  "mae": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/0a32aad47fdf66ec.json",
-  "filha": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/051531f02b5b3532.json",
-  "edicao": {
-   "tool": "mover_torre",
-   "args": {
-    "distancia": 5.0,
-    "sentido": "fundos",
-    "torre": "p221"
+  "historico": [
+   "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/0a32aad47fdf66ec.json",
+   "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/051531f02b5b3532.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p221"
+    }
    }
-  },
-  "chamada_esperada": {
-   "tool": "diff_versoes",
-   "args": [
-    "mae",
-    "filha"
-   ]
-  },
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "diff_versoes",
+    "args": {
+     "mae": 0,
+     "filha": 1
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/051531f02b5b3532.json",
   "resposta_esperada": {
    "torres_movidas": [
     {
@@ -781,7 +5249,7 @@
   "tarefa": "G5",
   "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
   "pergunta": "Desfaça as duas últimas mudanças.",
-  "sequencia": [
+  "historico": [
    "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/0a32aad47fdf66ec.json",
    "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/051531f02b5b3532.json",
    "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/41f01c036e637978.json"
@@ -805,37 +5273,45 @@
     }
    }
   ],
-  "chamada_esperada": {
-   "tool": "desfazer",
-   "args": [
-    2
-   ]
-  },
-  "resposta_esperada": {
-   "estado": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/0a32aad47fdf66ec.json"
-  }
+  "chamadas_esperadas": [
+   {
+    "tool": "desfazer",
+    "args": {
+     "n": 2
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699/0a32aad47fdf66ec.json",
+  "resposta_esperada": null
  },
  {
   "tarefa": "G4",
   "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
   "pergunta": "O que mudou entre a solução mãe e a filha?",
-  "mae": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json",
-  "filha": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/374ba667ce110d63.json",
-  "edicao": {
-   "tool": "mover_torre",
-   "args": {
-    "distancia": 5.0,
-    "sentido": "fundos",
-    "torre": "p326"
+  "historico": [
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json",
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/374ba667ce110d63.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p326"
+    }
    }
-  },
-  "chamada_esperada": {
-   "tool": "diff_versoes",
-   "args": [
-    "mae",
-    "filha"
-   ]
-  },
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "diff_versoes",
+    "args": {
+     "mae": 0,
+     "filha": 1
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/374ba667ce110d63.json",
   "resposta_esperada": {
    "torres_movidas": [
     {
@@ -887,7 +5363,7 @@
   "tarefa": "G5",
   "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
   "pergunta": "Desfaça as duas últimas mudanças.",
-  "sequencia": [
+  "historico": [
    "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json",
    "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/374ba667ce110d63.json",
    "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/a34dd18586c55bd7.json"
@@ -911,37 +5387,45 @@
     }
    }
   ],
-  "chamada_esperada": {
-   "tool": "desfazer",
-   "args": [
-    2
-   ]
-  },
-  "resposta_esperada": {
-   "estado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json"
-  }
+  "chamadas_esperadas": [
+   {
+    "tool": "desfazer",
+    "args": {
+     "n": 2
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953/567950f0b1139752.json",
+  "resposta_esperada": null
  },
  {
   "tarefa": "G4",
   "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
   "pergunta": "O que mudou entre a solução mãe e a filha?",
-  "mae": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json",
-  "filha": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/349c2ed562f73006.json",
-  "edicao": {
-   "tool": "mover_torre",
-   "args": {
-    "distancia": 5.0,
-    "sentido": "fundos",
-    "torre": "p350"
+  "historico": [
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json",
+   "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/349c2ed562f73006.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p350"
+    }
    }
-  },
-  "chamada_esperada": {
-   "tool": "diff_versoes",
-   "args": [
-    "mae",
-    "filha"
-   ]
-  },
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "diff_versoes",
+    "args": {
+     "mae": 0,
+     "filha": 1
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/349c2ed562f73006.json",
   "resposta_esperada": {
    "torres_movidas": [
     {
@@ -1014,7 +5498,7 @@
   "tarefa": "G5",
   "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
   "pergunta": "Desfaça as duas últimas mudanças.",
-  "sequencia": [
+  "historico": [
    "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json",
    "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/349c2ed562f73006.json",
    "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/f7f46dc4e6aa8e2f.json"
@@ -1038,37 +5522,45 @@
     }
    }
   ],
-  "chamada_esperada": {
-   "tool": "desfazer",
-   "args": [
-    2
-   ]
-  },
-  "resposta_esperada": {
-   "estado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json"
-  }
+  "chamadas_esperadas": [
+   {
+    "tool": "desfazer",
+    "args": {
+     "n": 2
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a/c861ad7797dc2b3a.json",
+  "resposta_esperada": null
  },
  {
   "tarefa": "G4",
   "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
   "pergunta": "O que mudou entre a solução mãe e a filha?",
-  "mae": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json",
-  "filha": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/4f1238bbc2b12336.json",
-  "edicao": {
-   "tool": "mover_torre",
-   "args": {
-    "distancia": 5.0,
-    "sentido": "fundos",
-    "torre": "p180"
+  "historico": [
+   "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json",
+   "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/4f1238bbc2b12336.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p180"
+    }
    }
-  },
-  "chamada_esperada": {
-   "tool": "diff_versoes",
-   "args": [
-    "mae",
-    "filha"
-   ]
-  },
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "diff_versoes",
+    "args": {
+     "mae": 0,
+     "filha": 1
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/4f1238bbc2b12336.json",
   "resposta_esperada": {
    "torres_movidas": [
     {
@@ -1133,7 +5625,7 @@
   "tarefa": "G5",
   "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
   "pergunta": "Desfaça as duas últimas mudanças.",
-  "sequencia": [
+  "historico": [
    "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json",
    "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/4f1238bbc2b12336.json",
    "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/5e7711415e282284.json"
@@ -1157,37 +5649,45 @@
     }
    }
   ],
-  "chamada_esperada": {
-   "tool": "desfazer",
-   "args": [
-    2
-   ]
-  },
-  "resposta_esperada": {
-   "estado": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json"
-  }
+  "chamadas_esperadas": [
+   {
+    "tool": "desfazer",
+    "args": {
+     "n": 2
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7/aaf73e4583674808.json",
+  "resposta_esperada": null
  },
  {
   "tarefa": "G4",
   "arquivo": "solucoes-18x/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b.json",
   "pergunta": "O que mudou entre a solução mãe e a filha?",
-  "mae": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c5913d1686413871.json",
-  "filha": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/0d31cc70394673a7.json",
-  "edicao": {
-   "tool": "mover_torre",
-   "args": {
-    "distancia": 5.0,
-    "sentido": "fundos",
-    "torre": "p157"
+  "historico": [
+   "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c5913d1686413871.json",
+   "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/0d31cc70394673a7.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p157"
+    }
    }
-  },
-  "chamada_esperada": {
-   "tool": "diff_versoes",
-   "args": [
-    "mae",
-    "filha"
-   ]
-  },
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "diff_versoes",
+    "args": {
+     "mae": 0,
+     "filha": 1
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/0d31cc70394673a7.json",
   "resposta_esperada": {
    "torres_movidas": [
     {
@@ -1273,7 +5773,7 @@
   "tarefa": "G5",
   "arquivo": "solucoes-18x/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b.json",
   "pergunta": "Desfaça as duas últimas mudanças.",
-  "sequencia": [
+  "historico": [
    "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c5913d1686413871.json",
    "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/0d31cc70394673a7.json",
    "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c8cd62cc3db8505b.json"
@@ -1297,37 +5797,45 @@
     }
    }
   ],
-  "chamada_esperada": {
-   "tool": "desfazer",
-   "args": [
-    2
-   ]
-  },
-  "resposta_esperada": {
-   "estado": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c5913d1686413871.json"
-  }
+  "chamadas_esperadas": [
+   {
+    "tool": "desfazer",
+    "args": {
+     "n": 2
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b/c5913d1686413871.json",
+  "resposta_esperada": null
  },
  {
   "tarefa": "G4",
   "arquivo": "solucoes-18x/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d.json",
   "pergunta": "O que mudou entre a solução mãe e a filha?",
-  "mae": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/0bffb80da2064f10.json",
-  "filha": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/78e3e4bfb3b19450.json",
-  "edicao": {
-   "tool": "mover_torre",
-   "args": {
-    "distancia": 5.0,
-    "sentido": "fundos",
-    "torre": "p709"
+  "historico": [
+   "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/0bffb80da2064f10.json",
+   "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/78e3e4bfb3b19450.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p709"
+    }
    }
-  },
-  "chamada_esperada": {
-   "tool": "diff_versoes",
-   "args": [
-    "mae",
-    "filha"
-   ]
-  },
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "diff_versoes",
+    "args": {
+     "mae": 0,
+     "filha": 1
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/78e3e4bfb3b19450.json",
   "resposta_esperada": {
    "torres_movidas": [
     {
@@ -1405,7 +5913,7 @@
   "tarefa": "G5",
   "arquivo": "solucoes-18x/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d.json",
   "pergunta": "Desfaça as duas últimas mudanças.",
-  "sequencia": [
+  "historico": [
    "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/0bffb80da2064f10.json",
    "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/78e3e4bfb3b19450.json",
    "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/9d177571d55a673f.json"
@@ -1429,37 +5937,45 @@
     }
    }
   ],
-  "chamada_esperada": {
-   "tool": "desfazer",
-   "args": [
-    2
-   ]
-  },
-  "resposta_esperada": {
-   "estado": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/0bffb80da2064f10.json"
-  }
+  "chamadas_esperadas": [
+   {
+    "tool": "desfazer",
+    "args": {
+     "n": 2
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d/0bffb80da2064f10.json",
+  "resposta_esperada": null
  },
  {
   "tarefa": "G4",
   "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
   "pergunta": "O que mudou entre a solução mãe e a filha?",
-  "mae": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/ffcaf8869b41a8bf.json",
-  "filha": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/1aa6790ed4a281c3.json",
-  "edicao": {
-   "tool": "mover_torre",
-   "args": {
-    "distancia": 5.0,
-    "sentido": "fundos",
-    "torre": "p937"
+  "historico": [
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/ffcaf8869b41a8bf.json",
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/1aa6790ed4a281c3.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p937"
+    }
    }
-  },
-  "chamada_esperada": {
-   "tool": "diff_versoes",
-   "args": [
-    "mae",
-    "filha"
-   ]
-  },
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "diff_versoes",
+    "args": {
+     "mae": 0,
+     "filha": 1
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/1aa6790ed4a281c3.json",
   "resposta_esperada": {
    "torres_movidas": [
     {
@@ -1546,7 +6062,7 @@
   "tarefa": "G5",
   "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
   "pergunta": "Desfaça as duas últimas mudanças.",
-  "sequencia": [
+  "historico": [
    "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/ffcaf8869b41a8bf.json",
    "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/1aa6790ed4a281c3.json",
    "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/40cac081f0b9dcdb.json"
@@ -1570,37 +6086,45 @@
     }
    }
   ],
-  "chamada_esperada": {
-   "tool": "desfazer",
-   "args": [
-    2
-   ]
-  },
-  "resposta_esperada": {
-   "estado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/ffcaf8869b41a8bf.json"
-  }
+  "chamadas_esperadas": [
+   {
+    "tool": "desfazer",
+    "args": {
+     "n": 2
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9/ffcaf8869b41a8bf.json",
+  "resposta_esperada": null
  },
  {
   "tarefa": "G4",
   "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
   "pergunta": "O que mudou entre a solução mãe e a filha?",
-  "mae": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0429d3d9cb7e91b6.json",
-  "filha": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/24f896cb8cb2f03a.json",
-  "edicao": {
-   "tool": "mover_torre",
-   "args": {
-    "distancia": 5.0,
-    "sentido": "fundos",
-    "torre": "p940"
+  "historico": [
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0429d3d9cb7e91b6.json",
+   "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/24f896cb8cb2f03a.json"
+  ],
+  "edicoes": [
+   {
+    "tool": "mover_torre",
+    "args": {
+     "distancia": 5.0,
+     "sentido": "fundos",
+     "torre": "p940"
+    }
    }
-  },
-  "chamada_esperada": {
-   "tool": "diff_versoes",
-   "args": [
-    "mae",
-    "filha"
-   ]
-  },
+  ],
+  "chamadas_esperadas": [
+   {
+    "tool": "diff_versoes",
+    "args": {
+     "mae": 0,
+     "filha": 1
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/24f896cb8cb2f03a.json",
   "resposta_esperada": {
    "torres_movidas": [
     {
@@ -1679,7 +6203,7 @@
   "tarefa": "G5",
   "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
   "pergunta": "Desfaça as duas últimas mudanças.",
-  "sequencia": [
+  "historico": [
    "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0429d3d9cb7e91b6.json",
    "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/24f896cb8cb2f03a.json",
    "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/3ee708311f5c27bc.json"
@@ -1703,14 +6227,15 @@
     }
    }
   ],
-  "chamada_esperada": {
-   "tool": "desfazer",
-   "args": [
-    2
-   ]
-  },
-  "resposta_esperada": {
-   "estado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0429d3d9cb7e91b6.json"
-  }
+  "chamadas_esperadas": [
+   {
+    "tool": "desfazer",
+    "args": {
+     "n": 2
+    }
+   }
+  ],
+  "estado_esperado": "data/benchmark/gravacoes/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af/0429d3d9cb7e91b6.json",
+  "resposta_esperada": null
  }
 ]
