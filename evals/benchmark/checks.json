@@ -1,0 +1,4761 @@
+[
+ {
+  "arquivo": "favoritadas/6842c89845e64a9f238fba3c_6842c996181cf815481d1967.json",
+  "versao": "7.0.2",
+  "L1": {
+   "desenhadas": 4,
+   "TotalDeTorres": 4,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 0,
+   "NumeroDeVagasProjetado": 0
+  },
+  "L4": [
+   [
+    "p4",
+    10.969
+   ],
+   [
+    "p1",
+    30.911
+   ],
+   [
+    "p2",
+    64.039
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/2qv/41": 240,
+    "/area/apartamento/2q/31": 690
+   },
+   "soma_familias": {
+    "/area/apartamento/2qv/41": 240,
+    "/area/apartamento/2q/31": 690
+   },
+   "TotalDeUnidades": 930,
+   "tower_units_total": 930
+  },
+  "L8": {
+   "entre_blocos": 7.39,
+   "lateral": 3.7,
+   "2xmax_afastamento_familia": 7.39,
+   "afastamento_familias": [
+    3.6950000000000007
+   ],
+   "DescritivoTorre.afastamento": [
+    3.69
+   ],
+   "AfastamentoAeracao": {
+    "formula": "(h - 6) / 10"
+   },
+   "InputsProcessados.afastamento": null,
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 7.547
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 9566.06,
+   "ValorDeBaseParaCalculo": null,
+   "CAProjetado": 3.12,
+   "ATCC": 29931.6,
+   "APTC": 29931.6,
+   "ATCC/base": 3.1289370963594205,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {
+    "/building/apartamento/2q/31": 50,
+    "/building/apartamento/2qv/41": 50
+   }
+  },
+  "B2": {
+   "Viario": null,
+   "Vagas": null,
+   "Estacionamento": null,
+   "ProjecaoTorres": null,
+   "est=via+vag": false,
+   "vagas_desenhadas": 0
+  },
+  "B9": null,
+  "B11": [
+   [
+    "p4",
+    6.969
+   ],
+   [
+    "p1",
+    30.945
+   ],
+   [
+    "p2",
+    63.07
+   ]
+  ]
+ },
+ {
+  "arquivo": "favoritadas/694081cf9e15b2d9f935ad16_697c9bb91c2e52422d15e48f.json",
+  "versao": "12.6.0",
+  "L1": {
+   "desenhadas": 2,
+   "TotalDeTorres": 2,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 0,
+   "NumeroDeVagasProjetado": null
+  },
+  "L4": [
+   [
+    "p2",
+    11.231
+   ],
+   [
+    "p1",
+    22.577
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/1q/27_97": 405,
+    "/area/apartamento/e/23_48": 972
+   },
+   "soma_familias": {
+    "/area/apartamento/1q/27_97": 405,
+    "/area/apartamento/e/23_48": 972
+   },
+   "TotalDeUnidades": 1377,
+   "tower_units_total": 1377
+  },
+  "L8": {
+   "entre_blocos": 8,
+   "lateral": 4,
+   "2xmax_afastamento_familia": 8,
+   "afastamento_familias": [
+    4
+   ],
+   "DescritivoTorre.afastamento": [
+    4
+   ],
+   "AfastamentoAeracao": {
+    "value": 4
+   },
+   "InputsProcessados.afastamento": "4,0m",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 8.586
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 7581.8,
+   "ValorDeBaseParaCalculo": {
+    "area": 7581.8,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 4.6,
+   "ATCC": 34937.19,
+   "APTC": 34937.19,
+   "ATCC/base": 4.608033712311061,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": false,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": false
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {
+    "/building/apartamento/1q/27_97": 25,
+    "/building/apartamento/e/23_48": 75
+   }
+  },
+  "B2": {
+   "Viario": null,
+   "Vagas": null,
+   "Estacionamento": null,
+   "ProjecaoTorres": {
+    "area": 1743.41,
+    "percentual": 22.99
+   },
+   "est=via+vag": false,
+   "vagas_desenhadas": 0
+  },
+  "B9": null,
+  "B11": [
+   [
+    "p1",
+    22.026
+   ],
+   [
+    "p2",
+    45.161
+   ]
+  ]
+ },
+ {
+  "arquivo": "favoritadas/696517ed8049fdc9f3b0f6ad_69651a149a57a850baccee44.json",
+  "versao": "12.4.1",
+  "L1": {
+   "desenhadas": 6,
+   "TotalDeTorres": 6,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 573,
+   "NumeroDeVagasProjetado": 573
+  },
+  "L4": [
+   [
+    "p1",
+    33.3
+   ],
+   [
+    "p3",
+    33.3
+   ],
+   [
+    "p2",
+    33.3
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/2qs/43_78": 288,
+    "/area/apartamento/1q/27_97": 288
+   },
+   "soma_familias": {
+    "/area/apartamento/2qs/43_78": 288,
+    "/area/apartamento/1q/27_97": 288
+   },
+   "TotalDeUnidades": 576,
+   "tower_units_total": 576
+  },
+  "L8": {
+   "entre_blocos": 5.16,
+   "lateral": 2.58,
+   "2xmax_afastamento_familia": 5.16,
+   "afastamento_familias": [
+    2.58
+   ],
+   "DescritivoTorre.afastamento": [
+    2.58
+   ],
+   "AfastamentoAeracao": {
+    "formula": "(h-6)/10"
+   },
+   "InputsProcessados.afastamento": "(h-6)/10",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 16.398
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 16380.59,
+   "ValorDeBaseParaCalculo": {
+    "area": 16380.59,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 1.67,
+   "ATCC": 27514.08,
+   "APTC": 20665.43,
+   "ATCC/base": 1.679675762594632,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": false,
+    "APTC/AreaUtil": false
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {
+    "/building/apartamento/2qs/43_78": 50,
+    "/building/apartamento/1q/27_97": 25,
+    "/building/apartamento/e/23_48": 25
+   }
+  },
+  "B2": {
+   "Viario": {
+    "area": 3426.26,
+    "percentual": 20.91
+   },
+   "Vagas": {
+    "area": 7162.5,
+    "percentual": 43.72
+   },
+   "Estacionamento": {
+    "area": 10588.76,
+    "percentual": 64.63
+   },
+   "ProjecaoTorres": {
+    "area": 2292.83,
+    "percentual": 13.99
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 573
+  },
+  "B9": {
+   "p1": 1.195,
+   "p2": 1.196,
+   "p3": 1.192,
+   "p4": 1.188,
+   "p5": 1.189,
+   "p6": 1.188
+  },
+  "B11": [
+   [
+    "p6",
+    40.858
+   ],
+   [
+    "p5",
+    66.206
+   ],
+   [
+    "p4",
+    94.902
+   ]
+  ]
+ },
+ {
+  "arquivo": "favoritadas/69b1a6d4d985c5ddbecac196_69b1aab76d16be251b892e7b.json",
+  "versao": "12.7.0",
+  "L1": {
+   "desenhadas": 2,
+   "TotalDeTorres": 2,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 149,
+   "NumeroDeVagasProjetado": 149
+  },
+  "L4": [
+   [
+    "p1",
+    4.097
+   ],
+   [
+    "p2",
+    12.813
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/PR-V08-8x8": 176
+   },
+   "soma_familias": {
+    "/area/apartamento/PR-V08-8x8": 176
+   },
+   "TotalDeUnidades": 176,
+   "tower_units_total": 176
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {
+    "formula": "(h-6)/10"
+   },
+   "InputsProcessados.afastamento": "(h-6)/10",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 22.4
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 7581.8,
+   "ValorDeBaseParaCalculo": {
+    "area": 7581.8,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 0.89,
+   "ATCC": 6748.28,
+   "APTC": 6748.28,
+   "ATCC/base": 0.8900630457147379,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": false,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": false
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {}
+  },
+  "B2": {
+   "Viario": {
+    "area": 1279.57,
+    "percentual": 16.87
+   },
+   "Vagas": {
+    "area": 1542.14,
+    "percentual": 20.34
+   },
+   "Estacionamento": {
+    "area": 2821.71,
+    "percentual": 37.21
+   },
+   "ProjecaoTorres": {
+    "area": 848.52,
+    "percentual": 11.19
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 149
+  },
+  "B9": {
+   "p1": 3.696,
+   "p2": 3.692
+  },
+  "B11": [
+   [
+    "p1",
+    4.006
+   ],
+   [
+    "p2",
+    22.761
+   ]
+  ]
+ },
+ {
+  "arquivo": "favoritadas/6a4c017db840fc776e4443b0_6a4c0b25ded0ef35ff62c408.json",
+  "versao": "16.4.0",
+  "L1": {
+   "desenhadas": 3,
+   "TotalDeTorres": 3,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 363,
+   "NumeroDeVagasProjetado": 363
+  },
+  "L4": [
+   [
+    "p3",
+    13.056
+   ],
+   [
+    "p2",
+    71.936
+   ],
+   [
+    "p1",
+    130.835
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/B-2QSV-8PP": 336
+   },
+   "soma_familias": {
+    "/area/apartamento/B-2QSV-8PP": 336
+   },
+   "TotalDeUnidades": 336,
+   "tower_units_total": 336
+  },
+  "L8": {
+   "entre_blocos": 16,
+   "lateral": 8,
+   "2xmax_afastamento_familia": 16,
+   "afastamento_familias": [
+    8
+   ],
+   "DescritivoTorre.afastamento": [
+    8
+   ],
+   "AfastamentoAeracao": {
+    "value": 8
+   },
+   "InputsProcessados.afastamento": "8,0m",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 21.0
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 12019.37,
+   "ValorDeBaseParaCalculo": {
+    "area": 12019.37,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 1.42,
+   "ATCC": 17100.72,
+   "APTC": 13482.84,
+   "ATCC/base": 1.4227634227085113,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": false,
+    "APTC/AreaUtil": false
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {}
+  },
+  "B2": {
+   "Viario": {
+    "area": 3741.18,
+    "percentual": 31.12
+   },
+   "Vagas": {
+    "area": 4174.5,
+    "percentual": 34.73
+   },
+   "Estacionamento": {
+    "area": 7915.68,
+    "percentual": 65.84
+   },
+   "ProjecaoTorres": {
+    "area": 1237.77,
+    "percentual": 10.29
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 363
+  },
+  "B9": {
+   "p1": 2.606,
+   "p2": 2.567,
+   "p3": 2.428
+  },
+  "B11": [
+   [
+    "p3",
+    19.601
+   ],
+   [
+    "p2",
+    62.709
+   ],
+   [
+    "p1",
+    122.188
+   ]
+  ]
+ },
+ {
+  "arquivo": "favoritadas/6a75cb2ec909fd8f7cd3e8d8_6a75e11668d34b45e508271f.json",
+  "versao": "16.8.0",
+  "L1": {
+   "desenhadas": 3,
+   "TotalDeTorres": 3,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 290,
+   "NumeroDeVagasProjetado": 290
+  },
+  "L4": [
+   [
+    "p1",
+    17.444
+   ],
+   [
+    "p2",
+    73.329
+   ],
+   [
+    "p3",
+    129.895
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/ESPANHOL - ESCADA ENCLAUSURADA": 360
+   },
+   "soma_familias": {
+    "/area/apartamento/ESPANHOL - ESCADA ENCLAUSURADA": 360
+   },
+   "TotalDeUnidades": 360,
+   "tower_units_total": 360
+  },
+  "L8": {
+   "entre_blocos": 0.5,
+   "lateral": 0.25,
+   "2xmax_afastamento_familia": 0.5,
+   "afastamento_familias": [
+    0.25
+   ],
+   "DescritivoTorre.afastamento": [
+    0.25
+   ],
+   "AfastamentoAeracao": {
+    "value": 0.25
+   },
+   "InputsProcessados.afastamento": "0,25m",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 17.6
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 9582.2,
+   "ValorDeBaseParaCalculo": {
+    "area": 9582.2,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 1.68,
+   "ATCC": 16120.35,
+   "APTC": 16120.35,
+   "ATCC/base": 1.6823224311744693,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "ATCC/AreaDeMatricula": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true,
+    "APTC/AreaDeMatricula": true
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {}
+  },
+  "B2": {
+   "Viario": {
+    "area": 2683.05,
+    "percentual": 28
+   },
+   "Vagas": {
+    "area": 3340.79,
+    "percentual": 34.86
+   },
+   "Estacionamento": {
+    "area": 6023.84,
+    "percentual": 62.86
+   },
+   "ProjecaoTorres": {
+    "area": 1312.8,
+    "percentual": 13.7
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 290
+  },
+  "B9": {
+   "p1": 1.486,
+   "p2": 1.49,
+   "p3": 1.495
+  },
+  "B11": [
+   [
+    "p1",
+    13.74
+   ],
+   [
+    "p2",
+    70.74
+   ],
+   [
+    "p3",
+    127.74
+   ]
+  ]
+ },
+ {
+  "arquivo": "favoritadas/6aa1c1fa5f7ffad5748a9e37_6aa1c48ce8e1d2a9eeb19d5e.json",
+  "versao": "17.1.0",
+  "L1": {
+   "desenhadas": 3,
+   "TotalDeTorres": 3,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 0,
+   "NumeroDeVagasProjetado": null
+  },
+  "L4": [
+   [
+    "p2",
+    0.007
+   ],
+   [
+    "p3",
+    0.452
+   ],
+   [
+    "p1",
+    0.623
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/Capital - 2 Dorms 33_46m² - Meio/75bfc12f-3560-41d5-b2b8-7b6475f63839": 90,
+    "/area/apartamento/Capital - 1 Dorm 28_33m² - Meio/13a8fa38-775d-44bd-bb84-e182c9377019": 240
+   },
+   "soma_familias": {
+    "/area/apartamento/Capital - 2 Dorms 33_46m² - Meio/75bfc12f-3560-41d5-b2b8-7b6475f63839": 90,
+    "/area/apartamento/Capital - 1 Dorm 28_33m² - Meio/13a8fa38-775d-44bd-bb84-e182c9377019": 240
+   },
+   "TotalDeUnidades": 330,
+   "tower_units_total": 330
+  },
+  "L8": {
+   "entre_blocos": 4.11,
+   "lateral": 2.06,
+   "2xmax_afastamento_familia": 4.11,
+   "afastamento_familias": [
+    2.056
+   ],
+   "DescritivoTorre.afastamento": [
+    2.05
+   ],
+   "AfastamentoAeracao": {
+    "formula": "(h-6)/10"
+   },
+   "InputsProcessados.afastamento": "(h-6)/10",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 7.148
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 2342.12,
+   "ValorDeBaseParaCalculo": {
+    "area": 2342.12,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 3.88,
+   "ATCC": 9100.5,
+   "APTC": 9100.5,
+   "ATCC/base": 3.885582292965348,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {
+    "/building/apartamento/Capital - 1 Dorm 28_33m² - Meio/13a8fa38-775d-44bd-bb84-e182c9377019": 80,
+    "/building/apartamento/Capital - 2 Dorms 33_46m² - Meio/75bfc12f-3560-41d5-b2b8-7b6475f63839": 20
+   }
+  },
+  "B2": {
+   "Viario": null,
+   "Vagas": null,
+   "Estacionamento": null,
+   "ProjecaoTorres": {
+    "area": 1278.9,
+    "percentual": 54.6
+   },
+   "est=via+vag": false,
+   "vagas_desenhadas": 0
+  },
+  "B9": null,
+  "B11": [
+   [
+    "p2",
+    0.386
+   ],
+   [
+    "p3",
+    1.703
+   ],
+   [
+    "p1",
+    18.386
+   ]
+  ]
+ },
+ {
+  "arquivo": "favoritadas/6aaaa498cf7264229c24d353_6aaaa6467c85d637d8f6555a.json",
+  "versao": "17.1.0",
+  "L1": {
+   "desenhadas": 2,
+   "TotalDeTorres": 2,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 0,
+   "NumeroDeVagasProjetado": null
+  },
+  "L4": [
+   [
+    "p2",
+    1.474
+   ],
+   [
+    "p1",
+    4.593
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/Capital - 1 Dorm 28_33m² - Meio/13a8fa38-775d-44bd-bb84-e182c9377019": 340,
+    "/area/apartamento/Capital - 2 Dorms 33_46m² - Meio/75bfc12f-3560-41d5-b2b8-7b6475f63839": 85
+   },
+   "soma_familias": {
+    "/area/apartamento/Capital - 1 Dorm 28_33m² - Meio/13a8fa38-775d-44bd-bb84-e182c9377019": 340,
+    "/area/apartamento/Capital - 2 Dorms 33_46m² - Meio/75bfc12f-3560-41d5-b2b8-7b6475f63839": 85
+   },
+   "TotalDeUnidades": 425,
+   "tower_units_total": 425
+  },
+  "L8": {
+   "entre_blocos": 7.78,
+   "lateral": 3.89,
+   "2xmax_afastamento_familia": 7.78,
+   "afastamento_familias": [
+    3.89
+   ],
+   "DescritivoTorre.afastamento": [
+    3.89
+   ],
+   "AfastamentoAeracao": {
+    "formula": "(h-6)/10"
+   },
+   "InputsProcessados.afastamento": "(h-6)/10",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 7.946
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 2526.38,
+   "ValorDeBaseParaCalculo": {
+    "area": 2526.38,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 4.58,
+   "ATCC": 11590.09,
+   "APTC": 11590.09,
+   "ATCC/base": 4.587627356138031,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {
+    "/building/apartamento/Capital - 1 Dorm 28_33m² - Meio/13a8fa38-775d-44bd-bb84-e182c9377019": 80,
+    "/building/apartamento/Capital - 2 Dorms 33_46m² - Meio/75bfc12f-3560-41d5-b2b8-7b6475f63839": 20
+   }
+  },
+  "B2": {
+   "Viario": null,
+   "Vagas": null,
+   "Estacionamento": null,
+   "ProjecaoTorres": {
+    "area": 1007.07,
+    "percentual": 39.86
+   },
+   "est=via+vag": false,
+   "vagas_desenhadas": 0
+  },
+  "B9": null,
+  "B11": [
+   [
+    "p2",
+    0.0
+   ],
+   [
+    "p1",
+    32.289
+   ]
+  ]
+ },
+ {
+  "arquivo": "favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json",
+  "versao": "17.7.0",
+  "L1": {
+   "desenhadas": 1,
+   "TotalDeTorres": 1,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 219,
+   "NumeroDeVagasProjetado": 219
+  },
+  "L4": [
+   [
+    "p221",
+    10.938
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/1q/27_97": 240
+   },
+   "soma_familias": {
+    "/area/apartamento/1q/27_97": 240
+   },
+   "TotalDeUnidades": 240,
+   "tower_units_total": 240
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {},
+   "InputsProcessados.afastamento": null,
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": null
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 6067.84,
+   "ValorDeBaseParaCalculo": {
+    "area": 6067.84,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 1.1,
+   "ATCC": 6714.6,
+   "APTC": 6714.6,
+   "ATCC/base": 1.1065881763527055,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {
+    "/building/apartamento/1q/27_97": 100
+   }
+  },
+  "B2": {
+   "Viario": {
+    "area": 1769.89,
+    "percentual": 29.16
+   },
+   "Vagas": {
+    "area": 2737.5,
+    "percentual": 45.11
+   },
+   "Estacionamento": {
+    "area": 4507.39,
+    "percentual": 74.27
+   },
+   "ProjecaoTorres": {
+    "area": 334.66,
+    "percentual": 5.51
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 219
+  },
+  "B5": {
+   "p221": {
+    "origem": "p0",
+    "destino": "p221",
+    "distancia": 2.47,
+    "afastamento_origem": 5.26,
+    "afastamento_destino": 0.0
+   }
+  },
+  "B9": {
+   "p221": 2.999
+  },
+  "B11": [
+   [
+    "p221",
+    6.938
+   ]
+  ]
+ },
+ {
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/bom_6ace404e4a7a894b01852f19.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 4,
+   "TotalDeTorres": 4,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 0,
+   "NumeroDeVagasProjetado": null
+  },
+  "L4": [
+   [
+    "p1",
+    110.05
+   ],
+   [
+    "p2",
+    117.519
+   ],
+   [
+    "p3",
+    128.053
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/1QV/31_45": 2112
+   },
+   "soma_familias": {
+    "/area/apartamento/1QV/31_45": 2112
+   },
+   "TotalDeUnidades": 2112,
+   "tower_units_total": 2112
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {},
+   "InputsProcessados.afastamento": null,
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 6.619
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 30327.22,
+   "ValorDeBaseParaCalculo": {
+    "area": 30327.22,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 2.08,
+   "ATCC": 63131.2,
+   "APTC": 63161.09,
+   "ATCC/base": 2.081667887791891,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {
+    "/building/apartamento/1QV/31_45": 100
+   }
+  },
+  "B2": {
+   "Viario": null,
+   "Vagas": null,
+   "Estacionamento": null,
+   "ProjecaoTorres": {
+    "area": 4024.04,
+    "percentual": 13.26
+   },
+   "est=via+vag": false,
+   "vagas_desenhadas": 0
+  },
+  "B9": null,
+  "B11": [
+   [
+    "p2",
+    116.681
+   ],
+   [
+    "p1",
+    117.605
+   ],
+   [
+    "p3",
+    124.356
+   ]
+  ]
+ },
+ {
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/otimo_6ace4108cfe0941cdf9a9189.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 12,
+   "TotalDeTorres": 12,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 0,
+   "NumeroDeVagasProjetado": null
+  },
+  "L4": [
+   [
+    "p9",
+    4.465
+   ],
+   [
+    "p12",
+    4.97
+   ],
+   [
+    "p11",
+    5.149
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/1QV/31_45": 5063
+   },
+   "soma_familias": {
+    "/area/apartamento/1QV/31_45": 5063
+   },
+   "TotalDeUnidades": 5063,
+   "tower_units_total": 5063
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {},
+   "InputsProcessados.afastamento": null,
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 6.649
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 30327.22,
+   "ValorDeBaseParaCalculo": {
+    "area": 30327.22,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 4.99,
+   "ATCC": 151341.47,
+   "APTC": 151371.37,
+   "ATCC/base": 4.99028496512374,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {
+    "/building/apartamento/1QV/31_45": 100
+   }
+  },
+  "B2": {
+   "Viario": null,
+   "Vagas": null,
+   "Estacionamento": null,
+   "ProjecaoTorres": {
+    "area": 11566.68,
+    "percentual": 38.13
+   },
+   "est=via+vag": false,
+   "vagas_desenhadas": 0
+  },
+  "B9": null,
+  "B11": [
+   [
+    "p9",
+    6.706
+   ],
+   [
+    "p11",
+    36.43
+   ],
+   [
+    "p10",
+    40.596
+   ]
+  ]
+ },
+ {
+  "arquivo": "avaliadas/6ab3be2bc0fe97bead8562f5/ruim_6ace40534a7a894b01852f1d.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 3,
+   "TotalDeTorres": 3,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 0,
+   "NumeroDeVagasProjetado": null
+  },
+  "L4": [
+   [
+    "p1",
+    86.365
+   ],
+   [
+    "p2",
+    91.706
+   ],
+   [
+    "p3",
+    97.726
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/1QV/31_45": 162
+   },
+   "soma_familias": {
+    "/area/apartamento/1QV/31_45": 162
+   },
+   "TotalDeUnidades": 162,
+   "tower_units_total": 162
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {},
+   "InputsProcessados.afastamento": null,
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 9.208
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 30327.22,
+   "ValorDeBaseParaCalculo": {
+    "area": 30327.22,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 0.15,
+   "ATCC": 4842.48,
+   "APTC": 4872.37,
+   "ATCC/base": 0.15967437833075368,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": false,
+    "APTC/AreaUtil": false
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {
+    "/building/apartamento/1QV/31_45": 100
+   }
+  },
+  "B2": {
+   "Viario": null,
+   "Vagas": null,
+   "Estacionamento": null,
+   "ProjecaoTorres": {
+    "area": 3084.57,
+    "percentual": 10.17
+   },
+   "est=via+vag": false,
+   "vagas_desenhadas": 0
+  },
+  "B9": null,
+  "B11": [
+   [
+    "p3",
+    143.228
+   ],
+   [
+    "p2",
+    157.478
+   ],
+   [
+    "p1",
+    173.887
+   ]
+  ]
+ },
+ {
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/bom_6ace3c8be748be1a355e6769.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 3,
+   "TotalDeTorres": 3,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 0,
+   "NumeroDeVagasProjetado": null
+  },
+  "L4": [
+   [
+    "p1",
+    8.929
+   ],
+   [
+    "p2",
+    33.349
+   ],
+   [
+    "p3",
+    39.079
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 116,
+    "/area/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 299
+   },
+   "soma_familias": {
+    "/area/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 116,
+    "/area/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 299
+   },
+   "TotalDeUnidades": 415,
+   "tower_units_total": 415
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {
+    "formula": "(h-6)/10"
+   },
+   "InputsProcessados.afastamento": "(h-6)/10",
+   "GabaritoNaoAfastado": {
+    "altura": 28,
+    "pavimentos": 12
+   },
+   "menor_par_desenhado": 10.878
+  },
+  "A1": {
+   "base": "AreaDeMatricula",
+   "base_valor": 4805,
+   "ValorDeBaseParaCalculo": {
+    "area": 4805,
+    "label": "Área de matrícula"
+   },
+   "CAProjetado": 2.56,
+   "ATCC": 12328.25,
+   "APTC": 12388.68,
+   "ATCC/base": 2.565712799167534,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": false,
+    "ATCC/AreaUtil": true,
+    "ATCC/AreaDeMatricula": true,
+    "APTC/AreaDoTerreno": false,
+    "APTC/AreaUtil": false,
+    "APTC/AreaDeMatricula": false
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {
+    "/building/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 80,
+    "/building/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 20
+   }
+  },
+  "B2": {
+   "Viario": null,
+   "Vagas": null,
+   "Estacionamento": null,
+   "ProjecaoTorres": {
+    "area": 1777.65,
+    "percentual": 36.99
+   },
+   "est=via+vag": false,
+   "vagas_desenhadas": 0
+  },
+  "B9": null,
+  "B11": [
+   [
+    "p1",
+    5.604
+   ],
+   [
+    "p3",
+    35.121
+   ],
+   [
+    "p2",
+    36.384
+   ]
+  ]
+ },
+ {
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/otimo_6ace4079bf22db620be742d4.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 2,
+   "TotalDeTorres": 2,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 0,
+   "NumeroDeVagasProjetado": null
+  },
+  "L4": [
+   [
+    "p2",
+    11.615
+   ],
+   [
+    "p1",
+    17.745
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 184,
+    "/area/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 460
+   },
+   "soma_familias": {
+    "/area/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 184,
+    "/area/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 460
+   },
+   "TotalDeUnidades": 644,
+   "tower_units_total": 644
+  },
+  "L8": {
+   "entre_blocos": 11.36,
+   "lateral": 5.68,
+   "2xmax_afastamento_familia": 11.36,
+   "afastamento_familias": [
+    5.679
+   ],
+   "DescritivoTorre.afastamento": [
+    5.67
+   ],
+   "AfastamentoAeracao": {
+    "formula": "(h-6)/10"
+   },
+   "InputsProcessados.afastamento": "(h-6)/10",
+   "GabaritoNaoAfastado": {
+    "altura": 120,
+    "pavimentos": 29
+   },
+   "menor_par_desenhado": 11.37
+  },
+  "A1": {
+   "base": "AreaDeMatricula",
+   "base_valor": 4805,
+   "ValorDeBaseParaCalculo": {
+    "area": 4805,
+    "label": "Área de matrícula"
+   },
+   "CAProjetado": 3.98,
+   "ATCC": 19140.37,
+   "APTC": 19200.8,
+   "ATCC/base": 3.98342767950052,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": false,
+    "ATCC/AreaUtil": true,
+    "ATCC/AreaDeMatricula": true,
+    "APTC/AreaDoTerreno": false,
+    "APTC/AreaUtil": false,
+    "APTC/AreaDeMatricula": false
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {
+    "/building/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 80,
+    "/building/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 20
+   }
+  },
+  "B2": {
+   "Viario": null,
+   "Vagas": null,
+   "Estacionamento": null,
+   "ProjecaoTorres": {
+    "area": 1238.74,
+    "percentual": 25.78
+   },
+   "est=via+vag": false,
+   "vagas_desenhadas": 0
+  },
+  "B9": null,
+  "B11": [
+   [
+    "p1",
+    13.751
+   ],
+   [
+    "p2",
+    17.188
+   ]
+  ]
+ },
+ {
+  "arquivo": "avaliadas/6ace3b52f382582e76a9ade0/ruim_6ace3c16d8664cf36a13dbb9.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 2,
+   "TotalDeTorres": 2,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 0,
+   "NumeroDeVagasProjetado": null
+  },
+  "L4": [
+   [
+    "p1",
+    5.3
+   ],
+   [
+    "p2",
+    8.141
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 64,
+    "/area/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 112
+   },
+   "soma_familias": {
+    "/area/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 64,
+    "/area/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 112
+   },
+   "TotalDeUnidades": 176,
+   "tower_units_total": 176
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {
+    "formula": "(h-6)/10"
+   },
+   "InputsProcessados.afastamento": "(h-6)/10",
+   "GabaritoNaoAfastado": {
+    "altura": 28,
+    "pavimentos": 12
+   },
+   "menor_par_desenhado": 6.013
+  },
+  "A1": {
+   "base": "AreaDeMatricula",
+   "base_valor": 4805,
+   "ValorDeBaseParaCalculo": {
+    "area": 4805,
+    "label": "Área de matrícula"
+   },
+   "CAProjetado": 1.09,
+   "ATCC": 5262.72,
+   "APTC": 5323.15,
+   "ATCC/base": 1.0952591050988554,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": false,
+    "ATCC/AreaUtil": true,
+    "ATCC/AreaDeMatricula": true,
+    "APTC/AreaDoTerreno": false,
+    "APTC/AreaUtil": false,
+    "APTC/AreaDeMatricula": false
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {
+    "/building/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 80,
+    "/building/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 20
+   }
+  },
+  "B2": {
+   "Viario": null,
+   "Vagas": null,
+   "Estacionamento": null,
+   "ProjecaoTorres": {
+    "area": 917.7,
+    "percentual": 19.09
+   },
+   "est=via+vag": false,
+   "vagas_desenhadas": 0
+  },
+  "B9": null,
+  "B11": [
+   [
+    "p1",
+    1.3
+   ],
+   [
+    "p2",
+    14.168
+   ]
+  ]
+ },
+ {
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/bom_6ace4f3f9aee62f656aae2cc.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 2,
+   "TotalDeTorres": 2,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 253,
+   "NumeroDeVagasProjetado": 253
+  },
+  "L4": [
+   [
+    "p255",
+    29.349
+   ],
+   [
+    "p256",
+    66.027
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/Casamar 8PP": 240
+   },
+   "soma_familias": {
+    "/area/apartamento/Casamar 8PP": 240
+   },
+   "TotalDeUnidades": 240,
+   "tower_units_total": 240
+  },
+  "L8": {
+   "entre_blocos": 9,
+   "lateral": 4.5,
+   "2xmax_afastamento_familia": 9.0,
+   "afastamento_familias": [
+    4.5
+   ],
+   "DescritivoTorre.afastamento": [
+    4.5
+   ],
+   "AfastamentoAeracao": {
+    "value": 4.5
+   },
+   "InputsProcessados.afastamento": "4,5m",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 28.998
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 13182.03,
+   "ValorDeBaseParaCalculo": {
+    "area": 13182.03,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 0.79,
+   "ATCC": 10531.2,
+   "APTC": 10531.2,
+   "ATCC/base": 0.798905783100175,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {}
+  },
+  "B2": {
+   "Viario": {
+    "area": 2232.78,
+    "percentual": 16.93
+   },
+   "Vagas": {
+    "area": 3141.82,
+    "percentual": 23.83
+   },
+   "Estacionamento": {
+    "area": 5374.6,
+    "percentual": 40.76
+   },
+   "ProjecaoTorres": {
+    "area": 994.4,
+    "percentual": 7.54
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 253
+  },
+  "B5": {
+   "p255": {
+    "origem": "p0",
+    "destino": "p255",
+    "distancia": 37.65,
+    "afastamento_origem": 13.47,
+    "afastamento_destino": 0.0
+   },
+   "p256": {
+    "origem": "p0",
+    "destino": "p256",
+    "distancia": 37.65,
+    "afastamento_origem": 13.47,
+    "afastamento_destino": 0.0
+   }
+  },
+  "B9": {
+   "p255": 5.998,
+   "p256": 6.0
+  },
+  "B11": [
+   [
+    "p255",
+    27.958
+   ],
+   [
+    "p256",
+    62.173
+   ]
+  ]
+ },
+ {
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/otimo_6ace52a0bc31d7e3e85c9509.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 3,
+   "TotalDeTorres": 3,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 353,
+   "NumeroDeVagasProjetado": 353
+  },
+  "L4": [
+   [
+    "p357",
+    5.134
+   ],
+   [
+    "p355",
+    6.705
+   ],
+   [
+    "p356",
+    74.616
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/Casamar 8PP": 336
+   },
+   "soma_familias": {
+    "/area/apartamento/Casamar 8PP": 336
+   },
+   "TotalDeUnidades": 336,
+   "tower_units_total": 336
+  },
+  "L8": {
+   "entre_blocos": 8.4,
+   "lateral": 4.2,
+   "2xmax_afastamento_familia": 8.4,
+   "afastamento_familias": [
+    4.2
+   ],
+   "DescritivoTorre.afastamento": [
+    4.2
+   ],
+   "AfastamentoAeracao": {
+    "value": 4.2
+   },
+   "InputsProcessados.afastamento": "4,2m",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 28.998
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 13182.03,
+   "ValorDeBaseParaCalculo": {
+    "area": 13182.03,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 1.11,
+   "ATCC": 14743.68,
+   "APTC": 14743.68,
+   "ATCC/base": 1.118468096340245,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {}
+  },
+  "B2": {
+   "Viario": {
+    "area": 3204.29,
+    "percentual": 24.3
+   },
+   "Vagas": {
+    "area": 4381.05,
+    "percentual": 33.23
+   },
+   "Estacionamento": {
+    "area": 7585.34,
+    "percentual": 57.53
+   },
+   "ProjecaoTorres": {
+    "area": 1491.6,
+    "percentual": 11.31
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 353
+  },
+  "B5": {
+   "p355": {
+    "origem": "p0",
+    "destino": "p355",
+    "distancia": 0.0,
+    "afastamento_origem": 16.48,
+    "afastamento_destino": 0.0
+   },
+   "p356": {
+    "origem": "p0",
+    "destino": "p356",
+    "distancia": 59.63,
+    "afastamento_origem": 16.48,
+    "afastamento_destino": 0.0
+   },
+   "p357": {
+    "origem": "p0",
+    "destino": "p357",
+    "distancia": 0.0,
+    "afastamento_origem": 16.48,
+    "afastamento_destino": 0.0
+   }
+  },
+  "B9": {
+   "p355": 6.0,
+   "p356": 5.965,
+   "p357": 5.998
+  },
+  "B11": [
+   [
+    "p355",
+    2.815
+   ],
+   [
+    "p357",
+    23.256
+   ],
+   [
+    "p356",
+    70.616
+   ]
+  ]
+ },
+ {
+  "arquivo": "avaliadas/6ace446ac33cb2aadbc14a4e/ruim_6ace4ea8ecd8aeaf968b312c.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 1,
+   "TotalDeTorres": 1,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 118,
+   "NumeroDeVagasProjetado": 118
+  },
+  "L4": [
+   [
+    "p120",
+    99.077
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/Casamar 8PP": 112
+   },
+   "soma_familias": {
+    "/area/apartamento/Casamar 8PP": 112
+   },
+   "TotalDeUnidades": 112,
+   "tower_units_total": 112
+  },
+  "L8": {
+   "entre_blocos": 9,
+   "lateral": 4.5,
+   "2xmax_afastamento_familia": 9.0,
+   "afastamento_familias": [
+    4.5
+   ],
+   "DescritivoTorre.afastamento": [
+    4.5
+   ],
+   "AfastamentoAeracao": {
+    "value": 4.5
+   },
+   "InputsProcessados.afastamento": "4,5m",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": null
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 13182.03,
+   "ValorDeBaseParaCalculo": {
+    "area": 13182.03,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 0.37,
+   "ATCC": 4914.56,
+   "APTC": 4914.56,
+   "ATCC/base": 0.3728226987800817,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {}
+  },
+  "B2": {
+   "Viario": {
+    "area": 1035.84,
+    "percentual": 7.85
+   },
+   "Vagas": {
+    "area": 1466.85,
+    "percentual": 11.12
+   },
+   "Estacionamento": {
+    "area": 2502.68,
+    "percentual": 18.97
+   },
+   "ProjecaoTorres": {
+    "area": 497.2,
+    "percentual": 3.77
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 118
+  },
+  "B5": {
+   "p120": {
+    "origem": "p0",
+    "destino": "p120",
+    "distancia": 82.8,
+    "afastamento_origem": 15.86,
+    "afastamento_destino": 0.0
+   }
+  },
+  "B9": {
+   "p120": 6.0
+  },
+  "B11": [
+   [
+    "p120",
+    95.363
+   ]
+  ]
+ },
+ {
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/bom_6ace64863afd82bf6be93e16.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 4,
+   "TotalDeTorres": 4,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 147,
+   "NumeroDeVagasProjetado": 147
+  },
+  "L4": [
+   [
+    "p149",
+    12.364
+   ],
+   [
+    "p150",
+    40.07
+   ],
+   [
+    "p151",
+    59.365
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 440,
+    "/area/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 160
+   },
+   "soma_familias": {
+    "/area/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 440,
+    "/area/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 160
+   },
+   "TotalDeUnidades": 600,
+   "tower_units_total": 600
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {
+    "formula": "(h-6)/10"
+   },
+   "InputsProcessados.afastamento": "(h-6)/10",
+   "GabaritoNaoAfastado": {
+    "pavimentos": 12,
+    "altura": 28
+   },
+   "menor_par_desenhado": 23.996
+  },
+  "A1": {
+   "base": "AreaDeMatricula",
+   "base_valor": 34940,
+   "ValorDeBaseParaCalculo": {
+    "area": 34940,
+    "label": "Área de matrícula"
+   },
+   "CAProjetado": 0.5,
+   "ATCC": 17806,
+   "APTC": 17866.43,
+   "ATCC/base": 0.509616485403549,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": false,
+    "ATCC/AreaUtil": true,
+    "ATCC/AreaDeMatricula": true,
+    "APTC/AreaDoTerreno": false,
+    "APTC/AreaUtil": false,
+    "APTC/AreaDeMatricula": false
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {
+    "/building/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 80,
+    "/building/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 20
+   }
+  },
+  "B2": {
+   "Viario": {
+    "area": 816.02,
+    "percentual": 2.33
+   },
+   "Vagas": {
+    "area": 1837.5,
+    "percentual": 5.25
+   },
+   "Estacionamento": {
+    "area": 2653.52,
+    "percentual": 7.58
+   },
+   "ProjecaoTorres": {
+    "area": 2480.31,
+    "percentual": 7.09
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 147
+  },
+  "B5": {
+   "p149": {
+    "origem": "p0",
+    "destino": "p149",
+    "distancia": 0.0,
+    "afastamento_origem": 6.08,
+    "afastamento_destino": 26.5
+   },
+   "p150": {
+    "origem": "p0",
+    "destino": "p150",
+    "distancia": 53.69,
+    "afastamento_origem": 6.08,
+    "afastamento_destino": 0.0
+   },
+   "p151": {
+    "origem": "p0",
+    "destino": "p151",
+    "distancia": 53.69,
+    "afastamento_origem": 6.08,
+    "afastamento_destino": 0.0
+   },
+   "p152": {
+    "origem": "p0",
+    "destino": "p152",
+    "distancia": 53.69,
+    "afastamento_origem": 6.08,
+    "afastamento_destino": 36.55
+   }
+  },
+  "B9": {
+   "p149": 37.667,
+   "p150": 4.999,
+   "p151": 4.997,
+   "p152": 41.553
+  },
+  "B11": [
+   [
+    "p150",
+    37.735
+   ],
+   [
+    "p149",
+    40.376
+   ],
+   [
+    "p151",
+    57.352
+   ]
+  ]
+ },
+ {
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/otimo_6ace64da8d16ae86ca3419e5.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 10,
+   "TotalDeTorres": 10,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 375,
+   "NumeroDeVagasProjetado": 375
+  },
+  "L4": [
+   [
+    "p376",
+    6.099
+   ],
+   [
+    "p378",
+    8.06
+   ],
+   [
+    "p384",
+    8.31
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 1100,
+    "/area/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 400
+   },
+   "soma_familias": {
+    "/area/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 1100,
+    "/area/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 400
+   },
+   "TotalDeUnidades": 1500,
+   "tower_units_total": 1500
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {
+    "formula": "(h-6)/10"
+   },
+   "InputsProcessados.afastamento": "(h-6)/10",
+   "GabaritoNaoAfastado": {
+    "altura": 28,
+    "pavimentos": 12
+   },
+   "menor_par_desenhado": 6.002
+  },
+  "A1": {
+   "base": "AreaDeMatricula",
+   "base_valor": 34940,
+   "ValorDeBaseParaCalculo": {
+    "area": 34940,
+    "label": "Área de matrícula"
+   },
+   "CAProjetado": 1.27,
+   "ATCC": 44515,
+   "APTC": 44575.43,
+   "ATCC/base": 1.2740412135088723,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": false,
+    "ATCC/AreaUtil": true,
+    "ATCC/AreaDeMatricula": true,
+    "APTC/AreaDoTerreno": false,
+    "APTC/AreaUtil": true,
+    "APTC/AreaDeMatricula": true
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {
+    "/building/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 80,
+    "/building/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 20
+   }
+  },
+  "B2": {
+   "Viario": {
+    "area": 2657.02,
+    "percentual": 7.6
+   },
+   "Vagas": {
+    "area": 4687.5,
+    "percentual": 13.41
+   },
+   "Estacionamento": {
+    "area": 7344.52,
+    "percentual": 21.01
+   },
+   "ProjecaoTorres": {
+    "area": 6200.79,
+    "percentual": 17.74
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 375
+  },
+  "B9": {
+   "p376": 35.173,
+   "p377": 4.999,
+   "p378": 12.835,
+   "p379": 4.999,
+   "p380": 6.999,
+   "p381": 4.999,
+   "p382": 29.3,
+   "p383": 4.999,
+   "p384": 5.3,
+   "p385": 4.999
+  }
+ },
+ {
+  "arquivo": "avaliadas/6ace63aa90f3c13f46fb1b59/ruim_6ace648d563a33090fea89d6.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 1,
+   "TotalDeTorres": 1,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 33,
+   "NumeroDeVagasProjetado": 33
+  },
+  "L4": [
+   [
+    "p35",
+    6.104
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 90,
+    "/area/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 40
+   },
+   "soma_familias": {
+    "/area/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 90,
+    "/area/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 40
+   },
+   "TotalDeUnidades": 130,
+   "tower_units_total": 130
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {
+    "formula": "(h-6)/10"
+   },
+   "InputsProcessados.afastamento": "(h-6)/10",
+   "GabaritoNaoAfastado": {
+    "altura": 28,
+    "pavimentos": 12
+   },
+   "menor_par_desenhado": null
+  },
+  "A1": {
+   "base": "AreaDeMatricula",
+   "base_valor": 34940,
+   "ValorDeBaseParaCalculo": {
+    "area": 34940,
+    "label": "Área de matrícula"
+   },
+   "CAProjetado": 0.11,
+   "ATCC": 3870.4,
+   "APTC": 3930.83,
+   "ATCC/base": 0.11077275329135661,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": false,
+    "ATCC/AreaUtil": true,
+    "ATCC/AreaDeMatricula": true,
+    "APTC/AreaDoTerreno": false,
+    "APTC/AreaUtil": true,
+    "APTC/AreaDeMatricula": true
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {
+    "/building/apartamento/UH MEIO-32,75m²-2Q-V/079adb84-21c2-4c62-ad40-6b1509c0cd46": 80,
+    "/building/apartamento/UH PONTA 35,35m²-2Q-V/e3b281ea-f76f-4000-b298-277c1f1ae8b8": 20
+   }
+  },
+  "B2": {
+   "Viario": {
+    "area": 397.11,
+    "percentual": 1.13
+   },
+   "Vagas": {
+    "area": 412.5,
+    "percentual": 1.18
+   },
+   "Estacionamento": {
+    "area": 809.61,
+    "percentual": 2.3
+   },
+   "ProjecaoTorres": {
+    "area": 537.49,
+    "percentual": 1.53
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 33
+  },
+  "B5": {
+   "p35": {
+    "origem": "p0",
+    "destino": "p35",
+    "distancia": 92.61,
+    "afastamento_origem": 10.7,
+    "afastamento_destino": 127.97
+   }
+  },
+  "B9": {
+   "p35": 139.512
+  },
+  "B11": [
+   [
+    "p35",
+    162.923
+   ]
+  ]
+ },
+ {
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/bom_6ace7b93445b3a60fcb6162b.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 1,
+   "TotalDeTorres": 1,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 80,
+   "NumeroDeVagasProjetado": 80
+  },
+  "L4": [
+   [
+    "p1",
+    4.963
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/2 Quartos com Sacada - Ponta/b11946a2-8f3f-4f6c-b3a4-9839e35e3522": 16,
+    "/area/apartamento/2 Quartos - Meio/026435de-2c8b-462b-ab97-87ae8acd974e": 64
+   },
+   "soma_familias": {
+    "/area/apartamento/2 Quartos com Sacada - Ponta/b11946a2-8f3f-4f6c-b3a4-9839e35e3522": 16,
+    "/area/apartamento/2 Quartos - Meio/026435de-2c8b-462b-ab97-87ae8acd974e": 64
+   },
+   "TotalDeUnidades": 80,
+   "tower_units_total": 80
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {
+    "value": 3
+   },
+   "InputsProcessados.afastamento": "3,0m",
+   "GabaritoNaoAfastado": {
+    "altura": 9.5,
+    "pavimentos": 2
+   },
+   "menor_par_desenhado": null
+  },
+  "A1": {
+   "base": "AreaDeMatricula",
+   "base_valor": 7253.04,
+   "ValorDeBaseParaCalculo": {
+    "area": 7253.04,
+    "label": "Área de matrícula"
+   },
+   "CAProjetado": 0.97,
+   "ATCC": 7045.88,
+   "APTC": 6069.38,
+   "ATCC/base": 0.9714381831618191,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "ATCC/AreaDeMatricula": true,
+    "APTC/AreaDoTerreno": false,
+    "APTC/AreaUtil": false,
+    "APTC/AreaDeMatricula": false
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {
+    "/building/apartamento/2 Quartos - Meio/026435de-2c8b-462b-ab97-87ae8acd974e": 90,
+    "/building/apartamento/2 Quartos com Sacada - Ponta/b11946a2-8f3f-4f6c-b3a4-9839e35e3522": 10
+   }
+  },
+  "B2": {
+   "Viario": {
+    "area": 607.51,
+    "percentual": 8.37
+   },
+   "Vagas": {
+    "area": 1008,
+    "percentual": 13.89
+   },
+   "Estacionamento": {
+    "area": 1615.51,
+    "percentual": 22.26
+   },
+   "ProjecaoTorres": {
+    "area": 1787.31,
+    "percentual": 24.64
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 80
+  },
+  "B5": {
+   "p1": {
+    "origem": "p0",
+    "destino": "p1",
+    "distancia": 2.9,
+    "afastamento_origem": 7.63,
+    "afastamento_destino": 0.0
+   }
+  },
+  "B9": {
+   "p1": 0.0
+  },
+  "B11": [
+   [
+    "p1",
+    17.633
+   ]
+  ]
+ },
+ {
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/otimo_6ace84f467fab4d8049d1394.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 3,
+   "TotalDeTorres": 3,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 100,
+   "NumeroDeVagasProjetado": 100
+  },
+  "L4": [
+   [
+    "p2",
+    4.3
+   ],
+   [
+    "p3",
+    4.3
+   ],
+   [
+    "p1",
+    16.928
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/2 Quartos - Meio/026435de-2c8b-462b-ab97-87ae8acd974e": 85,
+    "/area/apartamento/2 Quartos com Sacada - Ponta/b11946a2-8f3f-4f6c-b3a4-9839e35e3522": 60
+   },
+   "soma_familias": {
+    "/area/apartamento/2 Quartos - Meio/026435de-2c8b-462b-ab97-87ae8acd974e": 85,
+    "/area/apartamento/2 Quartos com Sacada - Ponta/b11946a2-8f3f-4f6c-b3a4-9839e35e3522": 60
+   },
+   "TotalDeUnidades": 145,
+   "tower_units_total": 145
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {
+    "value": 3
+   },
+   "InputsProcessados.afastamento": "3,0m",
+   "GabaritoNaoAfastado": {
+    "altura": 9.5,
+    "pavimentos": 2
+   },
+   "menor_par_desenhado": 6.105
+  },
+  "A1": {
+   "base": "AreaDeMatricula",
+   "base_valor": 7253.04,
+   "ValorDeBaseParaCalculo": {
+    "area": 7253.04,
+    "label": "Área de matrícula"
+   },
+   "CAProjetado": 1.78,
+   "ATCC": 12944.95,
+   "APTC": 10794.28,
+   "ATCC/base": 1.7847619756681337,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "ATCC/AreaDeMatricula": true,
+    "APTC/AreaDoTerreno": false,
+    "APTC/AreaUtil": false,
+    "APTC/AreaDeMatricula": false
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {
+    "/building/apartamento/2 Quartos - Meio/026435de-2c8b-462b-ab97-87ae8acd974e": 85,
+    "/building/apartamento/2 Quartos com Sacada - Ponta/b11946a2-8f3f-4f6c-b3a4-9839e35e3522": 15
+   }
+  },
+  "B2": {
+   "Viario": {
+    "area": 931.05,
+    "percentual": 12.83
+   },
+   "Vagas": {
+    "area": 1272,
+    "percentual": 17.53
+   },
+   "Estacionamento": {
+    "area": 2203.05,
+    "percentual": 30.36
+   },
+   "ProjecaoTorres": {
+    "area": 2630.84,
+    "percentual": 36.27
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 100
+  },
+  "B5": {
+   "p1": {
+    "origem": "p0",
+    "destino": "p1",
+    "distancia": 9.09,
+    "afastamento_origem": 9.99,
+    "afastamento_destino": 0.0
+   },
+   "p2": {
+    "origem": "p0",
+    "destino": "p2",
+    "distancia": 0.0,
+    "afastamento_origem": 9.99,
+    "afastamento_destino": 0.1
+   },
+   "p3": {
+    "erro": "inalcançável",
+    "motivo": "o acesso de p3 fica num trecho da rede sem ligação com o acesso de p0"
+   }
+  },
+  "B9": {
+   "p1": 0.0,
+   "p2": 0.1,
+   "p3": 1.732
+  },
+  "B11": [
+   [
+    "p2",
+    2.399
+   ],
+   [
+    "p1",
+    26.205
+   ],
+   [
+    "p3",
+    28.752
+   ]
+  ]
+ },
+ {
+  "arquivo": "avaliadas/6ace7adc2c4a60a1ac21c32d/ruim_6ace7f0d246ca4a63fa193fd.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 1,
+   "TotalDeTorres": 1,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 20,
+   "NumeroDeVagasProjetado": 20
+  },
+  "L4": [
+   [
+    "p1",
+    10.566
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/2 Quartos com Sacada - Ponta/b11946a2-8f3f-4f6c-b3a4-9839e35e3522": 16,
+    "/area/apartamento/2 Quartos - Meio/026435de-2c8b-462b-ab97-87ae8acd974e": 4
+   },
+   "soma_familias": {
+    "/area/apartamento/2 Quartos com Sacada - Ponta/b11946a2-8f3f-4f6c-b3a4-9839e35e3522": 16,
+    "/area/apartamento/2 Quartos - Meio/026435de-2c8b-462b-ab97-87ae8acd974e": 4
+   },
+   "TotalDeUnidades": 20,
+   "tower_units_total": 20
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {
+    "value": 3
+   },
+   "InputsProcessados.afastamento": "3,0m",
+   "GabaritoNaoAfastado": {
+    "altura": 9.5,
+    "pavimentos": 2
+   },
+   "menor_par_desenhado": null
+  },
+  "A1": {
+   "base": "AreaDeMatricula",
+   "base_valor": 7253.04,
+   "ValorDeBaseParaCalculo": {
+    "area": 7253.04,
+    "label": "Área de matrícula"
+   },
+   "CAProjetado": 0.23,
+   "ATCC": 1721.48,
+   "APTC": 1593.26,
+   "ATCC/base": 0.23734599561011657,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "ATCC/AreaDeMatricula": true,
+    "APTC/AreaDoTerreno": false,
+    "APTC/AreaUtil": false,
+    "APTC/AreaDeMatricula": false
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {
+    "/building/apartamento/2 Quartos - Meio/026435de-2c8b-462b-ab97-87ae8acd974e": 85,
+    "/building/apartamento/2 Quartos com Sacada - Ponta/b11946a2-8f3f-4f6c-b3a4-9839e35e3522": 15
+   }
+  },
+  "B2": {
+   "Viario": {
+    "area": 513.88,
+    "percentual": 7.08
+   },
+   "Vagas": {
+    "area": 252,
+    "percentual": 3.47
+   },
+   "Estacionamento": {
+    "area": 765.88,
+    "percentual": 10.55
+   },
+   "ProjecaoTorres": {
+    "area": 438.95,
+    "percentual": 6.05
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 20
+  },
+  "B5": {
+   "p1": {
+    "origem": "p0",
+    "destino": "p1",
+    "distancia": 32.3,
+    "afastamento_origem": 5.27,
+    "afastamento_destino": 0.0
+   }
+  },
+  "B9": {
+   "p1": 0.0
+  },
+  "B11": [
+   [
+    "p1",
+    44.971
+   ]
+  ]
+ },
+ {
+  "arquivo": "solucoes-18x/6ac4005d0ee572fb8b3682a4_6ac7a6d22f5d64608d0d963f.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 12,
+   "TotalDeTorres": 12,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 192,
+   "NumeroDeVagasProjetado": 192
+  },
+  "L4": [
+   [
+    "p195",
+    11.24
+   ],
+   [
+    "p201",
+    23.474
+   ],
+   [
+    "p194",
+    34.145
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/Porto 4PP": 192
+   },
+   "soma_familias": {
+    "/area/apartamento/Porto 4PP": 192
+   },
+   "TotalDeUnidades": 192,
+   "tower_units_total": 192
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {
+    "value": 3
+   },
+   "InputsProcessados.afastamento": "3,0m",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 9.89
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 16689.88,
+   "ValorDeBaseParaCalculo": {
+    "area": 16689.88,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 0.46,
+   "ATCC": 7699.68,
+   "APTC": 7699.68,
+   "ATCC/base": 0.46133824808806295,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {}
+  },
+  "B2": {
+   "Viario": {
+    "area": 2963.81,
+    "percentual": 17.75
+   },
+   "Vagas": {
+    "area": 2400,
+    "percentual": 14.37
+   },
+   "Estacionamento": {
+    "area": 5363.81,
+    "percentual": 32.11
+   },
+   "ProjecaoTorres": {
+    "area": 2214.83,
+    "percentual": 13.27
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 192
+  },
+  "B5": {
+   "p194": {
+    "origem": "p0",
+    "destino": "p194",
+    "distancia": 22.29,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p195": {
+    "origem": "p0",
+    "destino": "p195",
+    "distancia": 22.29,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p196": {
+    "origem": "p0",
+    "destino": "p196",
+    "distancia": 46.42,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p197": {
+    "origem": "p0",
+    "destino": "p197",
+    "distancia": 72.44,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p198": {
+    "origem": "p0",
+    "destino": "p198",
+    "distancia": 96.46,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p199": {
+    "origem": "p0",
+    "destino": "p199",
+    "distancia": 121.48,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p200": {
+    "origem": "p0",
+    "destino": "p200",
+    "distancia": 145.49,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p201": {
+    "origem": "p0",
+    "destino": "p201",
+    "distancia": 12.85,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p202": {
+    "origem": "p0",
+    "destino": "p202",
+    "distancia": 70.92,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p203": {
+    "origem": "p0",
+    "destino": "p203",
+    "distancia": 46.91,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p204": {
+    "origem": "p0",
+    "destino": "p204",
+    "distancia": 95.92,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   },
+   "p205": {
+    "origem": "p0",
+    "destino": "p205",
+    "distancia": 135.28,
+    "afastamento_origem": 7.66,
+    "afastamento_destino": 0.0
+   }
+  },
+  "B9": {
+   "p194": 13.923,
+   "p195": 6.61,
+   "p196": 12.11,
+   "p197": 22.903,
+   "p198": 41.11,
+   "p199": 23.697,
+   "p200": 6.466,
+   "p201": 6.0,
+   "p202": 6.0,
+   "p203": 6.0,
+   "p204": 6.0,
+   "p205": 7.104
+  },
+  "B11": [
+   [
+    "p201",
+    19.474
+   ],
+   [
+    "p195",
+    40.03
+   ],
+   [
+    "p194",
+    44.338
+   ]
+  ]
+ },
+ {
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ac8f06a32f709e0b0d6c953.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 5,
+   "TotalDeTorres": 5,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 320,
+   "NumeroDeVagasProjetado": 320
+  },
+  "L4": [
+   [
+    "p326",
+    42.121
+   ],
+   [
+    "p323",
+    60.397
+   ],
+   [
+    "p325",
+    82.996
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/Casamar 8PP": 320
+   },
+   "soma_familias": {
+    "/area/apartamento/Casamar 8PP": 320
+   },
+   "TotalDeUnidades": 320,
+   "tower_units_total": 320
+  },
+  "L8": {
+   "entre_blocos": 0.2,
+   "lateral": 0.1,
+   "2xmax_afastamento_familia": 0.2,
+   "afastamento_familias": [
+    0.1
+   ],
+   "DescritivoTorre.afastamento": [
+    0.1
+   ],
+   "AfastamentoAeracao": {
+    "value": 0.1
+   },
+   "InputsProcessados.afastamento": "0,1m",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 27.998
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 19317.02,
+   "ValorDeBaseParaCalculo": {
+    "area": 19317.02,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 0.72,
+   "ATCC": 14041.6,
+   "APTC": 14041.6,
+   "ATCC/base": 0.7269030109199038,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {}
+  },
+  "B2": {
+   "Viario": {
+    "area": 2979.73,
+    "percentual": 15.42
+   },
+   "Vagas": {
+    "area": 4016,
+    "percentual": 20.78
+   },
+   "Estacionamento": {
+    "area": 6995.73,
+    "percentual": 36.2
+   },
+   "ProjecaoTorres": {
+    "area": 2486,
+    "percentual": 12.86
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 320
+  },
+  "B5": {
+   "p322": {
+    "origem": "p0",
+    "destino": "p322",
+    "distancia": 160.67,
+    "afastamento_origem": 15.54,
+    "afastamento_destino": 0.0
+   },
+   "p323": {
+    "origem": "p0",
+    "destino": "p323",
+    "distancia": 93.48,
+    "afastamento_origem": 15.54,
+    "afastamento_destino": 0.0
+   },
+   "p324": {
+    "origem": "p0",
+    "destino": "p324",
+    "distancia": 160.67,
+    "afastamento_origem": 15.54,
+    "afastamento_destino": 0.0
+   },
+   "p325": {
+    "origem": "p0",
+    "destino": "p325",
+    "distancia": 93.48,
+    "afastamento_origem": 15.54,
+    "afastamento_destino": 0.0
+   },
+   "p326": {
+    "origem": "p0",
+    "destino": "p326",
+    "distancia": 26.3,
+    "afastamento_origem": 15.54,
+    "afastamento_destino": 0.0
+   }
+  },
+  "B9": {
+   "p322": 5.998,
+   "p323": 5.998,
+   "p324": 6.0,
+   "p325": 6.0,
+   "p326": 6.0
+  },
+  "B11": [
+   [
+    "p326",
+    38.145
+   ],
+   [
+    "p325",
+    104.816
+   ],
+   [
+    "p323",
+    106.974
+   ]
+  ]
+ },
+ {
+  "arquivo": "solucoes-18x/6ac54d9821b6952439b9de3c_6ad8f29642ad5c782aadd00a.json",
+  "versao": "18.1.0",
+  "L1": {
+   "desenhadas": 5,
+   "TotalDeTorres": 5,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 346,
+   "NumeroDeVagasProjetado": 346
+  },
+  "L4": [
+   [
+    "p350",
+    17.06
+   ],
+   [
+    "p352",
+    51.695
+   ],
+   [
+    "p349",
+    72.077
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/Casamar 8PP": 320
+   },
+   "soma_familias": {
+    "/area/apartamento/Casamar 8PP": 320
+   },
+   "TotalDeUnidades": 320,
+   "tower_units_total": 320
+  },
+  "L8": {
+   "entre_blocos": 0.2,
+   "lateral": 0.1,
+   "2xmax_afastamento_familia": 0.2,
+   "afastamento_familias": [
+    0.1
+   ],
+   "DescritivoTorre.afastamento": [
+    0.1
+   ],
+   "AfastamentoAeracao": {
+    "value": 0.1
+   },
+   "InputsProcessados.afastamento": "0,1m",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 27.998
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 19317.02,
+   "ValorDeBaseParaCalculo": {
+    "area": 19317.02,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 0.72,
+   "ATCC": 14041.6,
+   "APTC": 14041.6,
+   "ATCC/base": 0.7269030109199038,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {}
+  },
+  "B2": {
+   "Viario": {
+    "area": 3536.38,
+    "percentual": 18.3
+   },
+   "Vagas": {
+    "area": 4325,
+    "percentual": 22.38
+   },
+   "Estacionamento": {
+    "area": 7861.38,
+    "percentual": 40.68
+   },
+   "ProjecaoTorres": {
+    "area": 2486,
+    "percentual": 12.86
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 346
+  },
+  "B5": {
+   "p348": {
+    "origem": "p0",
+    "destino": "p348",
+    "distancia": 172.89,
+    "afastamento_origem": 15.94,
+    "afastamento_destino": 0.0
+   },
+   "p349": {
+    "origem": "p0",
+    "destino": "p349",
+    "distancia": 105.7,
+    "afastamento_origem": 15.94,
+    "afastamento_destino": 0.0
+   },
+   "p350": {
+    "origem": "p0",
+    "destino": "p350",
+    "distancia": 38.51,
+    "afastamento_origem": 15.94,
+    "afastamento_destino": 0.0
+   },
+   "p351": {
+    "origem": "p0",
+    "destino": "p351",
+    "distancia": 105.7,
+    "afastamento_origem": 15.94,
+    "afastamento_destino": 0.0
+   },
+   "p352": {
+    "origem": "p0",
+    "destino": "p352",
+    "distancia": 38.51,
+    "afastamento_origem": 15.94,
+    "afastamento_destino": 0.0
+   }
+  },
+  "B9": {
+   "p348": 5.998,
+   "p349": 5.984,
+   "p350": 5.998,
+   "p351": 5.984,
+   "p352": 6.0
+  },
+  "B11": [
+   [
+    "p352",
+    50.241
+   ],
+   [
+    "p350",
+    54.801
+   ],
+   [
+    "p351",
+    117.03
+   ]
+  ]
+ },
+ {
+  "arquivo": "solucoes-18x/6ac69a025e9b012676aa8f2c_6ac69c1ff14d8f2dd753116f.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 6,
+   "TotalDeTorres": 6,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 515,
+   "NumeroDeVagasProjetado": 515
+  },
+  "L4": [
+   [
+    "p516",
+    15.31
+   ],
+   [
+    "p517",
+    15.31
+   ],
+   [
+    "p518",
+    43.748
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/8pp_aqg": 624
+   },
+   "soma_familias": {
+    "/area/apartamento/8pp_aqg": 624
+   },
+   "TotalDeUnidades": 624,
+   "tower_units_total": 624
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {},
+   "InputsProcessados.afastamento": null,
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 15.398
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 21765.05,
+   "ValorDeBaseParaCalculo": {
+    "area": 21765.05,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 1.22,
+   "ATCC": 26603.46,
+   "APTC": 26603.46,
+   "ATCC/base": 1.2223018095524707,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {}
+  },
+  "B2": {
+   "Viario": {
+    "area": 7799.92,
+    "percentual": 35.83
+   },
+   "Vagas": {
+    "area": 5665,
+    "percentual": 26.02
+   },
+   "Estacionamento": {
+    "area": 13464.92,
+    "percentual": 61.84
+   },
+   "ProjecaoTorres": {
+    "area": 2659.38,
+    "percentual": 12.21
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 515
+  },
+  "B9": {
+   "p516": 3.091,
+   "p517": 3.091,
+   "p518": 3.029,
+   "p519": 3.029,
+   "p520": 4.093,
+   "p521": 3.758
+  }
+ },
+ {
+  "arquivo": "solucoes-18x/6acfdf3acf9cad1f1236fc41_6acfe04e4295c85e1a106da7.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 10,
+   "TotalDeTorres": 10,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 169,
+   "NumeroDeVagasProjetado": 169
+  },
+  "L4": [
+   [
+    "p180",
+    11.845
+   ],
+   [
+    "p179",
+    51.33
+   ],
+   [
+    "p178",
+    67.682
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/Porto 4PP": 160
+   },
+   "soma_familias": {
+    "/area/apartamento/Porto 4PP": 160
+   },
+   "TotalDeUnidades": 160,
+   "tower_units_total": 160
+  },
+  "L8": {
+   "entre_blocos": 0.2,
+   "lateral": 0.1,
+   "2xmax_afastamento_familia": 0.2,
+   "afastamento_familias": [
+    0.1
+   ],
+   "DescritivoTorre.afastamento": [
+    0.1
+   ],
+   "AfastamentoAeracao": {
+    "value": 0.1
+   },
+   "InputsProcessados.afastamento": "0,1m",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 11.998
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 15833.51,
+   "ValorDeBaseParaCalculo": {
+    "area": 15833.51,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 0.4,
+   "ATCC": 6416.4,
+   "APTC": 6416.4,
+   "ATCC/base": 0.40524179414419165,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {}
+  },
+  "B2": {
+   "Viario": {
+    "area": 1732.1,
+    "percentual": 10.93
+   },
+   "Vagas": {
+    "area": 2112.5,
+    "percentual": 13.34
+   },
+   "Estacionamento": {
+    "area": 3844.6,
+    "percentual": 24.27
+   },
+   "ProjecaoTorres": {
+    "area": 1845.69,
+    "percentual": 11.65
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 169
+  },
+  "B5": {
+   "p171": {
+    "origem": "p0",
+    "destino": "p171",
+    "distancia": 165.52,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   },
+   "p172": {
+    "origem": "p0",
+    "destino": "p172",
+    "distancia": 138.22,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   },
+   "p173": {
+    "origem": "p0",
+    "destino": "p173",
+    "distancia": 138.22,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   },
+   "p174": {
+    "origem": "p0",
+    "destino": "p174",
+    "distancia": 165.52,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   },
+   "p175": {
+    "origem": "p0",
+    "destino": "p175",
+    "distancia": 96.02,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   },
+   "p176": {
+    "origem": "p0",
+    "destino": "p176",
+    "distancia": 96.02,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   },
+   "p177": {
+    "origem": "p0",
+    "destino": "p177",
+    "distancia": 53.82,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 27.3
+   },
+   "p178": {
+    "origem": "p0",
+    "destino": "p178",
+    "distancia": 53.82,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   },
+   "p179": {
+    "origem": "p0",
+    "destino": "p179",
+    "distancia": 53.82,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   },
+   "p180": {
+    "origem": "p0",
+    "destino": "p180",
+    "distancia": 11.62,
+    "afastamento_origem": 6.18,
+    "afastamento_destino": 0.0
+   }
+  },
+  "B9": {
+   "p171": 6.0,
+   "p172": 6.0,
+   "p173": 5.998,
+   "p174": 5.998,
+   "p175": 5.998,
+   "p176": 5.998,
+   "p177": 33.298,
+   "p178": 6.0,
+   "p179": 5.964,
+   "p180": 6.034
+  },
+  "B11": [
+   [
+    "p180",
+    10.097
+   ],
+   [
+    "p179",
+    52.205
+   ],
+   [
+    "p178",
+    64.445
+   ]
+  ]
+ },
+ {
+  "arquivo": "solucoes-18x/6ad0caf35d1b1c2a3ec62673_6ad0cc078ff111a2aa5eea2e.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 7,
+   "TotalDeTorres": 7,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 480,
+   "NumeroDeVagasProjetado": 480
+  },
+  "L4": [
+   [
+    "p489",
+    36.701
+   ],
+   [
+    "p486",
+    56.313
+   ],
+   [
+    "p490",
+    57.575
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/16pp_aqg": 240,
+    "/area/apartamento/10pp_aqg": 240
+   },
+   "soma_familias": {
+    "/area/apartamento/16pp_aqg": 240,
+    "/area/apartamento/10pp_aqg": 240
+   },
+   "TotalDeUnidades": 480,
+   "tower_units_total": 480
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {
+    "value": 3
+   },
+   "InputsProcessados.afastamento": "3,0m",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 9.278
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 28337.62,
+   "ValorDeBaseParaCalculo": {
+    "area": 28337.62,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 0.68,
+   "ATCC": 19335.75,
+   "APTC": 17510.9,
+   "ATCC/base": 0.682335002022047,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": false,
+    "APTC/AreaDoTerreno": false,
+    "APTC/AreaUtil": false
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {}
+  },
+  "B2": {
+   "Viario": {
+    "area": 3886.67,
+    "percentual": 13.71
+   },
+   "Vagas": {
+    "area": 4665.6,
+    "percentual": 16.46
+   },
+   "Estacionamento": {
+    "area": 8552.27,
+    "percentual": 30.17
+   },
+   "ProjecaoTorres": {
+    "area": 4325.3,
+    "percentual": 15.26
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 480
+  },
+  "B5": {
+   "p484": {
+    "origem": "p0",
+    "destino": "p484",
+    "distancia": 184.45,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 1.5
+   },
+   "p485": {
+    "origem": "p0",
+    "destino": "p485",
+    "distancia": 184.45,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.0
+   },
+   "p486": {
+    "origem": "p0",
+    "destino": "p486",
+    "distancia": 227.13,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.0
+   },
+   "p487": {
+    "origem": "p0",
+    "destino": "p487",
+    "distancia": 127.38,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.8
+   },
+   "p488": {
+    "origem": "p0",
+    "destino": "p488",
+    "distancia": 234.14,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 2.0
+   },
+   "p489": {
+    "origem": "p0",
+    "destino": "p489",
+    "distancia": 170.07,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.0
+   },
+   "p490": {
+    "origem": "p0",
+    "destino": "p490",
+    "distancia": 66.2,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 7.97
+   }
+  },
+  "B9": {
+   "p484": 13.44,
+   "p485": 8.066,
+   "p486": 5.7,
+   "p487": 6.498,
+   "p488": 17.664,
+   "p489": 6.499,
+   "p490": 13.666
+  },
+  "B11": [
+   [
+    "p490",
+    73.926
+   ],
+   [
+    "p489",
+    106.871
+   ],
+   [
+    "p484",
+    132.106
+   ]
+  ]
+ },
+ {
+  "arquivo": "solucoes-18x/6ad0e13953c4cf49afd41c14_6ad0e4522f99b87884ef930d.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 2,
+   "TotalDeTorres": 2,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 152,
+   "NumeroDeVagasProjetado": 152
+  },
+  "L4": [
+   [
+    "p153",
+    20.14
+   ],
+   [
+    "p154",
+    26.68
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/2qs/43_78": 156,
+    "/area/apartamento/2q/40_71": 156
+   },
+   "soma_familias": {
+    "/area/apartamento/2qs/43_78": 156,
+    "/area/apartamento/2q/40_71": 156
+   },
+   "TotalDeUnidades": 312,
+   "tower_units_total": 312
+  },
+  "L8": {
+   "entre_blocos": 7.2,
+   "lateral": 3.6,
+   "2xmax_afastamento_familia": 7.2,
+   "afastamento_familias": [
+    3.6
+   ],
+   "DescritivoTorre.afastamento": [
+    3.6
+   ],
+   "AfastamentoAeracao": {
+    "formula": "(h-6)/10"
+   },
+   "InputsProcessados.afastamento": "(h-6)/10",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 19.359
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 7055.62,
+   "ValorDeBaseParaCalculo": {
+    "area": 7055.62,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 1.86,
+   "ATCC": 13181.22,
+   "APTC": 13265.71,
+   "ATCC/base": 1.868187345690386,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": false,
+    "APTC/AreaUtil": false
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {
+    "/building/apartamento/2q/40_71": 50,
+    "/building/apartamento/2qs/43_78": 50
+   }
+  },
+  "B2": {
+   "Viario": {
+    "area": 1362.91,
+    "percentual": 19.31
+   },
+   "Vagas": {
+    "area": 1724.98,
+    "percentual": 24.44
+   },
+   "Estacionamento": {
+    "area": 3087.89,
+    "percentual": 43.75
+   },
+   "ProjecaoTorres": {
+    "area": 1314.68,
+    "percentual": 18.63
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 152
+  },
+  "B9": {
+   "p153": 3.148,
+   "p154": 2.999
+  }
+ },
+ {
+  "arquivo": "solucoes-18x/6ad1250a0fb05d2c82541045_6ad126d1d20587f9e6443003.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 6,
+   "TotalDeTorres": 6,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 262,
+   "NumeroDeVagasProjetado": 262
+  },
+  "L4": [
+   [
+    "p271",
+    26.791
+   ],
+   [
+    "p270",
+    28.253
+   ],
+   [
+    "p269",
+    29.778
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/8pp_aqg": 624
+   },
+   "soma_familias": {
+    "/area/apartamento/8pp_aqg": 624
+   },
+   "TotalDeUnidades": 624,
+   "tower_units_total": 624
+  },
+  "L8": {
+   "entre_blocos": 9.71,
+   "lateral": 4.86,
+   "2xmax_afastamento_familia": 9.71,
+   "afastamento_familias": [
+    4.855
+   ],
+   "DescritivoTorre.afastamento": [
+    4.85
+   ],
+   "AfastamentoAeracao": {
+    "formula": "h/8"
+   },
+   "InputsProcessados.afastamento": "h/8",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 9.96
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 13687.88,
+   "ValorDeBaseParaCalculo": {
+    "area": 13687.88,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 1.94,
+   "ATCC": 26603.46,
+   "APTC": 26603.46,
+   "ATCC/base": 1.9435778221316962,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {}
+  },
+  "B2": {
+   "Viario": {
+    "area": 2342.21,
+    "percentual": 17.11
+   },
+   "Vagas": {
+    "area": 2882,
+    "percentual": 21.05
+   },
+   "Estacionamento": {
+    "area": 5224.21,
+    "percentual": 38.15
+   },
+   "ProjecaoTorres": {
+    "area": 2659.38,
+    "percentual": 19.42
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 262
+  },
+  "B5": {
+   "p266": {
+    "origem": "p0",
+    "destino": "p266",
+    "distancia": 81.8,
+    "afastamento_origem": 5.69,
+    "afastamento_destino": 0.0
+   },
+   "p267": {
+    "origem": "p0",
+    "destino": "p267",
+    "distancia": 134.72,
+    "afastamento_origem": 5.69,
+    "afastamento_destino": 0.0
+   },
+   "p268": {
+    "origem": "p0",
+    "destino": "p268",
+    "distancia": 110.64,
+    "afastamento_origem": 5.69,
+    "afastamento_destino": 0.0
+   },
+   "p269": {
+    "origem": "p0",
+    "destino": "p269",
+    "distancia": 6.1,
+    "afastamento_origem": 5.69,
+    "afastamento_destino": 0.0
+   },
+   "p270": {
+    "origem": "p0",
+    "destino": "p270",
+    "distancia": 21.15,
+    "afastamento_origem": 5.69,
+    "afastamento_destino": 0.0
+   },
+   "p271": {
+    "origem": "p0",
+    "destino": "p271",
+    "distancia": 51.24,
+    "afastamento_origem": 5.69,
+    "afastamento_destino": 0.0
+   }
+  },
+  "B9": {
+   "p266": 4.5,
+   "p267": 9.762,
+   "p268": 9.762,
+   "p269": 4.605,
+   "p270": 4.887,
+   "p271": 4.887
+  },
+  "B11": [
+   [
+    "p269",
+    26.524
+   ],
+   [
+    "p270",
+    37.238
+   ],
+   [
+    "p271",
+    55.502
+   ]
+  ]
+ },
+ {
+  "arquivo": "solucoes-18x/6ad294efa4c7ae18390b4e27_6ad2976b402f900729d7a78b.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 2,
+   "TotalDeTorres": 2,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 154,
+   "NumeroDeVagasProjetado": 154
+  },
+  "L4": [
+   [
+    "p157",
+    5.189
+   ],
+   [
+    "p156",
+    6.303
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/2q/40_71": 70,
+    "/area/apartamento/1q/27_97": 100
+   },
+   "soma_familias": {
+    "/area/apartamento/2q/40_71": 70,
+    "/area/apartamento/1q/27_97": 100
+   },
+   "TotalDeUnidades": 170,
+   "tower_units_total": 170
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {
+    "value": 3
+   },
+   "InputsProcessados.afastamento": "3,0m",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 17.709
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 6711.97,
+   "ValorDeBaseParaCalculo": {
+    "area": 6711.97,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 0.88,
+   "ATCC": 5942.4,
+   "APTC": 5716.39,
+   "ATCC/base": 0.8853436472451456,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": false,
+    "APTC/AreaUtil": false
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {
+    "/building/apartamento/1q/27_97": 50,
+    "/building/apartamento/2q/40_71": 50
+   }
+  },
+  "B2": {
+   "Viario": {
+    "area": 1159.52,
+    "percentual": 17.27
+   },
+   "Vagas": {
+    "area": 1925,
+    "percentual": 28.68
+   },
+   "Estacionamento": {
+    "area": 3084.52,
+    "percentual": 45.95
+   },
+   "ProjecaoTorres": {
+    "area": 1355.44,
+    "percentual": 20.19
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 154
+  },
+  "B9": {
+   "p156": 2.995,
+   "p157": 3.29
+  }
+ },
+ {
+  "arquivo": "solucoes-18x/6ad5e108b4865d8d943e406d_6ad5e8c4ef1079329b7e9b0d.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 3,
+   "TotalDeTorres": 3,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 706,
+   "NumeroDeVagasProjetado": 706
+  },
+  "L4": [
+   [
+    "p709",
+    5.438
+   ],
+   [
+    "p708",
+    18.514
+   ],
+   [
+    "p707",
+    31.589
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/1QV/31_45": 870
+   },
+   "soma_familias": {
+    "/area/apartamento/1QV/31_45": 870
+   },
+   "TotalDeUnidades": 870,
+   "tower_units_total": 870
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {
+    "value": 3
+   },
+   "InputsProcessados.afastamento": "3,0m",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 9.208
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 23585.63,
+   "ValorDeBaseParaCalculo": {
+    "area": 23585.63,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 1.1,
+   "ATCC": 26005.8,
+   "APTC": 26035.69,
+   "ATCC/base": 1.1026120565785185,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {
+    "/building/apartamento/1QV/31_45": 100
+   }
+  },
+  "B2": {
+   "Viario": {
+    "area": 4217.35,
+    "percentual": 17.88
+   },
+   "Vagas": {
+    "area": 8825,
+    "percentual": 37.41
+   },
+   "Estacionamento": {
+    "area": 13042.35,
+    "percentual": 55.28
+   },
+   "ProjecaoTorres": {
+    "area": 3304.32,
+    "percentual": 14
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 706
+  },
+  "B9": {
+   "p707": 5.999,
+   "p708": 5.995,
+   "p709": 5.995
+  }
+ },
+ {
+  "arquivo": "solucoes-18x/6ad60779486e1091c195e188_6ad60861cf7933c2164b0fa5.json",
+  "versao": "18.0.0",
+  "L1": {
+   "desenhadas": 6,
+   "TotalDeTorres": 6,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 504,
+   "NumeroDeVagasProjetado": 504
+  },
+  "L4": [
+   [
+    "p507",
+    9.794
+   ],
+   [
+    "p510",
+    31.781
+   ],
+   [
+    "p511",
+    53.218
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/16pp_aqg": 288,
+    "/area/apartamento/10pp_aqg": 216
+   },
+   "soma_familias": {
+    "/area/apartamento/10pp_aqg": 216,
+    "/area/apartamento/16pp_aqg": 288
+   },
+   "TotalDeUnidades": 504,
+   "tower_units_total": 504
+  },
+  "L8": {
+   "entre_blocos": 6,
+   "lateral": 3,
+   "2xmax_afastamento_familia": 6,
+   "afastamento_familias": [
+    3
+   ],
+   "DescritivoTorre.afastamento": [
+    3
+   ],
+   "AfastamentoAeracao": {
+    "value": 3
+   },
+   "InputsProcessados.afastamento": "3,0m",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 9.699
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 28337.62,
+   "ValorDeBaseParaCalculo": {
+    "area": 28337.62,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 0.71,
+   "ATCC": 20203.73,
+   "APTC": 18298.98,
+   "ATCC/base": 0.7129649561254615,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": false,
+    "APTC/AreaDoTerreno": false,
+    "APTC/AreaUtil": false
+   },
+   "tipologias_solucao": 2,
+   "archprog_proporcoes": {}
+  },
+  "B2": {
+   "Viario": {
+    "area": 3552.89,
+    "percentual": 12.53
+   },
+   "Vagas": {
+    "area": 4897.79,
+    "percentual": 17.28
+   },
+   "Estacionamento": {
+    "area": 8450.68,
+    "percentual": 29.81
+   },
+   "ProjecaoTorres": {
+    "area": 3759.99,
+    "percentual": 13.26
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 504
+  },
+  "B5": {
+   "p507": {
+    "origem": "p0",
+    "destino": "p507",
+    "distancia": 68.24,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 11.0
+   },
+   "p508": {
+    "origem": "p0",
+    "destino": "p508",
+    "distancia": 105.73,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.47
+   },
+   "p509": {
+    "origem": "p0",
+    "destino": "p509",
+    "distancia": 98.05,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.0
+   },
+   "p510": {
+    "origem": "p0",
+    "destino": "p510",
+    "distancia": 61.22,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.0
+   },
+   "p511": {
+    "origem": "p0",
+    "destino": "p511",
+    "distancia": 37.93,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.0
+   },
+   "p512": {
+    "origem": "p0",
+    "destino": "p512",
+    "distancia": 107.55,
+    "afastamento_origem": 4.77,
+    "afastamento_destino": 0.0
+   }
+  },
+  "B9": {
+   "p507": 25.929,
+   "p508": 6.174,
+   "p509": 11.025,
+   "p510": 6.6,
+   "p511": 9.519,
+   "p512": 5.7
+  },
+  "B11": [
+   [
+    "p511",
+    52.467
+   ],
+   [
+    "p508",
+    75.427
+   ],
+   [
+    "p510",
+    81.447
+   ]
+  ]
+ },
+ {
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae0ebe491b9dd2b0e000ea9.json",
+  "versao": "18.1.0",
+  "L1": {
+   "desenhadas": 9,
+   "TotalDeTorres": 9,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 930,
+   "NumeroDeVagasProjetado": 930
+  },
+  "L4": [
+   [
+    "p937",
+    6.695
+   ],
+   [
+    "p935",
+    16.167
+   ],
+   [
+    "p933",
+    25.639
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/8pp_aqg": 1080
+   },
+   "soma_familias": {
+    "/area/apartamento/8pp_aqg": 1080
+   },
+   "TotalDeUnidades": 1080,
+   "tower_units_total": 1080
+  },
+  "L8": {
+   "entre_blocos": 10,
+   "lateral": 5,
+   "2xmax_afastamento_familia": 10,
+   "afastamento_familias": [
+    5
+   ],
+   "DescritivoTorre.afastamento": [
+    5
+   ],
+   "AfastamentoAeracao": {
+    "value": 5
+   },
+   "InputsProcessados.afastamento": "5,0m",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 20.998
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 30414.03,
+   "ValorDeBaseParaCalculo": {
+    "area": 30414.03,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 1.51,
+   "ATCC": 46044.45,
+   "APTC": 46044.45,
+   "ATCC/base": 1.5139213711566668,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {}
+  },
+  "B2": {
+   "Viario": {
+    "area": 7874.61,
+    "percentual": 25.89
+   },
+   "Vagas": {
+    "area": 11625,
+    "percentual": 38.22
+   },
+   "Estacionamento": {
+    "area": 19499.61,
+    "percentual": 64.11
+   },
+   "ProjecaoTorres": {
+    "area": 3989.07,
+    "percentual": 13.11
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 930
+  },
+  "B5": {
+   "p932": {
+    "origem": "p0",
+    "destino": "p932",
+    "distancia": 120.81,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   },
+   "p933": {
+    "origem": "p0",
+    "destino": "p933",
+    "distancia": 86.76,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   },
+   "p934": {
+    "origem": "p0",
+    "destino": "p934",
+    "distancia": 86.76,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   },
+   "p935": {
+    "origem": "p0",
+    "destino": "p935",
+    "distancia": 8.49,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   },
+   "p936": {
+    "origem": "p0",
+    "destino": "p936",
+    "distancia": 52.69,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   },
+   "p937": {
+    "origem": "p0",
+    "destino": "p937",
+    "distancia": 8.49,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   },
+   "p938": {
+    "origem": "p0",
+    "destino": "p938",
+    "distancia": 52.69,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   },
+   "p939": {
+    "origem": "p0",
+    "destino": "p939",
+    "distancia": 86.8,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   },
+   "p940": {
+    "origem": "p0",
+    "destino": "p940",
+    "distancia": 120.91,
+    "afastamento_origem": 14.1,
+    "afastamento_destino": 0.0
+   }
+  },
+  "B9": {
+   "p932": 2.998,
+   "p933": 2.998,
+   "p934": 2.997,
+   "p935": 2.998,
+   "p936": 2.997,
+   "p937": 2.998,
+   "p938": 2.998,
+   "p939": 2.998,
+   "p940": 2.998
+  },
+  "B11": [
+   [
+    "p937",
+    5.186
+   ],
+   [
+    "p935",
+    21.316
+   ],
+   [
+    "p933",
+    53.912
+   ]
+  ]
+ },
+ {
+  "arquivo": "solucoes-18x/6ae0eaf96dd7809f17f6a2e3_6ae22adef5c82d8e2a1c08af.json",
+  "versao": "18.1.0",
+  "L1": {
+   "desenhadas": 9,
+   "TotalDeTorres": 9,
+   "blocos": [
+    1
+   ]
+  },
+  "L3": {
+   "desenhadas": 932,
+   "NumeroDeVagasProjetado": 932
+  },
+  "L4": [
+   [
+    "p940",
+    7.114
+   ],
+   [
+    "p938",
+    16.586
+   ],
+   [
+    "p936",
+    26.059
+   ]
+  ],
+  "L5": {
+   "UnidadesPorTipologia": {
+    "/area/apartamento/8pp_aqg": 1080
+   },
+   "soma_familias": {
+    "/area/apartamento/8pp_aqg": 1080
+   },
+   "TotalDeUnidades": 1080,
+   "tower_units_total": 1080
+  },
+  "L8": {
+   "entre_blocos": 10,
+   "lateral": 5,
+   "2xmax_afastamento_familia": 10,
+   "afastamento_familias": [
+    5
+   ],
+   "DescritivoTorre.afastamento": [
+    5
+   ],
+   "AfastamentoAeracao": {
+    "value": 5
+   },
+   "InputsProcessados.afastamento": "5,0m",
+   "GabaritoNaoAfastado": {},
+   "menor_par_desenhado": 20.998
+  },
+  "A1": {
+   "base": "AreaDoTerreno",
+   "base_valor": 30414.03,
+   "ValorDeBaseParaCalculo": {
+    "area": 30414.03,
+    "label": "Área do terreno"
+   },
+   "CAProjetado": 1.51,
+   "ATCC": 46044.45,
+   "APTC": 46044.45,
+   "ATCC/base": 1.5139213711566668,
+   "fecha_ATCC_base": true,
+   "fechamentos": {
+    "ATCC/AreaDoTerreno": true,
+    "ATCC/AreaUtil": true,
+    "APTC/AreaDoTerreno": true,
+    "APTC/AreaUtil": true
+   },
+   "tipologias_solucao": 1,
+   "archprog_proporcoes": {}
+  },
+  "B2": {
+   "Viario": {
+    "area": 7507.05,
+    "percentual": 24.68
+   },
+   "Vagas": {
+    "area": 11650,
+    "percentual": 38.3
+   },
+   "Estacionamento": {
+    "area": 19157.05,
+    "percentual": 62.98
+   },
+   "ProjecaoTorres": {
+    "area": 3989.07,
+    "percentual": 13.11
+   },
+   "est=via+vag": true,
+   "vagas_desenhadas": 932
+  },
+  "B5": {
+   "p934": {
+    "origem": "p0",
+    "destino": "p934",
+    "distancia": 155.36,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   },
+   "p935": {
+    "origem": "p0",
+    "destino": "p935",
+    "distancia": 121.31,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   },
+   "p936": {
+    "origem": "p0",
+    "destino": "p936",
+    "distancia": 87.25,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   },
+   "p937": {
+    "origem": "p0",
+    "destino": "p937",
+    "distancia": 87.25,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   },
+   "p938": {
+    "origem": "p0",
+    "destino": "p938",
+    "distancia": 8.02,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   },
+   "p939": {
+    "origem": "p0",
+    "destino": "p939",
+    "distancia": 53.15,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   },
+   "p940": {
+    "origem": "p0",
+    "destino": "p940",
+    "distancia": 8.02,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   },
+   "p941": {
+    "origem": "p0",
+    "destino": "p941",
+    "distancia": 53.15,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   },
+   "p942": {
+    "origem": "p0",
+    "destino": "p942",
+    "distancia": 87.26,
+    "afastamento_origem": 14.01,
+    "afastamento_destino": 0.0
+   }
+  },
+  "B9": {
+   "p934": 2.998,
+   "p935": 2.962,
+   "p936": 2.998,
+   "p937": 3.0,
+   "p938": 2.998,
+   "p939": 2.997,
+   "p940": 2.998,
+   "p941": 2.998,
+   "p942": 2.998
+  },
+  "B11": [
+   [
+    "p940",
+    5.658
+   ],
+   [
+    "p938",
+    21.441
+   ],
+   [
+    "p936",
+    53.925
+   ]
+  ]
+ }
+]

@@ -17,7 +17,7 @@ O orquestrador é a sessão principal. Ele não implementa as tasks: despacha, v
    - com a onda verde, peça ao usuário autorização para commitar.
 4. **Na onda 4:** conduza a avaliação final (seção 6) com o usuário.
 
-Nunca commite, faça push ou abra PR sem autorização explícita do usuário ([`commit-rules.md`](commit-rules.md)).
+Nunca commite, faça push ou abra PR sem autorização explícita do usuário ([`commit-rules.md`](../commit-rules.md)).
 
 ### 0.2 Brief padrão para um sub-agent
 
@@ -90,7 +90,7 @@ Estas são as regras do `CLAUDE.md` que mais pesam nesta migração. Elas não s
 - **Onde estão:** em `data/aqg/`, com 15 arquivos em `avaliadas/<site_id>/<ruim|bom|otimo>_<solution_id>.json` e 9 em `favoritadas/`.
 - **Versionamento:** os arquivos não são versionados (`.gitignore`). Num clone novo eles não existem, e o smoke test pula.
 - **Tamanho:** de 92 KB a 18 MB. **Nunca leia um AQG inteiro com `cat` ou `Read`.** Para inspecionar, escreva um script curto e rode com `python -I` (ou `uv run python -I`), imprimindo só o resumo.
-- **Formato:** [`data/aqg/README.md`](data/aqg/README.md).
+- **Formato:** [`data/aqg/README.md`](../data/aqg/README.md).
 - **Referência de interpretação:** `data/aqg/viewer.html`. É um bundle minificado de 1,2 MB; o que importa dele já está extraído na seção 2. Não o leia.
 
 ## 2. Contratos
@@ -847,4 +847,4 @@ Onda 4              Avaliação final (orquestrador + usuário)
 5. **Fechamento:**
    - registre o resumo do que foi feito e os desvios do plano (`CLAUDE.md`);
    - peça autorização para commit, push e PR;
-   - antes do push, atualize com `main` e resolva os conflitos junto com o usuário ([`commit-rules.md`](commit-rules.md)).
+   - antes do push, atualize com `main` e resolva os conflitos junto com o usuário ([`commit-rules.md`](../commit-rules.md)).

@@ -213,4 +213,4 @@ Mede se o agente acerta as perguntas de domínio (torres, unidades, área constr
 - [`src/ai_modules/CLAUDE.md`](src/ai_modules/CLAUDE.md) — como adicionar agente, ferramenta, skill, time
 - [`src/ai_modules/tools/CLAUDE.md`](src/ai_modules/tools/CLAUDE.md) — convenções das ferramentas
 - [`commit-rules.md`](commit-rules.md) — commit, branch, push e PR
-- [`PRD.md`](PRD.md) e [`IMPLEMENTATION.md`](IMPLEMENTATION.md) — requisitos e plano da migração DXF → AQG
+- [`PRD.md`](docs/PRD.md) e [`IMPLEMENTATION.md`](docs/IMPLEMENTATION.md) — requisitos e plano da migração DXF → AQG

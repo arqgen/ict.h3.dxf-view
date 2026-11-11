@@ -54,7 +54,7 @@ Crie um sub-CLAUDE quando um módulo tiver padrões que desviam do global ou que
 
 **Arquivos auxiliares na raiz:**
 
-A raiz pode conter arquivos `.md` com regras pontuais (ex: `commit-rules.md`). Eles complementam este arquivo com detalhe que não cabe aqui. Liste-os na seção **Arquivos Auxiliares** e mantenha a lista atualizada.
+A raiz pode conter arquivos `.md` com regras pontuais (ex: `commit-rules.md`). Eles complementam este arquivo com detalhe que não cabe aqui. PRDs e IMPLEMENTATIONs ficam em `docs/`. Liste-os na seção **Arquivos Auxiliares** e mantenha a lista atualizada.
 
 **Regras deste arquivo:**
 
@@ -68,11 +68,13 @@ A raiz pode conter arquivos `.md` com regras pontuais (ex: `commit-rules.md`). E
 ## Arquivos Auxiliares
 
 - [`commit-rules.md`](commit-rules.md) — regras de commit, branch, push e PR
-- [`PRD.md`](PRD.md) — requisitos e decisões da migração DXF → AQG
-- [`IMPLEMENTATION.md`](IMPLEMENTATION.md) — contratos e tasks da migração
+- [`PRD.md`](docs/PRD.md) — requisitos e decisões da migração DXF → AQG
+- [`IMPLEMENTATION.md`](docs/IMPLEMENTATION.md) — contratos e tasks da migração
 - [`CAPABILITIES.md`](CAPABILITIES.md) — o que o assistente faz e o que ainda não faz; base para o próximo refinamento
-- [`PRD-tools.md`](PRD-tools.md) — catálogo de tools candidatas, um cartão por ideia, decididos um a um
-- [`IMPLEMENTATION-tools.md`](IMPLEMENTATION-tools.md) — contratos, ordem e tasks dos cartões do `PRD-tools.md`
+- [`PRD-tools.md`](docs/PRD-tools.md) — catálogo de tools candidatas, um cartão por ideia, decididos um a um
+- [`IMPLEMENTATION-tools.md`](docs/IMPLEMENTATION-tools.md) — contratos, ordem e tasks dos cartões do `PRD-tools.md`
+- [`PRD-queries.md`](docs/PRD-queries.md) — catálogo de queries de leitura e edição sobre o AQG e as tools caixa-preta (motores, edição, rodadas, versões)
+- [`IMPLEMENTATION-queries.md`](docs/IMPLEMENTATION-queries.md) — contratos, ordem e tasks da primeira fatia do `PRD-queries.md` (gravação, tools entregues, casos)
 
 ## O Que Este Projeto É
 

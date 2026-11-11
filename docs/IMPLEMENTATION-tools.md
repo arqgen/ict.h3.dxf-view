@@ -7,7 +7,7 @@
 ### 0.1 Execução
 
 - **Sequencial, uma task por vez.** Quase todo cartão mexe em `query_tools.py`, `instructions.md` e `tests/test_tools.py`, então tasks em paralelo brigariam pelos mesmos arquivos.
-- **Branch:** `feat/aqg-tools`, criada a partir de `feat/aqg-support` (que ainda tem 12 commits fora da `main`). Regras em [`commit-rules.md`](commit-rules.md).
+- **Branch:** `feat/aqg-tools`, criada a partir de `feat/aqg-support` (que ainda tem 12 commits fora da `main`). Regras em [`commit-rules.md`](../commit-rules.md).
 - **Ao fim de cada task:** rode as validações (1.2), confira os critérios de aceite, atualize os documentos listados na task e **pergunte sobre o commit**. A autorização de um commit não vale para o próximo.
 - **Portão:** decisão que precisa do desenvolvedor antes de escrever código. Sem a decisão, a task não começa.
 
@@ -28,12 +28,12 @@
 
 ### 1.1 Regras
 
-As regras do [`CLAUDE.md`](CLAUDE.md) e a seção 1.2 do [`IMPLEMENTATION.md`](IMPLEMENTATION.md) valem aqui sem exceção. As que mais pesam nestes cartões:
+As regras do [`CLAUDE.md`](../CLAUDE.md) e a seção 1.2 do [`IMPLEMENTATION.md`](IMPLEMENTATION.md) valem aqui sem exceção. As que mais pesam nestes cartões:
 
 - **Todo número afirmado vem de uma tool.** Se uma resposta pede conta, a conta fica na tool, e a tool devolve o total pronto. O modelo não soma, não subtrai e não conta itens de lista.
 - **Tool nunca levanta exceção por dado inválido:** dado ausente volta como `erro`, `indisponivel` ou `indisponiveis`.
 - **Chaves de resultado em pt-BR**, números arredondados com `rnd()` (`helpers.py`).
-- **Docstrings imperativas:** é o que o modelo lê para escolher a tool. Ver [`src/ai_modules/tools/CLAUDE.md`](src/ai_modules/tools/CLAUDE.md).
+- **Docstrings imperativas:** é o que o modelo lê para escolher a tool. Ver [`src/ai_modules/tools/CLAUDE.md`](../src/ai_modules/tools/CLAUDE.md).
 - **Testes exatos.** A única tolerância é `pytest.approx(..., abs=1e-9)` em coordenada que passou por rotação.
 - **Fixture compartilhada intocada.** `tests/make_aqg_sample.py` tem contagens afirmadas em vários testes. Um caso novo monta uma variante no próprio teste (`copy.deepcopy(build_sample_project())` e muda só o que precisa).
 
@@ -199,7 +199,7 @@ Ao fim de cada onda: `make eval` (custa) e o resumo da rodada no `CAPABILITIES.m
 - `test_model.py`: o `family_index` de `p1` é o da família nova;
 - `test_tools.py`: `get_entity_details("p1")` devolve `total_pavimentos` 3, e `count_entities(group_by="family")` continua contando 2 instâncias em `T/4`.
 
-**Docs.** [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md), armadilha 7: deixa de ser "limitação aceita", e a contagem por label continua somando as duas famílias. No `CAPABILITIES.md`, a limitação "famílias com o mesmo nome" fica só com a contagem.
+**Docs.** [`src/cad/CLAUDE.md`](../src/cad/CLAUDE.md), armadilha 7: deixa de ser "limitação aceita", e a contagem por label continua somando as duas famílias. No `CAPABILITIES.md`, a limitação "famílias com o mesmo nome" fica só com a contagem.
 
 **Aceite.** `make test` verde; o caso da variante passa.
 
@@ -213,7 +213,7 @@ Ao fim de cada onda: `make eval` (custa) e o resumo da rodada no `CAPABILITIES.m
 
 **Testes.** `test_get_project_indicators_filters_by_type` afirma que `familias` não está no payload. O teste sem filtro continua igual.
 
-**Docs.** [`src/ai_modules/tools/CLAUDE.md`](src/ai_modules/tools/CLAUDE.md), seção "Indicadores".
+**Docs.** [`src/ai_modules/tools/CLAUDE.md`](../src/ai_modules/tools/CLAUDE.md), seção "Indicadores".
 
 **Aceite.** `make test` verde.
 
@@ -251,7 +251,7 @@ Ao fim de cada onda: `make eval` (custa) e o resumo da rodada no `CAPABILITIES.m
 - acerto também exige uma chamada a `check_zoning`;
 - rodar também com `--files data/aqg/favoritadas/6abab05295f499e81abeca64_6abd57caa4c6bcd7c7e56699.json` e conferir à mão que a resposta diz que a permeabilidade não atende.
 
-**Docs.** `CAPABILITIES.md`: sai a limitação de `compare_indicators` e entra `check_zoning` na tabela de indicadores. [`src/ai_modules/tools/CLAUDE.md`](src/ai_modules/tools/CLAUDE.md): seção "Indicadores".
+**Docs.** `CAPABILITIES.md`: sai a limitação de `compare_indicators` e entra `check_zoning` na tabela de indicadores. [`src/ai_modules/tools/CLAUDE.md`](../src/ai_modules/tools/CLAUDE.md): seção "Indicadores".
 
 **Aceite.** `make test` verde; o eval do `6abab05295f4…` diz que não atende.
 
@@ -291,7 +291,7 @@ Ao fim de cada onda: `make eval` (custa) e o resumo da rodada no `CAPABILITIES.m
 **Docs.**
 
 - `CAPABILITIES.md`: as unidades por torre e por família saem de "ainda não faz" e entram nas tabelas das tools;
-- [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md): `tower_units` no mapa.
+- [`src/cad/CLAUDE.md`](../src/cad/CLAUDE.md): `tower_units` no mapa.
 
 **Aceite.** `make test` verde, com o corpus em 24/24.
 
@@ -397,7 +397,7 @@ O contrato da API não muda: o id viaja no texto, e o modelo continua precisando
 
 ### T3 — Vínculo descritivo ↔ grupo de torres
 
-**Portão.** Aceitar o vínculo por grupo, revogando "nunca vincule descritivo a instância" (`PRD.md`, [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md), `instructions.md` e o caso `vinculo` do eval).
+**Portão.** Aceitar o vínculo por grupo, revogando "nunca vincule descritivo a instância" (`PRD.md`, [`src/cad/CLAUDE.md`](../src/cad/CLAUDE.md), `instructions.md` e o caso `vinculo` do eval).
 
 **Depende de.** F0, T1.
 
@@ -434,7 +434,7 @@ O contrato da API não muda: o id viaja no texto, e o modelo continua precisando
 **Docs.**
 
 - `PRD.md`: registrar a revogação;
-- [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md): armadilha 2;
+- [`src/cad/CLAUDE.md`](../src/cad/CLAUDE.md): armadilha 2;
 - `CAPABILITIES.md`: "Recusa de propósito", "Decisão em aberto" e a linha TOTAL.
 
 **Aceite.** `make test` verde, com o corpus em 24/24.
@@ -513,7 +513,7 @@ O contrato da API não muda: o id viaja no texto, e o modelo continua precisando
 
 **Eval.** "O número de pavimentos está dentro do pedido?" → `esperado` = `NumeroDePavimentos` e os limites presentes.
 
-**Docs.** `CAPABILITIES.md`: sai a linha do `archprog` de "Fica fora do índice". [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md): `archprog` no índice.
+**Docs.** `CAPABILITIES.md`: sai a linha do `archprog` de "Fica fora do índice". [`src/cad/CLAUDE.md`](../src/cad/CLAUDE.md): `archprog` no índice.
 
 **Aceite.** `make test` verde, e a tool roda nos 24 arquivos sem erro.
 
@@ -550,7 +550,7 @@ O contrato da API não muda: o id viaja no texto, e o modelo continua precisando
 
 **Eval.** "Qual a maior cota marcada no terreno?" → `esperado` = o maior `value` dos marcos.
 
-**Docs.** `CAPABILITIES.md`: sai a linha de anotações de "Fica fora do índice". [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md): os ids `a<i>`, e o `TextPrim` passa a ser produzido.
+**Docs.** `CAPABILITIES.md`: sai a linha de anotações de "Fica fora do índice". [`src/cad/CLAUDE.md`](../src/cad/CLAUDE.md): os ids `a<i>`, e o `TextPrim` passa a ser produzido.
 
 **Aceite.** `make test` verde, com o corpus sem aviso novo.
 

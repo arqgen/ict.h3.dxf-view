@@ -1,0 +1,321 @@
+[
+ {
+  "arquivo": "6a4c017db840fc776e4443b0_6a4c0b25ded0ef3",
+  "versao": "16.4.0",
+  "vagas_arquivo": 363,
+  "vagas_indicador": 363,
+  "torres": 3,
+  "original": {
+   "demanda": 336,
+   "formular_ms": 33,
+   "teseu_s": 0.11,
+   "vagas_teseu": 336,
+   "ruas": 8,
+   "parada": "",
+   "iteracoes": 6,
+   "montar_s": 0.03,
+   "vagas_no_projeto": 336
+  },
+  "e1_x1.5": {
+   "demanda": 504,
+   "formular_ms": 31,
+   "teseu_s": 0.39,
+   "vagas_teseu": 345,
+   "ruas": 9,
+   "parada": "",
+   "iteracoes": 17,
+   "montar_s": 0.03,
+   "vagas_no_projeto": 345
+  }
+ },
+ {
+  "arquivo": "6abab05295f499e81abeca64_6abd57caa4c6bcd",
+  "versao": "17.7.0",
+  "vagas_arquivo": 219,
+  "vagas_indicador": 219,
+  "torres": 1,
+  "original": {
+   "demanda": 240,
+   "formular_ms": 65,
+   "teseu_s": 0.16,
+   "vagas_teseu": 219,
+   "ruas": 10,
+   "parada": "",
+   "iteracoes": 9,
+   "montar_s": 0.85,
+   "vagas_no_projeto": 219
+  },
+  "e1_x1.5": {
+   "demanda": 360,
+   "formular_ms": 101,
+   "teseu_s": 0.14,
+   "vagas_teseu": 219,
+   "ruas": 10,
+   "parada": "",
+   "iteracoes": 9,
+   "montar_s": 0.12,
+   "vagas_no_projeto": 219
+  }
+ },
+ {
+  "arquivo": "bom_6ace4f3f9aee62f656aae2cc.json",
+  "versao": "18.0.0",
+  "vagas_arquivo": 253,
+  "vagas_indicador": 253,
+  "torres": 2,
+  "original": {
+   "demanda": 253,
+   "formular_ms": 49,
+   "teseu_s": 0.11,
+   "vagas_teseu": 253,
+   "ruas": 6,
+   "parada": "",
+   "iteracoes": 5,
+   "montar_s": 0.04,
+   "vagas_no_projeto": 253
+  },
+  "e1_x1.5": {
+   "demanda": 380,
+   "formular_ms": 47,
+   "teseu_s": 0.47,
+   "vagas_teseu": 367,
+   "ruas": 15,
+   "parada": "",
+   "iteracoes": 21,
+   "montar_s": 0.11,
+   "vagas_no_projeto": 367
+  }
+ },
+ {
+  "arquivo": "otimo_6ace52a0bc31d7e3e85c9509.json",
+  "versao": "18.0.0",
+  "vagas_arquivo": 353,
+  "vagas_indicador": 353,
+  "torres": 3,
+  "original": {
+   "demanda": 353,
+   "formular_ms": 70,
+   "teseu_s": 0.18,
+   "vagas_teseu": 353,
+   "ruas": 7,
+   "parada": "",
+   "iteracoes": 6,
+   "montar_s": 0.05,
+   "vagas_no_projeto": 353
+  },
+  "e1_x1.5": {
+   "demanda": 530,
+   "formular_ms": 69,
+   "teseu_s": 0.28,
+   "vagas_teseu": 329,
+   "ruas": 7,
+   "parada": "",
+   "iteracoes": 9,
+   "montar_s": 0.06,
+   "vagas_no_projeto": 329
+  }
+ },
+ {
+  "arquivo": "ruim_6ace4ea8ecd8aeaf968b312c.json",
+  "versao": "18.0.0",
+  "vagas_arquivo": 118,
+  "vagas_indicador": 118,
+  "torres": 1,
+  "original": {
+   "demanda": 118,
+   "formular_ms": 29,
+   "teseu_s": 0.01,
+   "vagas_teseu": 118,
+   "ruas": 6,
+   "parada": "",
+   "iteracoes": 0,
+   "montar_s": 0.08,
+   "vagas_no_projeto": 118
+  },
+  "e1_x1.5": {
+   "demanda": 177,
+   "formular_ms": 32,
+   "teseu_s": 0.05,
+   "vagas_teseu": 175,
+   "ruas": 4,
+   "parada": "",
+   "iteracoes": 2,
+   "montar_s": 0.08,
+   "vagas_no_projeto": 175
+  }
+ },
+ {
+  "arquivo": "bom_6ace64863afd82bf6be93e16.json",
+  "versao": "18.0.0",
+  "vagas_arquivo": 147,
+  "vagas_indicador": 147,
+  "torres": 4,
+  "original": {
+   "demanda": 150,
+   "formular_ms": 251,
+   "teseu_s": 0.23,
+   "vagas_teseu": 147,
+   "ruas": 3,
+   "parada": "",
+   "iteracoes": 1,
+   "montar_s": 0.05,
+   "vagas_no_projeto": 147
+  },
+  "e1_x1.5": {
+   "demanda": 225,
+   "formular_ms": 145,
+   "teseu_s": 0.28,
+   "vagas_teseu": 225,
+   "ruas": 4,
+   "parada": "",
+   "iteracoes": 2,
+   "montar_s": 0.06,
+   "vagas_no_projeto": 225
+  }
+ },
+ {
+  "arquivo": "otimo_6ace64da8d16ae86ca3419e5.json",
+  "versao": "18.0.0",
+  "vagas_arquivo": 375,
+  "vagas_indicador": 375,
+  "torres": 10,
+  "original": {
+   "demanda": 375,
+   "formular_ms": 330,
+   "teseu_s": 1.35,
+   "vagas_teseu": 375,
+   "ruas": 19,
+   "parada": "",
+   "iteracoes": 16,
+   "montar_s": 0.14,
+   "vagas_no_projeto": 375
+  },
+  "e1_x1.5": {
+   "demanda": 563,
+   "formular_ms": 315,
+   "teseu_s": 3.32,
+   "vagas_teseu": 385,
+   "ruas": 21,
+   "parada": "",
+   "iteracoes": 35,
+   "montar_s": 0.15,
+   "vagas_no_projeto": 385
+  }
+ },
+ {
+  "arquivo": "ruim_6ace648d563a33090fea89d6.json",
+  "versao": "18.0.0",
+  "vagas_arquivo": 33,
+  "vagas_indicador": 33,
+  "torres": 1,
+  "original": {
+   "demanda": 33,
+   "formular_ms": 50,
+   "teseu_s": 0.13,
+   "vagas_teseu": 33,
+   "ruas": 7,
+   "parada": "",
+   "iteracoes": 0,
+   "montar_s": 0.11,
+   "vagas_no_projeto": 33
+  },
+  "e1_x1.5": {
+   "demanda": 50,
+   "formular_ms": 58,
+   "teseu_s": 0.13,
+   "vagas_teseu": 50,
+   "ruas": 10,
+   "parada": "",
+   "iteracoes": 0,
+   "montar_s": 0.11,
+   "vagas_no_projeto": 50
+  }
+ },
+ {
+  "arquivo": "bom_6ace7b93445b3a60fcb6162b.json",
+  "versao": "18.0.0",
+  "vagas_arquivo": 80,
+  "vagas_indicador": 80,
+  "torres": 1,
+  "original": {
+   "demanda": 80,
+   "formular_ms": 23,
+   "teseu_s": 0.02,
+   "vagas_teseu": 80,
+   "ruas": 3,
+   "parada": "",
+   "iteracoes": 1,
+   "montar_s": 0.01,
+   "vagas_no_projeto": 80
+  },
+  "e1_x1.5": {
+   "demanda": 120,
+   "formular_ms": 25,
+   "teseu_s": 0.05,
+   "vagas_teseu": 85,
+   "ruas": 3,
+   "parada": "",
+   "iteracoes": 3,
+   "montar_s": 0.01,
+   "vagas_no_projeto": 85
+  }
+ },
+ {
+  "arquivo": "otimo_6ace84f467fab4d8049d1394.json",
+  "versao": "18.0.0",
+  "vagas_arquivo": 100,
+  "vagas_indicador": 100,
+  "torres": 3,
+  "original": {
+   "demanda": 116,
+   "formular_ms": 41,
+   "teseu_s": 0.19,
+   "vagas_teseu": 100,
+   "ruas": 3,
+   "parada": "",
+   "iteracoes": 4,
+   "montar_s": 0.01,
+   "vagas_no_projeto": 100
+  },
+  "e1_x1.5": {
+   "demanda": 174,
+   "formular_ms": 41,
+   "teseu_s": 0.36,
+   "vagas_teseu": 98,
+   "ruas": 4,
+   "parada": "",
+   "iteracoes": 6,
+   "montar_s": 0.01,
+   "vagas_no_projeto": 98
+  }
+ },
+ {
+  "arquivo": "ruim_6ace7f0d246ca4a63fa193fd.json",
+  "versao": "18.0.0",
+  "vagas_arquivo": 20,
+  "vagas_indicador": 20,
+  "torres": 1,
+  "original": {
+   "demanda": 20,
+   "formular_ms": 12,
+   "teseu_s": 0.01,
+   "vagas_teseu": 20,
+   "ruas": 1,
+   "parada": "",
+   "iteracoes": 0,
+   "montar_s": 0.0,
+   "vagas_no_projeto": 20
+  },
+  "e1_x1.5": {
+   "demanda": 30,
+   "formular_ms": 12,
+   "teseu_s": 0.01,
+   "vagas_teseu": 30,
+   "ruas": 1,
+   "parada": "",
+   "iteracoes": 0,
+   "montar_s": 0.0,
+   "vagas_no_projeto": 30
+  }
+ }
+]
