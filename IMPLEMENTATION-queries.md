@@ -37,7 +37,7 @@
 | --- | --- | --- | --- |
 | P1 | B5: de onde a onde vai a "distância de carro"? | **Resolvido (10/11/2026):** menor caminho na rede, do ponto das ruas mais próximo do `/road_access` da portaria ao ponto mais próximo do `/road_access` de cada torre (projeção na aresta, não no nó). Pontos empatados a menos de 1 cm: fica o de menor caminho | G5 |
 | P2 | "Em direção aos fundos" (D1) | **Resolvido (09/11/2026):** perpendicular à linha de frente mais próxima da torre, para dentro do terreno, em todos os arquivos (com ou sem `AQG_FUNDOS`) | G1 |
-| P3 | Como a RECOD recebe as tools, os casos e as gravações | Pacote das tools e casos por acesso de leitura ao repo; gravações (centenas de MB) por um bucket ou um zip | E0 |
+| P3 | Como a RECOD recebe as tools, os casos e as gravações | **Resolvido (11/11/2026):** tools e casos por acesso de leitura ao repo; AQGs, gravações e redes num zip | E0 |
 
 ## 1. Contexto comum
 
@@ -250,6 +250,8 @@ Verificados nos spikes e na admissão (09/11/2026):
 ### E0 — Entrega à RECOD
 
 - Depende do P3. Pacote das tools e dos casos, gravações, e um README curto: como plugar as tools, o que a estrutura deles precisa fornecer (conversão AQG → estrutura, mapa de ids) e como medir (métricas do PRD).
+- **Resultado (11/11/2026): concluída.** `evals/benchmark/entrega.py` gera `data/benchmark/entrega.zip` (121 MB, 225 arquivos): os 37 AQGs dos casos, as 165 gravações do índice e as 23 redes, com caminhos relativos à raiz. Os binários da D8 ficam de fora. `evals/benchmark/README.md` cobre a instalação, como plugar as tools, o que a estrutura da RECOD fornece e como medir.
+  - **Conferido num checkout limpo** com o zip descompactado: os dois controles passam, os testes do benchmark passam e `gabarito.py` regera `casos.json` sem diferença.
 
 ## 6. Avaliação final
 
