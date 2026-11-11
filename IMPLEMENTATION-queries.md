@@ -257,4 +257,7 @@ Verificados nos spikes e na admissão (09/11/2026):
 
 - Os dois controles da T1 passam.
 - A linha de base (D10) responde as tarefas de leitura com as 16 tools e o gabarito confere.
+  - **Resultado (11/11/2026):** `evals/benchmark/cliente_linha_de_base.py` responde cada tarefa com um roteiro que usa só as tools da linha de base (as 11 de consulta; as 5 de interface não respondem nada) e faz por conta própria a aritmética, porque a linha de base não tem `calcular`. Nas 12 tarefas cobertas, confere em 416 de 416 casos. Média de chamadas por caso: 1 em L2, L5, L6, L8, A1 e B2; 2 a 3 em L1 e L3; de 8 a 18 nas espaciais e na L7 (L4 16,1, B9 7,7, B11 10,7, L7 17,5), porque `measure` mede um par por vez e não há tool que liste só os elementos do terreno.
+  - **Sem cobertura:** B5 (nenhuma tool expõe a rede viária; `measure` só mede em linha reta) e B8 (nenhuma tool expõe `solution.strategy`), 51 casos. Nelas, a linha de base não tem como acertar.
+  - **Limite:** o roteiro mede se as tools bastam, não se um modelo acerta. Ele sabe, por exemplo, que um elemento do terreno tem id `s<i>` e que `near` dá a vaga mais próxima. Teste em `tests/test_benchmark_linha_de_base.py`, com 3 arquivos em que as 12 tarefas se aplicam.
 - Uma rodada curta com um modelo real no AQG cru, para medir tokens de referência antes de a RECOD trazer a estrutura dela.
