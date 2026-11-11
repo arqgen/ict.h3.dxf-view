@@ -1,6 +1,6 @@
 # PRD — Migração de DXF para AQG
 
-> Status: **implementado** na branch `feat/aqg-support`. O que o assistente faz hoje está em [`CAPABILITIES.md`](CAPABILITIES.md), e as próximas tools estão em [`PRD-tools.md`](PRD-tools.md).
+> Status: **implementado** na branch `feat/aqg-support`. O que o assistente faz hoje está em [`CAPABILITIES.md`](../CAPABILITIES.md), e as próximas tools estão em [`PRD-tools.md`](PRD-tools.md).
 
 ## Objetivo
 
@@ -8,7 +8,7 @@ Trocar o DXF pelo AQG (`.json` de *Project* da Arqgen) como formato do produto. 
 
 A regra central do projeto não muda: **todo número afirmado pelo agente vem de uma tool.**
 
-Formato e regras do AQG: [`data/aqg/README.md`](data/aqg/README.md).
+Formato e regras do AQG: [`data/aqg/README.md`](../data/aqg/README.md).
 
 ## Abordagem
 

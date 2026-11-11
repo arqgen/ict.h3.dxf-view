@@ -1,6 +1,6 @@
 # Benchmark de queries sobre o AQG
 
-Tarefas de leitura e de edição sobre projetos AQG, com as tools que respondem a elas e o gabarito de cada caso. Requisitos e decisões em [`PRD-queries.md`](../../PRD-queries.md); construção em [`IMPLEMENTATION-queries.md`](../../IMPLEMENTATION-queries.md).
+Tarefas de leitura e de edição sobre projetos AQG, com as tools que respondem a elas e o gabarito de cada caso. Requisitos e decisões em [`PRD-queries.md`](../../docs/PRD-queries.md); construção em [`IMPLEMENTATION-queries.md`](../../docs/IMPLEMENTATION-queries.md).
 
 ## Instalação
 

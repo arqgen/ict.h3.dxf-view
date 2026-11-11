@@ -7,7 +7,7 @@
 ### 0.1 Execução
 
 - **Sequencial, uma task por vez**, na ordem da seção 4. A gravação de cada tarefa depende do núcleo (G0).
-- **Branch:** `feat/aqg-benchmark`. Regras em [`commit-rules.md`](commit-rules.md): ao fim de cada task, rode as validações (1.3) e **pergunte sobre o commit**.
+- **Branch:** `feat/aqg-benchmark`. Regras em [`commit-rules.md`](../commit-rules.md): ao fim de cada task, rode as validações (1.3) e **pergunte sobre o commit**.
 - **Dois ambientes**, que nunca se misturam:
 
   | Ambiente | Roda | Como |

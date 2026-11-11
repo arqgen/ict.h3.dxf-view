@@ -4,7 +4,7 @@ O motor de informação. Lê o AQG (o JSON de *Project* da Arqgen), achata a geo
 
 Este módulo é a única fonte de verdade sobre "o que existe no projeto". O payload de render do frontend e as respostas das tools do agente derivam os dois daqui, e é isso que garante que o id que a IA cita é o id que o canvas destaca.
 
-Formato do AQG: [`data/aqg/README.md`](../../data/aqg/README.md). Requisitos e decisões: [`PRD.md`](../../PRD.md).
+Formato do AQG: [`data/aqg/README.md`](../../data/aqg/README.md). Requisitos e decisões: [`PRD.md`](../../docs/PRD.md).
 
 ## Mapa
 
