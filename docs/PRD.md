@@ -120,7 +120,7 @@ Estas regras entram no `instructions.md`:
      - a tool de indicadores.
    - Smoke test sobre `data/aqg/**` quando a pasta existir (pula quando não existir): nenhuma exceção e toda `PlacedFamily` resolvida.
    - Os testes de DXF saem. O teste do frontend contra `recorded-stream.txt` continua valendo.
-7. **Remoção do DXF da aplicação:** sai o `loader.py` e todo o caminho DXF de `src/`. A dependência do ezdxf e a pasta `data/dxf/` ficam, porque `experiments/dxf_context_analysis.ipynb` usa os dois.
+7. **Remoção do DXF da aplicação:** sai o `loader.py` e todo o caminho DXF de `src/`. A dependência do ezdxf, a pasta `data/dxf/` e `experiments/dxf_context_analysis.ipynb` ficaram até a limpeza de novembro de 2026, quando saíram também.
 8. **Documentação:**
    - `CLAUDE.md` da raiz (contagem de tools, arquitetura);
    - `src/cad/CLAUDE.md` (sai a seção de ezdxf, entram as regras do AQG, e a regra do resumo passa a ser "sem contagens");
@@ -158,7 +158,7 @@ Base: 24 arquivos, 15 em `avaliadas/` e 9 em `favoritadas/`.
 ## Decisões tomadas
 
 - **DXF sai da aplicação:** o projeto muda completamente para o AQG, e nenhum uso do upload de DXF precisa ser preservado.
-- **`ezdxf` continua como dependência**, para os experimentos em notebook.
+- **`ezdxf` deixou de ser dependência** na limpeza de novembro de 2026, junto com o notebook de DXF que o usava.
 - **Entidade e grupo:** uma entidade por parte, agrupada por instância.
 - **Id opaco por posição** (`p<i>`, `p<i>.<j>`, `s<i>`), e as tools de interface aceitam o id da instância.
 - **Referência = `viewer.html`, mais curvas de nível, taludes, muros de arrimo e crista.**
