@@ -12,7 +12,6 @@ dependencies = [
     "fastapi>=0.140.0",
     "openai>=2.0.0",
     "openinference-instrumentation-agno>=1.0.6",
-    "pillow>=11.0.0",
     "pydantic>=2.13.4",
     "pydantic-settings>=2.14.2",
     "python-multipart>=0.0.20",
@@ -22,12 +21,7 @@ dependencies = [
 
 [dependency-groups]
 dev = ["httpx>=0.28.1", "pytest>=9.1.1", "ruff>=0.15.19"]
-notebooks = [
-    "ipykernel>=6.30.1",
-    "matplotlib>=3.10.7",
-    "pandas>=3.0.5",
-    "psutil>=7.2.2"
-]
+notebooks = ["ipykernel>=6.30.1", "pandas>=3.0.5"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
