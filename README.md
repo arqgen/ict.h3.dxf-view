@@ -119,7 +119,13 @@ erro e sem tracing.
 
 ## Notebooks (`experiments/`)
 
-Notebooks de EDA e exploração ficam em `experiments/` — ver [`experiments/README.md`](experiments/README.md) para o propósito de cada um. Como os notebooks utilizam pacotes que não fazem parte do backend da aplicação, ficam num dependency-group separado (`notebooks`), que o `uv sync` já instala por padrão:
+Notebooks de EDA e exploração ficam em `experiments/`:
+
+- [`aqg_context_analysis.ipynb`](experiments/aqg_context_analysis.ipynb) - quanto contexto o AQG ocupa em cada representação;
+- [`aqg_memory_sketch.ipynb`](experiments/aqg_memory_sketch.ipynb) - memória intermediária com procedência até o AQG;
+- [`aqg_domain_semantics.ipynb`](experiments/aqg_domain_semantics.ipynb) - interpretação de domínio sobre essa memória.
+
+O código da memória, usado pelos dois últimos, fica em [`aqg_memory.py`](experiments/aqg_memory.py). Como os notebooks utilizam pacotes que não fazem parte do backend da aplicação, ficam num dependency-group separado (`notebooks`), que o `uv sync` já instala por padrão:
 
 ```bash
 # Registra o kernel
