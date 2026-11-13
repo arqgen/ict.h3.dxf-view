@@ -4,7 +4,7 @@ Guia para agentes de IA que vão trabalhar neste projeto. Leia antes de criar ou
 
 ## Antes de Começar
 
-Antes de iniciar qualquer implementação, verifique a branch atual. Evite trabalhar em `main`, `staging` ou `develop`, crie uma nova branch seguindo as convenções em [commit-rules.md](commit-rules.md).
+Antes de iniciar qualquer implementação, verifique a branch atual. Evite trabalhar em `main`, `staging` ou `develop`, crie uma nova branch seguindo as convenções em [commit-rules.md](docs/commit-rules.md).
 
 **Tasks pontuais** (uma implementação focada que termina em um ciclo): todo commit exige autorização. Mesmo que já tenha commitado várias vezes na mesma sessão, **nunca assuma que a autorização se repete**. Após cada implementação, rode as validações (lint, testes) e pergunte sobre o commit.
 
@@ -54,7 +54,7 @@ Crie um sub-CLAUDE quando um módulo tiver padrões que desviam do global ou que
 
 **Arquivos auxiliares na raiz:**
 
-A raiz pode conter arquivos `.md` com regras pontuais (ex: `commit-rules.md`). Eles complementam este arquivo com detalhe que não cabe aqui. PRDs e IMPLEMENTATIONs ficam em `docs/`. Liste-os na seção **Arquivos Auxiliares** e mantenha a lista atualizada.
+Arquivos `.md` com regras pontuais (ex: `commit-rules.md`), PRDs e IMPLEMENTATIONs ficam em `docs/`. Eles complementam este arquivo com detalhe que não cabe aqui. Liste-os na seção **Arquivos Auxiliares** e mantenha a lista atualizada.
 
 **Regras deste arquivo:**
 
@@ -67,7 +67,7 @@ A raiz pode conter arquivos `.md` com regras pontuais (ex: `commit-rules.md`). E
 
 ## Arquivos Auxiliares
 
-- [`commit-rules.md`](commit-rules.md) — regras de commit, branch, push e PR
+- [`commit-rules.md`](docs/commit-rules.md) — regras de commit, branch, push e PR
 - [`PRD.md`](docs/PRD.md) — requisitos e decisões da migração DXF → AQG
 - [`IMPLEMENTATION.md`](docs/IMPLEMENTATION.md) — contratos e tasks da migração
 - [`CAPABILITIES.md`](CAPABILITIES.md) — o que o assistente faz e o que ainda não faz; base para o próximo refinamento
@@ -135,7 +135,7 @@ Chaves dos resultados de tool e strings de interface são em **pt-BR** (`tipo`, 
 
 ## Commits, Branches e PRs
 
-Consulte [commit-rules.md](commit-rules.md) para regras de commit, branch, push e PR.
+Consulte [commit-rules.md](docs/commit-rules.md) para regras de commit, branch, push e PR.
 
 ## Regras Globais
 

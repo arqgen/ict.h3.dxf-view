@@ -212,5 +212,5 @@ Mede se o agente acerta as perguntas de domínio (torres, unidades, área constr
 - [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md) — motor de informação: parser AQG, primitivas, regras do formato, armadilhas
 - [`src/ai_modules/CLAUDE.md`](src/ai_modules/CLAUDE.md) — como adicionar agente, ferramenta, skill, time
 - [`src/ai_modules/tools/CLAUDE.md`](src/ai_modules/tools/CLAUDE.md) — convenções das ferramentas
-- [`commit-rules.md`](commit-rules.md) — commit, branch, push e PR
+- [`commit-rules.md`](docs/commit-rules.md) — commit, branch, push e PR
 - [`PRD.md`](docs/PRD.md) e [`IMPLEMENTATION.md`](docs/IMPLEMENTATION.md) — requisitos e plano da migração DXF → AQG
