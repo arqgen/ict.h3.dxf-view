@@ -9,6 +9,7 @@ dependencies = [
     "arize-phoenix>=19.6.0",
     "colorlog>=6.12.0",
     "fastapi>=0.140.0",
+    "jsonschema>=4.0",
     "openai>=2.0.0",
     "openinference-instrumentation-agno>=1.0.6",
     "pydantic>=2.13.4",
