@@ -10,7 +10,7 @@ Toda lógica de IA vive aqui. Nenhum import de FastAPI, Request ou objetos HTTP 
 | `tools/`          | Funções `@tool` e instâncias de toolkits reutilizáveis entre agents — ver [`tools/CLAUDE.md`](tools/CLAUDE.md) |
 | `runner.py`       | Gateway central de execução — `run_chat(agent, payload, user_id, cad_model)` e `continue_chat(...)` (retoma run pausada) |
 | `llm_settings.py` | Única fonte de instanciação do LLM — `get_model(provider, user_id)`. Todo provider é um `GatewayChat` apontado ao gateway LiteLLM; o que muda é o `id` |
-| `gateway_model.py` | `GatewayChat` — o `OpenAIChat` do agno sem as tool calls fantasma (`{"id": "<uuid>"}` sem `function`), que o gateway recusa com `tool call not supported`. É a classe que o `llm_settings.py` instancia |
+| `gateway_model.py` | `GatewayChat` — o `OpenAIChat` do agno sem as tool calls fantasma (`{"id": "<uuid>"}` sem `function`), que o gateway recusa com `tool call not supported`, e com a escrita no cache de prompt (`cache_creation_input_tokens`) nas métricas. É a classe que o `llm_settings.py` instancia |
 | `agents/base.py`  | `get_base_agent_kwargs(db)` e `get_agent_db()` — defaults comuns a todo `Agent` |
 
 ## O Índice CAD nas Tools
@@ -61,6 +61,8 @@ HITL (pausar a run para perguntar algo ao usuário) já tem tool pronta pra cada
 ## Gateway LiteLLM
 
 `PROXY_AI_BASE_URL` é obrigatória — `require_ai_gateway()` (em `src/api/core/config.py`) derruba o startup sem ela. Não existe caminho direto para `api.openai.com`/`api.anthropic.com`: os dois providers são o mesmo `GatewayChat` apontado ao gateway, mudando só o `id` (o alias registrado lá) — os SDKs nativos (`agno.models.anthropic.Claude`) não voltam a ser usados de propósito, porque cada um monta a URL do seu jeito a partir do `base_url` e o `/v1` do gateway virava `/v1/v1/messages` (404) na Anthropic.
+
+**Cache de prompt:** na Anthropic, `llm_settings.py` pede ao LiteLLM pontos de cache no system e na última mensagem (`cache_control_injection_points`). Sem eles o gateway não faz cache nenhum e cada rodada de tool relê o prompt inteiro. A OpenAI faz cache sozinha.
 
 Sem catálogo de modelos aqui (diferente do hub-ai): o `id` configurado em `ANTHROPIC_MODEL`/`OPENAI_MODEL` é usado como está, sem validar contra o gateway — esta app é single-user, sem virtual key por credencial, então essa complexidade não se paga.
 
