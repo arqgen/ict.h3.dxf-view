@@ -119,11 +119,9 @@ erro e sem tracing.
 
 ## Notebooks (`experiments/`)
 
-Notebooks de EDA e exploração ficam em `experiments/` — ver [`experiments/README.md`](experiments/README.md) para o propósito de cada um. Como os notebooks utilizam pacotes que não fazem parte do backend da aplicação, ficam num dependency-group separado:
+Notebooks de EDA e exploração ficam em `experiments/` — ver [`experiments/README.md`](experiments/README.md) para o propósito de cada um. Como os notebooks utilizam pacotes que não fazem parte do backend da aplicação, ficam num dependency-group separado (`notebooks`), que o `uv sync` já instala por padrão:
 
 ```bash
-# Instala os pacotes do grupo
-uv sync --group notebooks
 # Registra o kernel
 uv run python -m ipykernel install --user \
   --name cad-viewer --display-name "cad-viewer (.venv)"
@@ -210,7 +208,7 @@ Mede se o agente acerta as perguntas de domínio (torres, unidades, área constr
 
 - [`CLAUDE.md`](CLAUDE.md) — regras globais do projeto
 - [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md) — motor de informação: parser AQG, primitivas, regras do formato, armadilhas
-- [`src/ai_modules/CLAUDE.md`](src/ai_modules/CLAUDE.md) — como adicionar agente, ferramenta, skill, time
+- [`src/ai_modules/CLAUDE.md`](src/ai_modules/CLAUDE.md) — como adicionar agente e ferramenta
 - [`src/ai_modules/tools/CLAUDE.md`](src/ai_modules/tools/CLAUDE.md) — convenções das ferramentas
 - [`commit-rules.md`](docs/commit-rules.md) — commit, branch, push e PR
 - [`PRD.md`](docs/PRD.md) e [`IMPLEMENTATION.md`](docs/IMPLEMENTATION.md) — requisitos e plano da migração DXF → AQG

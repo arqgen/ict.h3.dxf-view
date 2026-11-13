@@ -13,10 +13,9 @@ Toda tool que **não** for específica de um único agent — ou seja, que pode 
 | `fetch_pdf.py`         | `fetch_pdf`    | Baixa um PDF de uma URL e o devolve como `ToolResult(files=[File(...)])` |
 | `user_control_flow.py` | `user_control_flow` | `UserControlFlowTools` — pausa a run para pedir input livre/tipado |
 | `user_feedback.py`     | `user_feedback` | `UserFeedbackTools` — pausa a run com pergunta de múltipla escolha  |
-| `web_search.py`        | `web_search`   | `DuckDuckGoTools` pré-configurado                                     |
 | `web_scrape.py`        | `web_scrape`   | `TrafilaturaTools` pré-configurado                                    |
 
-**Só `cad_tools` é reexportado em `tools/__init__.py`.** Os outros módulos vieram do template da plataforma e alguns dependem de pacotes que este projeto não instala (`trafilatura`, `duckduckgo-search`) — reexportá-los faria qualquer `import src.ai_modules.tools` estourar `ImportError`. Para usar um deles, importe o módulo direto e acrescente a dependência ao `pyproject.toml`.
+**Só `cad_tools` é reexportado em `tools/__init__.py`.** Os outros módulos vieram do template da plataforma e nenhum agente os usa hoje. O `web_scrape` depende do `trafilatura`, que este projeto não instala — reexportá-lo faria qualquer `import src.ai_modules.tools` estourar `ImportError`. Para usar um deles, importe o módulo direto e, no caso do `web_scrape`, acrescente a dependência ao `pyproject.toml`.
 
 ## As Tools de CAD
 

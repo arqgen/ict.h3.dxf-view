@@ -47,7 +47,7 @@ O modelo também não faz contas (somas, percentuais, diferenças, contar itens 
 
 ### Ainda em aberto
 
-Do catálogo de [`PRD-tools.md`](docs/PRD-tools.md), só falta o spike S3: a cota do terreno sob a torre, que depende de indexar a malha de topografia.
+Do catálogo de [`PRD-tools.md`](PRD-tools.md), só falta o spike S3: a cota do terreno sob a torre, que depende de indexar a malha de topografia.
 
 ### Limitações conhecidas
 

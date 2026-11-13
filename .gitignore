@@ -3,26 +3,28 @@ __pycache__/
 *.py[cod]
 .venv/
 
-# Caches de teste, lint e notebooks
+# Caches
 .pytest_cache/
 .ruff_cache/
 .ipynb_checkpoints/
 
-# Segredos e configuração local
+# Segredos e configurações locais
 .env
+.envrc
 .claude/
 
-# Frontend (web/)
+# Frontend
 node_modules/
 web/dist/
 *.tsbuildinfo
 
-# AQGs de teste e viewer de referência: pesados para o Git (ver data/aqg/README.md)
+# AQGs de teste e viewer de referência
 data/aqg/**/*.json
 data/aqg/viewer.html
-# AQGs gravados e redes do benchmark: o índice fica em evals/benchmark/gravacoes.json
+
+# AQGs gravados e benchmark
 data/benchmark/
 
-# Resultados de eval e de experimentos: derivam dos AQGs, que não são versionados
+# Resultados de eval e de experimentos
 evals/results/
 experiments/results/

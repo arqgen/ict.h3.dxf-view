@@ -4,7 +4,7 @@ Regras de versionamento do projeto. Seguir este guia garante histórico limpo, P
 
 ## Verificação de branch antes de implementar
 
-Verifique a branch atual com `git branch --show-current`. Se estiver em `main`, `staging` ou `develop`, **não comece** — crie uma nova branch:
+Verifique a branch atual com `git branch --show-current`. Se estiver em `main`, **não comece** — crie uma nova branch:
 
 - Nova funcionalidade → `feat/<nome>`
 - Correção de bug → `fix/<nome>`
@@ -86,32 +86,31 @@ BREAKING CHANGE: PaymentIntent shape changed — see migration guide
 
 ## Branches
 
-Inspirado no Git Flow, com nomenclatura curta:
+Toda branch sai da `main` e volta para ela por PR:
 
 ```
-main        ← produção (sempre estável)
-develop     ← integração das features
+main        ← sempre estável
 └── feat/<descricao>
 └── fix/<descricao>
 └── chore/<descricao>
 └── refactor/<descricao>
 └── docs/<descricao>
-└── hotfix/<descricao>    ← urgente, direto de main
+└── hotfix/<descricao>    ← urgente
 ```
 
 Nomenclatura: `kebab-case`, curta e descritiva — `feat/user-avatar`, `fix/signup-validation`.
 
 **Ciclo:**
 
-1. Crie a branch a partir de `develop` (ou `main` para hotfix)
+1. Crie a branch a partir da `main` atualizada
 2. Commits atômicos — um assunto por commit, sempre após lint e testes verdes
-3. Abra PR para `develop` ao concluir
+3. Abra PR para a `main` ao concluir
 
 ## Regras técnicas de Push
 
-- **Nunca force-push em `main` ou `develop`**
+- **Nunca force-push na `main`**
 - Force-push em branches pessoais é permitido após rebase — use `--force-with-lease`
-- Prefira rebase a merge para manter histórico linear: `git rebase develop`
+- Prefira rebase a merge para manter histórico linear: `git rebase main`
 - Faça push só ao concluir — evita rebase em branch que já está na origin
 
 ## Pull Requests
@@ -128,7 +127,7 @@ Proposta: mínimo 1 aprovação. Dois casos pedem uma segunda: mudança no promp
 
 ### CI
 
-**Ainda não há CI configurado** — este repositório não tem `.github/workflows/` nem remoto. Enquanto isso, os checks são responsabilidade de quem abre o PR:
+**Ainda não há CI configurado** — este repositório não tem `.github/workflows/`. Enquanto isso, os checks são responsabilidade de quem abre o PR:
 
 - `make lint` e `make test`
 - `npm --prefix web run typecheck` e `npm --prefix web test`, se `web/` foi tocado
@@ -140,7 +139,7 @@ O que foi feito, por que, e como verificar. Para mudança que afete o desenho re
 ## O que NÃO Fazer
 
 - **Não execute `git commit` ou `git push` sem autorização explícita** — nem mesmo em sessões onde já houve autorização anterior
-- **Não commite diretamente em `main`, `staging` ou `develop`** — sempre via PR
+- **Não commite diretamente na `main`** — sempre via PR
 - **Não misture assuntos no mesmo commit** — um commit, uma responsabilidade
 - **Não use mensagens vagas** — `fix bug`, `update`, `WIP` não são aceitáveis
 - **Não force-push em branches compartilhadas** — prefira `--force-with-lease` em branches pessoais

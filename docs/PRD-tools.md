@@ -1,6 +1,6 @@
 # PRD — Novas tools e funcionalidades AQG
 
-> Status: **implementado**, exceto o spike S3. Guia de construção em [`IMPLEMENTATION-tools.md`](IMPLEMENTATION-tools.md). Base: [`CAPABILITIES.md`](../CAPABILITIES.md) e os 24 AQGs locais de `data/aqg/`.
+> Status: **implementado**, exceto o spike S3. Guia de construção em [`IMPLEMENTATION-tools.md`](IMPLEMENTATION-tools.md). Base: [`CAPABILITIES.md`](CAPABILITIES.md) e os 24 AQGs locais de `data/aqg/`.
 
 ## Objetivo
 

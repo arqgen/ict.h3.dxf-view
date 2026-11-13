@@ -4,7 +4,7 @@ Guia para agentes de IA que vão trabalhar neste projeto. Leia antes de criar ou
 
 ## Antes de Começar
 
-Antes de iniciar qualquer implementação, verifique a branch atual. Evite trabalhar em `main`, `staging` ou `develop`, crie uma nova branch seguindo as convenções em [commit-rules.md](docs/commit-rules.md).
+Antes de iniciar qualquer implementação, verifique a branch atual. Evite trabalhar na `main`, crie uma nova branch seguindo as convenções em [commit-rules.md](docs/commit-rules.md).
 
 **Tasks pontuais** (uma implementação focada que termina em um ciclo): todo commit exige autorização. Mesmo que já tenha commitado várias vezes na mesma sessão, **nunca assuma que a autorização se repete**. Após cada implementação, rode as validações (lint, testes) e pergunte sobre o commit.
 
@@ -49,7 +49,7 @@ Crie um sub-CLAUDE quando um módulo tiver padrões que desviam do global ou que
 **Sub-CLAUDEs existentes:**
 
 - [`src/cad/CLAUDE.md`](src/cad/CLAUDE.md) — motor de informação: parser AQG, primitivas, regras do formato, armadilhas
-- [`src/ai_modules/CLAUDE.md`](src/ai_modules/CLAUDE.md) — agents, tools, skills, workflows, teams: padrões e como adicionar
+- [`src/ai_modules/CLAUDE.md`](src/ai_modules/CLAUDE.md) — agents e tools: padrões e como adicionar
 - [`src/ai_modules/tools/CLAUDE.md`](src/ai_modules/tools/CLAUDE.md) — convenções das tools, incluindo as de CAD
 
 **Arquivos auxiliares na raiz:**
@@ -70,7 +70,7 @@ Arquivos `.md` com regras pontuais (ex: `commit-rules.md`), PRDs e IMPLEMENTATIO
 - [`commit-rules.md`](docs/commit-rules.md) — regras de commit, branch, push e PR
 - [`PRD.md`](docs/PRD.md) — requisitos e decisões da migração DXF → AQG
 - [`IMPLEMENTATION.md`](docs/IMPLEMENTATION.md) — contratos e tasks da migração
-- [`CAPABILITIES.md`](CAPABILITIES.md) — o que o assistente faz e o que ainda não faz; base para o próximo refinamento
+- [`CAPABILITIES.md`](docs/CAPABILITIES.md) — o que o assistente faz e o que ainda não faz; base para o próximo refinamento
 - [`PRD-tools.md`](docs/PRD-tools.md) — catálogo de tools candidatas, um cartão por ideia, decididos um a um
 - [`IMPLEMENTATION-tools.md`](docs/IMPLEMENTATION-tools.md) — contratos, ordem e tasks dos cartões do `PRD-tools.md`
 - [`PRD-queries.md`](docs/PRD-queries.md) — catálogo de queries de leitura e edição sobre o AQG e as tools caixa-preta (motores, edição, rodadas, versões)

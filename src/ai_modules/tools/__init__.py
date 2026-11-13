@@ -1,9 +1,9 @@
 """Tools reutilizaveis entre agents.
 
 So `cad_tools` e reexportado aqui. Os outros modulos desta pasta vieram do
-template da plataforma e dependem de pacotes que este projeto nao instala
-(`trafilatura`, `duckduckgo-search`); reexporta-los faria qualquer import de
-`src.ai_modules.tools` falhar. Quem precisar deles importa o modulo direto e
+template da plataforma e nenhum agente os usa. O `web_scrape` depende do
+`trafilatura`, que este projeto nao instala; reexporta-lo faria qualquer import
+de `src.ai_modules.tools` falhar. Quem precisar deles importa o modulo direto e
 adiciona a dependencia.
 """
 
