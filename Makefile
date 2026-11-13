@@ -13,11 +13,11 @@ install:
 	npm --prefix web install
 
 lint:
-	uv run ruff check src tests evals
+	uv run ruff check src tests evals experiments
 
 format:
-	uv run ruff format src tests evals
-	uv run ruff check --fix src tests evals
+	uv run ruff format src tests evals experiments
+	uv run ruff check --fix src tests evals experiments
 
 test:
 	uv run pytest
@@ -63,6 +63,6 @@ phoenix-logs:
 	docker compose logs -f phoenix
 
 clean:
-	rm -rf .pytest_cache .ruff_cache .mypy_cache
+	rm -rf .pytest_cache .ruff_cache
 	find . -type d -name "__pycache__" -prune -exec rm -rf {} +
 	find . -type d -name ".ipynb_checkpoints" -prune -exec rm -rf {} +

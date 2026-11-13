@@ -7,11 +7,7 @@ Toda lógica de IA vive aqui. Nenhum import de FastAPI, Request ou objetos HTTP 
 | Dir / Arquivo     | Papel                                                               |
 | ----------------- | ------------------------------------------------------------------- |
 | `agents/`         | Factories de `Agent` (agno) — uma pasta por agent                   |
-| `teams/`          | Factories de `Team` (agno) — uma pasta por time                     |
 | `tools/`          | Funções `@tool` e instâncias de toolkits reutilizáveis entre agents — ver [`tools/CLAUDE.md`](tools/CLAUDE.md) |
-| `skills/`         | Skills agno (Agent Skills spec) — pastas com `SKILL.md`, carregadas via `get_skills()` |
-| `workflows/`      | Fluxos multi-step usando agno `Workflow`                            |
-| `prompts/`        | Prompt templates compartilhados                                     |
 | `runner.py`       | Gateway central de execução — `run_chat(agent, payload, user_id, cad_model)` e `continue_chat(...)` (retoma run pausada) |
 | `llm_settings.py` | Única fonte de instanciação do LLM — `get_model(provider, user_id)`. Todo provider é um `GatewayChat` apontado ao gateway LiteLLM; o que muda é o `id` |
 | `gateway_model.py` | `GatewayChat` — o `OpenAIChat` do agno sem as tool calls fantasma (`{"id": "<uuid>"}` sem `function`), que o gateway recusa com `tool call not supported`. É a classe que o `llm_settings.py` instancia |
@@ -61,33 +57,6 @@ Sem `db` explícito, `get_base_agent_kwargs` usa o `InMemoryDb` de `get_agent_db
 Ver [`tools/CLAUDE.md`](tools/CLAUDE.md) — regra de quando uma tool pertence a essa pasta (reutilizável entre agents) e como declará-la.
 
 HITL (pausar a run para perguntar algo ao usuário) já tem tool pronta pra cada caso — `user_control_flow.py` (texto/campo tipado) e `user_feedback.py` (múltipla escolha/checklist/sim-não). Ver [`tools/CLAUDE.md`](tools/CLAUDE.md), seção "HITL", antes de criar qualquer tool nova para pedir input do usuário.
-
-## Como Adicionar uma Skill
-
-Skills são conhecimento carregado sob demanda (progressive disclosure): o agent vê só nome+descrição no system prompt e carrega o conteúdo via `get_skill_instructions` quando a tarefa pede. Skills **não** registram tools — as tools continuam declaradas no `Agent`.
-
-1. Criar pasta `skills/<nome-com-hifens>/` com um `SKILL.md` dentro. O spec do agno exige: nome lowercase só com letras/dígitos/hífens e **igual ao nome da pasta** (exceção consciente à convenção snake_case), frontmatter com `name` e `description` obrigatórios. A `description` decide quando o agent carrega a skill — seja explícito sobre o gatilho.
-2. Documentação detalhada consultável sob demanda vai em `skills/<nome>/references/*.md` (o agent acessa via `get_skill_reference`).
-3. Nada a registrar: `get_skills()` em `skills/__init__.py` carrega todas as subpastas com `SKILL.md` automaticamente. Para um agent usar as skills, a factory passa `skills=get_skills()` no `Agent(...)`.
-4. No `instructions.md` do agent, deixe só um direcionamento curto ("carregue a skill X antes de...") — o conteúdo vive na skill.
-
-**Não há skill neste projeto hoje** — `get_skills()` carregaria zero skills, e por isso nenhum agente passa `skills=`. A pasta existe como ponto de extensão.
-
-## Como Adicionar um Time
-
-Mesma estrutura de `agents/` mas em `teams/`. Usar `Team` do agno em vez de `Agent`.
-
-```python
-async def get_<nome>_team(user_id: str, db: BaseDb | None = None) -> Team:
-    ...
-    return Team(members=[agent_a, agent_b], ...)
-```
-
-`runner.py` já aceita `Union[Agent, Team]`.
-
-## Como Adicionar um Workflow
-
-Criar `workflows/<nome>/<nome>.py` com classe que herda de `agno.workflow.Workflow`. Workflows são executados via router dedicado — não passam pelo `run_chat()` atual.
 
 ## Gateway LiteLLM
 

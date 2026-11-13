@@ -7,7 +7,7 @@
 ### 0.1 Execução
 
 - **Sequencial, uma task por vez.** Quase todo cartão mexe em `query_tools.py`, `instructions.md` e `tests/test_tools.py`, então tasks em paralelo brigariam pelos mesmos arquivos.
-- **Branch:** `feat/aqg-tools`, criada a partir de `feat/aqg-support` (que ainda tem 12 commits fora da `main`). Regras em [`commit-rules.md`](../commit-rules.md).
+- **Branch:** `feat/aqg-tools`, criada a partir de `feat/aqg-support` (que ainda tem 12 commits fora da `main`). Regras em [`commit-rules.md`](commit-rules.md).
 - **Ao fim de cada task:** rode as validações (1.2), confira os critérios de aceite, atualize os documentos listados na task e **pergunte sobre o commit**. A autorização de um commit não vale para o próximo.
 - **Portão:** decisão que precisa do desenvolvedor antes de escrever código. Sem a decisão, a task não começa.
 

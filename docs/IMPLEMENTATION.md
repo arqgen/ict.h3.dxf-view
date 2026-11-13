@@ -17,7 +17,7 @@ O orquestrador é a sessão principal. Ele não implementa as tasks: despacha, v
    - com a onda verde, peça ao usuário autorização para commitar.
 4. **Na onda 4:** conduza a avaliação final (seção 6) com o usuário.
 
-Nunca commite, faça push ou abra PR sem autorização explícita do usuário ([`commit-rules.md`](../commit-rules.md)).
+Nunca commite, faça push ou abra PR sem autorização explícita do usuário ([`commit-rules.md`](commit-rules.md)).
 
 ### 0.2 Brief padrão para um sub-agent
 
@@ -847,4 +847,4 @@ Onda 4              Avaliação final (orquestrador + usuário)
 5. **Fechamento:**
    - registre o resumo do que foi feito e os desvios do plano (`CLAUDE.md`);
    - peça autorização para commit, push e PR;
-   - antes do push, atualize com `main` e resolva os conflitos junto com o usuário ([`commit-rules.md`](../commit-rules.md)).
+   - antes do push, atualize com `main` e resolva os conflitos junto com o usuário ([`commit-rules.md`](commit-rules.md)).
