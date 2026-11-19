@@ -10,6 +10,7 @@ configurado, quebra aqui em vez de virar 400/401 no primeiro chat.
 import asyncio
 
 import pytest
+from openai.types import CompletionUsage
 
 from src.ai_modules.llm_settings import (
     DEFAULT_TEMPERATURE,
@@ -41,7 +42,7 @@ def test_anthropic_manda_reasoning_effort_e_max_completion_tokens():
     assert model.id == "claude-sonnet-4-6"
     assert model.api_key == "sk-teste"
     assert model.base_url == "https://gateway.local/v1"
-    assert model.extra_body == {"reasoning_effort": "medium"}
+    assert model.extra_body["reasoning_effort"] == "medium"
     assert model.max_completion_tokens == 16000
     assert model.temperature is None
 
@@ -67,7 +68,37 @@ def test_provider_desconhecido_cai_no_anthropic():
     model = asyncio.run(get_model("gemini"))
 
     assert model.id == "claude-sonnet-4-6"
-    assert model.extra_body == {"reasoning_effort": "medium"}
+    assert model.extra_body["reasoning_effort"] == "medium"
+
+
+def test_anthropic_pede_cache_do_system_e_da_ultima_mensagem():
+    """
+    Sem os pontos de cache a Anthropic relê o prompt inteiro a cada rodada de
+    tool; o LiteLLM do gateway os injeta a partir deste parâmetro.
+    """
+    model = asyncio.run(get_model())
+
+    assert model.extra_body["cache_control_injection_points"] == [
+        {"location": "message", "role": "system"},
+        {"location": "message", "index": -1},
+    ]
+
+
+def test_gateway_le_a_escrita_no_cache():
+    model = asyncio.run(get_model())
+    usage = CompletionUsage.model_validate(
+        {
+            "prompt_tokens": 4849,
+            "completion_tokens": 5,
+            "total_tokens": 4854,
+            "prompt_tokens_details": {"cached_tokens": 4000},
+            "cache_creation_input_tokens": 838,
+        }
+    )
+
+    metrics = model._get_metrics(usage)
+
+    assert (metrics.cache_read_tokens, metrics.cache_write_tokens) == (4000, 838)
 
 
 def test_provider_vem_do_ambiente_quando_nao_passado(monkeypatch):

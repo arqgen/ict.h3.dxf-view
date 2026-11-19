@@ -22,6 +22,15 @@ _FIXED_TEMP_MODELS = ("o1", "o3", "o4", "gpt-5.5")
 
 DEFAULT_TEMPERATURE = 0.3
 
+# Pontos de cache de prompt que o LiteLLM injeta na request: o system (instrucoes
+# e documento) e a ultima mensagem, para o historico do loop de tools ser lido do
+# cache na chamada seguinte. Sem eles a Anthropic nao faz cache nenhum; a OpenAI
+# faz sozinha e nao recebe isso.
+_PROMPT_CACHE_POINTS = [
+    {"location": "message", "role": "system"},
+    {"location": "message", "index": -1},
+]
+
 
 async def get_model(
     provider: str | None = None,
@@ -54,7 +63,10 @@ def _gateway_model(model_id: str, thinking: bool) -> GatewayChat:
         # O gateway traduz `reasoning_effort` para `thinking.budget_tokens` na
         # Anthropic, que exige `max_tokens` maior que esse orcamento — sem
         # `max_completion_tokens` aqui a Anthropic recusa a request.
-        args["extra_body"] = {"reasoning_effort": settings.ANTHROPIC_EFFORT}
+        args["extra_body"] = {
+            "reasoning_effort": settings.ANTHROPIC_EFFORT,
+            "cache_control_injection_points": _PROMPT_CACHE_POINTS,
+        }
         args["max_completion_tokens"] = settings.ANTHROPIC_MAX_TOKENS
     elif _supports_temperature(model_id):
         args["temperature"] = DEFAULT_TEMPERATURE

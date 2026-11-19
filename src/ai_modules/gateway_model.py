@@ -26,7 +26,9 @@ from dataclasses import dataclass
 from typing import Any
 
 from agno.models.message import Message
+from agno.models.metrics import MessageMetrics
 from agno.models.openai import OpenAIChat
+from openai.types import CompletionUsage
 
 from src.api.logger import logger
 
@@ -64,7 +66,8 @@ def _without_phantoms(messages: list[Message]) -> list[Message]:
 
 @dataclass
 class GatewayChat(OpenAIChat):
-    """`OpenAIChat` apontado ao gateway, sem as tool calls fantasma do agno."""
+    """`OpenAIChat` apontado ao gateway, sem as tool calls fantasma do agno e com a
+    escrita no cache de prompt nas métricas."""
 
     @staticmethod
     def parse_tool_calls(tool_calls_data: list[Any]) -> list[dict[str, Any]]:
@@ -78,3 +81,11 @@ class GatewayChat(OpenAIChat):
         return super()._format_all_messages(
             _without_phantoms(messages), compress_tool_results
         )
+
+    def _get_metrics(self, response_usage: CompletionUsage) -> MessageMetrics:
+        """Inclui a escrita no cache, que o LiteLLM devolve fora do formato OpenAI
+        (`cache_creation_input_tokens`) e o agno não lê; a leitura ele já lê."""
+        metrics = super()._get_metrics(response_usage)
+        written = getattr(response_usage, "cache_creation_input_tokens", None)
+        metrics.cache_write_tokens = written or 0
+        return metrics

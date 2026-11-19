@@ -193,6 +193,22 @@ make eval     # 5 projetos × 7 perguntas contra o LLM real
 
 Mede se o agente acerta as perguntas de domínio (torres, unidades, área construída, CA, vagas, destaque) e se **todo número da resposta tem procedência numa tool**. Usa o gateway (tem custo) e `data/aqg/`; o resultado completo vai para `evals/results/`. `uv run python -m evals.agent_eval --all` roda os 15 de `avaliadas/`.
 
+### Rodada do benchmark
+
+```bash
+uv run python -m evals.harness.run --variant baseline --tasks L1 L2
+uv run python -m evals.harness.run --variant raw_aqg --files ruim_6ace7f0d
+```
+
+Roda os casos do [benchmark de queries](evals/benchmark/README.md) com o LLM real, uma variante por vez:
+
+- `baseline`: o agente do app (instruções, resumo e 16 tools), só nas tarefas de leitura;
+- `raw_aqg`: o AQG inteiro no contexto, também nas edições.
+
+O harness processa cada lote de tools na ordem enviada. A primeira chamada válida de `responder` encerra o caso. O orçamento é de 40 tentativas por caso, incluindo argumentos inválidos e tentativas de resposta. Esgotar o orçamento encerra a rodada com `call_limit`. O limite `--max-view-kb` (padrão 512 KiB) vale para a visão inicial e para cada nova versão. Se a nova visão exceder o limite, o caso termina com `too_large` e a edição já executada entra na avaliação de dano.
+
+Cada caso gera uma linha em `evals/results/harness/`. O campo `n_calls` conta as tentativas de tools de domínio e histórico. `n_answer_attempts` conta as tentativas de resposta e `rejected_calls` lista as chamadas restantes de um lote interrompido. `n_requests` conta invocações ao modelo pelo harness. Os totais de tokens e `peak_input_tokens` usam o consumo informado pelo gateway. O resumo inclui o consumo observado nas rodadas com erro. Rodar com o modelo real requer o gateway e os dados de `entrega.zip`.
+
 `web/src/api/__tests__/recorded-stream.txt` é um stream SSE real capturado do agno. O teste roda contra ele — se o formato de evento do agno mudar, a suíte quebra em vez de o destaque silenciosamente parar de funcionar.
 
 ## Limites conhecidos
